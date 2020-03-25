@@ -1,7 +1,9 @@
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class CovidRepository{
+class CovidRepository extends Disposable{
   final Dio dio;
 
   CovidRepository(this.dio);
@@ -36,4 +38,19 @@ class CovidRepository{
   Future<InfoModel> brazilInfo() async{
     return await countryInfo("Brazil");
   }
+
+  Future<List<StateModel>> getStatesInfo() async{
+    var response = await dio.get("https://gabrielcesar.github.io/covid-br/data/covid.json");
+
+    List<StateModel> states = List();
+
+    for (var state in response.data) {
+      states.add(StateModel.fromJson(state));
+    }
+
+    return states;
+  }
+
+  @override
+  void dispose() {}
 }

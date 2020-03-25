@@ -1,6 +1,5 @@
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
-import 'package:corona_data/app/shared/repositories/covid_repository.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,7 +11,6 @@ class AppModule extends MainModule {
   List<Bind> get binds => [
         Bind((i) => AppController(),),
         Bind((i) => Dio(BaseOptions(baseUrl: BASE_URL)),),
-        Bind((i) => CovidRepository(i.get()),),
       ];
 
   @override
