@@ -12,8 +12,12 @@ abstract class _StatesMapControllerBase with Store {
   @observable
   ObservableFuture<List<StateModel>> statesInfo;
 
-  _StatesMapControllerBase(this.covidRepository){
-    statesInfo = covidRepository.getStatesInfo().asObservable();
+  _StatesMapControllerBase(this.covidRepository) {
+    fetchStatesInfo();
   }
 
+  @action
+  fetchStatesInfo() {
+    statesInfo = covidRepository.getStatesInfo().asObservable();
+  }
 }

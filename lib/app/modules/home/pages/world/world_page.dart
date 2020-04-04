@@ -21,10 +21,22 @@ class _WorldPageState extends State<WorldPage> {
     return Observer(builder: (context) {
       if (worldController.worldInfo.error != null) {
         return Center(
-          child: Text(
-            "ERRO!",
-            style:
-                TextStyle(color: Theme.of(context).accentColor, fontSize: 24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Não foi possível acessar os dados.',
+                style: TextStyle(
+                    color: Theme.of(context).primaryColorLight, fontSize: 16),
+              ),
+              Container(
+                height: 10,
+              ),
+              FlatButton(
+                  onPressed: worldController.fetchWorldInfo,
+                  color: Theme.of(context).accentColor,
+                  child: Text('Tentar novamente')),
+            ],
           ),
         );
       } else {

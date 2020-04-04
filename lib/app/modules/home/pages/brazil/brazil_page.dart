@@ -22,10 +22,22 @@ class _BrazilPageState extends State<BrazilPage> {
       builder: (BuildContext context) {
         if (brazilController.brazilInfo.error != null) {
           return Center(
-            child: Text("ERRO!", style: TextStyle(
-              color: Theme.of(context).accentColor,
-              fontSize: 24
-            ),),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Não foi possível acessar os dados.',
+                  style: TextStyle(color: Theme.of(context).primaryColorLight, fontSize: 16),
+                ),
+                Container(
+                  height: 10,
+                ),
+                FlatButton(
+                    onPressed: brazilController.fetchBrazilInfo,
+                    color: Theme.of(context).accentColor,
+                    child: Text('Tentar novamente')),
+              ],
+            ),
           );
         } else {
           InfoModel info = brazilController.brazilInfo.value;

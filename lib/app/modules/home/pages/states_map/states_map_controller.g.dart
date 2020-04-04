@@ -26,6 +26,20 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
     }, _$statesInfoAtom, name: '${_$statesInfoAtom.name}_set');
   }
 
+  final _$_StatesMapControllerBaseActionController =
+      ActionController(name: '_StatesMapControllerBase');
+
+  @override
+  dynamic fetchStatesInfo() {
+    final _$actionInfo =
+        _$_StatesMapControllerBaseActionController.startAction();
+    try {
+      return super.fetchStatesInfo();
+    } finally {
+      _$_StatesMapControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     final string = 'statesInfo: ${statesInfo.toString()}';

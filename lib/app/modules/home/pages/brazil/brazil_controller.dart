@@ -13,6 +13,12 @@ abstract class _BrazilControllerBase with Store {
   ObservableFuture<InfoModel> brazilInfo;
 
   _BrazilControllerBase(this.covidRepository){
+    fetchBrazilInfo();
+    //brazilInfo = covidRepository.brazilInfo().asObservable();
+  }
+
+  @action
+  fetchBrazilInfo(){
     brazilInfo = covidRepository.brazilInfo().asObservable();
   }
 }

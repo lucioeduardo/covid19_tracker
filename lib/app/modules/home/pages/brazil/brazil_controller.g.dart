@@ -26,6 +26,19 @@ mixin _$BrazilController on _BrazilControllerBase, Store {
     }, _$brazilInfoAtom, name: '${_$brazilInfoAtom.name}_set');
   }
 
+  final _$_BrazilControllerBaseActionController =
+      ActionController(name: '_BrazilControllerBase');
+
+  @override
+  dynamic fetchBrazilInfo() {
+    final _$actionInfo = _$_BrazilControllerBaseActionController.startAction();
+    try {
+      return super.fetchBrazilInfo();
+    } finally {
+      _$_BrazilControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     final string = 'brazilInfo: ${brazilInfo.toString()}';

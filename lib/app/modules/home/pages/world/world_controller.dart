@@ -13,6 +13,11 @@ abstract class _WorldControllerBase with Store {
   ObservableFuture<InfoModel> worldInfo;
 
   _WorldControllerBase(this.covidRepository){
+    fetchWorldInfo();
+  }
+
+  @action
+  fetchWorldInfo(){
     worldInfo = covidRepository.worldInfo().asObservable();
   }
 

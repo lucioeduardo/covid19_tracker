@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-const String BASE_URL = "https://coronavirus-19-api.herokuapp.com/";
+const String BASE_URL = "https://corona.lmao.ninja/";
 
 const Map stateCoords = {
 	'AC': LatLng(-8.77, -70.55),

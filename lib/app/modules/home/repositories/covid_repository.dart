@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CovidRepository extends Disposable {
+  
+
   final Dio dio;
 
   CovidRepository(this.dio);

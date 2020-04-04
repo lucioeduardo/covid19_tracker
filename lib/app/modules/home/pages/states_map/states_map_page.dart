@@ -34,9 +34,26 @@ class _StatesMapPageState extends State<StatesMapPage> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
+      print(statesController.statesInfo.error);
       if (statesController.statesInfo.error != null) {
         return Center(
-          child: Text("ERRO!"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Não foi possível acessar os dados.',
+                style: TextStyle(
+                    color: Theme.of(context).primaryColorLight, fontSize: 16),
+              ),
+              Container(
+                height: 10,
+              ),
+              FlatButton(
+                  onPressed: statesController.fetchStatesInfo,
+                  color: Theme.of(context).accentColor,
+                  child: Text('Tentar novamente')),
+            ],
+          ),
         );
       }
 

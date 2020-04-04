@@ -26,6 +26,19 @@ mixin _$WorldController on _WorldControllerBase, Store {
     }, _$worldInfoAtom, name: '${_$worldInfoAtom.name}_set');
   }
 
+  final _$_WorldControllerBaseActionController =
+      ActionController(name: '_WorldControllerBase');
+
+  @override
+  dynamic fetchWorldInfo() {
+    final _$actionInfo = _$_WorldControllerBaseActionController.startAction();
+    try {
+      return super.fetchWorldInfo();
+    } finally {
+      _$_WorldControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     final string = 'worldInfo: ${worldInfo.toString()}';
