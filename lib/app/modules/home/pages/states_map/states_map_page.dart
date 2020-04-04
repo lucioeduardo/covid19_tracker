@@ -43,7 +43,7 @@ class _StatesMapPageState extends State<StatesMapPage> {
       List<StateModel> states = statesController.statesInfo.value;
 
       if (states == null) {
-        return CircularProgressIndicator();
+        return Center(child: CircularProgressIndicator());
       }
 
       if (customIcon == null) {
@@ -63,12 +63,12 @@ class _StatesMapPageState extends State<StatesMapPage> {
 
       for (var state in states) {
         markers.add(Marker(
-            markerId: MarkerId(state.code),
-            position: stateCoords[state.code],
+            markerId: MarkerId(state.state),
+            position: stateCoords[state.state],
             icon: customIcon,
             infoWindow: InfoWindow(
                 title: state.state,
-                snippet: "${state.confirmed} casos, ${state.death} mortes")));
+                snippet: "${state.confirmed} casos, ${state.deaths} mortes")));
       }
 
       return GoogleMap(

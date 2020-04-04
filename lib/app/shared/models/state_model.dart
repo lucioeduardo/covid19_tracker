@@ -1,36 +1,21 @@
 class StateModel {
+  int confirmed;
+  int deaths;
   String state;
-  String code;
-  String suspect;
-  String confirmed;
-  String recovered;
-  String death;
 
-  StateModel(
-      {this.state,
-      this.code,
-      this.suspect,
-      this.confirmed,
-      this.recovered,
-      this.death});
+  StateModel({this.confirmed, this.deaths, this.state});
 
   StateModel.fromJson(Map<String, dynamic> json) {
-    state = json['state'];
-    code = json['code'];
-    suspect = json['suspect'];
     confirmed = json['confirmed'];
-    recovered = json['recovered'];
-    death = json['death'];
+    deaths = json['deaths'];
+    state = json['state'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['state'] = this.state;
-    data['code'] = this.code;
-    data['suspect'] = this.suspect;
     data['confirmed'] = this.confirmed;
-    data['recovered'] = this.recovered;
-    data['death'] = this.death;
+    data['deaths'] = this.deaths;
+    data['state'] = this.state;
     return data;
   }
 }
