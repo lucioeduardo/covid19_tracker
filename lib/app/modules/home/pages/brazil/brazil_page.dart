@@ -47,7 +47,7 @@ class _BrazilPageState extends State<BrazilPage> {
           return ListView(
             children: <Widget>[
               InfoTileWidget(
-                number: "${info.numCases}",
+                number: "${info.cases}",
                 title: "Número de Casos",
                 todayNum: "${info.todayCases}",
               ),

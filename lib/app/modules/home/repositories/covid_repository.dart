@@ -13,10 +13,7 @@ class CovidRepository extends Disposable {
   Future<InfoModel> worldInfo() async {
     var response = await dio.get("/all").timeout(Duration(seconds: 5));
 
-    InfoModel info = InfoModel(
-        deaths: response.data['deaths'],
-        numCases: response.data['cases'],
-        recovered: response.data['recovered']);
+    InfoModel info = InfoModel.fromJson(response.data);
 
     return info;
   }
@@ -25,14 +22,7 @@ class CovidRepository extends Disposable {
     var response =
         await dio.get("/countries/$country").timeout(Duration(seconds: 5));
 
-    InfoModel info = InfoModel(
-      critical: response.data['critical'],
-      deaths: response.data['deaths'],
-      numCases: response.data['cases'],
-      recovered: response.data['recovered'],
-      todayCases: response.data['todayCases'],
-      todayDeaths: response.data['todayDeaths'],
-    );
+    InfoModel info = InfoModel.fromJson(response.data);
 
     return info;
   }

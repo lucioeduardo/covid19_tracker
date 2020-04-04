@@ -46,7 +46,8 @@ class _WorldPageState extends State<WorldPage> {
         return ListView(
           children: <Widget>[
             InfoTileWidget(
-              number: "${info.numCases}",
+              number: "${info.cases}",
+              todayNum: "${info.todayCases}",
               title: "Número de Casos",
             ),
             Container(
@@ -54,7 +55,22 @@ class _WorldPageState extends State<WorldPage> {
             ),
             InfoTileWidget(
               number: "${info.deaths}",
+              todayNum: "${info.todayDeaths}",
               title: "Número de Mortes",
+            ),
+            Container(
+              height: 20,
+            ),
+            InfoTileWidget(
+              number: "${info.affectedCountries}",
+              title: "Número de países afetados",
+            ),
+            Container(
+              height: 20,
+            ),
+            InfoTileWidget(
+              number: "${info.critical}",
+              title: "Pacientes em estado grave",
             ),
             Container(
               height: 20,
