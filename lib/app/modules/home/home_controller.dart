@@ -13,8 +13,8 @@ abstract class _HomeControllerBase with Store {
   int selectedIndex;
   
   final titleName = ["Brasil", "Mundo", "Mapa"];
-  @computed
   
+  @computed
   String get title => titleName[selectedIndex];
 
   final List<Widget> pages = [
@@ -26,12 +26,11 @@ abstract class _HomeControllerBase with Store {
   @computed
   Widget get page => pages.elementAt(selectedIndex);
 
-
-
   _HomeControllerBase() {
     selectedIndex = 0;
   }
 
+  @action
   setPage(int index){
     selectedIndex = index;
   }

@@ -1,11 +1,10 @@
+import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CovidRepository extends Disposable {
-  
-
+class CovidRepository extends Disposable implements ICovidRepository {
   final Dio dio;
 
   CovidRepository(this.dio);

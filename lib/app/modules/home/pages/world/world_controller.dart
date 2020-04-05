@@ -1,4 +1,4 @@
-import 'package:corona_data/app/modules/home/repositories/covid_repository.dart';
+import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:mobx/mobx.dart';
 
@@ -7,7 +7,7 @@ part 'world_controller.g.dart';
 class WorldController = _WorldControllerBase with _$WorldController;
 
 abstract class _WorldControllerBase with Store {
-  final CovidRepository covidRepository;
+  final ICovidRepository covidRepository;
 
   @observable
   ObservableFuture<InfoModel> worldInfo;
