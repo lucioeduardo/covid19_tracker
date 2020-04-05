@@ -13,13 +13,12 @@ class WorldPage extends StatefulWidget {
   _WorldPageState createState() => _WorldPageState();
 }
 
-class _WorldPageState extends State<WorldPage> {
-  WorldController worldController = Modular.get<WorldController>();
+class _WorldPageState extends ModularState<WorldPage, WorldController> {
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      if (worldController.worldInfo.error != null) {
+      if (controller.worldInfo.error != null) {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -33,14 +32,14 @@ class _WorldPageState extends State<WorldPage> {
                 height: 10,
               ),
               FlatButton(
-                  onPressed: worldController.fetchWorldInfo,
+                  onPressed: controller.fetchWorldInfo,
                   color: Theme.of(context).accentColor,
                   child: Text('Tentar novamente')),
             ],
           ),
         );
       } else {
-        InfoModel info = worldController.worldInfo.value;
+        InfoModel info = controller.worldInfo.value;
         if (info == null) return Center(child: CircularProgressIndicator());
 
         return ListView(

@@ -13,14 +13,12 @@ class BrazilPage extends StatefulWidget {
   _BrazilPageState createState() => _BrazilPageState();
 }
 
-class _BrazilPageState extends State<BrazilPage> {
-  final brazilController = Modular.get<BrazilController>();
-
+class _BrazilPageState extends ModularState<BrazilPage, BrazilController> {
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        if (brazilController.brazilInfo.error != null) {
+        if (controller.brazilInfo.error != null) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -33,14 +31,14 @@ class _BrazilPageState extends State<BrazilPage> {
                   height: 10,
                 ),
                 FlatButton(
-                    onPressed: brazilController.fetchBrazilInfo,
+                    onPressed: controller.fetchBrazilInfo,
                     color: Theme.of(context).accentColor,
                     child: Text('Tentar novamente')),
               ],
             ),
           );
         } else {
-          InfoModel info = brazilController.brazilInfo.value;
+          InfoModel info = controller.brazilInfo.value;
 
           if (info == null) return Center(child: CircularProgressIndicator());
 

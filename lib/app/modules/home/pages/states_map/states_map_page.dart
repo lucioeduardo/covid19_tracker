@@ -15,10 +15,9 @@ class StatesMapPage extends StatefulWidget {
   _StatesMapPageState createState() => _StatesMapPageState();
 }
 
-class _StatesMapPageState extends State<StatesMapPage> {
+class _StatesMapPageState extends ModularState<StatesMapPage, StatesMapController> {
   BitmapDescriptor customIcon;
 
-  StatesMapController statesController = Modular.get<StatesMapController>();
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _initialPosition = CameraPosition(
@@ -34,8 +33,8 @@ class _StatesMapPageState extends State<StatesMapPage> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      print(statesController.statesInfo.error);
-      if (statesController.statesInfo.error != null) {
+      print(controller.statesInfo.error);
+      if (controller.statesInfo.error != null) {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +48,7 @@ class _StatesMapPageState extends State<StatesMapPage> {
                 height: 10,
               ),
               FlatButton(
-                  onPressed: statesController.fetchStatesInfo,
+                  onPressed: controller.fetchStatesInfo,
                   color: Theme.of(context).accentColor,
                   child: Text('Tentar novamente')),
             ],
@@ -57,7 +56,7 @@ class _StatesMapPageState extends State<StatesMapPage> {
         );
       }
 
-      List<StateModel> states = statesController.statesInfo.value;
+      List<StateModel> states = controller.statesInfo.value;
 
       if (states == null) {
         return Center(child: CircularProgressIndicator());
