@@ -34,11 +34,11 @@ abstract class _StatesMapControllerBase with Store {
     final int maxCases = states[states.length - 1].confirmed;
 
     const colors = [
-      Color(0xffffff00),
       Color(0xffffd100),
       Color(0xffff9500),
-      Color(0xffff3c00),
-      Color(0xffff0000),
+      Color(0xffe25822),
+      Color(0xffb22222),
+      Color(0xff7c0a02),
     ];
 
     Set<Marker> markersSet = Set();
@@ -61,11 +61,5 @@ abstract class _StatesMapControllerBase with Store {
     numCases = min(numCases, maxCases);
 
     return (minWidth + (maxWidth - minWidth) * (numCases / maxCases)).toInt();
-  }
-
-  Color _calcColor(int numCases, int maxCases) {
-    numCases = min(numCases, maxCases);
-
-    return Color.lerp(Colors.red[300], Colors.red[800], numCases / maxCases);
   }
 }
