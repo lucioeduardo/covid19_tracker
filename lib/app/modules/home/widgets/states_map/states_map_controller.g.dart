@@ -9,32 +9,32 @@ part of 'states_map_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$StatesMapController on _StatesMapControllerBase, Store {
-  final _$statesInfoAtom = Atom(name: '_StatesMapControllerBase.statesInfo');
+  final _$markersAtom = Atom(name: '_StatesMapControllerBase.markers');
 
   @override
-  ObservableFuture<List<StateModel>> get statesInfo {
-    _$statesInfoAtom.context.enforceReadPolicy(_$statesInfoAtom);
-    _$statesInfoAtom.reportObserved();
-    return super.statesInfo;
+  ObservableFuture<Set<Marker>> get markers {
+    _$markersAtom.context.enforceReadPolicy(_$markersAtom);
+    _$markersAtom.reportObserved();
+    return super.markers;
   }
 
   @override
-  set statesInfo(ObservableFuture<List<StateModel>> value) {
-    _$statesInfoAtom.context.conditionallyRunInAction(() {
-      super.statesInfo = value;
-      _$statesInfoAtom.reportChanged();
-    }, _$statesInfoAtom, name: '${_$statesInfoAtom.name}_set');
+  set markers(ObservableFuture<Set<Marker>> value) {
+    _$markersAtom.context.conditionallyRunInAction(() {
+      super.markers = value;
+      _$markersAtom.reportChanged();
+    }, _$markersAtom, name: '${_$markersAtom.name}_set');
   }
 
   final _$_StatesMapControllerBaseActionController =
       ActionController(name: '_StatesMapControllerBase');
 
   @override
-  dynamic fetchStatesInfo() {
+  dynamic fetchMarkers() {
     final _$actionInfo =
         _$_StatesMapControllerBaseActionController.startAction();
     try {
-      return super.fetchStatesInfo();
+      return super.fetchMarkers();
     } finally {
       _$_StatesMapControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -42,7 +42,7 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
 
   @override
   String toString() {
-    final string = 'statesInfo: ${statesInfo.toString()}';
+    final string = 'markers: ${markers.toString()}';
     return '{$string}';
   }
 }

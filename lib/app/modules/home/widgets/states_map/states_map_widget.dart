@@ -1,6 +1,5 @@
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
-import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -33,8 +32,8 @@ class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapContr
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      print(controller.statesInfo.error);
-      if (controller.statesInfo.error != null) {
+      print(controller.markers.error);
+      if (controller.markers.error != null) {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +47,7 @@ class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapContr
                 height: 10,
               ),
               FlatButton(
-                  onPressed: controller.fetchStatesInfo,
+                  onPressed: controller.fetchMarkers,
                   color: Theme.of(context).accentColor,
                   child: Text('Tentar novamente')),
             ],
@@ -56,35 +55,10 @@ class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapContr
         );
       }
 
-      List<StateModel> states = controller.statesInfo.value;
+      Set<Marker> markers = controller.markers.value;
 
-      if (states == null) {
+      if (markers == null) {
         return Center(child: CircularProgressIndicator());
-      }
-
-      if (customIcon == null) {
-        ImageConfiguration configuration =
-            createLocalImageConfiguration(context, size: Size.square(5));
-        BitmapDescriptor.fromAssetImage(
-          
-            configuration, 'assets/ball_marker.png').then((icon){
-              customIcon = icon;
-              setState(() {
-                
-              });
-            });
-      }
-
-      Set<Marker> markers = Set();
-
-      for (var state in states) {
-        markers.add(Marker(
-            markerId: MarkerId(state.state),
-            position: stateCoords[state.state],
-            icon: customIcon,
-            infoWindow: InfoWindow(
-                title: state.state,
-                snippet: "${state.confirmed} casos, ${state.deaths} mortes")));
       }
 
       return GoogleMap(
