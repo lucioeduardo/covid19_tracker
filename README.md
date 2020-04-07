@@ -17,6 +17,6 @@ A Flutter application that retrieves and shows real time data about covid19 in B
 
 <img src="https://user-images.githubusercontent.com/14063319/78459936-26b6b680-7693-11ea-8ba1-e6fc0cd2faaa.png">
 
-<img src="https://user-images.githubusercontent.com/14063319/77594701-f5d9c300-6ed5-11ea-816c-efc62450c0f0.png">
+<img src="https://user-images.githubusercontent.com/14063319/78711964-3bdb5180-78ee-11ea-98ed-8fcb2c27626b.png">
 
 </p>
