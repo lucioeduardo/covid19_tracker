@@ -1,19 +1,19 @@
-import 'package:corona_data/app/modules/home/pages/world/world_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class WorldPage extends StatefulWidget {
+class WorldWidget extends StatefulWidget {
   final String title;
-  const WorldPage({Key key, this.title = "World"}) : super(key: key);
+  const WorldWidget({Key key, this.title = "World"}) : super(key: key);
 
   @override
-  _WorldPageState createState() => _WorldPageState();
+  _WorldWidgetState createState() => _WorldWidgetState();
 }
 
-class _WorldPageState extends ModularState<WorldPage, WorldController> {
+class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
 
   @override
   Widget build(BuildContext context) {

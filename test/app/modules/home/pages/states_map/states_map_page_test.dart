@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 
-import 'package:corona_data/app/modules/home/pages/states_map/states_map_page.dart';
 
 main() {
   testWidgets('StatesMapPage has title', (WidgetTester tester) async {

@@ -1,6 +1,6 @@
-import 'package:corona_data/app/modules/home/pages/brazil/brazil_page.dart';
-import 'package:corona_data/app/modules/home/pages/states_map/states_map_page.dart';
-import 'package:corona_data/app/modules/home/pages/world/world_page.dart';
+import 'package:corona_data/app/modules/home/widgets/brazil/brazil_page.dart';
+import 'package:corona_data/app/modules/home/widgets/states_map/states_map_widget.dart';
+import 'package:corona_data/app/modules/home/widgets/world/world_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -18,9 +18,9 @@ abstract class _HomeControllerBase with Store {
   String get title => titleName[selectedIndex];
 
   final List<Widget> pages = [
-    BrazilPage(),
-    WorldPage(),
-    StatesMapPage(),
+    BrazilWidget(),
+    WorldWidget(),
+    StatesMapWidget(),
   ];
 
   @computed

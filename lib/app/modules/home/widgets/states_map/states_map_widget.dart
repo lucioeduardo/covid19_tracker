@@ -1,4 +1,4 @@
-import 'package:corona_data/app/modules/home/pages/states_map/states_map_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +7,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
-class StatesMapPage extends StatefulWidget {
+class StatesMapWidget extends StatefulWidget {
   final String title;
-  const StatesMapPage({Key key, this.title = "StatesMap"}) : super(key: key);
+  const StatesMapWidget({Key key, this.title = "StatesMap"}) : super(key: key);
 
   @override
-  _StatesMapPageState createState() => _StatesMapPageState();
+  _StatesMapWidgetState createState() => _StatesMapWidgetState();
 }
 
-class _StatesMapPageState extends ModularState<StatesMapPage, StatesMapController> {
+class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapController> {
   BitmapDescriptor customIcon;
 
   Completer<GoogleMapController> _controller = Completer();

@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:corona_data/app/modules/home/pages/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 
 void main() {

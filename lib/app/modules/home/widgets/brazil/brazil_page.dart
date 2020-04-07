@@ -1,19 +1,19 @@
-import 'package:corona_data/app/modules/home/pages/brazil/brazil_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/brazil/brazil_controller.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class BrazilPage extends StatefulWidget {
+class BrazilWidget extends StatefulWidget {
   final String title;
-  const BrazilPage({Key key, this.title = "Brasil"}) : super(key: key);
+  const BrazilWidget({Key key, this.title = "Brasil"}) : super(key: key);
 
   @override
-  _BrazilPageState createState() => _BrazilPageState();
+  _BrazilWidgetState createState() => _BrazilWidgetState();
 }
 
-class _BrazilPageState extends ModularState<BrazilPage, BrazilController> {
+class _BrazilWidgetState extends ModularState<BrazilWidget, BrazilController> {
   @override
   Widget build(BuildContext context) {
     return Observer(
