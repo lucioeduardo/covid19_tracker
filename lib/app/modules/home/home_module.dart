@@ -12,7 +12,7 @@ class HomeModule extends ChildModule {
   List<Bind> get binds => [
         Bind((i) => StatesMapController(Modular.get<ICovidRepository>())),
         Bind((i) => HomeController()),
-        Bind((i) => CovidRepository(i.get()),),
+        Bind<ICovidRepository>((i) => CovidRepository(i.get()),),
 
         Bind((i) => BrazilController(Modular.get<ICovidRepository>())),
         Bind((i) => WorldController(Modular.get<ICovidRepository>())),
