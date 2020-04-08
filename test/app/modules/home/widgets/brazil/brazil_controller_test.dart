@@ -9,12 +9,14 @@ import 'package:mockito/mockito.dart';
 import 'package:corona_data/app/modules/home/widgets/brazil/brazil_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 
-class CovidRepositoryMock extends Mock implements ICovidRepository {}
+import '../../covid_repository_mock.dart';
+
 
 void main() {
   initModule(AppModule());
 
   final CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
+  
   when(covidRepositoryMock.brazilInfo()).thenAnswer((_) => Future.value(InfoModel(
       cases: 555,
       deaths: 100,
