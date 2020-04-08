@@ -12,19 +12,19 @@ abstract class _HomeControllerBase with Store {
   @observable
   int selectedIndex;
   
-  final titleName = ["Brasil", "Mundo", "Mapa"];
+  final _titleName = ["Brasil", "Mundo", "Mapa"];
   
   @computed
-  String get title => titleName[selectedIndex];
+  String get title => _titleName[selectedIndex];
 
-  final List<Widget> pages = [
+  final List<Widget> _pages = [
     BrazilWidget(),
     WorldWidget(),
     StatesMapWidget(),
   ];
 
   @computed
-  Widget get page => pages.elementAt(selectedIndex);
+  Widget get page => _pages.elementAt(selectedIndex);
 
   _HomeControllerBase() {
     selectedIndex = 0;
