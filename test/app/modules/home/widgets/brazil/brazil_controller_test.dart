@@ -16,15 +16,6 @@ void main() {
   initModule(AppModule());
 
   final CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  
-  when(covidRepositoryMock.brazilInfo()).thenAnswer((_) => Future.value(InfoModel(
-      cases: 555,
-      deaths: 100,
-      affectedCountries: 300,
-      critical: 50,
-      recovered: 10,
-      todayCases: 8,
-      todayDeaths: 5)));
 
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
