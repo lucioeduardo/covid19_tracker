@@ -31,7 +31,6 @@ class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapContr
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      print(controller.markers.error);
       if (controller.markers.error != null) {
         return Center(
           child: Column(
