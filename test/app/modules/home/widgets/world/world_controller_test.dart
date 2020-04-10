@@ -7,13 +7,23 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
+import 'package:mockito/mockito.dart';
 
-import '../../covid_repository_mock.dart';
+class CovidRepositoryMock extends Mock implements ICovidRepository {}
 
 void main() {
   initModule(AppModule());
 
-  final CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
+  CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
+  when(covidRepositoryMock.worldInfo()).thenAnswer((_) async => Future.value(
+      InfoModel(
+          cases: 555,
+          deaths: 100,
+          affectedCountries: 300,
+          critical: 50,
+          recovered: 10,
+          todayCases: 8,
+          todayDeaths: 5)));
 
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),

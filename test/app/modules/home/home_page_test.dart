@@ -11,13 +11,17 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 
 import 'package:corona_data/app/modules/home/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mockito/mockito.dart';
 
-import 'covid_repository_mock.dart';
+class CovidRepositoryMock extends Mock implements ICovidRepository {}
 
 main() {
   initModule(AppModule());
 
-  final CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
+  CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
+  when(covidRepositoryMock.brazilInfo()).thenAnswer((_) async => Future.value(null));
+  when(covidRepositoryMock.worldInfo()).thenAnswer((_) async => Future.value(null));
+  when(covidRepositoryMock.getStatesInfo()).thenAnswer((_) async => Future.value(null));
 
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
@@ -36,12 +40,14 @@ main() {
   testWidgets('HomePage - World selected', (WidgetTester tester) async {
     await tester.pumpWidget(buildTestableWidget(HomePage()));
 
-    await tester.tap(find.byIcon(FontAwesomeIcons.globe), );
+    await tester.tap(
+      find.byIcon(FontAwesomeIcons.globe),
+    );
     await tester.pump();
 
     final widgetFinder = find.byType(WorldWidget);
     expect(widgetFinder, findsOneWidget);
-    
+
     final titleFinder = find.widgetWithText(AppBar, 'Mundo');
     expect(titleFinder, findsOneWidget);
   });
@@ -49,14 +55,15 @@ main() {
   testWidgets('HomePage - Statesmap selected', (WidgetTester tester) async {
     await tester.pumpWidget(buildTestableWidget(HomePage()));
 
-    await tester.tap(find.byIcon(FontAwesomeIcons.mapMarked), );
+    await tester.tap(
+      find.byIcon(FontAwesomeIcons.mapMarked),
+    );
     await tester.pump();
 
     final widgetFinder = find.byType(StatesMapWidget);
     expect(widgetFinder, findsOneWidget);
-    
+
     final titleFinder = find.widgetWithText(AppBar, 'Mapa');
     expect(titleFinder, findsOneWidget);
   });
-
 }

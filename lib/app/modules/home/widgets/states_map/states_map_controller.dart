@@ -29,6 +29,9 @@ abstract class _StatesMapControllerBase with Store {
   Future<Set<Marker>> createMarkers() async {
     List states = await covidRepository.getStatesInfo();
 
+    if(states == null)
+      return null;
+
     states.sort((a, b) => (a.confirmed < b.confirmed ? 0 : 1));
 
     final int maxCases = states[states.length - 1].confirmed;
