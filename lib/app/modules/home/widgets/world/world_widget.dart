@@ -76,7 +76,7 @@ class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
             ),
             InfoTileWidget(
               number: "${info.recovered}",
-              title: "Recuperados",
+              title: "Pacientes recuperados",
             ),
           ],
         );
