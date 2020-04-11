@@ -1,3 +1,4 @@
+import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_controller.dart';
 import 'package:corona_data/app/shared/brazil_icon_icons.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
 
+  AppController appController = Modular.get();
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -31,6 +34,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             backgroundColor: Colors.transparent,
             elevation: 0,
+            actions: <Widget>[
+              IconButton(icon: Icon(FontAwesomeIcons.adjust), onPressed: appController.setTheme)
+            ],
             centerTitle: true,
           ),
           body: controller.page,

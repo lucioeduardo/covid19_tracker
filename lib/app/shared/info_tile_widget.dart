@@ -32,7 +32,7 @@ class InfoTileWidget extends StatelessWidget {
                   style: GoogleFonts.robotoSlab(
                       fontSize: 36,
                       letterSpacing: -1.9,
-                      color: Color(0xffEBE9E7),
+                      color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.bold)),
               todayNum == null
                   ? Container()
