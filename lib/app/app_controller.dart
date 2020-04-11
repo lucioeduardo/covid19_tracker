@@ -1,4 +1,6 @@
+import 'package:corona_data/app/modules/home/repositories/local_storage_interface.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 part 'app_controller.g.dart';
@@ -12,13 +14,24 @@ abstract class _AppControllerBase with Store {
   @computed
   ThemeData get theme => themeDark ? _themeDark : _themeLight; 
 
+  final ILocalStorage localStorage = Modular.get();
+
   _AppControllerBase(){
-    this.themeDark = true;
+    _initializeTheme();
+  }
+
+  @action
+  void _initializeTheme(){
+    localStorage.isThemeDark().then((value){
+      this.themeDark = value;
+    });
   }
 
   @action
   void setTheme(){
     themeDark = !themeDark;
+
+    localStorage.setTheme(themeDark);
   }
 
   final ThemeData _themeLight = ThemeData(

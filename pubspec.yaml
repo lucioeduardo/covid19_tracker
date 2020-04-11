@@ -17,6 +17,8 @@ environment:
   sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
+  path_provider: ^1.6.5
+  hive: ^1.4.1+1
   google_maps_flutter: ^0.5.25
   font_awesome_flutter: ^8.7.0
   google_fonts: ^0.3.10
