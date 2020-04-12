@@ -13,12 +13,12 @@ A Flutter application that retrieves and shows real time data about covid19 in B
 
 ### Screeshots
 
-<p align="center">
+<p>
 
 <img src="https://user-images.githubusercontent.com/14063319/79073553-b2e16300-7cbd-11ea-8c7c-5766f35a64fb.png">
 
 <img src="https://user-images.githubusercontent.com/14063319/79073554-b2e16300-7cbd-11ea-8063-11d8b6cfc2aa.png">
-
+<br>
 <img src="https://user-images.githubusercontent.com/14063319/79073551-b248cc80-7cbd-11ea-9e71-326b0543b98c.png">
 
 <img src="https://user-images.githubusercontent.com/14063319/79073549-b1179f80-7cbd-11ea-9bd8-466e49e7ef4b.png">
