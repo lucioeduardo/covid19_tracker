@@ -1,4 +1,5 @@
 import 'package:corona_data/app/modules/home/widgets/brazil/brazil_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:flutter/material.dart';
@@ -19,24 +20,7 @@ class _BrazilWidgetState extends ModularState<BrazilWidget, BrazilController> {
     return Observer(
       builder: (BuildContext context) {
         if (controller.brazilInfo.error != null) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Não foi possível acessar os dados.',
-                  style: TextStyle(color: Theme.of(context).primaryColorLight, fontSize: 16),
-                ),
-                Container(
-                  height: 10,
-                ),
-                FlatButton(
-                    onPressed: controller.fetchBrazilInfo,
-                    color: Theme.of(context).accentColor,
-                    child: Text('Tentar novamente')),
-              ],
-            ),
-          );
+          return TryAgainWidget(onPressed: controller.fetchBrazilInfo);
         } else {
           InfoModel info = controller.brazilInfo.value;
 

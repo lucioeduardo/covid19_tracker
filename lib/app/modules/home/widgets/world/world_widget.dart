@@ -1,3 +1,4 @@
+import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
@@ -19,25 +20,7 @@ class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       if (controller.worldInfo.error != null) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Não foi possível acessar os dados.',
-                style: TextStyle(
-                    color: Theme.of(context).primaryColorLight, fontSize: 16),
-              ),
-              Container(
-                height: 10,
-              ),
-              FlatButton(
-                  onPressed: controller.fetchWorldInfo,
-                  color: Theme.of(context).accentColor,
-                  child: Text('Tentar novamente')),
-            ],
-          ),
-        );
+        return TryAgainWidget(onPressed: controller.fetchWorldInfo);
       } else {
         InfoModel info = controller.worldInfo.value;
         if (info == null) return Center(child: CircularProgressIndicator());

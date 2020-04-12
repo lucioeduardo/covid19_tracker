@@ -1,4 +1,5 @@
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,25 +33,7 @@ class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapContr
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       if (controller.markers.error != null) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Não foi possível acessar os dados.',
-                style: TextStyle(
-                    color: Theme.of(context).primaryColorLight, fontSize: 16),
-              ),
-              Container(
-                height: 10,
-              ),
-              FlatButton(
-                  onPressed: controller.fetchMarkers,
-                  color: Theme.of(context).accentColor,
-                  child: Text('Tentar novamente')),
-            ],
-          ),
-        );
+        return TryAgainWidget(onPressed: controller.fetchMarkers);
       }
 
       Set<Marker> markers = controller.markers.value;
