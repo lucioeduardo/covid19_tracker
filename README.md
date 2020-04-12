@@ -2,16 +2,16 @@
 
 A Flutter application that retrieves and shows real time data about covid19 in Brazil and worldwide.
 
-### Data Sources
+## Data Sources
 - [Brasil.io - Covid 19 API](https://brasil.io/dataset/covid19/caso) 
 - [NovelCOVID API](https://github.com/novelcovid/api)
 
-### Features
+## Features
 
 - Display realtime number of cases, deaths and recovered people from Brazil and worldwide;
 - Map with number of cases and deaths for each brazilian state;
 
-### Screeshots
+## Screeshots
 
 <p>
 
