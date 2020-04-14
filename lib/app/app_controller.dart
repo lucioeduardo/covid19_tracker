@@ -17,14 +17,6 @@ abstract class _AppControllerBase with Store {
   final ILocalStorage localStorage = Modular.get();
 
   _AppControllerBase(){
-    _initializeTheme();
-  }
-
-  @action
-  void _initializeTheme(){
-    localStorage.isThemeDark().then((value){
-      this.themeDark = value;
-    });
   }
 
   @action

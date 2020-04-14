@@ -36,16 +36,6 @@ mixin _$AppController on _AppControllerBase, Store {
       ActionController(name: '_AppControllerBase');
 
   @override
-  void _initializeTheme() {
-    final _$actionInfo = _$_AppControllerBaseActionController.startAction();
-    try {
-      return super._initializeTheme();
-    } finally {
-      _$_AppControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void setTheme(bool value) {
     final _$actionInfo = _$_AppControllerBaseActionController.startAction();
     try {

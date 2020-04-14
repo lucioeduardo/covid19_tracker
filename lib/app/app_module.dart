@@ -1,7 +1,9 @@
+import 'package:corona_data/app/pages/splash/splash_controller.dart';
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:corona_data/app/modules/home/repositories/local_storage_hive.dart';
 import 'package:corona_data/app/modules/settings/settings_module.dart';
+import 'package:corona_data/app/pages/splash/splash_page.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,14 +15,22 @@ import 'modules/home/repositories/local_storage_interface.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => AppController(),),
-        Bind((i) => Dio(BaseOptions(baseUrl: BASE_URL)),),
-        Bind<ILocalStorage>((i) => LocalStorageHive(),),
+        Bind((i) => SplashController()),
+        Bind(
+          (i) => AppController(),
+        ),
+        Bind(
+          (i) => Dio(BaseOptions(baseUrl: BASE_URL)),
+        ),
+        Bind<ILocalStorage>(
+          (i) => LocalStorageHive(),
+        ),
       ];
 
   @override
   List<Router> get routers => [
-        Router(Modular.initialRoute, module: HomeModule()),
+        Router(Modular.initialRoute, child: (_, args) => SplashPage()),
+        Router("/home", module: HomeModule()),
         Router("/settings", module: SettingsModule())
       ];
 
