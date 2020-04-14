@@ -12,12 +12,15 @@ abstract class _AppControllerBase with Store {
   bool themeDark = true;
 
   @computed
-  ThemeData get theme => themeDark ? _themeDark : _themeLight;
+  ThemeData get theme => themeDark ? _themeDark : _themeLight; 
 
   final ILocalStorage localStorage = Modular.get();
 
+  _AppControllerBase(){
+  }
+
   @action
-  void setTheme(bool value) {
+  void setTheme(bool value){
     themeDark = value;
 
     localStorage.setTheme(value);
