@@ -1,5 +1,6 @@
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_controller.dart';
+import 'package:corona_data/app/modules/settings/settings_controller.dart';
 import 'package:corona_data/app/shared/brazil_icon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -35,7 +36,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             actions: <Widget>[
-              IconButton(icon: Icon(FontAwesomeIcons.adjust), onPressed: appController.setTheme)
+              IconButton(icon: Icon(FontAwesomeIcons.cog), onPressed: () => Modular.to.pushNamed("/settings"))
             ],
             centerTitle: true,
           ),

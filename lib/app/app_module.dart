@@ -1,6 +1,7 @@
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:corona_data/app/modules/home/repositories/local_storage_hive.dart';
+import 'package:corona_data/app/modules/settings/settings_module.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,6 +21,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router(Modular.initialRoute, module: HomeModule()),
+        Router("/settings", module: SettingsModule())
       ];
 
   @override

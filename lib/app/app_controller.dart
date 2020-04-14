@@ -28,10 +28,10 @@ abstract class _AppControllerBase with Store {
   }
 
   @action
-  void setTheme(){
-    themeDark = !themeDark;
+  void setTheme(bool value){
+    themeDark = value;
 
-    localStorage.setTheme(themeDark);
+    localStorage.setTheme(value);
   }
 
   final ThemeData _themeLight = ThemeData(

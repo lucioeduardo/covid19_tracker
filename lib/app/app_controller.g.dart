@@ -46,10 +46,10 @@ mixin _$AppController on _AppControllerBase, Store {
   }
 
   @override
-  void setTheme() {
+  void setTheme(bool value) {
     final _$actionInfo = _$_AppControllerBaseActionController.startAction();
     try {
-      return super.setTheme();
+      return super.setTheme(value);
     } finally {
       _$_AppControllerBaseActionController.endAction(_$actionInfo);
     }
