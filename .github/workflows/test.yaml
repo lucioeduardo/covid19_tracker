@@ -19,8 +19,8 @@ jobs:
       with:
         flutter-version: '1.12.13+hotfix.9'
     - run: flutter pub get
-    - run: flutter test
+    - run: flutter test --coverage
     - name: Coveralls GitHub Action
       uses: coverallsapp/github-action@v1.0.1
       with:
-        github-token: ${{ secrets.TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
