@@ -1,4 +1,7 @@
-# Covid19Flutter
+# Covid19 Tracker
+
+![Continuous Integration](https://github.com/lucioeduardo/covid19_tracker/workflows/Continuous%20Integration/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/lucioeduardo/covid19_tracker/badge.svg)](https://coveralls.io/github/lucioeduardo/covid19_tracker)
 
 A Flutter application that retrieves and shows real time data about covid19 in Brazil and worldwide.
 
