@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     name: Build and Release
-    if: github.event.base_ref == 'refs/head/master'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
