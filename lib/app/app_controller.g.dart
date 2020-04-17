@@ -14,6 +14,11 @@ mixin _$AppController on _AppControllerBase, Store {
   @override
   ThemeData get theme =>
       (_$themeComputed ??= Computed<ThemeData>(() => super.theme)).value;
+  Computed<String> _$countryComputed;
+
+  @override
+  String get country =>
+      (_$countryComputed ??= Computed<String>(() => super.country)).value;
 
   final _$themeDarkAtom = Atom(name: '_AppControllerBase.themeDark');
 
@@ -32,6 +37,23 @@ mixin _$AppController on _AppControllerBase, Store {
     }, _$themeDarkAtom, name: '${_$themeDarkAtom.name}_set');
   }
 
+  final _$countryNameAtom = Atom(name: '_AppControllerBase.countryName');
+
+  @override
+  String get countryName {
+    _$countryNameAtom.context.enforceReadPolicy(_$countryNameAtom);
+    _$countryNameAtom.reportObserved();
+    return super.countryName;
+  }
+
+  @override
+  set countryName(String value) {
+    _$countryNameAtom.context.conditionallyRunInAction(() {
+      super.countryName = value;
+      _$countryNameAtom.reportChanged();
+    }, _$countryNameAtom, name: '${_$countryNameAtom.name}_set');
+  }
+
   final _$_AppControllerBaseActionController =
       ActionController(name: '_AppControllerBase');
 
@@ -46,9 +68,29 @@ mixin _$AppController on _AppControllerBase, Store {
   }
 
   @override
+  void setCountry(String country) {
+    final _$actionInfo = _$_AppControllerBaseActionController.startAction();
+    try {
+      return super.setCountry(country);
+    } finally {
+      _$_AppControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void getCountry() {
+    final _$actionInfo = _$_AppControllerBaseActionController.startAction();
+    try {
+      return super.getCountry();
+    } finally {
+      _$_AppControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'themeDark: ${themeDark.toString()},theme: ${theme.toString()}';
+        'themeDark: ${themeDark.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},country: ${country.toString()}';
     return '{$string}';
   }
 }

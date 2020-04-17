@@ -21,6 +21,7 @@ abstract class _SplashControllerBase with Store {
 
   _SplashControllerBase() {
     getTheme();
+    appController.getCountry();
     setupTimer();
     setupReactions();
   }
@@ -40,4 +41,6 @@ abstract class _SplashControllerBase with Store {
   void getTheme() {
     themeDark = localStorage.isThemeDark().asObservable();
   }
+  
+  
 }
