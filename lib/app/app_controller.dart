@@ -11,6 +11,9 @@ abstract class _AppControllerBase with Store {
   @observable
   bool themeDark = true;
 
+  @observable
+  String countryName = "Brazil";
+
   @computed
   ThemeData get theme => themeDark ? _themeDark : _themeLight; 
 
@@ -21,6 +24,14 @@ abstract class _AppControllerBase with Store {
     themeDark = value;
 
     localStorage.setTheme(value);
+  }
+
+  @action
+  void setCountry(String country){
+    print(country);
+    countryName = country;
+
+    // localStorage.setTheme(value);
   }
 
   final ThemeData _themeLight = ThemeData(
