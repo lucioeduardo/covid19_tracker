@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-const String BASE_URL = "https://corona.lmao.ninja/";
+const String BASE_URL = "https://corona.lmao.ninja/v2";
 
 const Map stateCoords = {
 	'AC': LatLng(-8.77, -70.55),
