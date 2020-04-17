@@ -1,4 +1,3 @@
-import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';

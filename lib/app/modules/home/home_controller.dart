@@ -12,7 +12,7 @@ abstract class _HomeControllerBase with Store {
   @observable
   int selectedIndex;
   
-  final _titleName = ["Brasil", "Mundo", "Mapa"];
+  final _titleName = ["country", "Mundo", "Mapa"];
   
   @computed
   String get title => _titleName[selectedIndex];
