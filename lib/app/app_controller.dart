@@ -15,7 +15,10 @@ abstract class _AppControllerBase with Store {
   String countryName = "Brazil";
 
   @computed
-  ThemeData get theme => themeDark ? _themeDark : _themeLight; 
+  ThemeData get theme => themeDark ? _themeDark : _themeLight;
+
+  @computed
+  String get country => countryName; 
 
   final ILocalStorage localStorage = Modular.get();
 
@@ -31,7 +34,12 @@ abstract class _AppControllerBase with Store {
     print(country);
     countryName = country;
 
-    // localStorage.setTheme(value);
+    localStorage.setCountry(country);
+  }
+
+  @action
+  void getCountry() {
+    localStorage.getCountry().then((onValue)=>countryName=onValue);
   }
 
   final ThemeData _themeLight = ThemeData(

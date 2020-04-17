@@ -14,6 +14,11 @@ mixin _$AppController on _AppControllerBase, Store {
   @override
   ThemeData get theme =>
       (_$themeComputed ??= Computed<ThemeData>(() => super.theme)).value;
+  Computed<String> _$countryComputed;
+
+  @override
+  String get country =>
+      (_$countryComputed ??= Computed<String>(() => super.country)).value;
 
   final _$themeDarkAtom = Atom(name: '_AppControllerBase.themeDark');
 
@@ -73,9 +78,19 @@ mixin _$AppController on _AppControllerBase, Store {
   }
 
   @override
+  void getCountry() {
+    final _$actionInfo = _$_AppControllerBaseActionController.startAction();
+    try {
+      return super.getCountry();
+    } finally {
+      _$_AppControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'themeDark: ${themeDark.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()}';
+        'themeDark: ${themeDark.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},country: ${country.toString()}';
     return '{$string}';
   }
 }
