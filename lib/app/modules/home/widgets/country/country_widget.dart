@@ -15,6 +15,13 @@ class CountryWidget extends StatefulWidget {
 }
 
 class _CountryWidgetState extends ModularState<CountryWidget, CountryController> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+  }
   
   @override
   Widget build(BuildContext context) {

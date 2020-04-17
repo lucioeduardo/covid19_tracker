@@ -19,7 +19,7 @@ main() {
   initModule(AppModule());
 
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  when(covidRepositoryMock.brazilInfo()).thenAnswer((_) async => Future.value(null));
+  when(covidRepositoryMock.countryInfo('Brazil')).thenAnswer((_) async => Future.value(null));
   when(covidRepositoryMock.worldInfo()).thenAnswer((_) async => Future.value(null));
   when(covidRepositoryMock.getStatesInfo()).thenAnswer((_) async => Future.value(null));
 
@@ -30,7 +30,7 @@ main() {
   testWidgets('HomePage - Brasil selected', (WidgetTester tester) async {
     await tester.pumpWidget(buildTestableWidget(HomePage()));
 
-    final titleFinder = find.widgetWithText(AppBar, 'Brasil');
+    final titleFinder = find.widgetWithText(AppBar, 'Brazil');
     expect(titleFinder, findsOneWidget);
 
     final menuFinder = find.byType(CountryWidget);

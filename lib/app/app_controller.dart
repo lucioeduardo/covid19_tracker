@@ -31,7 +31,7 @@ abstract class _AppControllerBase with Store {
 
   @action
   void setCountry(String country){
-    print(country);
+    
     countryName = country;
 
     localStorage.setCountry(country);

@@ -24,7 +24,7 @@ void main() {
     test("Inicialization", () {
       expect(controller.selectedIndex, 0);
       expect(controller.page.runtimeType, CountryWidget().runtimeType);
-      expect(controller.title, 'Brasil');
+      expect(controller.title, 'country');
     });
 
     test("Set Page to World", () {
@@ -42,12 +42,12 @@ void main() {
       expect(controller.title, 'Mapa');
     });
 
-    test("Set Page to Brazil", () {
+    test("Set Page to Country", () {
       controller.setPage(0);
 
       expect(controller.selectedIndex, 0);
       expect(controller.page.runtimeType, CountryWidget().runtimeType);
-      expect(controller.title, 'Brasil');
+      expect(controller.title, 'country');
     });
   });
 }
