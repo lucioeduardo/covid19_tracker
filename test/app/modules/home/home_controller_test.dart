@@ -1,5 +1,5 @@
 import 'package:corona_data/app/app_module.dart';
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_widget.dart';
+import 'package:corona_data/app/modules/home/widgets/country/country_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/world/world_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -23,7 +23,7 @@ void main() {
   group('HomeController Test', () {
     test("Inicialization", () {
       expect(controller.selectedIndex, 0);
-      expect(controller.page.runtimeType, BrazilWidget().runtimeType);
+      expect(controller.page.runtimeType, CountryWidget().runtimeType);
       expect(controller.title, 'Brasil');
     });
 
@@ -46,7 +46,7 @@ void main() {
       controller.setPage(0);
 
       expect(controller.selectedIndex, 0);
-      expect(controller.page.runtimeType, BrazilWidget().runtimeType);
+      expect(controller.page.runtimeType, CountryWidget().runtimeType);
       expect(controller.title, 'Brasil');
     });
   });

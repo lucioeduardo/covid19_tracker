@@ -1,8 +1,8 @@
 import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_controller.dart';
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_widget.dart';
+import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/country/country_widget.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:flutter/material.dart';
@@ -24,13 +24,13 @@ main() {
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);
 
-  BrazilController controller;
+  CountryController controller;
 
   setUp(() {
-    controller = Modular.get<BrazilController>();
+    controller = Modular.get<CountryController>();
   });
 
-  group('BrazilWidget Requests', () {
+  group('CountryWidget Requests', () {
     setUp(() {
       when(covidRepositoryMock.brazilInfo()).thenAnswer((_) async =>
           Future.value(InfoModel(
@@ -41,11 +41,11 @@ main() {
               recovered: 10,
               todayCases: 8,
               todayDeaths: 5)));
-      controller.fetchBrazilInfo();
+      controller.fetchCountryInfo();
     });
 
-    testWidgets('BrazilWidget - cases', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(BrazilWidget()));
+    testWidgets('CountryWidget - cases', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(CountryWidget()));
 
       final tileFinder = find.widgetWithText(InfoTileWidget, 'Número de Casos');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
@@ -54,8 +54,8 @@ main() {
           findsOneWidget);
     });
 
-    testWidgets('BrazilWidget - deaths', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(BrazilWidget()));
+    testWidgets('CountryWidget - deaths', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(CountryWidget()));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Número de Mortes');
@@ -65,8 +65,8 @@ main() {
           findsOneWidget);
     });
 
-    testWidgets('BrazilWidget - critical', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(BrazilWidget()));
+    testWidgets('CountryWidget - critical', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(CountryWidget()));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Pacientes em estado grave');
@@ -74,8 +74,8 @@ main() {
           findsOneWidget);
     });
 
-    testWidgets('BrazilWidget - recovered', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(BrazilWidget()));
+    testWidgets('CountryWidget - recovered', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(CountryWidget()));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Pacientes recuperados');
@@ -84,13 +84,13 @@ main() {
     });
   });
 
-  group('BrazilWidget Request Error', () {
+  group('CountryWidget Request Error', () {
     setUp(() {
       when(covidRepositoryMock.brazilInfo()).thenAnswer((_) async => throw 'E');
-      controller.fetchBrazilInfo();
+      controller.fetchCountryInfo();
     });
     testWidgets("Simulating error", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(BrazilWidget()));
+      await tester.pumpWidget(buildTestableWidget(CountryWidget()));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
@@ -99,14 +99,14 @@ main() {
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(BrazilWidget()));
+      await tester.pumpWidget(buildTestableWidget(CountryWidget()));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
       when(covidRepositoryMock.brazilInfo())
           .thenAnswer((_) async => Future.value(InfoModel()));
 
-      controller.fetchBrazilInfo();
+      controller.fetchCountryInfo();
 
       await tester.tap(btnFinder);
 

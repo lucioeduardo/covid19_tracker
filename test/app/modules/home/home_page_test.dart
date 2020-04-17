@@ -1,7 +1,7 @@
 import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_widget.dart';
+import 'package:corona_data/app/modules/home/widgets/country/country_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/world/world_widget.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ main() {
     final titleFinder = find.widgetWithText(AppBar, 'Brasil');
     expect(titleFinder, findsOneWidget);
 
-    final menuFinder = find.byType(BrazilWidget);
+    final menuFinder = find.byType(CountryWidget);
     expect(menuFinder, findsOneWidget);
   });
 
