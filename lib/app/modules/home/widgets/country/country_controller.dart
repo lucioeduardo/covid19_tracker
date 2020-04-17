@@ -10,14 +10,16 @@ class CountryController = _CountryControllerBase with _$CountryController;
 abstract class _CountryControllerBase with Store {
   final ICovidRepository covidRepository;
   final AppController appController;
+  ReactionDisposer disposer;
 
   @observable
   ObservableFuture<InfoModel> countryInfo;
 
   _CountryControllerBase(this.covidRepository,this.appController){
     print("CControl");
+    
     fetchCountryInfo();
-    reaction((_)=>appController.countryName,(_){
+    disposer=reaction((_)=>appController.countryName,(_){
       
       fetchCountryInfo();
     }
@@ -27,6 +29,10 @@ abstract class _CountryControllerBase with Store {
 
   @action
   fetchCountryInfo(){
+    print("oioioi");
     countryInfo = covidRepository.countryInfo(appController.countryName).asObservable();
+    print("oioioi");
   }
+
+  
 }
