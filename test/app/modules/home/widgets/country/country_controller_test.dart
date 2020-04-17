@@ -12,11 +12,12 @@ import 'package:mockito/mockito.dart';
 class CovidRepositoryMock extends Mock implements ICovidRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   initModule(AppModule());
-
+  
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-
-  when(covidRepositoryMock.countryInfo('brazil')).thenAnswer((_) async => Future.value(
+  print("oioioi");
+  when(covidRepositoryMock.countryInfo("Brazil")).thenAnswer((_) async => Future.value(
       InfoModel(
           cases: 555,
           deaths: 100,
@@ -31,10 +32,16 @@ void main() {
   ]);
   CountryController country;
   //
+  
   setUp(() {
-    Modular.get<AppController>();
+    
+    print("oioioi");
     country = HomeModule.to.get();
+    
+    
   });
+
+  
 
   group('CountryController Test', () {
     test("Fetching data", () async {
