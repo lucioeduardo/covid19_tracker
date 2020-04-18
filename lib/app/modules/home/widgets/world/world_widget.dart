@@ -2,9 +2,12 @@ import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.
 import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/utils/modal_utils.dart';
+import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WorldWidget extends StatefulWidget {
   final String title;
@@ -31,6 +34,10 @@ class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
               number: "${info.cases}",
               todayNum: "${info.todayCases}",
               title: "Número de Casos",
+              button: RoundedIconButton(
+                iconData: FontAwesomeIcons.chartBar,
+                onPressed: () => ModalUtils.showModal(context),
+              ),
             ),
             Container(
               height: 20,
