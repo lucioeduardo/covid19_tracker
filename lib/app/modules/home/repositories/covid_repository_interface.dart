@@ -4,5 +4,6 @@ import 'package:corona_data/app/shared/models/state_model.dart';
 abstract class ICovidRepository {
   Future<InfoModel> worldInfo();
   Future<InfoModel> brazilInfo();
+  Future<InfoModel> countryInfo(String country);
   Future<List<StateModel>> getStatesInfo();
 }

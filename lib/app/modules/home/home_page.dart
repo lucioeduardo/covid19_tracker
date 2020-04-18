@@ -16,17 +16,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
 
-  AppController appController = Modular.get();
+  final AppController appController = Modular.get();
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
+        
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColorDark,
           appBar: AppBar(
             title: Text(
-              controller.title,
+              controller.title=='country' ? appController.country:controller.title,
               style: GoogleFonts.robotoSlab(
                 fontSize: 24,
                 letterSpacing: -1.9,
@@ -42,10 +43,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           body: controller.page,
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Theme.of(context).primaryColorDark,
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(BrazilIcon.emojione_monotone_flag_for_flag_brazil),
-                title: Text('Brasil'),
+                title: Text(appController.country),
               ),
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.globe),
