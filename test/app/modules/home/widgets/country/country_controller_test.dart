@@ -15,7 +15,6 @@ void main() {
   initModule(AppModule());
   
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  print("oioioi");
   when(covidRepositoryMock.countryInfo("Brazil")).thenAnswer((_) async => Future.value(
       InfoModel(
           cases: 555,
@@ -33,11 +32,7 @@ void main() {
   //
   
   setUp(() {
-    
-    print("oioioi");
     country = HomeModule.to.get();
-    
-    
   });
 
   

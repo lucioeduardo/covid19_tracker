@@ -17,9 +17,6 @@ abstract class _AppControllerBase with Store {
   @computed
   ThemeData get theme => themeDark ? _themeDark : _themeLight;
 
-  @computed
-  String get country => countryName; 
-
   final ILocalStorage localStorage = Modular.get();
 
   @action
