@@ -4,8 +4,9 @@ import 'package:corona_data/app/modules/home/home_controller.dart';
 import 'package:corona_data/app/modules/home/home_page.dart';
 import 'package:corona_data/app/modules/home/repositories/covid_repository.dart';
 import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
+
+import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';
 import 'package:corona_data/app/modules/home/repositories/historical_repository.dart';
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_controller.dart';
 
 import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
