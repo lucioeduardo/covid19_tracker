@@ -1,28 +1,34 @@
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';
+import 'package:corona_data/app/modules/home/widgets/graphs/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/utils/modal_utils.dart';
+import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BrazilWidget extends StatefulWidget {
+class CountryWidget extends StatefulWidget {
   final String title;
-  const BrazilWidget({Key key, this.title = "Brasil"}) : super(key: key);
+  const CountryWidget({Key key, this.title = "Brasil"}) : super(key: key);
 
   @override
-  _BrazilWidgetState createState() => _BrazilWidgetState();
+  _CountryWidgetState createState() => _CountryWidgetState();
 }
 
-class _BrazilWidgetState extends ModularState<BrazilWidget, BrazilController> {
+class _CountryWidgetState
+    extends ModularState<CountryWidget, CountryController> {
+
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        if (controller.brazilInfo.error != null) {
-          return TryAgainWidget(onPressed: controller.fetchBrazilInfo);
+        if (controller.countryInfo.error != null) {
+          return TryAgainWidget(onPressed: controller.fetchCountryInfo());
         } else {
-          InfoModel info = controller.brazilInfo.value;
+          InfoModel info = controller.countryInfo.value;
 
           if (info == null) return Center(child: CircularProgressIndicator());
 
@@ -32,6 +38,11 @@ class _BrazilWidgetState extends ModularState<BrazilWidget, BrazilController> {
                 number: "${info.cases}",
                 title: "Número de Casos",
                 todayNum: "${info.todayCases}",
+                button: RoundedIconButton(
+                  iconData: FontAwesomeIcons.chartBar,
+                  onPressed: () =>
+                      ModalUtils.showModal(context, CountryCasesGraphWidget()),
+                ),
               ),
               Container(
                 height: 20,

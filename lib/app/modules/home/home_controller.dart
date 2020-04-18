@@ -1,4 +1,4 @@
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_widget.dart';
+import 'package:corona_data/app/modules/home/widgets/country/country_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/world/world_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +12,13 @@ abstract class _HomeControllerBase with Store {
   @observable
   int selectedIndex;
   
-  final _titleName = ["Brasil", "Mundo", "Mapa"];
+  final _titleName = ["country", "Mundo", "Mapa"];
   
   @computed
   String get title => _titleName[selectedIndex];
 
   final List<Widget> _pages = [
-    BrazilWidget(),
+    CountryWidget(),
     WorldWidget(),
     StatesMapWidget(),
   ];

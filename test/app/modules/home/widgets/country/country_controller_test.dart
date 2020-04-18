@@ -1,22 +1,21 @@
 import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
+import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:corona_data/app/modules/home/widgets/brazil/brazil_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:mockito/mockito.dart';
 
 class CovidRepositoryMock extends Mock implements ICovidRepository {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   initModule(AppModule());
-
+  
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-
-  when(covidRepositoryMock.brazilInfo()).thenAnswer((_) async => Future.value(
+  when(covidRepositoryMock.countryInfo("Brazil")).thenAnswer((_) async => Future.value(
       InfoModel(
           cases: 555,
           deaths: 100,
@@ -29,21 +28,24 @@ void main() {
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);
-  BrazilController brazil;
+  CountryController country;
   //
+  
   setUp(() {
-    brazil = HomeModule.to.get();
+    country = HomeModule.to.get();
   });
 
-  group('BrazilController Test', () {
+  
+
+  group('CountryController Test', () {
     test("Fetching data", () async {
-      expect(brazil.brazilInfo.value.cases, 555);
-      expect(brazil.brazilInfo.value.affectedCountries, 300);
-      expect(brazil.brazilInfo.value.deaths, 100);
-      expect(brazil.brazilInfo.value.critical, 50);
-      expect(brazil.brazilInfo.value.todayCases, 8);
-      expect(brazil.brazilInfo.value.todayDeaths, 5);
-      expect(brazil.brazilInfo.value.recovered, 10);
+      expect(country.countryInfo.value.cases, 555);
+      expect(country.countryInfo.value.affectedCountries, 300);
+      expect(country.countryInfo.value.deaths, 100);
+      expect(country.countryInfo.value.critical, 50);
+      expect(country.countryInfo.value.todayCases, 8);
+      expect(country.countryInfo.value.todayDeaths, 5);
+      expect(country.countryInfo.value.recovered, 10);
     });
   });
 }
