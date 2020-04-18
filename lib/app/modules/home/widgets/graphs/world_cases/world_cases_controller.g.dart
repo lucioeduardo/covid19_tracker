@@ -30,7 +30,7 @@ mixin _$WorldCasesController on _WorldCasesControllerBase, Store {
       ActionController(name: '_WorldCasesControllerBase');
 
   @override
-  dynamic fetchGraphData() {
+  void fetchGraphData() {
     final _$actionInfo =
         _$_WorldCasesControllerBaseActionController.startAction();
     try {

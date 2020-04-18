@@ -3,12 +3,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class HistoricalRepository extends Disposable{
   
-  ////historical/Brazil?lastdays=30
   final Dio dio;
 
   HistoricalRepository(this.dio);
 
-  Future<List<int>> getWorldHistorical({int lastdays=30}) async{
+  Future<List<int>> getWorldHistoricalData({int lastdays=30}) async{
     Response response = await dio.get('/historical/all', queryParameters: {
       'lastdays':lastdays
     });
@@ -22,7 +21,7 @@ class HistoricalRepository extends Disposable{
     return histList;
   }
 
-  Future<List<int>> getCountryHistorical(String country, {int lastdays=30}) async{
+  Future<List<int>> getCountryHistoricalData(String country, {int lastdays=30}) async{
     Response response = await dio.get('/historical/$country', queryParameters: {
       'lastdays':lastdays
     });
@@ -38,7 +37,6 @@ class HistoricalRepository extends Disposable{
   
   @override
   void dispose() {
-    // TODO: implement dispose
   }
 
 }

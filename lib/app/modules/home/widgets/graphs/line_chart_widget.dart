@@ -32,16 +32,16 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
   String getDateFormatted(value) {
     return dateFormat
-        .format(DateTime.now().subtract(Duration(days: lastDays - value)));
+        .format(DateTime.now().toUtc().subtract(Duration(days: lastDays - value + 1)));
   }
 
   HorizontalLine makeHorizontalLine(value) {
     return HorizontalLine(
         y: value,
-        color: Color(0x66ffffff),
+        color: Theme.of(context).accentColor.withAlpha(70),
         strokeWidth: 1,
         label: HorizontalLineLabel(
-            style: TextStyle(color: Colors.grey[300]),
+            style: TextStyle(color: Theme.of(context).accentColor.withAlpha(200)),
             labelResolver: (line) => display(line.y)));
   }
 
@@ -51,6 +51,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         show: true, border: Border.all(color: Theme.of(context).accentColor));
 
     final extraLinesData = ExtraLinesData(horizontalLines: [
+      makeHorizontalLine(widget.values[0].toDouble()),
       makeHorizontalLine(widget.values[9].toDouble()),
       makeHorizontalLine(widget.values[19].toDouble()),
     ]);
@@ -62,7 +63,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             getTooltipItems: (spots) {
               return spots
                   .map((spot) => LineTooltipItem(
-                      "${getDateFormatted(spot.x.toInt())}: ${display(spot.y)}",
+                      "${getDateFormatted(spot.x.toInt()+1)}: ${display(spot.y)}",
                       TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,

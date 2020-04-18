@@ -1,27 +1,30 @@
 import 'package:corona_data/app/modules/home/widgets/graphs/line_chart_widget.dart';
-import 'package:corona_data/app/modules/home/widgets/graphs/world_cases/world_cases_controller.dart';
 import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
-class WorldCasesGraphWidget extends StatefulWidget {
+import 'chart_controller_interface.dart';
+
+
+class HandleGraphWidget extends StatefulWidget {
+  final IChartController controller;
+
+  const HandleGraphWidget({Key key, @required this.controller}) : super(key: key);
+
   @override
-  _WorldCasesGraphWidgetState createState() => _WorldCasesGraphWidgetState();
+  _HandleGraphWidgetState createState() => _HandleGraphWidgetState();
 }
 
-class _WorldCasesGraphWidgetState
-    extends ModularState<WorldCasesGraphWidget, WorldCasesController> {
-
+class _HandleGraphWidgetState extends State<HandleGraphWidget> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      if (controller.graphData.error != null) {
-        return TryAgainWidget(onPressed: controller.fetchGraphData);
+      if (widget.controller.graphData.error != null) {
+        return TryAgainWidget(onPressed: widget.controller.fetchGraphData);
       }
 
-      if (controller.graphData.value != null) {
-        List<int> values = controller.graphData.value;
+      if (widget.controller.graphData.value != null) {
+        List<int> values = widget.controller.graphData.value;
         return Column(
           children: <Widget>[
             LineChartWidget(values: values),
@@ -31,7 +34,7 @@ class _WorldCasesGraphWidgetState
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                "Número de casos no mundo ao longo dos últimos 30 dias",
+                "Número de casos ao longo dos últimos 30 dias",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -42,7 +45,7 @@ class _WorldCasesGraphWidgetState
         );
       }
 
-      return CircularProgressIndicator();
+      return Center(child: CircularProgressIndicator());
     });
   }
 }

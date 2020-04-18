@@ -1,25 +1,26 @@
 import 'package:corona_data/app/modules/home/repositories/historical_repository.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+
+import '../chart_controller_interface.dart';
 
 part 'world_cases_controller.g.dart';
 
 class WorldCasesController = _WorldCasesControllerBase
     with _$WorldCasesController;
 
-abstract class _WorldCasesControllerBase with Store {
+abstract class _WorldCasesControllerBase with Store implements IChartController {
   
   @observable
   ObservableFuture<List<int>> graphData;
 
-  HistoricalRepository historicalRepository = Modular.get();
+  final HistoricalRepository historicalRepository;
 
-  _WorldCasesControllerBase(){
+  _WorldCasesControllerBase(this.historicalRepository){
     fetchGraphData();
   }
 
   @action
   fetchGraphData(){
-    graphData = historicalRepository.getWorldHistorical().asObservable();
+    graphData = historicalRepository.getWorldHistoricalData().asObservable();
   }
 }

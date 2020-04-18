@@ -16,8 +16,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => CountryCasesController(Modular.get<HistoricalRepository>(), Modular.get<AppController>())),
-        Bind((i) => WorldCasesController()),
+        Bind((i) => CountryCasesController(
+            Modular.get<HistoricalRepository>(), Modular.get<AppController>())),
+        Bind((i) => WorldCasesController(Modular.get<HistoricalRepository>())),
         Bind((i) => StatesMapController(Modular.get<ICovidRepository>())),
         Bind((i) => HomeController()),
         Bind<ICovidRepository>(

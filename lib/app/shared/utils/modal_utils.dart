@@ -13,7 +13,6 @@ class ModalUtils {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
       builder: (context, scrollController) => Container(
-        //color: Colors.white,
         child: Container(
           height: 500,
           child: Column(
