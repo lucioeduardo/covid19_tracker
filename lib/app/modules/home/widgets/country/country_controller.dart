@@ -30,9 +30,7 @@ abstract class _CountryControllerBase with Store implements Disposable {
 
   @action
   fetchCountryInfo(){
-    print(appController.countryName);
     countryInfo = covidRepository.countryInfo(appController.countryName).asObservable();
-    print(appController.countryName+"1");
   }
 
   @override

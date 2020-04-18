@@ -5,7 +5,7 @@ import 'package:number_display/number_display.dart';
 
 class LineChartWidget extends StatefulWidget {
   final List<int> values;
-  
+
   LineChartWidget({Key key, @required this.values}) : super(key: key);
 
   @override
@@ -18,9 +18,9 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
   final display = createDisplay(length: 4);
   final DateFormat dateFormat = DateFormat("dd/MM");
-  
+
   @override
-  initState(){
+  initState() {
     super.initState();
     maxValue = widget.values[widget.values.length - 1];
     for (int i = 0; i < widget.values.length; i++) {
@@ -35,72 +35,92 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         .format(DateTime.now().subtract(Duration(days: lastDays - value)));
   }
 
+  HorizontalLine makeHorizontalLine(value) {
+    return HorizontalLine(
+        y: value,
+        color: Color(0x66ffffff),
+        strokeWidth: 1,
+        label: HorizontalLineLabel(
+            style: TextStyle(color: Colors.grey[300]),
+            labelResolver: (line) => display(line.y)));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final borderData = FlBorderData(
+        show: true, border: Border.all(color: Theme.of(context).accentColor));
+
+    final extraLinesData = ExtraLinesData(horizontalLines: [
+      makeHorizontalLine(widget.values[9].toDouble()),
+      makeHorizontalLine(widget.values[19].toDouble()),
+    ]);
+
+    final lineTouchData = LineTouchData(
+        enabled: true,
+        touchTooltipData: LineTouchTooltipData(
+            tooltipBgColor: Theme.of(context).primaryColorLight,
+            getTooltipItems: (spots) {
+              return spots
+                  .map((spot) => LineTooltipItem(
+                      "${getDateFormatted(spot.x.toInt())}: ${display(spot.y)}",
+                      TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColorDark)))
+                  .toList();
+            }));
+
+    final lineBarsData = [
+      LineChartBarData(
+        spots: chartData,
+        isCurved: true,
+        barWidth: 1.5,
+        colors: [
+          Colors.red[800],
+        ],
+        dotData: const FlDotData(
+          show: false,
+        ),
+      ),
+    ];
+
+    final titlesData = FlTitlesData(
+      bottomTitles: SideTitles(
+          showTitles: true,
+          textStyle: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).accentColor,
+              fontWeight: FontWeight.bold),
+          getTitles: (value) {
+            int valueInt = value.toInt() + 1;
+            if (valueInt % 10 == 0) {
+              return "${getDateFormatted(valueInt)}";
+            }
+            return '';
+          }),
+      leftTitles: SideTitles(
+        reservedSize: 30,
+        showTitles: true,
+        textStyle: TextStyle(color: Theme.of(context).accentColor),
+        interval: interval.toDouble(),
+        getTitles: (value) {
+          return '${display(value)}';
+        },
+      ),
+    );
+
     return LineChart(
       LineChartData(
-        borderData: FlBorderData(
-            show: true,
-            border: Border.all(color: Theme.of(context).accentColor)),
+        extraLinesData: extraLinesData,
+        borderData: borderData,
         backgroundColor: Theme.of(context).primaryColor,
         maxY: maxValue * 1.05,
-        lineTouchData: LineTouchData(
-            enabled: true,
-            touchTooltipData: LineTouchTooltipData(
-                tooltipBgColor: Theme.of(context).primaryColorLight,
-                getTooltipItems: (spots) {
-                  return spots
-                      .map((spot) => LineTooltipItem(
-                          "${getDateFormatted(spot.x.toInt())}: ${display(spot.y)}",
-                          TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).primaryColorDark)))
-                      .toList();
-                })),
-        lineBarsData: [
-          LineChartBarData(
-            spots: chartData,
-            isCurved: true,
-            barWidth: 1.5,
-            colors: [
-              Colors.red[800],
-            ],
-            dotData: FlDotData(
-              show: false,
-            ),
-          ),
-        ],
+        lineTouchData: lineTouchData,
+        lineBarsData: lineBarsData,
         minY: 0,
-        titlesData: FlTitlesData(
-          bottomTitles: SideTitles(
-              showTitles: true,
-              textStyle: TextStyle(
-                  fontSize: 14,
-                  color: Theme.of(context).accentColor,
-                  fontWeight: FontWeight.bold),
-              getTitles: (value) {
-                int valueInt = value.toInt() + 1;
-                if (valueInt % 10 == 0) {
-                  return "${getDateFormatted(valueInt)}";
-                }
-                return '';
-              }),
-          leftTitles: SideTitles(
-            reservedSize: 30,
-            showTitles: true,
-            textStyle: TextStyle(color: Theme.of(context).accentColor),
-            interval: interval.toDouble(),
-            getTitles: (value) {
-              return '${display(value)}';
-            },
-          ),
-        ),
-        gridData: FlGridData(
-          show: true,
-          checkToShowHorizontalLine: (double value) {
-            return value == widget.values[9] || value == widget.values[19];
-          },
+        titlesData: titlesData,
+        gridData: const FlGridData(
+          show: false,
         ),
       ),
     );

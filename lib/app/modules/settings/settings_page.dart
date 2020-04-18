@@ -107,7 +107,6 @@ class _SettingsPageState
                           appController.setCountry(text);
                           controller.cleanError('country_field');
                         } else {
-                          print("Error");
                           controller.addError(
                               'country_field', 'Select a valid country');
                           // changeCountriesAutoCompleteErrorMessage("teste");
