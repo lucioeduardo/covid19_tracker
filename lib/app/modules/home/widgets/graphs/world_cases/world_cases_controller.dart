@@ -1,5 +1,4 @@
 import 'package:corona_data/app/modules/home/repositories/historical_repository.dart';
-import 'package:corona_data/app/shared/models/historical_model.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -21,6 +20,6 @@ abstract class _WorldCasesControllerBase with Store {
 
   @action
   fetchGraphData(){
-    graphData = historicalRepository.getWorldHistorical(30).asObservable();
+    graphData = historicalRepository.getWorldHistorical().asObservable();
   }
 }

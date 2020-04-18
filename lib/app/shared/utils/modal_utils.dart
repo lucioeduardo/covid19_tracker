@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ModalUtils {
-  static void showModal(BuildContext context) {
+  static void showModal(BuildContext context, Widget graphWidget) {
     showMaterialModalBottomSheet(
       expand: false,
       isDismissible: true,
@@ -20,11 +20,7 @@ class ModalUtils {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                WorldCasesGraphWidget(),
-                Container(
-                  height: 10,
-                ),
-                Text("Número de casos no mundo ao longo dos últimos 30 dias", style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).accentColor),),
+                graphWidget,
               ],
             ),
           ),
