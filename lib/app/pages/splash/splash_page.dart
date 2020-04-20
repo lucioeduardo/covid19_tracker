@@ -1,5 +1,5 @@
 import 'package:corona_data/app/pages/splash/splash_controller.dart';
-import 'package:flare_flutter/flare_actor.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -21,11 +21,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
           child: Container(
             width: 200,
             height: 200,
-            child: FlareActor(
-                "assets/virus_loading.flr",
-                animation: "default",
-                fit:BoxFit.contain
-              ),
+            child: VirusCircularAnimation(animation:VirusAnimation.default_animation,fit:BoxFit.contain)
           ),
         ));
   }
