@@ -5,6 +5,8 @@ import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
+import 'package:corona_data/app/shared/widgets/virus_circular_animation.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -30,7 +32,11 @@ class _CountryWidgetState
         } else {
           InfoModel info = controller.countryInfo.value;
 
-          if (info == null) return Center(child: CircularProgressIndicator());
+          if (info == null) return Center(child: Container(
+            width: 150,
+            height: 150,
+            child: VirusCircularAnimation(VirusAnimation.rotation_fast,BoxFit.contain)
+          ),);
 
           return ListView(
             children: <Widget>[

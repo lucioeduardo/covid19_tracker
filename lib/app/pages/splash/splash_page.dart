@@ -22,7 +22,7 @@ class _SplashPageState extends ModularState<SplashPage, SplashController> {
             width: 200,
             height: 200,
             child: FlareActor(
-                "assets/virus_loading.flr",
+                "assets/animations/virus_loading.flr",
                 animation: "default",
                 fit:BoxFit.contain
               ),
