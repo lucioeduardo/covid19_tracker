@@ -46,9 +46,13 @@ class _HandleGraphWidgetState extends State<HandleGraphWidget> {
         );
       }
 
-      return Center(child: VirusCircularAnimation(
-                      animation: VirusAnimation.rotation_fast,
-                      fit: BoxFit.contain));
+      return Center(child: Container(
+        width: 80,
+        height: 80,
+        child: VirusCircularAnimation(
+                        animation: VirusAnimation.rotation_fast,
+                        fit: BoxFit.contain),
+      ));
             
     });
   }
