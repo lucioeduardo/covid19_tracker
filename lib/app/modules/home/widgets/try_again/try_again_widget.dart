@@ -1,3 +1,4 @@
+import 'package:corona_data/app/shared/widgets/animations/washing_hands_animation.dart';
 import 'package:flutter/material.dart';
 
 class TryAgainWidget extends StatelessWidget {
@@ -11,6 +12,7 @@ class TryAgainWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Container(width: 250,height: 250,child: WashingHandsAnimation(animation: WashingHandsAnimations.default_animation,fit: BoxFit.contain,)),
           Text(
             'Não foi possível acessar os dados.',
             style: TextStyle(
@@ -21,7 +23,8 @@ class TryAgainWidget extends StatelessWidget {
           ),
           FlatButton(
               onPressed: onPressed,
-              color: Theme.of(context).accentColor,
+              textColor: Theme.of(context).primaryColorDark,
+              color: Theme.of(context).primaryColorLight,
               child: Text('Tentar novamente')),
         ],
       ),

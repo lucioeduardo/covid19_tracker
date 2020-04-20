@@ -18,6 +18,7 @@ class CovidRepository extends Disposable implements ICovidRepository {
   }
 
   Future<InfoModel> countryInfo(String country) async {
+    
     var response =
         await dio.get("/countries/$country").timeout(Duration(seconds: 5));
 

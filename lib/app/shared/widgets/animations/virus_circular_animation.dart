@@ -22,7 +22,7 @@ class VirusCircularAnimation extends StatelessWidget {
     VirusAnimation.rotation_fast: "rotation_fast",
   };
 
-  VirusCircularAnimation(this.animation, this.fit);
+  VirusCircularAnimation({this.animation, this.fit});
 
   @override
   Widget build(BuildContext context) {
