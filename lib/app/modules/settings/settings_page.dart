@@ -48,8 +48,8 @@ class _SettingsPageState
           InputDecoration(
             errorText: null,
             labelText: "País",
-            labelStyle:
-                TextStyle(color: appController.theme.accentColor, fontSize: 16.0),
+            labelStyle: TextStyle(
+                color: appController.theme.accentColor, fontSize: 16.0),
           ),
           null,
           null,
@@ -141,7 +141,7 @@ class _SettingsPageState
                               'country_field', 'Select a valid country');
                         }
 
-                        return null;
+                        
                       },
                     ),
                     controller.formErrors.containsKey("country_field")
