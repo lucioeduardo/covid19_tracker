@@ -4,6 +4,7 @@ import 'package:corona_data/app/modules/home/repositories/covid_repository_inter
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_widget.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
@@ -41,7 +42,7 @@ main() {
     testWidgets("StatesMapWidget has map", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapWidget()));
 
-      final indicatorFinder = find.byType(CircularProgressIndicator);
+      final indicatorFinder = find.byType(VirusCircularAnimation);
 
       expect(indicatorFinder, findsOneWidget);
     });
@@ -78,7 +79,7 @@ main() {
 
       await tester.pump();
 
-      final indicatorFinder = find.byType(CircularProgressIndicator);
+      final indicatorFinder = find.byType(VirusCircularAnimation);
 
       expect(indicatorFinder, findsOneWidget);
     });

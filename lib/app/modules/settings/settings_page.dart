@@ -1,6 +1,7 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
+import 'package:corona_data/app/shared/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,6 +10,7 @@ import 'settings_controller.dart';
 
 class SettingsPage extends StatefulWidget {
   final String title;
+
   const SettingsPage({Key key, this.title = "Configurações"}) : super(key: key);
 
   @override
@@ -20,23 +22,31 @@ class _SettingsPageState
   //use 'controller' variable to access controller
 
   AppController appController = Modular.get();
+  SnackBarUtil snackbar;
   GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  
   final countryTextController = TextEditingController();
 
   List<String> countriesNames;
-
+  
   @override
   void initState() {
-    
     super.initState();
     countryTextController.text = appController.countryName;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
+    
   }
 
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColorDark,
+      
       appBar: AppBar(
         title: Text(
           widget.title,
@@ -69,6 +79,7 @@ class _SettingsPageState
                       color: Theme.of(context).accentColor, fontSize: 16),
                 ),
                 Observer(builder: (_) {
+                  
                   return Switch(
                       value: appController.themeDark,
                       onChanged: appController.setTheme);
@@ -76,7 +87,8 @@ class _SettingsPageState
               ],
             ),
           ),
-          Observer(builder: (_) {
+          Observer(builder: (context) {
+            snackbar = snackbar ?? SnackBarUtil(context);
             return Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Container(
@@ -106,6 +118,8 @@ class _SettingsPageState
                         if (countriesNames.indexOf(text) != -1) {
                           appController.setCountry(text);
                           controller.cleanError('country_field');
+
+                          snackbar.enqueueMessage('The default country has been changed!', SnackbarType.success);
                         } else {
                           controller.addError(
                               'country_field', 'Select a valid country');
@@ -116,7 +130,8 @@ class _SettingsPageState
                       },
                     ),
                     controller.formErrors.containsKey("country_field")
-                        ? CustomDividerError(controller.formErrors['country_field'])
+                        ? CustomDividerError(
+                            controller.formErrors['country_field'])
                         : Container()
                   ],
                 ),
@@ -145,7 +160,18 @@ class _SettingsPageState
 
   // }
 
-  
+  void showSnackBarMessage(BuildContext context,String message) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+              color: Colors.white),
+        ),
+        backgroundColor: Colors.green,
+        ));
+  }
 }
 
 class CustomDividerError extends StatelessWidget {

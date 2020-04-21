@@ -1,5 +1,6 @@
 import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -39,7 +40,13 @@ class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapContr
       Set<Marker> markers = controller.markers.value;
 
       if (markers == null) {
-        return Center(child: CircularProgressIndicator());
+        return Center(child: Container(
+          width: 150,
+          height: 150,
+          child: VirusCircularAnimation(
+                        animation: VirusAnimation.rotation_fast,
+                        fit: BoxFit.contain),
+        ));
       }
 
       return GoogleMap(

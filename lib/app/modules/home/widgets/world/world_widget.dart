@@ -4,6 +4,7 @@ import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -19,7 +20,6 @@ class WorldWidget extends StatefulWidget {
 }
 
 class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
@@ -27,7 +27,14 @@ class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
         return TryAgainWidget(onPressed: controller.fetchWorldInfo);
       } else {
         InfoModel info = controller.worldInfo.value;
-        if (info == null) return Center(child: CircularProgressIndicator());
+        if (info == null)
+          return Center(
+              child: Container(
+            width: 150,
+            height: 150,
+            child: VirusCircularAnimation(
+                animation: VirusAnimation.rotation_fast, fit: BoxFit.contain),
+          ));
 
         return ListView(
           children: <Widget>[
@@ -37,7 +44,8 @@ class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
               title: "Número de Casos",
               button: RoundedIconButton(
                 iconData: FontAwesomeIcons.chartBar,
-                onPressed: () => ModalUtils.showModal(context, WorldCasesGraphWidget()),
+                onPressed: () =>
+                    ModalUtils.showModal(context, WorldCasesGraphWidget()),
               ),
             ),
             Container(
