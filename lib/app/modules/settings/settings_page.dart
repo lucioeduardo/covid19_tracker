@@ -22,7 +22,7 @@ class _SettingsPageState
     extends ModularState<SettingsPage, SettingsController> {
   AppController appController = Modular.get();
 
-  GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
+  GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   SnackBarUtil snackbar;
 
@@ -38,24 +38,12 @@ class _SettingsPageState
   @override
   void initState() {
     super.initState();
-
+    
     disposer = reaction(
-        (_) => appController.countryName + appController.themeDark.toString(),
+        (_) => appController.countryName + appController.theme.toString(),
         (value) {
       snackbar.enqueueMessage(
           'Settings has been changed!', SnackbarType.success);
-      key.currentState.updateDecoration(
-          InputDecoration(
-            errorText: null,
-            labelText: "País",
-            labelStyle: TextStyle(
-                color: appController.theme.accentColor, fontSize: 16.0),
-          ),
-          null,
-          null,
-          TextStyle(color: appController.theme.accentColor),
-          null,
-          null);
     });
 
     countryTextController.text = appController.countryName;
@@ -64,6 +52,8 @@ class _SettingsPageState
 
   @override
   Widget build(BuildContext context) {
+    
+    key = GlobalKey();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColorDark,
@@ -140,8 +130,6 @@ class _SettingsPageState
                           controller.addError(
                               'country_field', 'Select a valid country');
                         }
-
-                        
                       },
                     ),
                     controller.formErrors.containsKey("country_field")
