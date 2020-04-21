@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
@@ -44,7 +46,7 @@ class _SettingsPageState
         (value) {
           print(appController.isChanged);
       snackbar.enqueueMessage(
-          'Settings has been changed!', SnackbarType.success);
+          message:'Settings has been changed!', type:SnackbarType.success, id: "SettingsForm");
     });
 
     countryTextController.text = appController.countryName;
