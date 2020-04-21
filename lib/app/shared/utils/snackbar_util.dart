@@ -5,17 +5,14 @@ import 'package:flutter/material.dart';
 class SnackBarUtil {
   final GlobalKey<ScaffoldState> context;
   final HashSet<String> _currentIds = HashSet<String>();
-  
-  SnackBarUtil(this.context) {
-    
-  }
+
+  SnackBarUtil(this.context);
 
   void enqueueMessage(
       {@required String message,
       @required Color color,
       Duration duration,
       String id}) {
-    print(_currentIds);
     if (_currentIds.add(id)) {
       context.currentState
           .showSnackBar(SnackBar(
