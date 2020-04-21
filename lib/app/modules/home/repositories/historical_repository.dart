@@ -19,8 +19,6 @@ class HistoricalRepository extends Disposable {
       });
     });
 
-    print(historicalData);
-
     return historicalData;
   }
 

@@ -86,8 +86,11 @@ main() {
       await tester.pumpWidget(buildTestableWidget(WorldWidget()));
 
       final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Pacientes recuperados');
-      expect(find.descendant(of: tileFinder, matching: find.text('10')),
+          find.widgetWithText(InfoTileWidget, 'Pacientes recuperados', skipOffstage: false);
+
+      expect(tileFinder, findsOneWidget);
+        
+      expect(find.descendant(of: tileFinder, matching: find.text('10', skipOffstage: false)),
           findsOneWidget);
     });
   });
