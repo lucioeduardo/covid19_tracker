@@ -46,7 +46,7 @@ class _SettingsPageState
         (value) {
           print(appController.isChanged);
       snackbar.enqueueMessage(
-          message:'Settings has been changed!', type:SnackbarType.success, id: "SettingsForm");
+          message:'Settings has been changed!', color:ThemeColors.success, id: "SettingsForm");
     });
 
     countryTextController.text = appController.countryName;
