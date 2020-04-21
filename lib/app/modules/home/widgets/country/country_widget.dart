@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CountryWidget extends StatefulWidget {
   final String title;
@@ -27,10 +28,7 @@ class _CountryWidgetState
     return Observer(
       builder: (BuildContext context) {
         if (controller.countryInfo.error != null) {
-          return 
-              TryAgainWidget(onPressed: controller.fetchCountryInfo);
-            
-          
+          return TryAgainWidget(onPressed: controller.fetchCountryInfo);
         } else {
           InfoModel info = controller.countryInfo.value;
 
@@ -46,15 +44,23 @@ class _CountryWidgetState
 
           return ListView(
             children: <Widget>[
+              RoundedIconButton(
+                iconData: FontAwesomeIcons.chartBar,
+                onPressed: () =>
+                    ModalUtils.showModal(context, CountryCasesGraphWidget()),
+              ),
+              Container(
+                height: 10,
+              ),
               InfoTileWidget(
                 number: "${info.cases}",
                 title: "Número de Casos",
                 todayNum: "${info.todayCases}",
-                button: RoundedIconButton(
-                  iconData: FontAwesomeIcons.chartBar,
-                  onPressed: () =>
-                      ModalUtils.showModal(context, CountryCasesGraphWidget()),
-                ),
+                // button: RoundedIconButton(
+                //   iconData: FontAwesomeIcons.chartBar,
+                //   onPressed: () =>
+                //       ModalUtils.showModal(context, CountryCasesGraphWidget()),
+                // ),
               ),
               Container(
                 height: 20,

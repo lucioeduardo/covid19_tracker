@@ -10,7 +10,7 @@ class CountryCasesController = _CountryCasesControllerBase
 
 abstract class _CountryCasesControllerBase with Store implements IChartController {
   @observable
-  ObservableFuture<List<int>> graphData;
+  ObservableFuture<Map<String, List<int>>> graphData;
 
   final HistoricalRepository historicalRepository;
   final AppController appController;

@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 
 abstract class IChartController{
-  ObservableFuture<List<int>> get graphData;
+  ObservableFuture<Map<String, List<int>>> get graphData;
   void fetchGraphData();
 }

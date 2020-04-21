@@ -11,7 +11,7 @@ class WorldCasesController = _WorldCasesControllerBase
 abstract class _WorldCasesControllerBase with Store implements IChartController {
   
   @observable
-  ObservableFuture<List<int>> graphData;
+  ObservableFuture<Map<String, List<int>>> graphData;
 
   final HistoricalRepository historicalRepository;
 

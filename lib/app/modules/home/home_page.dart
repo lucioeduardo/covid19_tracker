@@ -15,19 +15,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-
   final AppController appController = Modular.get();
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColorDark,
           appBar: AppBar(
             title: Text(
-              controller.title=='country' ? appController.countryName:controller.title,
+              controller.title == 'country'
+                  ? appController.countryName
+                  : controller.title,
               style: GoogleFonts.robotoSlab(
                 fontSize: 24,
                 letterSpacing: -1.9,
@@ -36,7 +36,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             actions: <Widget>[
-              IconButton(icon: Icon(FontAwesomeIcons.cog), onPressed: () => Modular.to.pushNamed("/settings"))
+              IconButton(
+                  icon: Icon(FontAwesomeIcons.cog),
+                  onPressed: () => Modular.to.pushNamed("/settings"))
             ],
             centerTitle: true,
           ),
