@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobx/mobx.dart';
 import 'settings_controller.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -19,34 +20,53 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState
     extends ModularState<SettingsPage, SettingsController> {
-  //use 'controller' variable to access controller
-
   AppController appController = Modular.get();
-  SnackBarUtil snackbar;
-  GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  
+  GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  SnackBarUtil snackbar;
+
+  ReactionDisposer disposer;
+
+  _SettingsPageState() {
+    this.snackbar = SnackBarUtil(_scaffoldKey);
+  }
   final countryTextController = TextEditingController();
 
   List<String> countriesNames;
-  
+
   @override
   void initState() {
     super.initState();
+
+    disposer = reaction(
+        (_) => appController.countryName + appController.themeDark.toString(),
+        (value) {
+      snackbar.enqueueMessage(
+          'Settings has been changed!', SnackbarType.success);
+      key.currentState.updateDecoration(
+          InputDecoration(
+            errorText: null,
+            labelText: "País",
+            labelStyle:
+                TextStyle(color: appController.theme.accentColor, fontSize: 16.0),
+          ),
+          null,
+          null,
+          TextStyle(color: appController.theme.accentColor),
+          null,
+          null);
+    });
+
     countryTextController.text = appController.countryName;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
-    
   }
 
-  
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColorDark,
-      
       appBar: AppBar(
         title: Text(
           widget.title,
@@ -79,7 +99,6 @@ class _SettingsPageState
                       color: Theme.of(context).accentColor, fontSize: 16),
                 ),
                 Observer(builder: (_) {
-                  
                   return Switch(
                       value: appController.themeDark,
                       onChanged: appController.setTheme);
@@ -88,7 +107,6 @@ class _SettingsPageState
             ),
           ),
           Observer(builder: (context) {
-            snackbar = snackbar ?? SnackBarUtil(context);
             return Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Container(
@@ -118,12 +136,9 @@ class _SettingsPageState
                         if (countriesNames.indexOf(text) != -1) {
                           appController.setCountry(text);
                           controller.cleanError('country_field');
-
-                          snackbar.enqueueMessage('The default country has been changed!', SnackbarType.success);
                         } else {
                           controller.addError(
                               'country_field', 'Select a valid country');
-                          // changeCountriesAutoCompleteErrorMessage("teste");
                         }
 
                         return null;
@@ -160,17 +175,10 @@ class _SettingsPageState
 
   // }
 
-  void showSnackBarMessage(BuildContext context,String message) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-              color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-        ));
+  @override
+  void dispose() {
+    super.dispose();
+    disposer();
   }
 }
 

@@ -15,14 +15,14 @@ const Map<SnackbarType,Color> SnackBarTypeColor = {
 };
 
 class SnackBarUtil{
-  final BuildContext context;
+  final GlobalKey<ScaffoldState> context;
   SnackBarUtil(this.context){
     print("snackutil");
   }
 
   void enqueueMessage(String message, SnackbarType type){
     
-    Scaffold.of(context).showSnackBar(SnackBar(
+    context.currentState.showSnackBar(SnackBar(
         content: Text(
           message,
           style: TextStyle(
