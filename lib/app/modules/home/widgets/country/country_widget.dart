@@ -46,6 +46,7 @@ class _CountryWidgetState
 
           return ListView(
             children: <Widget>[
+              Container(height:10),
               InfoTileWidget(
                 number: "${info.cases}",
                 title: "Número de Casos",

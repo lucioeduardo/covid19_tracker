@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 
 class LineChartWidget extends StatefulWidget {
-  final List<int> values;
+  final Map<String, List<int>> values;
 
   LineChartWidget({Key key, @required this.values}) : super(key: key);
 
@@ -13,7 +15,7 @@ class LineChartWidget extends StatefulWidget {
 }
 
 class _LineChartWidgetState extends State<LineChartWidget> {
-  List<FlSpot> chartData = [];
+  List<FlSpot> cases = [], deaths = [], recovered = [];
   int maxValue, interval, lastDays;
 
   final display = createDisplay(length: 4);
@@ -22,17 +24,26 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   @override
   initState() {
     super.initState();
-    maxValue = widget.values[widget.values.length - 1];
-    for (int i = 0; i < widget.values.length; i++) {
-      chartData.add(FlSpot(i.toDouble(), (widget.values[i]).toDouble()));
+    final int length = widget.values['cases'].length;
+
+    maxValue = max(
+        widget.values['cases'][length - 1],
+        max(widget.values['deaths'][length - 1],
+            widget.values['recovered'][length - 1]));
+
+    for (int i = 0; i < length; i++) {
+      cases.add(FlSpot(i.toDouble(), (widget.values['cases'][i]).toDouble()));
+      deaths.add(FlSpot(i.toDouble(), (widget.values['deaths'][i]).toDouble()));
+      recovered.add(
+          FlSpot(i.toDouble(), (widget.values['recovered'][i]).toDouble()));
     }
     interval = maxValue ~/ 4;
     lastDays = widget.values.length;
   }
 
   String getDateFormatted(value) {
-    return dateFormat
-        .format(DateTime.now().toUtc().subtract(Duration(days: lastDays - value + 1)));
+    return dateFormat.format(
+        DateTime.now().toUtc().subtract(Duration(days: lastDays - value + 1)));
   }
 
   HorizontalLine makeHorizontalLine(value) {
@@ -41,7 +52,8 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         color: Theme.of(context).accentColor.withAlpha(70),
         strokeWidth: 1,
         label: HorizontalLineLabel(
-            style: TextStyle(color: Theme.of(context).accentColor.withAlpha(200)),
+            style:
+                TextStyle(color: Theme.of(context).accentColor.withAlpha(200)),
             labelResolver: (line) => display(line.y)));
   }
 
@@ -51,9 +63,9 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         show: true, border: Border.all(color: Theme.of(context).accentColor));
 
     final extraLinesData = ExtraLinesData(horizontalLines: [
-      makeHorizontalLine(widget.values[0].toDouble()),
-      makeHorizontalLine(widget.values[9].toDouble()),
-      makeHorizontalLine(widget.values[19].toDouble()),
+      makeHorizontalLine(widget.values['cases'][0].toDouble()),
+      makeHorizontalLine(widget.values['cases'][9].toDouble()),
+      makeHorizontalLine(widget.values['cases'][19].toDouble()),
     ]);
 
     final lineTouchData = LineTouchData(
@@ -61,23 +73,46 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         touchTooltipData: LineTouchTooltipData(
             tooltipBgColor: Theme.of(context).primaryColorLight,
             getTooltipItems: (spots) {
+
               return spots
                   .map((spot) => LineTooltipItem(
-                      "${getDateFormatted(spot.x.toInt()+1)}: ${display(spot.y)}",
+                      "${display(spot.y)}",
                       TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColorDark)))
+                          color: spot.bar.colors[0])))
                   .toList();
             }));
 
     final lineBarsData = [
       LineChartBarData(
-        spots: chartData,
+        spots: cases,
         isCurved: true,
         barWidth: 1.5,
         colors: [
           Colors.red[800],
+        ],
+        dotData: const FlDotData(
+          show: false,
+        ),
+      ),
+      LineChartBarData(
+        spots: deaths,
+        isCurved: true,
+        barWidth: 1.5,
+        colors: [
+          Colors.black,
+        ],
+        dotData: const FlDotData(
+          show: false,
+        ),
+      ),
+      LineChartBarData(
+        spots: recovered,
+        isCurved: true,
+        barWidth: 1.5,
+        colors: [
+          Colors.green[800],
         ],
         dotData: const FlDotData(
           show: false,

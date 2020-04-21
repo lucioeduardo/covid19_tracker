@@ -12,14 +12,14 @@ mixin _$CountryCasesController on _CountryCasesControllerBase, Store {
   final _$graphDataAtom = Atom(name: '_CountryCasesControllerBase.graphData');
 
   @override
-  ObservableFuture<List<int>> get graphData {
+  ObservableFuture<Map<String, List<int>>> get graphData {
     _$graphDataAtom.context.enforceReadPolicy(_$graphDataAtom);
     _$graphDataAtom.reportObserved();
     return super.graphData;
   }
 
   @override
-  set graphData(ObservableFuture<List<int>> value) {
+  set graphData(ObservableFuture<Map<String, List<int>>> value) {
     _$graphDataAtom.context.conditionallyRunInAction(() {
       super.graphData = value;
       _$graphDataAtom.reportChanged();
