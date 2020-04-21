@@ -14,6 +14,11 @@ mixin _$AppController on _AppControllerBase, Store {
   @override
   ThemeData get theme =>
       (_$themeComputed ??= Computed<ThemeData>(() => super.theme)).value;
+  Computed<int> _$isChangedComputed;
+
+  @override
+  int get isChanged =>
+      (_$isChangedComputed ??= Computed<int>(() => super.isChanged)).value;
 
   final _$themeDarkAtom = Atom(name: '_AppControllerBase.themeDark');
 
@@ -85,7 +90,7 @@ mixin _$AppController on _AppControllerBase, Store {
   @override
   String toString() {
     final string =
-        'themeDark: ${themeDark.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()}';
+        'themeDark: ${themeDark.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isChanged: ${isChanged.toString()}';
     return '{$string}';
   }
 }

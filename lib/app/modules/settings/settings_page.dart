@@ -40,8 +40,9 @@ class _SettingsPageState
     super.initState();
     
     disposer = reaction(
-        (_) => appController.countryName + appController.theme.toString(),
+        (_) => appController.isChanged,
         (value) {
+          print(appController.isChanged);
       snackbar.enqueueMessage(
           'Settings has been changed!', SnackbarType.success);
     });
