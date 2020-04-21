@@ -1,6 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 const String BASE_URL = "https://corona.lmao.ninja/v2";
+
+class ThemeColors{
+  const ThemeColors._();
+  static const Color success = Colors.green;
+  static const Color error = Colors.red;
+  static const Color warning = Colors.orange;
+  static const Color info = Colors.blue;
+}
 
 const Map stateCoords = {
 	'AC': LatLng(-8.77, -70.55),
