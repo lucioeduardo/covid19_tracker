@@ -15,7 +15,7 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   void initState() {
     super.initState();
-    reaction((_) => controller.theme, (_) =>  (setState((){})));
+    reaction((_) => controller.globalSettingsController.theme, (_) =>  (setState((){})));
   }
 
   @override
@@ -23,7 +23,7 @@ class _AppWidgetState extends State<AppWidget> {
     return MaterialApp(
       navigatorKey: Modular.navigatorKey,
       title: 'Flutter Slidy',
-      theme: controller.theme,
+      theme: controller.globalSettingsController.theme,
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
     );
