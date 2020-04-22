@@ -1,37 +1,36 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 
-enum SnackbarType{
-  success,
-  error,
-  warning,
-  info
-}
+class SnackBarUtil {
+  final GlobalKey<ScaffoldState> context;
+  final HashSet<String> _currentIds = HashSet<String>();
 
-const Map<SnackbarType,Color> SnackBarTypeColor = {
-  SnackbarType.success:Colors.green,
-  SnackbarType.error:Colors.red,
-  SnackbarType.warning:Colors.orange,
-  SnackbarType.info:Colors.blue,
-};
+  SnackBarUtil(this.context);
 
-class SnackBarUtil{
-  final BuildContext context;
-  SnackBarUtil(this.context){
-    print("snackutil");
-  }
-
-  void enqueueMessage(String message, SnackbarType type){
-    
-    Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-              color: Colors.white),
-        ),
-        backgroundColor: SnackBarTypeColor[type],
-        ));
-  
+  void enqueueMessage(
+      {@required String message,
+      @required Color color,
+      Duration duration,
+      String id}) {
+    if (_currentIds.add(id)) {
+      context.currentState
+          .showSnackBar(SnackBar(
+            duration: duration ?? Duration(seconds: 3),
+            content: Text(
+              message,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                  color: Colors.white),
+            ),
+            backgroundColor: color,
+          ))
+          .closed
+          .then((SnackBarClosedReason reason) {
+        _currentIds.remove(id);
+        print(_currentIds);
+      });
+    }
   }
 }

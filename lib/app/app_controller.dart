@@ -17,6 +17,9 @@ abstract class _AppControllerBase with Store {
   @computed
   ThemeData get theme => themeDark ? _themeDark : _themeLight;
 
+  @computed
+  int get isChanged => (countryName + themeDark.toString()).hashCode;
+
   final ILocalStorage localStorage = Modular.get();
 
   @action
@@ -44,6 +47,7 @@ abstract class _AppControllerBase with Store {
     primaryColorLight: Color(0xff83867e),
     primaryColorDark: Color(0xffEBE9E7),
     accentColor: Color(0xff231F1C),
+    
   );
 
   final ThemeData _themeDark = ThemeData(

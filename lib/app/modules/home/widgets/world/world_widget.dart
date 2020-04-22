@@ -38,15 +38,16 @@ class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
 
         return ListView(
           children: <Widget>[
+            RoundedIconButton(
+              iconData: FontAwesomeIcons.chartBar,
+              onPressed: () =>
+                  ModalUtils.showModal(context, WorldCasesGraphWidget()),
+            ),
+            Container(height: 10,),
             InfoTileWidget(
               number: "${info.cases}",
               todayNum: "${info.todayCases}",
               title: "Número de Casos",
-              button: RoundedIconButton(
-                iconData: FontAwesomeIcons.chartBar,
-                onPressed: () =>
-                    ModalUtils.showModal(context, WorldCasesGraphWidget()),
-              ),
             ),
             Container(
               height: 20,

@@ -1,18 +1,15 @@
-import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InfoTileWidget extends StatelessWidget {
   final String title, number, todayNum;
-  final RoundedIconButton button;
 
   const InfoTileWidget(
       {Key key,
       @required this.title,
       @required this.number,
       this.todayNum,
-      this.button})
+      })
       : super(key: key);
 
   @override
@@ -56,9 +53,7 @@ class InfoTileWidget extends StatelessWidget {
                 ],
               )
             ],
-          ),
-          button ?? Container(),
-          
+          ),          
         ],
       ),
     );
