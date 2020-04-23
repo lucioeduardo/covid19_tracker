@@ -22,7 +22,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
     return Observer(
       builder: (BuildContext context) {
-        print(appController.globalSettingsController);
+        
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColorDark,
           appBar: AppBar(

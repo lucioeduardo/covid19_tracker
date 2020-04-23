@@ -4,42 +4,47 @@ import 'package:corona_data/app/modules/home/repositories/covid_repository_inter
 import 'package:corona_data/app/modules/home/repositories/local_storage_interface.dart';
 import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';
 import 'package:corona_data/app/modules/home/widgets/country/country_widget.dart';
+import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
+import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/mockito.dart';
 
 class CovidRepositoryMock extends Mock implements ICovidRepository {}
+
 class LocalStorageMock extends Mock implements ILocalStorage {}
 
 main() {
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
   LocalStorageMock localStorageMock = LocalStorageMock();
 
-  initModule(AppModule(),changeBinds: [
-    
+  initModule(AppModule(), changeBinds: [
     Bind<ILocalStorage>((i) => localStorageMock),
   ]);
-  
+
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
-    
   ]);
 
-  
   when(covidRepositoryMock.countryInfo("Brazil"))
       .thenAnswer((_) async => Future.value(null));
+  when(localStorageMock.isThemeDark())
+      .thenAnswer((_) async => Future<bool>.value(true));
   when(localStorageMock.getCountry())
       .thenAnswer((_) async => Future.value("Brazil"));
 
-  
-
   CountryController controller;
+  GlobalSettingsController globalSettingsController;
+  setUp(() async {
+    globalSettingsController = Modular.get<GlobalSettingsController>();
+    globalSettingsController.init();
 
-  setUp(() {
+    await mobx.asyncWhen((_) => globalSettingsController.isReady);
+
     controller = Modular.get<CountryController>();
   });
 
@@ -99,12 +104,16 @@ main() {
 
   group('CountryWidget Request Error', () {
     setUp(() {
-      when(covidRepositoryMock.countryInfo('Brazil')).thenAnswer((_) async => throw 'E');
+      when(covidRepositoryMock.countryInfo('Brazil'))
+          .thenAnswer((_) async => throw 'E');
       controller.fetchCountryInfo();
     });
     testWidgets("Simulating error", (WidgetTester tester) async {
-      when(covidRepositoryMock.countryInfo('Brazil')).thenAnswer((_) async => throw 'E');
-      await tester.pumpWidget(buildTestableWidget(CountryWidget(title: 'Brazil',)));
+      when(covidRepositoryMock.countryInfo('Brazil'))
+          .thenAnswer((_) async => throw 'E');
+      await tester.pumpWidget(buildTestableWidget(CountryWidget(
+        title: 'Brazil',
+      )));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);

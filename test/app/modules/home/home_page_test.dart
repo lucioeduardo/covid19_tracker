@@ -13,24 +13,19 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 
 import 'package:corona_data/app/modules/home/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mobx/mobx.dart' hide when;
 import 'package:mockito/mockito.dart';
-
+import 'package:mobx/mobx.dart' as mobx;
 class CovidRepositoryMock extends Mock implements ICovidRepository {}
 class GlobalSettingsControllerMock extends Mock implements GlobalSettingsController {}
 class LocalStorageMock extends Mock implements ILocalStorage {}
 
 main() {
-  // TestWidgetsFlutterBinding.ensureInitialized();
-  GlobalSettingsControllerMock globalSettingsControllerMock = GlobalSettingsControllerMock();
   LocalStorageMock localStorageMock = LocalStorageMock();
 
-  when(globalSettingsControllerMock.countryName).thenAnswer((_) => ObservableFuture.value("Brazil"));
-  when(globalSettingsControllerMock.themeDark).thenAnswer((_) => ObservableFuture<bool>.value(true));
   when(localStorageMock.getCountry()).thenAnswer((_) async=> Future.value("Brazil"));
   when(localStorageMock.isThemeDark()).thenAnswer((_) async=> Future<bool>.value(true));
   initModule(AppModule(), changeBinds: [
-    Bind<GlobalSettingsController>((i)=>globalSettingsControllerMock),
+    // Bind<GlobalSettingsController>((i)=>globalSettingsControllerMock),
     Bind<ILocalStorage>((i)=>localStorageMock),
   ]);
 
@@ -44,8 +39,16 @@ main() {
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);
+
+  GlobalSettingsController globalSettingsController;
+
+  setUp(() {
+    globalSettingsController = Modular.get<GlobalSettingsController>();
+    globalSettingsController.init();
+  });
   
   testWidgets('HomePage - Brasil selected', (WidgetTester tester) async {
+    
     await tester.pumpWidget(buildTestableWidget(HomePage()));
 
     final titleFinder = find.widgetWithText(AppBar, 'Brazil');
