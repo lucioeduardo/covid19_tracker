@@ -19,14 +19,16 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
+
     return Observer(
       builder: (BuildContext context) {
+        
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColorDark,
           appBar: AppBar(
             title: Text(
               controller.title == 'country'
-                  ? appController.countryName
+                  ? appController.globalSettingsController.countryName.value
                   : controller.title,
               style: GoogleFonts.robotoSlab(
                 fontSize: 24,
@@ -48,7 +50,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(BrazilIcon.emojione_monotone_flag_for_flag_brazil),
-                title: Text(appController.countryName),
+                title: Text(appController.globalSettingsController.countryName.value),
               ),
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.globe),

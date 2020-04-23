@@ -20,8 +20,7 @@ abstract class _CountryControllerBase with Store implements Disposable {
     
     
     fetchCountryInfo();
-    disposer=reaction((_)=>appController.countryName,(_){
-      
+    disposer=reaction((_)=>appController.globalSettingsController.countryName.value,(_){
       fetchCountryInfo();
     }
 
@@ -30,7 +29,7 @@ abstract class _CountryControllerBase with Store implements Disposable {
 
   @action
   fetchCountryInfo(){
-    countryInfo = covidRepository.countryInfo(appController.countryName).asObservable();
+    countryInfo = covidRepository.countryInfo(appController.globalSettingsController.countryName.value).asObservable();
   }
 
   @override

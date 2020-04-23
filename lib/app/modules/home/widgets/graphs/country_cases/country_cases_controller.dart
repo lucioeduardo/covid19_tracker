@@ -21,6 +21,6 @@ abstract class _CountryCasesControllerBase with Store implements IChartControlle
 
   @action
   fetchGraphData(){
-    graphData = historicalRepository.getCountryHistoricalData(appController.countryName).asObservable();
+    graphData = historicalRepository.getCountryHistoricalData(appController.globalSettingsController.countryName.value).asObservable();
   }
 }

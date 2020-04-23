@@ -1,3 +1,4 @@
+import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/pages/splash/splash_controller.dart';
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
@@ -16,9 +17,8 @@ class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         Bind((i) => SplashController()),
-        Bind(
-          (i) => AppController(),
-        ),
+        Bind((i) => GlobalSettingsController()),
+        Bind((i) => AppController()),
         Bind(
           (i) => Dio(BaseOptions(baseUrl: BASE_URL)),
         ),

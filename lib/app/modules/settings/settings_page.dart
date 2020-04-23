@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
@@ -42,14 +40,14 @@ class _SettingsPageState
     super.initState();
     
     disposer = reaction(
-        (_) => appController.isChanged,
+        (_) => appController.globalSettingsController.isChanged,
         (value) {
-          print(appController.isChanged);
+          print(appController.globalSettingsController.isChanged);
       snackbar.enqueueMessage(
           message:'Settings has been changed!', color:ThemeColors.success, id: "SettingsForm");
     });
 
-    countryTextController.text = appController.countryName;
+    countryTextController.text = appController.globalSettingsController.countryName.value;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
   }
 
@@ -93,8 +91,8 @@ class _SettingsPageState
                 ),
                 Observer(builder: (_) {
                   return Switch(
-                      value: appController.themeDark,
-                      onChanged: appController.setTheme);
+                      value: appController.globalSettingsController.themeDark.value,
+                      onChanged: appController.globalSettingsController.setTheme);
                 }),
               ],
             ),
@@ -127,7 +125,7 @@ class _SettingsPageState
                       clearOnSubmit: false,
                       textSubmitted: (text) {
                         if (countriesNames.indexOf(text) != -1) {
-                          appController.setCountry(text);
+                          appController.globalSettingsController.setCountry(text);
                           controller.cleanError('country_field');
                         } else {
                           controller.addError(
