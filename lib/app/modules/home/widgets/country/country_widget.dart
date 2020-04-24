@@ -1,17 +1,16 @@
+import 'package:corona_data/app/modules/charts/charts_module.dart';
+import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/country/country_controller.dart';
-import 'package:corona_data/app/modules/home/widgets/graphs/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
-import 'package:corona_data/app/shared/widgets/animations/washing_hands_animation.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CountryWidget extends StatefulWidget {
   final String title;
@@ -47,7 +46,7 @@ class _CountryWidgetState
               RoundedIconButton(
                 iconData: FontAwesomeIcons.chartBar,
                 onPressed: () =>
-                    ModalUtils.showModal(context, CountryCasesGraphWidget()),
+                    ModalUtils.showModal(context, ChartsModule(CountryCasesGraphWidget())),
               ),
               Container(
                 height: 10,

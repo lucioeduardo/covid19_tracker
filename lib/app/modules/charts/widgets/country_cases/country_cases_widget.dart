@@ -1,7 +1,8 @@
-import 'package:corona_data/app/modules/home/widgets/graphs/country_cases/country_cases_controller.dart';
-import 'package:corona_data/app/modules/home/widgets/graphs/handle_graph_widget.dart';
+import 'package:corona_data/app/modules/charts/charts_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import 'country_cases_controller.dart';
 
 class CountryCasesGraphWidget extends StatefulWidget {
   @override
@@ -13,6 +14,6 @@ class _CountryCasesGraphWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return HandleGraphWidget(controller: controller);
+    return ChartsPage(controller: controller);
   }
 }

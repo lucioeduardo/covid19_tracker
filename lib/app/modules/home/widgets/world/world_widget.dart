@@ -1,4 +1,5 @@
-import 'package:corona_data/app/modules/home/widgets/graphs/world_cases/world_cases_widget.dart';
+import 'package:corona_data/app/modules/charts/charts_module.dart';
+import 'package:corona_data/app/modules/charts/widgets/world_cases/world_cases_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart';
 import 'package:corona_data/app/shared/info_tile_widget.dart';
@@ -41,7 +42,7 @@ class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
             RoundedIconButton(
               iconData: FontAwesomeIcons.chartBar,
               onPressed: () =>
-                  ModalUtils.showModal(context, WorldCasesGraphWidget()),
+                  ModalUtils.showModal(context, ChartsModule(WorldCasesGraphWidget())),
             ),
             Container(height: 10,),
             InfoTileWidget(

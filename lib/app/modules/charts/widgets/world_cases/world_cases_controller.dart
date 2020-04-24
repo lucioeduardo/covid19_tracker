@@ -1,7 +1,7 @@
-import 'package:corona_data/app/modules/home/repositories/historical_repository.dart';
+import 'package:corona_data/app/modules/charts/interfaces/chart_controller_interface.dart';
+import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
 import 'package:mobx/mobx.dart';
 
-import '../chart_controller_interface.dart';
 
 part 'world_cases_controller.g.dart';
 
@@ -16,6 +16,7 @@ abstract class _WorldCasesControllerBase with Store implements IChartController 
   final HistoricalRepository historicalRepository;
 
   _WorldCasesControllerBase(this.historicalRepository){
+    print("W---");
     fetchGraphData();
   }
 

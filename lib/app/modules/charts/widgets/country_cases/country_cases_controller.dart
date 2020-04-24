@@ -1,6 +1,6 @@
 import 'package:corona_data/app/app_controller.dart';
-import 'package:corona_data/app/modules/home/repositories/historical_repository.dart';
-import 'package:corona_data/app/modules/home/widgets/graphs/chart_controller_interface.dart';
+import 'package:corona_data/app/modules/charts/interfaces/chart_controller_interface.dart';
+import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
 import 'package:mobx/mobx.dart';
 
 part 'country_cases_controller.g.dart';

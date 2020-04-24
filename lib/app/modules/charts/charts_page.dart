@@ -1,23 +1,24 @@
-import 'package:corona_data/app/modules/home/widgets/graphs/caption_widget.dart';
-import 'package:corona_data/app/modules/home/widgets/graphs/line_chart_widget.dart';
+import 'package:corona_data/app/modules/charts/widgets/caption_widget.dart';
+import 'package:corona_data/app/modules/charts/widgets/line_chart_widget.dart';
 import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'chart_controller_interface.dart';
+import 'interfaces/chart_controller_interface.dart';
 
-class HandleGraphWidget extends StatefulWidget {
+
+class ChartsPage extends StatefulWidget {
   final IChartController controller;
 
-  const HandleGraphWidget({Key key, @required this.controller})
+  const ChartsPage({Key key, @required this.controller})
       : super(key: key);
 
   @override
-  _HandleGraphWidgetState createState() => _HandleGraphWidgetState();
+  _ChartsPageState createState() => _ChartsPageState();
 }
 
-class _HandleGraphWidgetState extends State<HandleGraphWidget> {
+class _ChartsPageState extends State<ChartsPage> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
