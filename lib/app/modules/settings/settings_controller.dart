@@ -1,5 +1,3 @@
-import 'package:corona_data/app/modules/home/repositories/local_storage_interface.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
+import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/utils/markers_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

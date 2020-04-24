@@ -1,26 +1,27 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/world_cases/world_cases_widget.dart';
-import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
-import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart';
-import 'package:corona_data/app/shared/info_tile_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
+import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
+import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class WorldWidget extends StatefulWidget {
+import 'world_controller.dart';
+
+class WorldPage extends StatefulWidget {
   final String title;
-  const WorldWidget({Key key, this.title = "World"}) : super(key: key);
+  const WorldPage({Key key, this.title = "World"}) : super(key: key);
 
   @override
-  _WorldWidgetState createState() => _WorldWidgetState();
+  _WorldPageState createState() => _WorldPageState();
 }
 
-class _WorldWidgetState extends ModularState<WorldWidget, WorldController> {
+class _WorldPageState extends ModularState<WorldPage, WorldController> {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {

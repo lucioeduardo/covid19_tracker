@@ -1,21 +1,22 @@
-import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
-import 'package:corona_data/app/modules/home/widgets/try_again/try_again_widget.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
+import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
-class StatesMapWidget extends StatefulWidget {
+import 'states_map_controller.dart';
+
+class StatesMapPage extends StatefulWidget {
   final String title;
-  const StatesMapWidget({Key key, this.title = "StatesMap"}) : super(key: key);
+  const StatesMapPage({Key key, this.title = "StatesMap"}) : super(key: key);
 
   @override
-  _StatesMapWidgetState createState() => _StatesMapWidgetState();
+  _StatesMapPageState createState() => _StatesMapPageState();
 }
 
-class _StatesMapWidgetState extends ModularState<StatesMapWidget, StatesMapController> {
+class _StatesMapPageState extends ModularState<StatesMapPage, StatesMapController> {
   BitmapDescriptor customIcon;
 
   Completer<GoogleMapController> _controller = Completer();

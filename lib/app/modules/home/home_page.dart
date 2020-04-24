@@ -1,6 +1,6 @@
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_controller.dart';
-import 'package:corona_data/app/shared/brazil_icon_icons.dart';
+import 'package:corona_data/app/shared/widgets/brazil_icon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';

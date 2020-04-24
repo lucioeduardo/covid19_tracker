@@ -38,10 +38,12 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           FlSpot(i.toDouble(), (widget.values['recovered'][i]).toDouble()));
     }
     interval = maxValue ~/ 4;
-    lastDays = widget.values.length;
+    lastDays = widget.values['cases'].length;
   }
 
   String getDateFormatted(value) {
+    print(DateTime.now().toUtc().subtract(Duration(days: 3)).toString() + " ${lastDays - value + 1} " + value.toString());
+
     return dateFormat.format(
         DateTime.now().toUtc().subtract(Duration(days: lastDays - value + 1)));
   }

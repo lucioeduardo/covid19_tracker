@@ -1,5 +1,5 @@
-import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:mobx/mobx.dart';
 
 part 'world_controller.g.dart';

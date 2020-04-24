@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:corona_data/app/modules/home/repositories/local_storage_interface.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'local_storage_interface.dart';
 
 
 class LocalStorageHive implements ILocalStorage{
