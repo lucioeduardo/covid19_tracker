@@ -1,11 +1,8 @@
-import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:corona_data/app/modules/charts/charts_controller.dart';
-import 'package:corona_data/app/modules/charts/charts_module.dart';
 
 void main() {
-  initModule(ChartsModule());
+  //initModule(ChartsModule());
   // ChartsController charts;
   //
   setUp(() {
