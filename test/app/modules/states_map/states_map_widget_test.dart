@@ -1,9 +1,10 @@
 import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
-import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/modules/home/widgets/states_map/states_map_controller.dart';
-import 'package:corona_data/app/modules/home/widgets/states_map/states_map_widget.dart';
+import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
+import 'package:corona_data/app/modules/states_map/states_map_module.dart';
+import 'package:corona_data/app/modules/states_map/states_map_page.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
+import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -24,13 +25,15 @@ main() {
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);
 
+  initModule(StatesMapModule());
+
   StatesMapController controller;
 
   setUp(() {
     controller = Modular.get<StatesMapController>();
   });
 
-  group('StatesMapWidget - Request Success', () {
+  group('StatesMapPage - Request Success', () {
     setUp(() {
       when(covidRepositoryMock.getStatesInfo()).thenAnswer((_) => Future.value([
             StateModel(confirmed: 10, deaths: 2, state: 'AL'),
@@ -39,8 +42,8 @@ main() {
       controller.fetchMarkers();
     });
 
-    testWidgets("StatesMapWidget has map", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(StatesMapWidget()));
+    testWidgets("StatesMapPage has map", (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
 
       final indicatorFinder = find.byType(VirusCircularAnimation);
 
@@ -48,14 +51,14 @@ main() {
     });
   });
 
-  group('StatesMapWidget Request Error', () {
+  group('StatesMapPage Request Error', () {
     setUp(() {
       when(covidRepositoryMock.getStatesInfo())
           .thenAnswer((_) async => throw 'E');
       controller.fetchMarkers();
     });
     testWidgets("Simulating error", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(StatesMapWidget()));
+      await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
@@ -64,7 +67,7 @@ main() {
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(StatesMapWidget()));
+      await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
