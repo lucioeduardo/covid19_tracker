@@ -1,10 +1,11 @@
 import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
-import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/modules/home/widgets/world/world_controller.dart';
-import 'package:corona_data/app/modules/home/widgets/world/world_widget.dart';
-import 'package:corona_data/app/shared/info_tile_widget.dart';
+import 'package:corona_data/app/modules/world/world_controller.dart';
+import 'package:corona_data/app/modules/world/world_module.dart';
+import 'package:corona_data/app/modules/world/world_page.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
+import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,13 +25,15 @@ main() {
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);
 
+  initModule(WorldModule());
+
   WorldController controller;
 
   setUp(() {
     controller = Modular.get<WorldController>();
   });
 
-  group('WorldWidget Requests', () {
+  group('WorldPage Requests', () {
     setUp(() {
       when(covidRepositoryMock.worldInfo()).thenAnswer((_) async =>
           Future.value(InfoModel(
@@ -44,8 +47,8 @@ main() {
       controller.fetchWorldInfo();
     });
 
-    testWidgets('WorldWidget - cases', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldWidget()));
+    testWidgets('WorldPage - cases', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(WorldPage()));
 
       final tileFinder = find.widgetWithText(InfoTileWidget, 'Número de Casos');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
@@ -54,8 +57,8 @@ main() {
           findsOneWidget);
     });
 
-    testWidgets('WorldWidget - deaths', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldWidget()));
+    testWidgets('WorldPage - deaths', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(WorldPage()));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Número de Mortes');
@@ -65,16 +68,17 @@ main() {
           findsOneWidget);
     });
 
-    testWidgets('WorldWidget - affected countries', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldWidget()));
+    testWidgets('WorldPage - affected countries', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(WorldPage()));
 
-      final tileFinder = find.widgetWithText(InfoTileWidget, 'Número de países afetados');
+      final tileFinder =
+          find.widgetWithText(InfoTileWidget, 'Número de países afetados');
       expect(find.descendant(of: tileFinder, matching: find.text('300')),
           findsOneWidget);
     });
 
-    testWidgets('WorldWidget - critical', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldWidget()));
+    testWidgets('WorldPage - critical', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(WorldPage()));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Pacientes em estado grave');
@@ -82,26 +86,29 @@ main() {
           findsOneWidget);
     });
 
-    testWidgets('WorldWidget - recovered', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldWidget()));
+    testWidgets('WorldPage - recovered', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(WorldPage()));
 
-      final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Pacientes recuperados', skipOffstage: false);
+      final tileFinder = find.widgetWithText(
+          InfoTileWidget, 'Pacientes recuperados',
+          skipOffstage: false);
 
       expect(tileFinder, findsOneWidget);
-        
-      expect(find.descendant(of: tileFinder, matching: find.text('10', skipOffstage: false)),
+
+      expect(
+          find.descendant(
+              of: tileFinder, matching: find.text('10', skipOffstage: false)),
           findsOneWidget);
     });
   });
 
-  group('WorldWidget Request Error', () {
+  group('WorldPage Request Error', () {
     setUp(() {
       when(covidRepositoryMock.worldInfo()).thenAnswer((_) async => throw 'E');
       controller.fetchWorldInfo();
     });
     testWidgets("Simulating error", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldWidget()));
+      await tester.pumpWidget(buildTestableWidget(WorldPage()));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
@@ -110,7 +117,7 @@ main() {
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldWidget()));
+      await tester.pumpWidget(buildTestableWidget(WorldPage()));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
