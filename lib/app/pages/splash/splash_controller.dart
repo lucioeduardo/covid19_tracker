@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:corona_data/app/app_controller.dart';
-import 'package:corona_data/app/modules/home/repositories/local_storage_interface.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 

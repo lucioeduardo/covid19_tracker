@@ -1,11 +1,11 @@
 import 'package:corona_data/app/app_module.dart';
+import 'package:corona_data/app/modules/country/country_page.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
-import 'package:corona_data/app/modules/home/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/modules/home/repositories/local_storage_interface.dart';
-import 'package:corona_data/app/modules/home/widgets/country/country_widget.dart';
-import 'package:corona_data/app/modules/home/widgets/states_map/states_map_widget.dart';
-import 'package:corona_data/app/modules/home/widgets/world/world_widget.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
+import 'package:corona_data/app/modules/states_map/states_map_page.dart';
+import 'package:corona_data/app/modules/world/world_page.dart';
+import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
+import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,7 +14,7 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:corona_data/app/modules/home/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:mobx/mobx.dart' as mobx;
+
 class CovidRepositoryMock extends Mock implements ICovidRepository {}
 class GlobalSettingsControllerMock extends Mock implements GlobalSettingsController {}
 class LocalStorageMock extends Mock implements ILocalStorage {}
@@ -55,7 +55,7 @@ main() {
     
     expect(titleFinder, findsOneWidget);
 
-    final menuFinder = find.byType(CountryWidget);
+    final menuFinder = find.byType(CountryPage);
     expect(menuFinder, findsOneWidget);
   });
 
@@ -67,7 +67,7 @@ main() {
     );
     await tester.pump();
 
-    final widgetFinder = find.byType(WorldWidget);
+    final widgetFinder = find.byType(WorldPage);
     expect(widgetFinder, findsOneWidget);
 
     final titleFinder = find.widgetWithText(AppBar, 'Mundo');
@@ -82,7 +82,7 @@ main() {
     );
     await tester.pump();
 
-    final widgetFinder = find.byType(StatesMapWidget);
+    final widgetFinder = find.byType(StatesMapPage);
     expect(widgetFinder, findsOneWidget);
 
     final titleFinder = find.widgetWithText(AppBar, 'Mapa');
