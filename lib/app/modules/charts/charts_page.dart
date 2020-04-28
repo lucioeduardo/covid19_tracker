@@ -30,7 +30,6 @@ class _ChartsPageState extends State<ChartsPage> {
     return Container(
       height: 500,
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
@@ -46,76 +45,88 @@ class _ChartsPageState extends State<ChartsPage> {
               ChartSettingsWidget(),
             ],
           ),
-          SizedBox(height: 20,),
-          Observer(builder: (_) {
-            if (widget.controller.graphData.error != null) {
-              return TryAgainWidget(
-                  onPressed: widget.controller.fetchGraphData);
-            }
+          SizedBox(
+            height: 20,
+          ),
+          Observer(
+            builder: (_) {
+              if (widget.controller.graphData.error != null) {
+                return TryAgainWidget(
+                    onPressed: widget.controller.fetchGraphData);
+              }
 
-            if (widget.controller.graphData.value != null) {
-              Map<String, List<int>> values = widget.controller.graphData.value;
-              return Column(
-                children: <Widget>[
-                  TweenAnimationBuilder(
-                      duration: Duration(milliseconds: 1000),
-                      tween: Tween(begin: 0.0, end: 1.0),
-                      curve: Curves.ease,
-                      builder: (_, opacity, __) {
-                        return Opacity(
-                          opacity: opacity,
-                          child: Observer(builder: (_) {
-                            return LineChartWidget(
-                              values: values,
-                              showCases: controller.showCases,
-                              showDeaths: controller.showDeaths,
-                              showRecovered: controller.showRecovered,
-                            );
-                          }),
-                        );
-                      }),
-                  Container(
-                    height: 10,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      color: Theme.of(context).accentColor.withAlpha(50),
-                    ),
-                    child: TweenAnimationBuilder(
+              if (widget.controller.graphData.value != null) {
+                Map<String, List<int>> values =
+                    widget.controller.graphData.value;
+                return Column(
+                  children: <Widget>[
+                    TweenAnimationBuilder(
                         duration: Duration(milliseconds: 1000),
-                        tween: Tween<double>(
-                          begin: screenWidth * 0.5,
-                          end: screenWidth * 0.8,
-                        ),
-                        curve: Curves.elasticOut,
-                        builder: (_, width, __) {
-                          return Container(
-                            width: width,
-                            child: Column(
-                              children: <Widget>[
-                                CaptionWidget(
-                                    color: Colors.red,
-                                    label: "Número de casos"),
-                                CaptionWidget(
-                                    color: Colors.black,
-                                    label: "Número de mortes"),
-                                CaptionWidget(
-                                    color: Colors.green,
-                                    label: "Número de recuperados"),
-                              ],
-                            ),
+                        tween: Tween(begin: 0.0, end: 1.0),
+                        curve: Curves.ease,
+                        builder: (_, opacity, __) {
+                          return Opacity(
+                            opacity: opacity,
+                            child: Observer(builder: (_) {
+                              return LineChartWidget(
+                                values: values,
+                                showCases: controller.showCases,
+                                showDeaths: controller.showDeaths,
+                                showRecovered: controller.showRecovered,
+                              );
+                            }),
                           );
                         }),
-                  ),
-                ],
-              );
-            }
-      return Center(
-          child: VirusCircularAnimation(
-              animation: VirusAnimation.rotation_fast, fit: BoxFit.contain, size: AnimationSizes.medium,));
-    });
+                    Container(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        color: Theme.of(context).accentColor.withAlpha(50),
+                      ),
+                      child: TweenAnimationBuilder(
+                          duration: Duration(milliseconds: 1000),
+                          tween: Tween<double>(
+                            begin: screenWidth * 0.5,
+                            end: screenWidth * 0.8,
+                          ),
+                          curve: Curves.elasticOut,
+                          builder: (_, width, __) {
+                            return Container(
+                              width: width,
+                              child: Column(
+                                children: <Widget>[
+                                  CaptionWidget(
+                                      color: Colors.red,
+                                      label: "Número de casos"),
+                                  CaptionWidget(
+                                      color: Colors.black,
+                                      label: "Número de mortes"),
+                                  CaptionWidget(
+                                      color: Colors.green,
+                                      label: "Número de recuperados"),
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                );
+              }
+
+              return Center(
+                  child: VirusCircularAnimation(
+                animation: VirusAnimation.rotation_fast,
+                fit: BoxFit.contain,
+                size: AnimationSizes.medium,
+              ));
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
