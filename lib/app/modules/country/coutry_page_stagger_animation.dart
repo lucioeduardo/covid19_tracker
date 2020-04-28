@@ -2,6 +2,7 @@ import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
+import 'package:corona_data/app/shared/widgets/animations/faded_list_view.dart';
 import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -47,63 +48,50 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
   }
 
   Widget _buildAnimation(BuildContext context, Widget widget) {
-    return InfoListView(
+    return FadedListView(
+      controller: controller,
+      begin: 0.5,
+      end: 0.8,
+      curve: Curves.easeInQuad,
       children: <Widget>[
-        Opacity(
-          opacity: fadeAnimationFirst.value.clamp(0.0, 1.0),
-          child: Container(
-            height: growAnimation.value,
-            child: RoundedIconButton(
-              iconData: FontAwesomeIcons.chartBar,
-              onPressed: () => ModalUtils.showModal(
-                  context, ChartsModule(CountryCasesGraphWidget())),
-            ),
-          ),
-        ),
         Container(
-          height: 10,
-        ),
-        Opacity(
-          opacity: fadeAnimationFirst.value.clamp(0.0, 1.0),
-          child: InfoTileWidget(
-            number: "${info.cases}",
-            title: "Número de Casos",
-            todayNum: "${info.todayCases}",
+          height: growAnimation.value,
+          child: RoundedIconButton(
+            iconData: FontAwesomeIcons.chartBar,
+            onPressed: () => ModalUtils.showModal(
+                context, ChartsModule(CountryCasesGraphWidget())),
           ),
         ),
-        Container(
-          height: 20,
+        
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top:20.0),
+          number: "${info.cases}",
+          title: "Número de Casos",
+          todayNum: "${info.todayCases}",
         ),
-        Opacity(
-          opacity: fadeAnimationSecond.value.clamp(0.0, 1.0),
-          child: InfoTileWidget(
-            number: "${info.deaths}",
-            title: "Número de Mortes",
-            todayNum: "${info.todayDeaths}",
-          ),
+        
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top:20.0),
+          number: "${info.deaths}",
+          title: "Número de Mortes",
+          todayNum: "${info.todayDeaths}",
         ),
-        Container(
-          height: 20,
+        
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top:20.0),
+          number: "${info.critical}",
+          title: "Pacientes em estado grave",
         ),
-        Opacity(
-          opacity: fadeAnimationThird.value.clamp(0.0, 1.0),
-          child: InfoTileWidget(
-            number: "${info.critical}",
-            title: "Pacientes em estado grave",
-          ),
-        ),
-        Container(
-          height: 20,
-        ),
-        Opacity(
-          opacity: fadeAnimationFourth.value.clamp(0.0, 1.0),
-          child: InfoTileWidget(
-            number: "${info.recovered}",
-            title: "Pacientes recuperados",
-          ),
+        
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top:20.0),
+          number: "${info.recovered}",
+          title: "Pacientes recuperados",
         ),
       ],
     );
   }
 }
+
+
 
