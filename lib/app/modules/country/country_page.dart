@@ -1,5 +1,6 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
+import 'package:corona_data/app/modules/country/coutry_page_stagger_animation.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
@@ -22,7 +23,19 @@ class CountryPage extends StatefulWidget {
 }
 
 class _CountryPageState
-    extends ModularState<CountryPage, CountryController> {
+    extends ModularState<CountryPage, CountryController> with SingleTickerProviderStateMixin{
+  AnimationController _controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -42,52 +55,14 @@ class _CountryPageState
                       fit: BoxFit.contain)),
             );
 
-          return ListView(
-            children: <Widget>[
-              RoundedIconButton(
-                iconData: FontAwesomeIcons.chartBar,
-                onPressed: () =>
-                    ModalUtils.showModal(context, ChartsModule(CountryCasesGraphWidget())),
-              ),
-              Container(
-                height: 10,
-              ),
-              InfoTileWidget(
-                number: "${info.cases}",
-                title: "Número de Casos",
-                todayNum: "${info.todayCases}",
-                // button: RoundedIconButton(
-                //   iconData: FontAwesomeIcons.chartBar,
-                //   onPressed: () =>
-                //       ModalUtils.showModal(context, CountryCasesGraphWidget()),
-                // ),
-              ),
-              Container(
-                height: 20,
-              ),
-              InfoTileWidget(
-                number: "${info.deaths}",
-                title: "Número de Mortes",
-                todayNum: "${info.todayDeaths}",
-              ),
-              Container(
-                height: 20,
-              ),
-              InfoTileWidget(
-                number: "${info.critical}",
-                title: "Pacientes em estado grave",
-              ),
-              Container(
-                height: 20,
-              ),
-              InfoTileWidget(
-                number: "${info.recovered}",
-                title: "Pacientes recuperados",
-              ),
-            ],
-          );
+          return CoutryPageStaggerAnimation(controller: _controller,info: info,);
         }
       },
     );
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
