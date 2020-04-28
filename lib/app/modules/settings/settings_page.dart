@@ -42,7 +42,7 @@ class _SettingsPageState
     disposer = reaction(
         (_) => appController.globalSettingsController.isChanged,
         (value) {
-          print(appController.globalSettingsController.isChanged);
+          
       snackbar.enqueueMessage(
           message:'Settings has been changed!', color:ThemeColors.success, id: "SettingsForm");
     });
