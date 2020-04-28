@@ -1,5 +1,6 @@
 import 'package:corona_data/app/modules/charts/widgets/caption_widget.dart';
 import 'package:corona_data/app/modules/charts/widgets/line_chart_widget.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
@@ -55,12 +56,8 @@ class _ChartsPageState extends State<ChartsPage> {
       }
 
       return Center(
-          child: Container(
-        width: 80,
-        height: 80,
-        child: VirusCircularAnimation(
-            animation: VirusAnimation.rotation_fast, fit: BoxFit.contain),
-      ));
+          child: VirusCircularAnimation(
+              animation: VirusAnimation.rotation_fast, fit: BoxFit.contain, size: AnimationSizes.medium,));
     });
   }
 }

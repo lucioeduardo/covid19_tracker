@@ -1,3 +1,4 @@
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,8 @@ class StatesMapPage extends StatefulWidget {
   _StatesMapPageState createState() => _StatesMapPageState();
 }
 
-class _StatesMapPageState extends ModularState<StatesMapPage, StatesMapController> {
+class _StatesMapPageState
+    extends ModularState<StatesMapPage, StatesMapController> {
   BitmapDescriptor customIcon;
 
   Completer<GoogleMapController> _controller = Completer();
@@ -41,12 +43,15 @@ class _StatesMapPageState extends ModularState<StatesMapPage, StatesMapControlle
       Set<Marker> markers = controller.markers.value;
 
       if (markers == null) {
-        return Center(child: Container(
+        return Center(
+            child: Container(
           width: 150,
           height: 150,
           child: VirusCircularAnimation(
-                        animation: VirusAnimation.rotation_fast,
-                        fit: BoxFit.contain),
+            animation: VirusAnimation.rotation_fast,
+            fit: BoxFit.contain,
+            size: AnimationSizes.large,
+          ),
         ));
       }
 
