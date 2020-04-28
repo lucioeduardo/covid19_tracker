@@ -12,28 +12,14 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
   final AnimationController controller;
   final InfoModel info;
   final Animation<double> growAnimation;
-  final Animation<double> fadeAnimationFirst;
-  final Animation<double> fadeAnimationSecond;
-  final Animation<double> fadeAnimationThird;
-  final Animation<double> fadeAnimationFourth;
+
 
   CoutryPageStaggerAnimation({Key key, this.controller, this.info})
       : growAnimation = Tween<double>(begin: 0.0, end: 50.0).animate(
             CurvedAnimation(
                 parent: controller,
                 curve: Interval(0.4, 0.7, curve: Curves.decelerate))),
-        fadeAnimationFirst = CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.4, 0.7, curve: Curves.decelerate)),
-        fadeAnimationSecond = CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.50, 0.75, curve: Curves.decelerate)),
-        fadeAnimationThird = CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.60, 0.80, curve: Curves.decelerate)),
-        fadeAnimationFourth = CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.70, 1.0, curve: Curves.decelerate)),
+        
         super(key: key) {
     controller.forward();
   }
@@ -50,7 +36,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
   Widget _buildAnimation(BuildContext context, Widget widget) {
     return FadedListView(
       controller: controller,
-      begin: 0.5,
+      begin: 0.4,
       end: 0.8,
       curve: Curves.easeInQuad,
       children: <Widget>[
