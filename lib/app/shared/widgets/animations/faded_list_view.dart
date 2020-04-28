@@ -10,16 +10,18 @@ class FadedListView extends StatelessWidget {
   final List<Widget> children;
   final Curve curve;
   final List<Animation> animations = [];
+  final Widget rearWidget;
 
-  FadedListView(
-      {Key key,
-      this.controller,
-      this.children,
-      this.begin = 0.0,
-      this.curve = Curves.ease,
-      this.end = 1.0,
-      this.tick})
-      : super(key: key) {
+  FadedListView({
+    Key key,
+    this.controller,
+    this.children,
+    this.begin = 0.0,
+    this.curve = Curves.ease,
+    this.end = 1.0,
+    this.tick,
+    this.rearWidget,
+  }) : super(key: key) {
     Interval interval;
     for (var child in children) {
       interval = _getInterval(
@@ -31,9 +33,7 @@ class FadedListView extends StatelessWidget {
       animations.add(CurvedAnimation(parent: controller, curve: interval));
     }
 
-    controller.addListener(() {
-      print(controller.value);
-    });
+    
   }
 
   Interval _getInterval(int size, double _begin, int index, {Curve curve}) {
@@ -50,19 +50,19 @@ class FadedListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return controller.value > begin
-        ? ListView.builder(
+    if(controller.value >= begin){
+        return ListView.builder(
             itemCount: children.length,
             itemBuilder: (context, index) {
               return Opacity(
                   opacity: animations[index].value.clamp(0.0, 1.0),
                   child: children[index]);
-            })
-        : Center(
-            child: VirusCircularAnimation(
-            animation: VirusAnimation.rotation_fss,
-            fit: BoxFit.cover,
-            size: AnimationSizes.large,
-          ));
+            });
+    }else if(controller.value < begin){
+      
+      return rearWidget != null?rearWidget:SizedBox.shrink();
+    }
+         
+        
   }
 }

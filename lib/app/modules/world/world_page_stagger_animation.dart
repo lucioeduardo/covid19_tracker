@@ -2,8 +2,10 @@ import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/modules/charts/widgets/world_cases/world_cases_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/animations/faded_list_view.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +16,11 @@ class WorldPageStaggerAnimation extends StatelessWidget {
   final InfoModel info;
   final Animation<double> growAnimation;
 
-
   WorldPageStaggerAnimation({Key key, this.controller, this.info})
       : growAnimation = Tween<double>(begin: 0.0, end: 50.0).animate(
             CurvedAnimation(
                 parent: controller,
                 curve: Interval(0.4, 0.7, curve: Curves.decelerate))),
-        
         super(key: key) {
     controller.forward();
   }
@@ -40,6 +40,12 @@ class WorldPageStaggerAnimation extends StatelessWidget {
       begin: 0.4,
       end: 0.8,
       curve: Curves.easeInQuad,
+      rearWidget: Center(
+          child: VirusCircularAnimation(
+        animation: VirusAnimation.rotation_fss,
+        size: AnimationSizes.large,
+        fit: BoxFit.cover,
+      )),
       children: <Widget>[
         Container(
           height: growAnimation.value,
@@ -49,46 +55,37 @@ class WorldPageStaggerAnimation extends StatelessWidget {
                 context, ChartsModule(WorldCasesGraphWidget())),
           ),
         ),
-        
         InfoTileWidget(
-              padding: const EdgeInsets.only(top:20.0),
-              number: "${info.cases}",
-              todayNum: "${info.todayCases}",
-              title: "Número de Casos",
-            ),
-            
-            InfoTileWidget(
-              padding: const EdgeInsets.only(top:20.0),
-              number: "${info.deaths}",
-              todayNum: "${info.todayDeaths}",
-              title: "Número de Mortes",
-            ),
-            
-            InfoTileWidget(
-              padding: const EdgeInsets.only(top:20.0),
-              number: "${info.affectedCountries}",
-              title: "Número de países afetados",
-            ),
-            
-            InfoTileWidget(
-              padding: const EdgeInsets.only(top:20.0),
-              number: "${info.critical}",
-              title: "Pacientes em estado grave",
-            ),
-            
-            InfoTileWidget(
-              padding: const EdgeInsets.only(top:20.0),
-              number: "${info.recovered}",
-              title: "Pacientes recuperados",
-            ),
-        
+          padding: const EdgeInsets.only(top: 20.0),
+          number: "${info.cases}",
+          todayNum: "${info.todayCases}",
+          title: "Número de Casos",
+        ),
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top: 20.0),
+          number: "${info.deaths}",
+          todayNum: "${info.todayDeaths}",
+          title: "Número de Mortes",
+        ),
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top: 20.0),
+          number: "${info.affectedCountries}",
+          title: "Número de países afetados",
+        ),
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top: 20.0),
+          number: "${info.critical}",
+          title: "Pacientes em estado grave",
+        ),
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top: 20.0),
+          number: "${info.recovered}",
+          title: "Pacientes recuperados",
+        ),
       ],
     );
   }
 }
-
-
-
 
 // ListView(
 //           children: <Widget>[

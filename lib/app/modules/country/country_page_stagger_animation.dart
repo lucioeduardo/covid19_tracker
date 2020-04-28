@@ -1,8 +1,10 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/animations/faded_list_view.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,12 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
       begin: 0.4,
       end: 0.8,
       curve: Curves.easeInQuad,
+      rearWidget: Center(
+          child: VirusCircularAnimation(
+        animation: VirusAnimation.rotation_fss,
+        size: AnimationSizes.large,
+        fit: BoxFit.cover,
+      )),
       children: <Widget>[
         Container(
           height: growAnimation.value,

@@ -29,7 +29,7 @@ class SnackBarUtil {
           .closed
           .then((SnackBarClosedReason reason) {
         _currentIds.remove(id);
-        print(_currentIds);
+        
       });
     }
   }

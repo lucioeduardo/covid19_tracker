@@ -48,7 +48,9 @@ main() {
     });
 
     testWidgets('WorldPage - cases', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      Widget page = WorldPage();
+      
+      await tester.pumpWidget(buildTestableWidget(page));
 
       final tileFinder = find.widgetWithText(InfoTileWidget, 'Número de Casos');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
