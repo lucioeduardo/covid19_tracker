@@ -1,5 +1,6 @@
 import 'package:corona_data/app/modules/world/world_page_stagger_animation.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
@@ -39,12 +40,8 @@ class _WorldPageState extends ModularState<WorldPage, WorldController>
         InfoModel info = controller.worldInfo.value;
         if (info == null)
           return Center(
-              child: Container(
-            width: 150,
-            height: 150,
-            child: VirusCircularAnimation(
-                animation: VirusAnimation.rotation_fast, fit: BoxFit.contain),
-          ));
+              child: VirusCircularAnimation(
+                  animation: VirusAnimation.rotation_fast, fit: BoxFit.contain, size: AnimationSizes.large));
 
         return WorldPageStaggerAnimation(
           controller: _controller,

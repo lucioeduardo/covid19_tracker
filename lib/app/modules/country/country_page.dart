@@ -1,5 +1,6 @@
 import 'package:corona_data/app/modules/country/country_page_stagger_animation.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,9 @@ import 'country_controller.dart';
 class CountryPage extends StatefulWidget {
   final String title;
   final AnimationController controller;
-  const CountryPage({Key key, this.title = "Brasil", this.controller}) : super(key: key);
-  
+  const CountryPage({Key key, this.title = "Brasil", this.controller})
+      : super(key: key);
+
   @override
   CountryPageState createState() => CountryPageState();
 }
@@ -25,15 +27,17 @@ class CountryPageState extends ModularState<CountryPage, CountryController>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = widget.controller ??  AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 2),
-    );
+    _controller = widget.controller ??
+        AnimationController(
+          vsync: this,
+          duration: Duration(seconds: 2),
+        );
   }
 
-  void setAnimationControllerValue(double value){
-    _controller.value=value;
+  void setAnimationControllerValue(double value) {
+    _controller.value = value;
   }
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -45,12 +49,11 @@ class CountryPageState extends ModularState<CountryPage, CountryController>
 
           if (info == null)
             return Center(
-              child: Container(
-                  width: 150,
-                  height: 150,
-                  child: VirusCircularAnimation(
-                      animation: VirusAnimation.rotation_fast,
-                      fit: BoxFit.contain)),
+              child: VirusCircularAnimation(
+                animation: VirusAnimation.rotation_fast,
+                fit: BoxFit.contain,
+                size: AnimationSizes.large,
+              ),
             );
 
           return CoutryPageStaggerAnimation(
