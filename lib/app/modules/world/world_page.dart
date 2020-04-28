@@ -1,5 +1,6 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/world_cases/world_cases_widget.dart';
+import 'package:corona_data/app/modules/world/coutry_page_stagger_animation.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
@@ -21,7 +22,17 @@ class WorldPage extends StatefulWidget {
   _WorldPageState createState() => _WorldPageState();
 }
 
-class _WorldPageState extends ModularState<WorldPage, WorldController> {
+class _WorldPageState extends ModularState<WorldPage, WorldController> with SingleTickerProviderStateMixin{
+  AnimationController _controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
@@ -38,51 +49,14 @@ class _WorldPageState extends ModularState<WorldPage, WorldController> {
                 animation: VirusAnimation.rotation_fast, fit: BoxFit.contain),
           ));
 
-        return ListView(
-          children: <Widget>[
-            RoundedIconButton(
-              iconData: FontAwesomeIcons.chartBar,
-              onPressed: () =>
-                  ModalUtils.showModal(context, ChartsModule(WorldCasesGraphWidget())),
-            ),
-            Container(height: 10,),
-            InfoTileWidget(
-              number: "${info.cases}",
-              todayNum: "${info.todayCases}",
-              title: "Número de Casos",
-            ),
-            Container(
-              height: 20,
-            ),
-            InfoTileWidget(
-              number: "${info.deaths}",
-              todayNum: "${info.todayDeaths}",
-              title: "Número de Mortes",
-            ),
-            Container(
-              height: 20,
-            ),
-            InfoTileWidget(
-              number: "${info.affectedCountries}",
-              title: "Número de países afetados",
-            ),
-            Container(
-              height: 20,
-            ),
-            InfoTileWidget(
-              number: "${info.critical}",
-              title: "Pacientes em estado grave",
-            ),
-            Container(
-              height: 20,
-            ),
-            InfoTileWidget(
-              number: "${info.recovered}",
-              title: "Pacientes recuperados",
-            ),
-          ],
-        );
+        return WorldPageStaggerAnimation(controller: _controller,info: info,);
       }
     });
   }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }
+

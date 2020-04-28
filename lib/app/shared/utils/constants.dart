@@ -11,6 +11,15 @@ class ThemeColors{
   static const Color info = Colors.blue;
 }
 
+class AnimationSizes{
+  static const double small=50;
+  static const double medium=100;
+  static const double large=150;
+  static const double veryLarge=200;
+  
+  const AnimationSizes._();
+}
+
 const Map stateCoords = {
 	'AC': LatLng(-8.77, -70.55),
 	'AL': LatLng(-9.62, -36.82),

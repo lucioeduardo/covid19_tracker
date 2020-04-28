@@ -50,7 +50,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
         ),
         
         InfoTileWidget(
-          padding: const EdgeInsets.only(top:20.0),
+          padding: const EdgeInsets.only(top:15.0),
           number: "${info.cases}",
           title: "Número de Casos",
           todayNum: "${info.todayCases}",
