@@ -10,7 +10,8 @@ import 'world_controller.dart';
 
 class WorldPage extends StatefulWidget {
   final String title;
-  const WorldPage({Key key, this.title = "World"}) : super(key: key);
+  final AnimationController controller;
+  const WorldPage({Key key, this.title = "World", this.controller}) : super(key: key);
 
   @override
   _WorldPageState createState() => _WorldPageState();
@@ -23,7 +24,7 @@ class _WorldPageState extends ModularState<WorldPage, WorldController>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = AnimationController(
+    _controller = widget.controller ?? AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
     );

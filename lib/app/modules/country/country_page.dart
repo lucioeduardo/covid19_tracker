@@ -10,25 +10,30 @@ import 'country_controller.dart';
 
 class CountryPage extends StatefulWidget {
   final String title;
-  const CountryPage({Key key, this.title = "Brasil"}) : super(key: key);
-
+  final AnimationController controller;
+  const CountryPage({Key key, this.title = "Brasil", this.controller}) : super(key: key);
+  
   @override
-  _CountryPageState createState() => _CountryPageState();
+  CountryPageState createState() => CountryPageState();
 }
 
-class _CountryPageState extends ModularState<CountryPage, CountryController>
+class CountryPageState extends ModularState<CountryPage, CountryController>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = AnimationController(
+    _controller = widget.controller ??  AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
     );
   }
 
+  void setAnimationControllerValue(double value){
+    _controller.value=value;
+  }
   @override
   Widget build(BuildContext context) {
     return Observer(
