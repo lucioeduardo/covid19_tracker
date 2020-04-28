@@ -4,7 +4,8 @@ class CaptionWidget extends StatelessWidget {
   final Color color;
   final String label;
 
-  const CaptionWidget({Key key, @required this.color, @required this.label}) : super(key: key);
+  const CaptionWidget({Key key, @required this.color, @required this.label})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +19,15 @@ class CaptionWidget extends StatelessWidget {
             color: color,
             margin: EdgeInsets.only(right: 10),
           ),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).accentColor),
+          Expanded(
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).accentColor),
+            ),
           ),
         ],
       ),
