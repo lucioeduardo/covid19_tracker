@@ -13,25 +13,15 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 
 import 'package:corona_data/app/modules/home/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mockito/mockito.dart';
 
 import '../mocks/covid_repository_mock.dart';
+import '../mocks/local_storage_mock.dart';
 
-
-class GlobalSettingsControllerMock extends Mock
-    implements GlobalSettingsController {}
-
-class LocalStorageMock extends Mock implements ILocalStorage {}
 
 main() {
   LocalStorageMock localStorageMock = LocalStorageMock();
 
-  when(localStorageMock.getCountry())
-      .thenAnswer((_) async => Future.value("Brazil"));
-  when(localStorageMock.isThemeDark())
-      .thenAnswer((_) async => Future<bool>.value(true));
   initModule(AppModule(), changeBinds: [
-    // Bind<GlobalSettingsController>((i)=>globalSettingsControllerMock),
     Bind<ILocalStorage>((i) => localStorageMock),
   ]);
 

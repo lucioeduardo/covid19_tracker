@@ -16,8 +16,8 @@ import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/mockito.dart';
 
 import '../mocks/covid_repository_mock.dart';
+import '../mocks/local_storage_mock.dart';
 
-class LocalStorageMock extends Mock implements ILocalStorage {}
 
 main() {
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
@@ -32,11 +32,6 @@ main() {
   ]);
 
   initModule(CountryModule());
-
-  when(localStorageMock.isThemeDark())
-      .thenAnswer((_) async => Future<bool>.value(true));
-  when(localStorageMock.getCountry())
-      .thenAnswer((_) async => Future.value("Brazil"));
 
   CountryController controller;
   GlobalSettingsController globalSettingsController;
