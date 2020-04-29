@@ -11,20 +11,23 @@ A Flutter application that retrieves and shows real time data about covid19 in B
 
 ## Features
 
-- Display realtime number of cases, deaths and recovered people from Brazil and worldwide;
+- Display realtime number of covid19 cases, deaths and recovered people from countries and worldwide;
+- Last 30 days charts
 - Map with number of cases and deaths for each brazilian state;
+- Theme switcher (ligth, dark and dracula)
 
 ## Screeshots
 
 <p>
+<img src="https://user-images.githubusercontent.com/14063319/80640700-28795d00-8a3a-11ea-9cff-084fd68f6b22.gif" width="400" height="800">
 
-<img src="https://user-images.githubusercontent.com/14063319/79073553-b2e16300-7cbd-11ea-8c7c-5766f35a64fb.png">
+<img src="https://user-images.githubusercontent.com/14063319/80642396-cc640800-8a3c-11ea-8ec6-80e44f467963.gif" width="400" height="800">
 
-<img src="https://user-images.githubusercontent.com/14063319/79073554-b2e16300-7cbd-11ea-8063-11d8b6cfc2aa.png">
-<br>
-<img src="https://user-images.githubusercontent.com/14063319/79073551-b248cc80-7cbd-11ea-9e71-326b0543b98c.png">
+<img src="https://user-images.githubusercontent.com/14063319/80642403-ce2dcb80-8a3c-11ea-8868-60a98ec1d0f3.gif" width="400" height="800">
 
-<img src="https://user-images.githubusercontent.com/14063319/79073549-b1179f80-7cbd-11ea-9bd8-466e49e7ef4b.png">
+<img src="https://user-images.githubusercontent.com/14063319/80642499-f9181f80-8a3c-11ea-969f-be5f8b187e79.png" width="400" height="800">
+
+<img src="https://user-images.githubusercontent.com/14063319/80642505-fa494c80-8a3c-11ea-80f0-8d56bdf30ec2.png" width="400" height="800">
 
 </p>
 
