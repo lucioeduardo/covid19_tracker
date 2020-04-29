@@ -42,6 +42,23 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
     }, _$themeDarkAtom, name: '${_$themeDarkAtom.name}_set');
   }
 
+  final _$themeNameAtom = Atom(name: '_GlobalSettingsControllerBase.themeName');
+
+  @override
+  ObservableFuture<String> get themeName {
+    _$themeNameAtom.context.enforceReadPolicy(_$themeNameAtom);
+    _$themeNameAtom.reportObserved();
+    return super.themeName;
+  }
+
+  @override
+  set themeName(ObservableFuture<String> value) {
+    _$themeNameAtom.context.conditionallyRunInAction(() {
+      super.themeName = value;
+      _$themeNameAtom.reportChanged();
+    }, _$themeNameAtom, name: '${_$themeNameAtom.name}_set');
+  }
+
   final _$countryNameAtom =
       Atom(name: '_GlobalSettingsControllerBase.countryName');
 
@@ -86,11 +103,11 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   }
 
   @override
-  void setTheme(bool value) {
+  void setTheme(String theme) {
     final _$actionInfo =
         _$_GlobalSettingsControllerBaseActionController.startAction();
     try {
-      return super.setTheme(value);
+      return super.setTheme(theme);
     } finally {
       _$_GlobalSettingsControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -121,7 +138,7 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   @override
   String toString() {
     final string =
-        'themeDark: ${themeDark.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
+        'themeDark: ${themeDark.toString()},themeName: ${themeName.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
     return '{$string}';
   }
 }

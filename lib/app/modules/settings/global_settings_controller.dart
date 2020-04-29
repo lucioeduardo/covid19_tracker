@@ -14,51 +14,55 @@ abstract class _GlobalSettingsControllerBase with Store {
   @observable
   ObservableFuture<bool> themeDark;
 
-  
+  @observable
+  ObservableFuture<String> themeName;
+
   @observable
   ObservableFuture<String> countryName;
 
-  
-
   @computed
   ThemeData get theme {
-    if(themeDark==null){
-      return _themeDark;
-    }
+    // if (themeDark == null) {
+    //   return _themeDark;
+    // }
 
-    return themeDark.value ? _themeDark : _themeLight;
+    // return themeDark.value ? _themeDark : _themeLight;
+    return ThemeFactory.getThemeData(themeName?.value);
   }
+
   @computed
   bool get isReady {
-    return themeDark.value != null && countryName.value != null;
+    return themeName.value != null && countryName.value != null;
   }
 
   @action
-  void init(){
+  void init() {
     getTheme();
     getCountry();
   }
 
   @computed
-  int get isChanged => (countryName.value + themeDark.value.toString()).hashCode;
+  int get isChanged =>
+      (countryName.value + themeName.value.toString()).hashCode;
 
   @action
   void getTheme() {
-    themeDark = localStorage.isThemeDark().asObservable();
+    themeName = localStorage.getTheme().asObservable();
   }
 
   @action
-  void setTheme(bool value){
-    
-    themeDark = ObservableFuture<bool>.value(value);
+  void setTheme(String theme) {
+    if (theme != themeName.value) {
+      themeName = ObservableFuture<String>.value(theme);
 
-    localStorage.setTheme(value);
+      localStorage.setTheme(theme);
+    }
   }
 
   @action
-  void setCountry(String country){
-    if(country != countryName.value){
-      countryName=ObservableFuture.value(country);  
+  void setCountry(String country) {
+    if (country != countryName.value) {
+      countryName = ObservableFuture.value(country);
       localStorage.setCountry(country);
     }
   }
@@ -73,7 +77,6 @@ abstract class _GlobalSettingsControllerBase with Store {
     primaryColorLight: Color(0xff83867e),
     primaryColorDark: Color(0xffEBE9E7),
     accentColor: Color(0xff231F1C),
-    
   );
 
   final ThemeData _themeDark = ThemeData(
@@ -83,3 +86,40 @@ abstract class _GlobalSettingsControllerBase with Store {
     accentColor: Color(0xffEBE9E7),
   );
 }
+
+class ThemeFactory {
+  ThemeFactory._();
+  static ThemeData getThemeData(String theme) {
+    if(theme == null){
+      return themes['dark'];
+    }
+    theme=theme.toLowerCase();
+    if (themes.containsKey(theme) || theme == null) {
+      return themes[theme];
+    } else {
+      return themes['dark'];
+    }
+  }
+}
+
+final Map<String, ThemeData> themes = {
+  "light": _themeLight,
+  "dark": _themeDark,
+  "dracula": _themeLight,
+};
+
+final ThemeData _themeLight = ThemeData(
+  primaryColor: Color(0xffdcddda),
+  primaryColorLight: Color(0xff83867e),
+  primaryColorDark: Color(0xffEBE9E7),
+  accentColor: Color(0xff231F1C),
+  
+);
+
+final ThemeData _themeDark = ThemeData(
+  primaryColor: Color(0xff393e3b),
+  primaryColorLight: Color(0xff9C9F98),
+  primaryColorDark: Color(0xff231F1C),
+  accentColor: Color(0xffEBE9E7),
+  brightness: Brightness.dark
+);

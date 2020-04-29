@@ -36,7 +36,7 @@ class LocalStorageHive implements ILocalStorage{
   }
 
   @override
-  Future<void> setTheme(bool value) async {
+  Future<void> setTheme(String value) async {
     var box = await _instance.future;
 
     await box.put(_themeKey, value);
@@ -50,6 +50,16 @@ class LocalStorageHive implements ILocalStorage{
     value ??= 'Brazil';
 
     return value;
+  }
+
+  @override
+  Future<String> getTheme() async{
+    var box = await _instance.future;
+
+    var value = await box.get(_themeKey);
+    value ??= 'Light';
+    
+    return value.toString();
   }
 
   @override

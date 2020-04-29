@@ -1,5 +1,6 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
+import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
@@ -38,22 +39,22 @@ class _SettingsPageState
   @override
   void initState() {
     super.initState();
-    
-    disposer = reaction(
-        (_) => appController.globalSettingsController.isChanged,
+
+    disposer = reaction((_) => appController.globalSettingsController.isChanged,
         (value) {
-          
       snackbar.enqueueMessage(
-          message:'Settings has been changed!', color:ThemeColors.success, id: "SettingsForm");
+          message: 'Settings has been changed!',
+          color: ThemeColors.success,
+          id: "SettingsForm");
     });
 
-    countryTextController.text = appController.globalSettingsController.countryName.value;
+    countryTextController.text =
+        appController.globalSettingsController.countryName.value;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     key = GlobalKey();
     return Scaffold(
       key: _scaffoldKey,
@@ -90,9 +91,51 @@ class _SettingsPageState
                       color: Theme.of(context).accentColor, fontSize: 16),
                 ),
                 Observer(builder: (_) {
-                  return Switch(
-                      value: appController.globalSettingsController.themeDark.value,
-                      onChanged: appController.globalSettingsController.setTheme);
+                  print(appController.globalSettingsController.themeName.value);
+
+                  return Container(
+                    child: DropdownButton<String>(
+                      value: appController.globalSettingsController.themeName.value,
+                      iconEnabledColor: Theme.of(context).primaryColor,
+                      focusColor: Theme.of(context).primaryColor,
+                      icon: Icon(
+                        Icons.arrow_downward,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      iconSize: 15,
+                      elevation: 10,
+                      style: TextStyle(
+                          color: Theme.of(context).accentColor,
+                          // backgroundColor: Theme.of(context).primaryColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                      underline: Container(
+                        height: 2,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      onChanged: (String newValue) {
+                        appController.globalSettingsController.setTheme(newValue);
+                      },
+                      items: themes.keys
+                          .toList()
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(),
+                            
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  );
+
+                  // return Switch(
+                  //     value: appController.globalSettingsController.themeDark.value,
+                  //     onChanged: (a){
+                  //       appController.globalSettingsController.setTheme("Light");
+                  //     });
                 }),
               ],
             ),
@@ -125,7 +168,8 @@ class _SettingsPageState
                       clearOnSubmit: false,
                       textSubmitted: (text) {
                         if (countriesNames.indexOf(text) != -1) {
-                          appController.globalSettingsController.setCountry(text);
+                          appController.globalSettingsController
+                              .setCountry(text);
                           controller.cleanError('country_field');
                         } else {
                           controller.addError(
