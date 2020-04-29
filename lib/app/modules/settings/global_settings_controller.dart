@@ -1,4 +1,5 @@
 import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
+import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
@@ -27,7 +28,7 @@ abstract class _GlobalSettingsControllerBase with Store {
     // }
 
     // return themeDark.value ? _themeDark : _themeLight;
-    return ThemeFactory.getThemeData(themeName?.value);
+    return ThemeUtils.getThemeData(themeName?.value);
   }
 
   @computed
@@ -72,54 +73,8 @@ abstract class _GlobalSettingsControllerBase with Store {
     countryName = localStorage.getCountry().asObservable();
   }
 
-  final ThemeData _themeLight = ThemeData(
-    primaryColor: Color(0xffdcddda),
-    primaryColorLight: Color(0xff83867e),
-    primaryColorDark: Color(0xffEBE9E7),
-    accentColor: Color(0xff231F1C),
-  );
-
-  final ThemeData _themeDark = ThemeData(
-    primaryColor: Color(0xff393e3b),
-    primaryColorLight: Color(0xff9C9F98),
-    primaryColorDark: Color(0xff231F1C),
-    accentColor: Color(0xffEBE9E7),
-  );
 }
 
-class ThemeFactory {
-  ThemeFactory._();
-  static ThemeData getThemeData(String theme) {
-    if(theme == null){
-      return themes['dark'];
-    }
-    theme=theme.toLowerCase();
-    if (themes.containsKey(theme) || theme == null) {
-      return themes[theme];
-    } else {
-      return themes['dark'];
-    }
-  }
-}
 
-final Map<String, ThemeData> themes = {
-  "light": _themeLight,
-  "dark": _themeDark,
-  "dracula": _themeLight,
-};
 
-final ThemeData _themeLight = ThemeData(
-  primaryColor: Color(0xffdcddda),
-  primaryColorLight: Color(0xff83867e),
-  primaryColorDark: Color(0xffEBE9E7),
-  accentColor: Color(0xff231F1C),
-  
-);
 
-final ThemeData _themeDark = ThemeData(
-  primaryColor: Color(0xff393e3b),
-  primaryColorLight: Color(0xff9C9F98),
-  primaryColorDark: Color(0xff231F1C),
-  accentColor: Color(0xffEBE9E7),
-  brightness: Brightness.dark
-);

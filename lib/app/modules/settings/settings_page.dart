@@ -1,8 +1,9 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
-import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
+import 'package:corona_data/app/shared/utils/theme/constants.dart';
+import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -95,7 +96,8 @@ class _SettingsPageState
 
                   return Container(
                     child: DropdownButton<String>(
-                      value: appController.globalSettingsController.themeName.value,
+                      value: appController
+                          .globalSettingsController.themeName.value.toUpperCase(),
                       iconEnabledColor: Theme.of(context).primaryColor,
                       focusColor: Theme.of(context).primaryColor,
                       icon: Icon(
@@ -103,10 +105,9 @@ class _SettingsPageState
                         color: Theme.of(context).accentColor,
                       ),
                       iconSize: 15,
-                      elevation: 10,
+                      elevation: 16,
                       style: TextStyle(
                           color: Theme.of(context).accentColor,
-                          // backgroundColor: Theme.of(context).primaryColor,
                           fontSize: 17,
                           fontWeight: FontWeight.w500),
                       underline: Container(
@@ -114,16 +115,16 @@ class _SettingsPageState
                         color: Theme.of(context).accentColor,
                       ),
                       onChanged: (String newValue) {
-                        appController.globalSettingsController.setTheme(newValue);
+                        appController.globalSettingsController
+                            .setTheme(newValue);
                       },
-                      items: themes.keys
+                      items: ThemeUtils.getThemeNamesPretty()
                           .toList()
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
                             value,
-                            style: TextStyle(),
                             
                           ),
                         );
