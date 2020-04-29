@@ -1,9 +1,11 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
+import 'package:corona_data/app/modules/settings/widgets/theme_dropdown.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
 import 'package:corona_data/app/shared/utils/theme/constants.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
+import 'package:corona_data/app/shared/utils/widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -70,9 +72,6 @@ class _SettingsPageState
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // actions: <Widget>[
-        //   IconButton(icon: Icon(FontAwesomeIcons.adjust), onPressed: () => Modular.to.pushNamed("/settings"))
-        // ],
         centerTitle: true,
       ),
       body: ListView(
@@ -87,56 +86,20 @@ class _SettingsPageState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Tema Escuro',
+                  'Tema',
                   style: GoogleFonts.robotoSlab(
                       color: Theme.of(context).accentColor, fontSize: 16),
                 ),
                 Observer(builder: (_) {
-                  print(appController.globalSettingsController.themeName.value);
-
-                  return Container(
-                    child: DropdownButton<String>(
-                      value: appController
-                          .globalSettingsController.themeName.value.toUpperCase(),
-                      iconEnabledColor: Theme.of(context).primaryColor,
-                      focusColor: Theme.of(context).primaryColor,
-                      icon: Icon(
-                        Icons.arrow_downward,
-                        color: Theme.of(context).accentColor,
-                      ),
-                      iconSize: 15,
-                      elevation: 16,
-                      style: TextStyle(
-                          color: Theme.of(context).accentColor,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500),
-                      underline: Container(
-                        height: 2,
-                        color: Theme.of(context).accentColor,
-                      ),
-                      onChanged: (String newValue) {
-                        appController.globalSettingsController
-                            .setTheme(newValue);
-                      },
-                      items: ThemeUtils.getThemeNamesPretty()
-                          .toList()
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            
-                          ),
-                        );
-                      }).toList(),
-                    ),
+                
+                  return ThemeDropdown(
+                    value: appController
+                        .globalSettingsController.themeName.value
+                        .toUpperCase(),
+                    onChanged: (String newValue) {
+                      appController.globalSettingsController.setTheme(newValue);
+                    },
                   );
-
-                  // return Switch(
-                  //     value: appController.globalSettingsController.themeDark.value,
-                  //     onChanged: (a){
-                  //       appController.globalSettingsController.setTheme("Light");
-                  //     });
                 }),
               ],
             ),
@@ -192,23 +155,6 @@ class _SettingsPageState
     );
   }
 
-  // void changeCountriesAutoCompleteErrorMessage(String message) {
-  //   if (key.currentState == null) return;
-  //   key.currentState.updateDecoration(
-  //       InputDecoration(
-  //         errorText: message,
-  //         labelText: "País",
-  //         labelStyle:
-  //             TextStyle(color: Theme.of(context).accentColor, fontSize: 16.0),
-  //       ),
-  //       null,
-  //       null,
-  //       null,
-  //       null,
-  //       null);
-
-  // }
-
   @override
   void dispose() {
     super.dispose();
@@ -216,23 +162,4 @@ class _SettingsPageState
   }
 }
 
-class CustomDividerError extends StatelessWidget {
-  final String message;
 
-  CustomDividerError(this.message);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Divider(
-          color: Colors.redAccent,
-        ),
-        Text(
-          message,
-          style: TextStyle(color: Colors.redAccent),
-        )
-      ],
-    );
-  }
-}

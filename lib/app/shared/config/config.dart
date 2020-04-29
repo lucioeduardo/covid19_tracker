@@ -4,6 +4,6 @@ import 'package:flutter/material.dart';
 final Map<String, ThemeData> themes = {
   "light": themeLight,
   "dark": themeDark,
-  "dracula": themeLight,
+  "dracula": themeDracula,
 };
 
