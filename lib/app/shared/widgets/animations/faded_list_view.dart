@@ -1,5 +1,3 @@
-import 'package:corona_data/app/shared/utils/constants.dart';
-import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:flutter/material.dart';
 
 class FadedListView extends StatelessWidget {
@@ -58,11 +56,9 @@ class FadedListView extends StatelessWidget {
                   opacity: animations[index].value.clamp(0.0, 1.0),
                   child: children[index]);
             });
-    }else if(controller.value < begin){
-      
-      return rearWidget != null?rearWidget:SizedBox.shrink();
     }
-         
+
+     return rearWidget ?? SizedBox.shrink();    
         
   }
 }

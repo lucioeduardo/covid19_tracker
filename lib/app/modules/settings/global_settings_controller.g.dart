@@ -25,23 +25,6 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   int get isChanged =>
       (_$isChangedComputed ??= Computed<int>(() => super.isChanged)).value;
 
-  final _$themeDarkAtom = Atom(name: '_GlobalSettingsControllerBase.themeDark');
-
-  @override
-  ObservableFuture<bool> get themeDark {
-    _$themeDarkAtom.context.enforceReadPolicy(_$themeDarkAtom);
-    _$themeDarkAtom.reportObserved();
-    return super.themeDark;
-  }
-
-  @override
-  set themeDark(ObservableFuture<bool> value) {
-    _$themeDarkAtom.context.conditionallyRunInAction(() {
-      super.themeDark = value;
-      _$themeDarkAtom.reportChanged();
-    }, _$themeDarkAtom, name: '${_$themeDarkAtom.name}_set');
-  }
-
   final _$themeNameAtom = Atom(name: '_GlobalSettingsControllerBase.themeName');
 
   @override
@@ -138,7 +121,7 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   @override
   String toString() {
     final string =
-        'themeDark: ${themeDark.toString()},themeName: ${themeName.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
+        'themeName: ${themeName.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
     return '{$string}';
   }
 }

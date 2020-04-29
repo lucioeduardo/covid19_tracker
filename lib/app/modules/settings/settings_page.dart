@@ -4,7 +4,6 @@ import 'package:corona_data/app/modules/settings/widgets/theme_dropdown.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
 import 'package:corona_data/app/shared/utils/theme/constants.dart';
-import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
 import 'package:corona_data/app/shared/utils/widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

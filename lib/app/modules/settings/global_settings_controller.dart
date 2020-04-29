@@ -13,9 +13,6 @@ abstract class _GlobalSettingsControllerBase with Store {
   final ILocalStorage localStorage = Modular.get();
 
   @observable
-  ObservableFuture<bool> themeDark;
-
-  @observable
   ObservableFuture<String> themeName;
 
   @observable
@@ -23,11 +20,6 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @computed
   ThemeData get theme {
-    // if (themeDark == null) {
-    //   return _themeDark;
-    // }
-
-    // return themeDark.value ? _themeDark : _themeLight;
     return ThemeUtils.getThemeData(themeName?.value);
   }
 

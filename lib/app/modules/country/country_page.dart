@@ -25,7 +25,6 @@ class CountryPageState extends ModularState<CountryPage, CountryController>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = widget.controller ??
         AnimationController(
