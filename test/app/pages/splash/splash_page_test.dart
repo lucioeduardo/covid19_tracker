@@ -6,27 +6,21 @@ import 'package:corona_data/app/shared/widgets/animations/virus_circular_animati
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
-class LocalStorageMock extends Mock implements ILocalStorage {}
+import '../../mocks/local_storage_mock.dart';
 
 main() {
   LocalStorageMock localStorageMock = LocalStorageMock();
 
-  initModule(AppModule(),changeBinds: [
+  initModule(AppModule(), changeBinds: [
     Bind<ILocalStorage>((i) => localStorageMock),
   ]);
 
-  when(localStorageMock.isThemeDark())
-      .thenAnswer((_) async => Future.value(true));
-  when(localStorageMock.getCountry())
-      .thenAnswer((_) async => Future.value("Brazil"));
-
-  setUp((){
+  setUp(() {
     Modular.get<SplashController>();
   });
-    
-  testWidgets('SplashPage has container', (WidgetTester tester) async {
+
+  testWidgets('SplashPage has animation', (WidgetTester tester) async {
     await tester.pumpWidget(buildTestableWidget(SplashPage()));
     final animationFinder = find.byType(VirusCircularAnimation);
     expect(animationFinder, findsOneWidget);
