@@ -25,21 +25,21 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   int get isChanged =>
       (_$isChangedComputed ??= Computed<int>(() => super.isChanged)).value;
 
-  final _$themeDarkAtom = Atom(name: '_GlobalSettingsControllerBase.themeDark');
+  final _$themeNameAtom = Atom(name: '_GlobalSettingsControllerBase.themeName');
 
   @override
-  ObservableFuture<bool> get themeDark {
-    _$themeDarkAtom.context.enforceReadPolicy(_$themeDarkAtom);
-    _$themeDarkAtom.reportObserved();
-    return super.themeDark;
+  ObservableFuture<String> get themeName {
+    _$themeNameAtom.context.enforceReadPolicy(_$themeNameAtom);
+    _$themeNameAtom.reportObserved();
+    return super.themeName;
   }
 
   @override
-  set themeDark(ObservableFuture<bool> value) {
-    _$themeDarkAtom.context.conditionallyRunInAction(() {
-      super.themeDark = value;
-      _$themeDarkAtom.reportChanged();
-    }, _$themeDarkAtom, name: '${_$themeDarkAtom.name}_set');
+  set themeName(ObservableFuture<String> value) {
+    _$themeNameAtom.context.conditionallyRunInAction(() {
+      super.themeName = value;
+      _$themeNameAtom.reportChanged();
+    }, _$themeNameAtom, name: '${_$themeNameAtom.name}_set');
   }
 
   final _$countryNameAtom =
@@ -86,11 +86,11 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   }
 
   @override
-  void setTheme(bool value) {
+  void setTheme(String theme) {
     final _$actionInfo =
         _$_GlobalSettingsControllerBaseActionController.startAction();
     try {
-      return super.setTheme(value);
+      return super.setTheme(theme);
     } finally {
       _$_GlobalSettingsControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -121,7 +121,7 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   @override
   String toString() {
     final string =
-        'themeDark: ${themeDark.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
+        'themeName: ${themeName.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
     return '{$string}';
   }
 }

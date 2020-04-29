@@ -50,8 +50,11 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
       children: <Widget>[
         Container(
           height: growAnimation.value,
+          
           child: RoundedIconButton(
+            
             iconData: FontAwesomeIcons.chartBar,
+
             onPressed: () => ModalUtils.showModal(
                 context, ChartsModule(CountryCasesGraphWidget())),
           ),

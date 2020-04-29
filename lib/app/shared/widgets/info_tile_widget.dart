@@ -51,7 +51,7 @@ class InfoTileWidget extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.w300,
                                 fontSize: 22,
-                                color: Color(0xffFF5656)),
+                                color: Theme.of(context).errorColor??(0xffFF5656)),
                           )
                   ],
                 )

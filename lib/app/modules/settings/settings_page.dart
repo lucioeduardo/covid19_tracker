@@ -1,7 +1,10 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
+import 'package:corona_data/app/modules/settings/widgets/theme_dropdown.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
+import 'package:corona_data/app/shared/utils/theme/constants.dart';
+import 'package:corona_data/app/shared/utils/widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -38,22 +41,22 @@ class _SettingsPageState
   @override
   void initState() {
     super.initState();
-    
-    disposer = reaction(
-        (_) => appController.globalSettingsController.isChanged,
+
+    disposer = reaction((_) => appController.globalSettingsController.isChanged,
         (value) {
-          
       snackbar.enqueueMessage(
-          message:'Settings has been changed!', color:ThemeColors.success, id: "SettingsForm");
+          message: 'Settings has been changed!',
+          color: ThemeColors.success,
+          id: "SettingsForm");
     });
 
-    countryTextController.text = appController.globalSettingsController.countryName.value;
+    countryTextController.text =
+        appController.globalSettingsController.countryName.value;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     key = GlobalKey();
     return Scaffold(
       key: _scaffoldKey,
@@ -68,9 +71,6 @@ class _SettingsPageState
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // actions: <Widget>[
-        //   IconButton(icon: Icon(FontAwesomeIcons.adjust), onPressed: () => Modular.to.pushNamed("/settings"))
-        // ],
         centerTitle: true,
       ),
       body: ListView(
@@ -85,14 +85,20 @@ class _SettingsPageState
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Tema Escuro',
+                  'Tema',
                   style: GoogleFonts.robotoSlab(
                       color: Theme.of(context).accentColor, fontSize: 16),
                 ),
                 Observer(builder: (_) {
-                  return Switch(
-                      value: appController.globalSettingsController.themeDark.value,
-                      onChanged: appController.globalSettingsController.setTheme);
+                
+                  return ThemeDropdown(
+                    value: appController
+                        .globalSettingsController.themeName.value
+                        .toUpperCase(),
+                    onChanged: (String newValue) {
+                      appController.globalSettingsController.setTheme(newValue);
+                    },
+                  );
                 }),
               ],
             ),
@@ -125,7 +131,8 @@ class _SettingsPageState
                       clearOnSubmit: false,
                       textSubmitted: (text) {
                         if (countriesNames.indexOf(text) != -1) {
-                          appController.globalSettingsController.setCountry(text);
+                          appController.globalSettingsController
+                              .setCountry(text);
                           controller.cleanError('country_field');
                         } else {
                           controller.addError(
@@ -147,23 +154,6 @@ class _SettingsPageState
     );
   }
 
-  // void changeCountriesAutoCompleteErrorMessage(String message) {
-  //   if (key.currentState == null) return;
-  //   key.currentState.updateDecoration(
-  //       InputDecoration(
-  //         errorText: message,
-  //         labelText: "País",
-  //         labelStyle:
-  //             TextStyle(color: Theme.of(context).accentColor, fontSize: 16.0),
-  //       ),
-  //       null,
-  //       null,
-  //       null,
-  //       null,
-  //       null);
-
-  // }
-
   @override
   void dispose() {
     super.dispose();
@@ -171,23 +161,4 @@ class _SettingsPageState
   }
 }
 
-class CustomDividerError extends StatelessWidget {
-  final String message;
 
-  CustomDividerError(this.message);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Divider(
-          color: Colors.redAccent,
-        ),
-        Text(
-          message,
-          style: TextStyle(color: Colors.redAccent),
-        )
-      ],
-    );
-  }
-}
