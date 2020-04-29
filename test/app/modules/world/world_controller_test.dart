@@ -8,8 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:corona_data/app/modules/home/home_module.dart';
 
-import '../mocks/covid_repository_mock.dart';
-
+import '../../mocks/covid_repository_mock.dart';
 
 void main() {
   initModule(AppModule());

@@ -10,14 +10,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:mobx/mobx.dart' as mobx;
 
-import '../mocks/covid_repository_mock.dart';
-import '../mocks/local_storage_mock.dart';
-
+import '../../mocks/covid_repository_mock.dart';
+import '../../mocks/local_storage_mock.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   LocalStorageMock localStorageMock = LocalStorageMock();
-  initModule(AppModule(),changeBinds: [
+  initModule(AppModule(), changeBinds: [
     Bind<ILocalStorage>((i) => localStorageMock),
   ]);
 
@@ -28,12 +27,11 @@ void main() {
   ]);
 
   initModule(CountryModule());
-  
+
   CountryController country;
   GlobalSettingsController globalSettingsController;
-  
+
   setUp(() async {
-    
     globalSettingsController = Modular.get<GlobalSettingsController>();
     globalSettingsController.init();
     await mobx.asyncWhen((_) => globalSettingsController.isReady);

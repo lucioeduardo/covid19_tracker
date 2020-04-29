@@ -14,19 +14,16 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:corona_data/app/modules/home/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../mocks/covid_repository_mock.dart';
-import '../mocks/local_storage_mock.dart';
-
+import '../../mocks/covid_repository_mock.dart';
+import '../../mocks/local_storage_mock.dart';
 
 main() {
   LocalStorageMock localStorageMock = LocalStorageMock();
+  CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
 
   initModule(AppModule(), changeBinds: [
     Bind<ILocalStorage>((i) => localStorageMock),
   ]);
-
-  CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);

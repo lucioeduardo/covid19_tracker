@@ -15,9 +15,8 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/mockito.dart';
 
-import '../mocks/covid_repository_mock.dart';
-import '../mocks/local_storage_mock.dart';
-
+import '../../mocks/covid_repository_mock.dart';
+import '../../mocks/local_storage_mock.dart';
 
 main() {
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
@@ -43,15 +42,15 @@ main() {
     await mobx.asyncWhen((_) => globalSettingsController.isReady);
 
     controller = Modular.get<CountryController>();
-    animationController = AnimationController(vsync: TestVSync(),duration: Duration(seconds: 2));
+    animationController =
+        AnimationController(vsync: TestVSync(), duration: Duration(seconds: 2));
     animationController.value = 0.4;
   });
-  
-  group('CountryPage Requests', () {
 
+  group('CountryPage Requests', () {
     testWidgets('CountryPage - cases', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(CountryPage(controller:animationController)));
-      
+      await tester.pumpWidget(
+          buildTestableWidget(CountryPage(controller: animationController)));
 
       final tileFinder = find.widgetWithText(InfoTileWidget, 'Número de Casos');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
@@ -61,7 +60,8 @@ main() {
     });
 
     testWidgets('CountryPage - deaths', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(CountryPage(controller:animationController)));
+      await tester.pumpWidget(
+          buildTestableWidget(CountryPage(controller: animationController)));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Número de Mortes');
@@ -72,7 +72,8 @@ main() {
     });
 
     testWidgets('CountryPage - critical', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(CountryPage(controller:animationController)));
+      await tester.pumpWidget(
+          buildTestableWidget(CountryPage(controller: animationController)));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Pacientes em estado grave');
@@ -81,7 +82,8 @@ main() {
     });
 
     testWidgets('CountryPage - recovered', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(CountryPage(controller:animationController)));
+      await tester.pumpWidget(
+          buildTestableWidget(CountryPage(controller: animationController)));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Pacientes recuperados');
@@ -99,8 +101,8 @@ main() {
     testWidgets("Simulating error", (WidgetTester tester) async {
       when(covidRepositoryMock.countryInfo('Brazil'))
           .thenAnswer((_) async => throw 'E');
-            await tester.pumpWidget(buildTestableWidget(CountryPage(controller:animationController)));
-
+      await tester.pumpWidget(
+          buildTestableWidget(CountryPage(controller: animationController)));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
@@ -109,7 +111,8 @@ main() {
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(CountryPage(controller:animationController)));
+      await tester.pumpWidget(
+          buildTestableWidget(CountryPage(controller: animationController)));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);

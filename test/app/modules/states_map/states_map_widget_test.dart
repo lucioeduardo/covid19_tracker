@@ -12,18 +12,15 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../mocks/covid_repository_mock.dart';
-
+import '../../mocks/covid_repository_mock.dart';
 
 main() {
-  initModule(AppModule());
-
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
 
+  initModule(AppModule());
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);
-
   initModule(StatesMapModule());
 
   StatesMapController controller;

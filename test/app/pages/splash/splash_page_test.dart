@@ -7,20 +7,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../modules/mocks/local_storage_mock.dart';
-
+import '../../mocks/local_storage_mock.dart';
 
 main() {
   LocalStorageMock localStorageMock = LocalStorageMock();
 
-  initModule(AppModule(),changeBinds: [
+  initModule(AppModule(), changeBinds: [
     Bind<ILocalStorage>((i) => localStorageMock),
   ]);
 
-  setUp((){
+  setUp(() {
     Modular.get<SplashController>();
   });
-    
+
   testWidgets('SplashPage has animation', (WidgetTester tester) async {
     await tester.pumpWidget(buildTestableWidget(SplashPage()));
     final animationFinder = find.byType(VirusCircularAnimation);
