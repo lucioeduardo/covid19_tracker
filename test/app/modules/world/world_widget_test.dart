@@ -12,14 +12,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:mockito/mockito.dart';
 
-class CovidRepositoryMock extends Mock implements ICovidRepository {}
+import '../mocks/covid_repository_mock.dart';
+
 
 main() {
   initModule(AppModule());
 
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  when(covidRepositoryMock.worldInfo())
-      .thenAnswer((_) async => Future.value(null));
 
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
@@ -36,20 +35,6 @@ main() {
   });
   
   group('WorldPage Requests', () {
-    setUp(() {
-      when(covidRepositoryMock.worldInfo()).thenAnswer((_) async =>
-          Future.value(InfoModel(
-              cases: 555,
-              deaths: 100,
-              affectedCountries: 300,
-              critical: 50,
-              recovered: 10,
-              todayCases: 8,
-              todayDeaths: 5)));
-      controller.fetchWorldInfo();
-      // animationController = AnimationController(vsync: TestVSync(),duration: Duration(seconds: 2));
-    });
-
     testWidgets('WorldPage - cases', (WidgetTester tester) async {
       
       animationController.value = 0.4;

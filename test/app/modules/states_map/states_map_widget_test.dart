@@ -12,14 +12,13 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class CovidRepositoryMock extends Mock implements ICovidRepository {}
+import '../mocks/covid_repository_mock.dart';
+
 
 main() {
   initModule(AppModule());
 
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  when(covidRepositoryMock.getStatesInfo())
-      .thenAnswer((_) async => Future.value(null));
 
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
@@ -34,14 +33,6 @@ main() {
   });
 
   group('StatesMapPage - Request Success', () {
-    setUp(() {
-      when(covidRepositoryMock.getStatesInfo()).thenAnswer((_) => Future.value([
-            StateModel(confirmed: 10, deaths: 2, state: 'AL'),
-            StateModel(confirmed: 15, deaths: 3, state: 'PE'),
-          ]));
-      controller.fetchMarkers();
-    });
-
     testWidgets("StatesMapPage has map", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
 

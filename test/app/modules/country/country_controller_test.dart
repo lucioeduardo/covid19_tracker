@@ -11,8 +11,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mobx/mobx.dart' as mobx;
-class CovidRepositoryMock extends Mock implements ICovidRepository {}
+
+import '../mocks/covid_repository_mock.dart';
+
 class LocalStorageMock extends Mock implements ILocalStorage {}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   LocalStorageMock localStorageMock = LocalStorageMock();
@@ -24,16 +27,8 @@ void main() {
       .thenAnswer((_) async => Future<bool>.value(true));
   when(localStorageMock.getCountry())
       .thenAnswer((_) async => Future.value("Brazil"));
+
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  when(covidRepositoryMock.countryInfo("Brazil")).thenAnswer((_) async => Future.value(
-      InfoModel(
-          cases: 555,
-          deaths: 100,
-          affectedCountries: 300,
-          critical: 50,
-          recovered: 10,
-          todayCases: 8,
-          todayDeaths: 5)));
 
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),

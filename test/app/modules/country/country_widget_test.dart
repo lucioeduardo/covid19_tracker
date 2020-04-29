@@ -15,7 +15,7 @@ import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/mockito.dart';
 
-class CovidRepositoryMock extends Mock implements ICovidRepository {}
+import '../mocks/covid_repository_mock.dart';
 
 class LocalStorageMock extends Mock implements ILocalStorage {}
 
@@ -33,9 +33,6 @@ main() {
 
   initModule(CountryModule());
 
-
-  when(covidRepositoryMock.countryInfo("Brazil"))
-      .thenAnswer((_) async => Future.value(null));
   when(localStorageMock.isThemeDark())
       .thenAnswer((_) async => Future<bool>.value(true));
   when(localStorageMock.getCountry())
@@ -56,23 +53,8 @@ main() {
   });
   
   group('CountryPage Requests', () {
-    setUp(() {
-      when(covidRepositoryMock.countryInfo("Brazil")).thenAnswer((_) async =>
-          Future.value(InfoModel(
-              cases: 555,
-              deaths: 100,
-              affectedCountries: 300,
-              critical: 50,
-              recovered: 10,
-              todayCases: 8,
-              todayDeaths: 5)));
-      controller.fetchCountryInfo();
-      
-    });
 
     testWidgets('CountryPage - cases', (WidgetTester tester) async {
-      
-      
       await tester.pumpWidget(buildTestableWidget(CountryPage(controller:animationController)));
       
 

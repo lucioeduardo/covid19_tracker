@@ -15,26 +15,27 @@ import 'package:corona_data/app/modules/home/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mockito/mockito.dart';
 
-class CovidRepositoryMock extends Mock implements ICovidRepository {}
-class GlobalSettingsControllerMock extends Mock implements GlobalSettingsController {}
+import '../mocks/covid_repository_mock.dart';
+
+
+class GlobalSettingsControllerMock extends Mock
+    implements GlobalSettingsController {}
+
 class LocalStorageMock extends Mock implements ILocalStorage {}
 
 main() {
   LocalStorageMock localStorageMock = LocalStorageMock();
 
-  when(localStorageMock.getCountry()).thenAnswer((_) async=> Future.value("Brazil"));
-  when(localStorageMock.isThemeDark()).thenAnswer((_) async=> Future<bool>.value(true));
+  when(localStorageMock.getCountry())
+      .thenAnswer((_) async => Future.value("Brazil"));
+  when(localStorageMock.isThemeDark())
+      .thenAnswer((_) async => Future<bool>.value(true));
   initModule(AppModule(), changeBinds: [
     // Bind<GlobalSettingsController>((i)=>globalSettingsControllerMock),
-    Bind<ILocalStorage>((i)=>localStorageMock),
+    Bind<ILocalStorage>((i) => localStorageMock),
   ]);
 
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  
-  
-  when(covidRepositoryMock.countryInfo('Brazil')).thenAnswer((_) async => Future.value(null));
-  when(covidRepositoryMock.worldInfo()).thenAnswer((_) async => Future.value(null));
-  when(covidRepositoryMock.getStatesInfo()).thenAnswer((_) async => Future.value(null));
 
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
@@ -46,46 +47,47 @@ main() {
     globalSettingsController = Modular.get<GlobalSettingsController>();
     globalSettingsController.init();
   });
-  
-  testWidgets('HomePage - Brasil selected', (WidgetTester tester) async {
-    
-    await tester.pumpWidget(buildTestableWidget(HomePage()));
 
-    final titleFinder = find.widgetWithText(AppBar, 'Brazil');
-    
-    expect(titleFinder, findsOneWidget);
+  group('HomePage Tests', () {
+    testWidgets('HomePage - Brasil selected', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(HomePage()));
 
-    final menuFinder = find.byType(CountryPage);
-    expect(menuFinder, findsOneWidget);
-  });
+      final titleFinder = find.widgetWithText(AppBar, 'Brazil');
 
-  testWidgets('HomePage - World selected', (WidgetTester tester) async {
-    await tester.pumpWidget(buildTestableWidget(HomePage()));
+      expect(titleFinder, findsOneWidget);
 
-    await tester.tap(
-      find.byIcon(FontAwesomeIcons.globe),
-    );
-    await tester.pump();
+      final menuFinder = find.byType(CountryPage);
+      expect(menuFinder, findsOneWidget);
+    });
 
-    final widgetFinder = find.byType(WorldPage);
-    expect(widgetFinder, findsOneWidget);
+    testWidgets('HomePage - World selected', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(HomePage()));
 
-    final titleFinder = find.widgetWithText(AppBar, 'Mundo');
-    expect(titleFinder, findsOneWidget);
-  });
+      await tester.tap(
+        find.byIcon(FontAwesomeIcons.globe),
+      );
+      await tester.pump();
 
-  testWidgets('HomePage - Statesmap selected', (WidgetTester tester) async {
-    await tester.pumpWidget(buildTestableWidget(HomePage()));
+      final widgetFinder = find.byType(WorldPage);
+      expect(widgetFinder, findsOneWidget);
 
-    await tester.tap(
-      find.byIcon(FontAwesomeIcons.mapMarked),
-    );
-    await tester.pump();
+      final titleFinder = find.widgetWithText(AppBar, 'Mundo');
+      expect(titleFinder, findsOneWidget);
+    });
 
-    final widgetFinder = find.byType(StatesMapPage);
-    expect(widgetFinder, findsOneWidget);
+    testWidgets('HomePage - Statesmap selected', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestableWidget(HomePage()));
 
-    final titleFinder = find.widgetWithText(AppBar, 'Mapa');
-    expect(titleFinder, findsOneWidget);
+      await tester.tap(
+        find.byIcon(FontAwesomeIcons.mapMarked),
+      );
+      await tester.pump();
+
+      final widgetFinder = find.byType(StatesMapPage);
+      expect(widgetFinder, findsOneWidget);
+
+      final titleFinder = find.widgetWithText(AppBar, 'Mapa');
+      expect(titleFinder, findsOneWidget);
+    });
   });
 }
