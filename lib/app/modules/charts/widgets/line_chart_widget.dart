@@ -9,7 +9,13 @@ class LineChartWidget extends StatefulWidget {
   final Map<String, List<int>> values;
   final bool showCases, showDeaths, showRecovered;
 
-  LineChartWidget({Key key, @required this.values, @required this.showCases, @required this.showDeaths, @required this.showRecovered}) : super(key: key);
+  LineChartWidget(
+      {Key key,
+      @required this.values,
+      @required this.showCases,
+      @required this.showDeaths,
+      @required this.showRecovered})
+      : super(key: key);
 
   @override
   _LineChartWidgetState createState() => _LineChartWidgetState();
@@ -33,7 +39,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             widget.values['recovered'][length - 1]));
 
     for (int i = 0; i < length; i++) {
-      zeroLine.add(FlSpot(i.toDouble(),0.0));
+      zeroLine.add(FlSpot(i.toDouble(), 0.0));
       cases.add(FlSpot(i.toDouble(), (widget.values['cases'][i]).toDouble()));
       deaths.add(FlSpot(i.toDouble(), (widget.values['deaths'][i]).toDouble()));
       recovered.add(
@@ -69,14 +75,19 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       touchTooltipData: LineTouchTooltipData(
           tooltipBgColor: Theme.of(context).primaryColorLight,
           getTooltipItems: (spots) {
-            return spots
-                .map((spot) => LineTooltipItem(
-                    "${display(spot.y)}",
-                    TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: spot.bar.colors[0])))
-                .toList();
+            List<LineTooltipItem> tooltips = [];
+
+            for (var spot in spots) {
+              tooltips.add(LineTooltipItem(
+                "${getDateFormatted(spot.x.toInt())}: ${display(spot.y)}",
+                TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: spot.bar.colors[0]),
+              ));
+            }
+
+            return tooltips;
           }),
     );
 
@@ -118,7 +129,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     List<LineChartBarData> lineBarsData = [];
     maxValue = 0;
-      
+
     lineBarsData.add(casesData);
     lineBarsData.add(recoveredData);
     lineBarsData.add(deathsData);
@@ -143,7 +154,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       bottomTitles: SideTitles(
           showTitles: true,
           textStyle: TextStyle(
-              fontSize: 14,
+              fontSize: 12,
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold),
           getTitles: (value) {
