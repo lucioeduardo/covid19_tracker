@@ -18,14 +18,14 @@ class RoundedIconButton extends StatelessWidget {
           ),
           padding: EdgeInsets.all(10),
           onPressed: onPressed,
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).buttonColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
                 iconData,
                 size: 30,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorDark,
               ),
               Container(
                 width: 10,
@@ -33,7 +33,7 @@ class RoundedIconButton extends StatelessWidget {
               Text(
                 "Gráfico",
                 style: GoogleFonts.robotoSlab(
-                    fontSize: 20, color: Theme.of(context).primaryColor),
+                    fontSize: 20, color: Theme.of(context).primaryColorDark),
               ),
             ],
           )),

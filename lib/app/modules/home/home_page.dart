@@ -24,7 +24,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       builder: (BuildContext context) {
         
         return Scaffold(
-          backgroundColor: Theme.of(context).primaryColorDark,
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               controller.title == 'country'
@@ -46,7 +46,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           ),
           body: controller.page,
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Theme.of(context).primaryColorDark,
+            backgroundColor: Theme.of(context).backgroundColor,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(BrazilIcon.emojione_monotone_flag_for_flag_brazil),

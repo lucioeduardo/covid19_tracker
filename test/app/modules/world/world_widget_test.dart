@@ -12,43 +12,32 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:mockito/mockito.dart';
 
-class CovidRepositoryMock extends Mock implements ICovidRepository {}
+import '../../mocks/covid_repository_mock.dart';
 
 main() {
-  initModule(AppModule());
-
   CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  when(covidRepositoryMock.worldInfo())
-      .thenAnswer((_) async => Future.value(null));
 
+  initModule(AppModule());
   initModule(HomeModule(), changeBinds: [
     Bind<ICovidRepository>((i) => covidRepositoryMock),
   ]);
-
   initModule(WorldModule());
 
   WorldController controller;
-
+  AnimationController animationController;
   setUp(() {
     controller = Modular.get<WorldController>();
+    animationController =
+        AnimationController(vsync: TestVSync(), duration: Duration(seconds: 2));
+    animationController.value = 0.4;
   });
 
   group('WorldPage Requests', () {
-    setUp(() {
-      when(covidRepositoryMock.worldInfo()).thenAnswer((_) async =>
-          Future.value(InfoModel(
-              cases: 555,
-              deaths: 100,
-              affectedCountries: 300,
-              critical: 50,
-              recovered: 10,
-              todayCases: 8,
-              todayDeaths: 5)));
-      controller.fetchWorldInfo();
-    });
-
     testWidgets('WorldPage - cases', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      animationController.value = 0.4;
+      await tester.pumpWidget(buildTestableWidget(WorldPage(
+        controller: animationController,
+      )));
 
       final tileFinder = find.widgetWithText(InfoTileWidget, 'Número de Casos');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
@@ -58,7 +47,10 @@ main() {
     });
 
     testWidgets('WorldPage - deaths', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      animationController.value = 0.4;
+      await tester.pumpWidget(buildTestableWidget(WorldPage(
+        controller: animationController,
+      )));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Número de Mortes');
@@ -69,7 +61,10 @@ main() {
     });
 
     testWidgets('WorldPage - affected countries', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      animationController.value = 0.4;
+      await tester.pumpWidget(buildTestableWidget(WorldPage(
+        controller: animationController,
+      )));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Número de países afetados');
@@ -78,7 +73,10 @@ main() {
     });
 
     testWidgets('WorldPage - critical', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      animationController.value = 0.4;
+      await tester.pumpWidget(buildTestableWidget(WorldPage(
+        controller: animationController,
+      )));
 
       final tileFinder =
           find.widgetWithText(InfoTileWidget, 'Pacientes em estado grave');
@@ -87,7 +85,10 @@ main() {
     });
 
     testWidgets('WorldPage - recovered', (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      animationController.value = 0.4;
+      await tester.pumpWidget(buildTestableWidget(WorldPage(
+        controller: animationController,
+      )));
 
       final tileFinder = find.widgetWithText(
           InfoTileWidget, 'Pacientes recuperados',
@@ -108,7 +109,9 @@ main() {
       controller.fetchWorldInfo();
     });
     testWidgets("Simulating error", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      await tester.pumpWidget(buildTestableWidget(WorldPage(
+        controller: animationController,
+      )));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
@@ -117,7 +120,9 @@ main() {
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
-      await tester.pumpWidget(buildTestableWidget(WorldPage()));
+      await tester.pumpWidget(buildTestableWidget(WorldPage(
+        controller: animationController,
+      )));
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);

@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 const String BASE_URL = "https://corona.lmao.ninja/v2";
 
-class ThemeColors{
-  const ThemeColors._();
-  static const Color success = Colors.green;
-  static const Color error = Colors.red;
-  static const Color warning = Colors.orange;
-  static const Color info = Colors.blue;
+
+
+class AnimationSizes{
+  static const double small=50;
+  static const double medium=100;
+  static const double large=150;
+  static const double veryLarge=200;
+  
+  const AnimationSizes._();
 }
 
 const Map stateCoords = {
