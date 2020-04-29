@@ -3,8 +3,8 @@ import 'package:mockito/mockito.dart';
 
 class LocalStorageMock extends Mock implements ILocalStorage {
   LocalStorageMock() {
-    when(this.isThemeDark()).thenAnswer(
-      (_) async => Future<bool>.value(true),
+    when(this.getTheme()).thenAnswer(
+      (_) async => Future<String>.value('dark'),
     );
     when(this.getCountry()).thenAnswer(
       (_) async => Future.value("Brazil"),
