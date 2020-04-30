@@ -8,19 +8,24 @@ part 'country_cases_controller.g.dart';
 class CountryCasesController = _CountryCasesControllerBase
     with _$CountryCasesController;
 
-abstract class _CountryCasesControllerBase with Store implements IChartController {
+abstract class _CountryCasesControllerBase
+    with Store
+    implements IChartController {
   @observable
   ObservableFuture<Map<String, List<int>>> graphData;
 
   final HistoricalRepository historicalRepository;
   final AppController appController;
 
-  _CountryCasesControllerBase(this.historicalRepository, this.appController){
+  _CountryCasesControllerBase(this.historicalRepository, this.appController) {
     fetchGraphData();
   }
 
   @action
-  fetchGraphData(){
-    graphData = historicalRepository.getCountryHistoricalData(appController.globalSettingsController.countryName.value).asObservable();
+  fetchGraphData() {
+    graphData = historicalRepository
+        .getCountryHistoricalData(
+            appController.globalSettingsController.country.value.name)
+        .asObservable();
   }
 }

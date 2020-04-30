@@ -1,3 +1,4 @@
+import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ abstract class _GlobalSettingsControllerBase with Store {
   ObservableFuture<String> themeName;
 
   @observable
-  ObservableFuture<String> countryName;
+  ObservableFuture<CountryModel> country;
 
   @computed
   ThemeData get theme {
@@ -25,7 +26,7 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @computed
   bool get isReady {
-    return themeName.value != null && countryName.value != null;
+    return themeName.value != null && country.value != null;
   }
 
   @action
@@ -36,7 +37,7 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @computed
   int get isChanged =>
-      (countryName.value + themeName.value.toString()).hashCode;
+      (country.value.name + themeName.value.toString()).hashCode;
 
   @action
   void getTheme() {
@@ -53,16 +54,16 @@ abstract class _GlobalSettingsControllerBase with Store {
   }
 
   @action
-  void setCountry(String country) {
-    if (country != countryName.value) {
-      countryName = ObservableFuture.value(country);
+  void setCountry(CountryModel country) {
+    if (country.code != this.country.value.code) {
+      this.country = ObservableFuture.value(country);
       localStorage.setCountry(country);
     }
   }
 
   @action
   void getCountry() {
-    countryName = localStorage.getCountry().asObservable();
+    this.country = localStorage.getCountry().asObservable();
   }
 
 }

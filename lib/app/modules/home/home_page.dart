@@ -28,7 +28,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           appBar: AppBar(
             title: Text(
               controller.title == 'country'
-                  ? appController.globalSettingsController.countryName.value
+                  ? appController.globalSettingsController.country.value.name
                   : controller.title,
               style: GoogleFonts.robotoSlab(
                 fontSize: 24,
@@ -50,7 +50,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(BrazilIcon.emojione_monotone_flag_for_flag_brazil),
-                title: Text(appController.globalSettingsController.countryName.value),
+                title: Text(appController.globalSettingsController.country.value.name),
               ),
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.globe),
