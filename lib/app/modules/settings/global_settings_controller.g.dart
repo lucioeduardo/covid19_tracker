@@ -42,22 +42,21 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
     }, _$themeNameAtom, name: '${_$themeNameAtom.name}_set');
   }
 
-  final _$countryNameAtom =
-      Atom(name: '_GlobalSettingsControllerBase.countryName');
+  final _$countryAtom = Atom(name: '_GlobalSettingsControllerBase.country');
 
   @override
-  ObservableFuture<String> get countryName {
-    _$countryNameAtom.context.enforceReadPolicy(_$countryNameAtom);
-    _$countryNameAtom.reportObserved();
-    return super.countryName;
+  ObservableFuture<CountryModel> get country {
+    _$countryAtom.context.enforceReadPolicy(_$countryAtom);
+    _$countryAtom.reportObserved();
+    return super.country;
   }
 
   @override
-  set countryName(ObservableFuture<String> value) {
-    _$countryNameAtom.context.conditionallyRunInAction(() {
-      super.countryName = value;
-      _$countryNameAtom.reportChanged();
-    }, _$countryNameAtom, name: '${_$countryNameAtom.name}_set');
+  set country(ObservableFuture<CountryModel> value) {
+    _$countryAtom.context.conditionallyRunInAction(() {
+      super.country = value;
+      _$countryAtom.reportChanged();
+    }, _$countryAtom, name: '${_$countryAtom.name}_set');
   }
 
   final _$_GlobalSettingsControllerBaseActionController =
@@ -97,7 +96,7 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   }
 
   @override
-  void setCountry(String country) {
+  void setCountry(CountryModel country) {
     final _$actionInfo =
         _$_GlobalSettingsControllerBaseActionController.startAction();
     try {
@@ -121,7 +120,7 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   @override
   String toString() {
     final string =
-        'themeName: ${themeName.toString()},countryName: ${countryName.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
+        'themeName: ${themeName.toString()},country: ${country.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
     return '{$string}';
   }
 }

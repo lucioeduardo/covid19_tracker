@@ -1,6 +1,7 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/settings/widgets/theme_dropdown.dart';
+import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
 import 'package:corona_data/app/shared/utils/theme/constants.dart';
@@ -51,7 +52,7 @@ class _SettingsPageState
     });
 
     countryTextController.text =
-        appController.globalSettingsController.countryName.value;
+        appController.globalSettingsController.country.value.name;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
   }
 
@@ -130,9 +131,12 @@ class _SettingsPageState
                       },
                       clearOnSubmit: false,
                       textSubmitted: (text) {
+                        final int idx = countriesNames.indexOf(text);
                         if (countriesNames.indexOf(text) != -1) {
+                          print(COUNTRIES[idx]);
+
                           appController.globalSettingsController
-                              .setCountry(text);
+                              .setCountry(CountryModel.fromJson(COUNTRIES[idx]));
                           controller.cleanError('country_field');
                         } else {
                           controller.addError(
