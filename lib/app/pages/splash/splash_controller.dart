@@ -21,7 +21,7 @@ abstract class _SplashControllerBase with Store {
   }
 
   void setupTimer() async {
-    Timer(Duration(seconds: 2), () => _timer = true);
+    Timer(Duration(milliseconds: 2500), () => _timer = true);
   }
 
   void setupReactions() async {
