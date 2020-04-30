@@ -1,26 +1,17 @@
-import 'package:corona_data/app/modules/charts/charts_module.dart';
-import 'package:corona_data/app/modules/charts/widgets/world_cases/world_cases_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
-import 'package:corona_data/app/shared/utils/modal_utils.dart';
+import 'package:corona_data/app/shared/utils/widgets/summary_header_widget.dart';
 import 'package:corona_data/app/shared/widgets/animations/faded_list_view.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
-import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WorldPageStaggerAnimation extends StatelessWidget {
   final AnimationController controller;
   final InfoModel info;
-  final Animation<double> growAnimation;
 
   WorldPageStaggerAnimation({Key key, this.controller, this.info})
-      : growAnimation = Tween<double>(begin: 0.0, end: 50.0).animate(
-            CurvedAnimation(
-                parent: controller,
-                curve: Interval(0.4, 0.7, curve: Curves.decelerate))),
-        super(key: key) {
+      : super(key: key) {
     controller.forward();
   }
   @override
@@ -40,36 +31,23 @@ class WorldPageStaggerAnimation extends StatelessWidget {
       end: 0.8,
       curve: Curves.easeInQuad,
       rearWidget: Center(
-          child: VirusCircularAnimation(
-        animation: VirusAnimation.rotation_fss,
-        size: AnimationSizes.large,
-        fit: BoxFit.cover,
-      )),
-      children: <Widget>[
-        Container(
-          height: growAnimation.value,
-          child: RoundedIconButton(
-            iconData: FontAwesomeIcons.chartBar,
-            onPressed: () => ModalUtils.showModal(
-                context, ChartsModule(WorldCasesGraphWidget())),
-          ),
+        child: VirusCircularAnimation(
+          animation: VirusAnimation.rotation_fss,
+          size: AnimationSizes.large,
+          fit: BoxFit.cover,
         ),
-        InfoTileWidget(
-          padding: const EdgeInsets.only(top: 20.0),
-          number: "${info.cases}",
-          todayNum: "${info.todayCases}",
-          title: "Número de Casos",
+      ),
+      children: <Widget>[
+        SummaryHeaderWidget(
+          info: info,
+          controller: controller,
+          iconName: 'world',
         ),
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.deaths}",
           todayNum: "${info.todayDeaths}",
           title: "Número de Mortes",
-        ),
-        InfoTileWidget(
-          padding: const EdgeInsets.only(top: 20.0),
-          number: "${info.affectedCountries}",
-          title: "Número de países afetados",
         ),
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
@@ -80,6 +58,11 @@ class WorldPageStaggerAnimation extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.recovered}",
           title: "Pacientes recuperados",
+        ),
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top: 20.0),
+          number: "${info.affectedCountries}",
+          title: "Número de países afetados",
         ),
       ],
     );

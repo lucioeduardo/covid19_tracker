@@ -68,6 +68,7 @@ flutter:
   assets:
    - assets/ball_marker.png
    - assets/animations/
+   - assets/flags/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -7,7 +7,8 @@ final ThemeData themeLight = ThemeData(
   primaryColorDark: Color(0xffEBE9E7),
   accentColor: Color(0xff231F1C),
   backgroundColor: Color(0xffEBE9E7),
-  buttonColor: Color(0xff231F1C)
+  buttonColor: Color(0xff231F1C),
+  secondaryHeaderColor: Color(0xffcfd0cd),
   
 );
 
@@ -18,7 +19,7 @@ final ThemeData themeDark = ThemeData(
   accentColor: Color(0xffEBE9E7),
   canvasColor: Color(0xff393e3b),
   backgroundColor: Color(0xff231F1C),
-  
+  secondaryHeaderColor: Color(0xff2C2F26),
 );
 
 final ThemeData themeDracula = ThemeData(
@@ -34,10 +35,7 @@ final ThemeData themeDracula = ThemeData(
   accentIconTheme: IconThemeData(color: Color(0xfff8f8f2)),
   buttonTheme: ButtonThemeData(buttonColor: Color(0xfff1fa8c)),
   buttonColor: Color(0xfff1fa8c),
-  
-  
-  
-  
+  secondaryHeaderColor: Color(0xff44475a),
 );
 
 class ThemeColors{
