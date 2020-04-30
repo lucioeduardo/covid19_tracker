@@ -23,7 +23,6 @@ class SplashVirusAnimation extends StatelessWidget{
   };
 
   SplashVirusAnimation({this.animation, this.fit, this.width, this.heigth,});
-
   @override
   Widget build(BuildContext context) {
     return Container(
