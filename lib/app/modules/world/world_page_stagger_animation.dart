@@ -4,6 +4,7 @@ import 'package:corona_data/app/shared/utils/widgets/summary_header_widget.dart'
 import 'package:corona_data/app/shared/widgets/animations/faded_list_view.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
+import 'package:corona_data/app/shared/widgets/percentage_badge_widget.dart';
 import 'package:flutter/material.dart';
 
 class WorldPageStaggerAnimation extends StatelessWidget {
@@ -48,16 +49,28 @@ class WorldPageStaggerAnimation extends StatelessWidget {
           number: "${info.deaths}",
           todayNum: "${info.todayDeaths}",
           title: "Número de Mortes",
-        ),
-        InfoTileWidget(
-          padding: const EdgeInsets.only(top: 20.0),
-          number: "${info.critical}",
-          title: "Pacientes em estado grave",
+          percentageBadge: PercentageBadgeWidget(
+            color: Color(0xffFF5656),
+            percentage: (info.deaths) / (info.cases),
+          ),
         ),
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.recovered}",
           title: "Pacientes recuperados",
+          percentageBadge: PercentageBadgeWidget(
+            color: Color(0xff40CA87),
+            percentage: (info.recovered) / (info.cases),
+          ),
+        ),
+        InfoTileWidget(
+          padding: const EdgeInsets.only(top: 20.0),
+          number: "${info.critical}",
+          title: "Pacientes em estado grave",
+          percentageBadge: PercentageBadgeWidget(
+            color: Color(0xffDBC716),
+            percentage: (info.critical) / (info.cases),
+          ),
         ),
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
@@ -68,48 +81,3 @@ class WorldPageStaggerAnimation extends StatelessWidget {
     );
   }
 }
-
-// ListView(
-//           children: <Widget>[
-//             RoundedIconButton(
-//               iconData: FontAwesomeIcons.chartBar,
-//               onPressed: () =>
-//                   ModalUtils.showModal(context, ChartsModule(WorldCasesGraphWidget())),
-//             ),
-//             Container(height: 10,),
-//             InfoTileWidget(
-//               number: "${info.cases}",
-//               todayNum: "${info.todayCases}",
-//               title: "Número de Casos",
-//             ),
-//             Container(
-//               height: 20,
-//             ),
-//             InfoTileWidget(
-//               number: "${info.deaths}",
-//               todayNum: "${info.todayDeaths}",
-//               title: "Número de Mortes",
-//             ),
-//             Container(
-//               height: 20,
-//             ),
-//             InfoTileWidget(
-//               number: "${info.affectedCountries}",
-//               title: "Número de países afetados",
-//             ),
-//             Container(
-//               height: 20,
-//             ),
-//             InfoTileWidget(
-//               number: "${info.critical}",
-//               title: "Pacientes em estado grave",
-//             ),
-//             Container(
-//               height: 20,
-//             ),
-//             InfoTileWidget(
-//               number: "${info.recovered}",
-//               title: "Pacientes recuperados",
-//             ),
-//           ],
-//         );
