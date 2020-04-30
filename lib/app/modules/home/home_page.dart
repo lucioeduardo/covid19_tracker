@@ -1,6 +1,5 @@
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/home/home_controller.dart';
-import 'package:corona_data/app/shared/widgets/brazil_icon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -49,7 +48,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             backgroundColor: Theme.of(context).backgroundColor,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(BrazilIcon.emojione_monotone_flag_for_flag_brazil),
+                icon: Icon(FontAwesomeIcons.flagCheckered),
                 title: Text(appController.globalSettingsController.country.value.name),
               ),
               BottomNavigationBarItem(
