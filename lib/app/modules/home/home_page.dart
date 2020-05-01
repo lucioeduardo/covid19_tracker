@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:i18n_extension/i18n_widget.dart';
 import 'translations/home_page.i18n.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +20,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    I18n.of(context).locale = Locale("en");
+    
   }
 
   @override

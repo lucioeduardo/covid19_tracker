@@ -1,5 +1,7 @@
 import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
+import 'package:corona_data/app/shared/utils/localization/localization_interface.dart';
+import 'package:corona_data/app/shared/utils/localization/localization_utils.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
@@ -18,27 +20,35 @@ abstract class _GlobalSettingsControllerBase with Store {
   ObservableFuture<String> themeName;
 
   @observable
+  ObservableFuture<String> localeKey;
+
+  @observable
   ObservableFuture<CountryModel> country;
 
   @computed
   ITheme get theme {
     return ThemeUtils.getTheme(themeName?.value);
   }
+  @computed
+  ILocalization get locale {
+    return LocalizationUtils.getLocale(localeKey?.value);
+  }
   
   @computed
   bool get isReady {
-    return themeName.value != null && country.value != null;
+    return themeName.value != null && country.value != null && localeKey.value != null;
   }
 
   @action
   void init() {
     getTheme();
     getCountry();
+    getLocale();
   }
 
   @computed
   int get isChanged =>
-      (country.value.name + themeName.value.toString()).hashCode;
+      (country.value.name + themeName.value.toString() + localeKey.value).hashCode;
 
   @action
   void getTheme() {
@@ -66,6 +76,20 @@ abstract class _GlobalSettingsControllerBase with Store {
   void getCountry() {
     this.country = localStorage.getCountry().asObservable();
   }
+
+  @action
+  void setLocale(String localeKey) {
+    if (localeKey!= this.localeKey.value) {
+      this.localeKey = ObservableFuture.value(localeKey);
+      localStorage.setLocale(localeKey);
+    }
+  }
+
+  @action
+  void getLocale() {
+    this.localeKey = localStorage.getLocale().asObservable();
+  }
+  
 
 }
 

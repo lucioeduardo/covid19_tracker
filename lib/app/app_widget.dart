@@ -40,7 +40,7 @@ class _AppWidgetState extends State<AppWidget> {
       builder: (context,widget){
         
         return I18n(
-          initialLocale: (Locale("pt","BR")),
+          initialLocale: controller.globalSettingsController.locale.getLocale(),
           child:widget
           );
       },
