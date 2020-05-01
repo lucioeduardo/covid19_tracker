@@ -4,7 +4,6 @@ import 'package:corona_data/app/modules/settings/widgets/theme_dropdown.dart';
 import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
-import 'package:corona_data/app/shared/utils/theme/constants.dart';
 import 'package:corona_data/app/shared/utils/widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -47,7 +46,7 @@ class _SettingsPageState
         (value) {
       snackbar.enqueueMessage(
           message: 'Settings has been changed!',
-          color: ThemeColors.success,
+          color: appController.globalSettingsController.theme.extraPallete.success,
           id: "SettingsForm");
     });
 

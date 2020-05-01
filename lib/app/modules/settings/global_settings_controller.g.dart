@@ -9,11 +9,11 @@ part of 'global_settings_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
-  Computed<ThemeData> _$themeComputed;
+  Computed<ITheme> _$themeComputed;
 
   @override
-  ThemeData get theme =>
-      (_$themeComputed ??= Computed<ThemeData>(() => super.theme)).value;
+  ITheme get theme =>
+      (_$themeComputed ??= Computed<ITheme>(() => super.theme)).value;
   Computed<bool> _$isReadyComputed;
 
   @override
