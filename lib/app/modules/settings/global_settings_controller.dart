@@ -4,7 +4,6 @@ import 'package:corona_data/app/shared/utils/localization/localization_interface
 import 'package:corona_data/app/shared/utils/localization/localization_utils.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -27,19 +26,18 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @computed
   ITheme get theme {
-    print(themeName?.value);
     return ThemeUtils.getTheme(themeName?.value);
   }
-  
+
   @computed
   ILocalization get locale {
-    print(localeKey?.value);
+    
     return LocalizationUtils.getLocale(localeKey?.value);
   }
   
   @computed
   bool get isReady {
-    print(localeKey?.value);
+    
     return themeName.value != null && country.value != null && localeKey.value != null;
   }
 

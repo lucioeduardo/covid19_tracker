@@ -7,7 +7,7 @@ class LocalizationUtils {
   static ILocalization getLocale(String locale) {
     ILocalization themeInstance;
     locale = locale != null?locale.toLowerCase():'';
-    print(locale);
+    
     if(locale == null){
       themeInstance = locales[defaultLocaleKey];
     }
@@ -22,7 +22,6 @@ class LocalizationUtils {
   }
 
   static List<String> getLocaleNamesPretty(){
-    print(locales.keys.map((name)=>name.toUpperCase()).toList().toString());
     return locales.keys.map((name)=>name.toUpperCase()).toList();
   }
 

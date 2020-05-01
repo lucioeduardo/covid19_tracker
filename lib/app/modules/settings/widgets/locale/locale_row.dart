@@ -29,6 +29,7 @@ class LocaleRow extends StatelessWidget {
           Observer(builder: (_) {
             return LocaleDropDown(
               value: appController.globalSettingsController.localeKey.value.toUpperCase(),
+              countryCode: appController.globalSettingsController.locale.countryCode.toLowerCase(),
               onChanged: (String newValue) {
                 appController.globalSettingsController.setLocale(newValue);
               },

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:i18n_extension/i18n_widget.dart';
 import 'package:mobx/mobx.dart';
 import 'settings_controller.dart';
 
@@ -46,8 +45,6 @@ class _SettingsPageState
 
     disposer = reaction((_) => appController.globalSettingsController.isChanged,
         (value) {
-          print("reaction");
-          print(I18n.of(context).locale);
       snackbar.enqueueMessage(
           message: 'Settings has been changed!',
           color: appController.globalSettingsController.theme.extraPallete.success,
@@ -116,7 +113,7 @@ class _SettingsPageState
                       textSubmitted: (text) {
                         final int idx = countriesNames.indexOf(text);
                         if (countriesNames.indexOf(text) != -1) {
-                          print(COUNTRIES[idx]);
+                          
 
                           appController.globalSettingsController
                               .setCountry(CountryModel.fromJson(COUNTRIES[idx]));

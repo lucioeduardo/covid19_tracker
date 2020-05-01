@@ -67,8 +67,7 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   void dispose() {
     disposers.forEach((disposer) => disposer());
-    print(disposers);
-    print("disposados");
+    
     super.dispose();
   }
 }
