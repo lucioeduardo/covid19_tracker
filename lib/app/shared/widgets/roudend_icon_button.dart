@@ -11,12 +11,14 @@ class RoundedIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.0),
+      width: 100,
+      height: 30,
+      //margin: EdgeInsets.symmetric(horizontal: 20.0),
       child: FlatButton(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(50)),
           ),
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           onPressed: onPressed,
           color: Theme.of(context).buttonColor,
           child: Row(
@@ -24,16 +26,19 @@ class RoundedIconButton extends StatelessWidget {
             children: <Widget>[
               Icon(
                 iconData,
-                size: 30,
+                size: 24,
                 color: Theme.of(context).primaryColorDark,
               ),
               Container(
-                width: 10,
+                width: 5,
               ),
               Text(
                 "Gráfico",
                 style: GoogleFonts.robotoSlab(
-                    fontSize: 20, color: Theme.of(context).primaryColorDark),
+                  fontSize: 16,
+                  color: Theme.of(context).primaryColorDark,
+                  letterSpacing: -1.9,
+                ),
               ),
             ],
           )),

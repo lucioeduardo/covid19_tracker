@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-const String BASE_URL = "https://corona.lmao.ninja/v2";
+const String BASE_URL = "https://disease.sh/v2";
 
 
 
@@ -50,7 +50,7 @@ const List<Map<String,String>> COUNTRIES=
 {"name": "Albania", "code": "AL"},
 {"name": "Algeria", "code": "DZ"},
 {"name": "American Samoa", "code": "AS"},
-{"name": "AndorrA", "code": "AD"},
+{"name": "Andorra", "code": "AD"},
 {"name": "Angola", "code": "AO"},
 {"name": "Anguilla", "code": "AI"},
 {"name": "Antarctica", "code": "AQ"},

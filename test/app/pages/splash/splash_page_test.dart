@@ -2,7 +2,7 @@ import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/pages/splash/splash_controller.dart';
 import 'package:corona_data/app/pages/splash/splash_page.dart';
 import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
-import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_infection_animation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,7 +22,7 @@ main() {
 
   testWidgets('SplashPage has animation', (WidgetTester tester) async {
     await tester.pumpWidget(buildTestableWidget(SplashPage()));
-    final animationFinder = find.byType(VirusCircularAnimation);
+    final animationFinder = find.byType(VirusInfectionCircularAnimation);
     expect(animationFinder, findsOneWidget);
   });
 }

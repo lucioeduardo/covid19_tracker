@@ -52,10 +52,10 @@ main() {
       await tester.pumpWidget(
           buildTestableWidget(CountryPage(controller: animationController)));
 
-      final tileFinder = find.widgetWithText(InfoTileWidget, 'Número de Casos');
+      final tileFinder = find.widgetWithText(Column, 'Número de Casos');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
           findsOneWidget);
-      expect(find.descendant(of: tileFinder, matching: find.text('(+8)')),
+      expect(find.descendant(of: tileFinder, matching: find.text('8')),
           findsOneWidget);
     });
 
@@ -116,8 +116,15 @@ main() {
 
       final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
       expect(btnFinder, findsOneWidget);
-      when(covidRepositoryMock.countryInfo('Brazil'))
-          .thenAnswer((_) async => Future.value(InfoModel()));
+
+      when(covidRepositoryMock.countryInfo('Brazil')).thenAnswer((_) async =>
+          Future.value(InfoModel(
+              cases: 10,
+              critical: 5,
+              deaths: 3,
+              recovered: 1,
+              todayCases: 1,
+              todayDeaths: 1)));
 
       controller.fetchCountryInfo();
 
