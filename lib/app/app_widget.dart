@@ -13,11 +13,29 @@ class AppWidget extends StatefulWidget {
 
 class _AppWidgetState extends State<AppWidget> {
   final AppController controller = Modular.get();
+  final GlobalKey _rootKey = GlobalKey();
+  List<ReactionDisposer> disposers = [];
 
   @override
   void initState() {
     super.initState();
-    reaction((_) => controller.globalSettingsController.theme, (_) =>  (setState((){})));
+
+    disposers.add(
+      reaction(
+        (_) => controller.globalSettingsController.theme,
+        (_) => (setState(() {})),
+      ),
+    );
+
+    disposers.add(
+      reaction(
+        (_) => controller.globalSettingsController.locale,
+        (_) {
+          I18n.of(_rootKey.currentContext).locale =
+              controller.globalSettingsController.locale.getLocale();
+        },
+      ),
+    );
   }
 
   @override
@@ -28,23 +46,29 @@ class _AppWidgetState extends State<AppWidget> {
       theme: controller.globalSettingsController.theme.themeData,
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
-      localizationsDelegates: [            
-               GlobalMaterialLocalizations.delegate,
-               GlobalWidgetsLocalizations.delegate,
-               GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: [
-               const Locale('en', "US"), 
-               const Locale('pt', "BR"), 
-            ],
-      builder: (context,widget){
-        
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', "US"),
+        const Locale('pt', "BR"),
+      ],
+      builder: (context, widget) {
         return I18n(
-          initialLocale: controller.globalSettingsController.locale.getLocale(),
-          child:widget
-          );
+            initialLocale:
+                controller.globalSettingsController.locale.getLocale(),
+            child: Container(key: _rootKey, child: widget));
       },
-      
     );
+  }
+
+  @override
+  void dispose() {
+    disposers.forEach((disposer) => disposer());
+    print(disposers);
+    print("disposados");
+    super.dispose();
   }
 }

@@ -14,6 +14,11 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   @override
   ITheme get theme =>
       (_$themeComputed ??= Computed<ITheme>(() => super.theme)).value;
+  Computed<ILocalization> _$localeComputed;
+
+  @override
+  ILocalization get locale =>
+      (_$localeComputed ??= Computed<ILocalization>(() => super.locale)).value;
   Computed<bool> _$isReadyComputed;
 
   @override
@@ -40,6 +45,23 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
       super.themeName = value;
       _$themeNameAtom.reportChanged();
     }, _$themeNameAtom, name: '${_$themeNameAtom.name}_set');
+  }
+
+  final _$localeKeyAtom = Atom(name: '_GlobalSettingsControllerBase.localeKey');
+
+  @override
+  ObservableFuture<String> get localeKey {
+    _$localeKeyAtom.context.enforceReadPolicy(_$localeKeyAtom);
+    _$localeKeyAtom.reportObserved();
+    return super.localeKey;
+  }
+
+  @override
+  set localeKey(ObservableFuture<String> value) {
+    _$localeKeyAtom.context.conditionallyRunInAction(() {
+      super.localeKey = value;
+      _$localeKeyAtom.reportChanged();
+    }, _$localeKeyAtom, name: '${_$localeKeyAtom.name}_set');
   }
 
   final _$countryAtom = Atom(name: '_GlobalSettingsControllerBase.country');
@@ -118,9 +140,31 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
   }
 
   @override
+  void setLocale(String localeKey) {
+    final _$actionInfo =
+        _$_GlobalSettingsControllerBaseActionController.startAction();
+    try {
+      return super.setLocale(localeKey);
+    } finally {
+      _$_GlobalSettingsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void getLocale() {
+    final _$actionInfo =
+        _$_GlobalSettingsControllerBaseActionController.startAction();
+    try {
+      return super.getLocale();
+    } finally {
+      _$_GlobalSettingsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'themeName: ${themeName.toString()},country: ${country.toString()},theme: ${theme.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
+        'themeName: ${themeName.toString()},localeKey: ${localeKey.toString()},country: ${country.toString()},theme: ${theme.toString()},locale: ${locale.toString()},isReady: ${isReady.toString()},isChanged: ${isChanged.toString()}';
     return '{$string}';
   }
 }

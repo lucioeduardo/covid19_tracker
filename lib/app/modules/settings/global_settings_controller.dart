@@ -27,15 +27,19 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @computed
   ITheme get theme {
+    print(themeName?.value);
     return ThemeUtils.getTheme(themeName?.value);
   }
+  
   @computed
   ILocalization get locale {
+    print(localeKey?.value);
     return LocalizationUtils.getLocale(localeKey?.value);
   }
   
   @computed
   bool get isReady {
+    print(localeKey?.value);
     return themeName.value != null && country.value != null && localeKey.value != null;
   }
 
@@ -48,6 +52,7 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @computed
   int get isChanged =>
+  
       (country.value.name + themeName.value.toString() + localeKey.value).hashCode;
 
   @action
@@ -82,12 +87,14 @@ abstract class _GlobalSettingsControllerBase with Store {
     if (localeKey!= this.localeKey.value) {
       this.localeKey = ObservableFuture.value(localeKey);
       localStorage.setLocale(localeKey);
+      
     }
   }
 
   @action
   void getLocale() {
     this.localeKey = localStorage.getLocale().asObservable();
+    
   }
   
 

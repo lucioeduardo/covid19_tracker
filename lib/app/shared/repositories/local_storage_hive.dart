@@ -68,9 +68,10 @@ class LocalStorageHive implements ILocalStorage{
     var box = await _instance.future;
 
     var value = await box.get(_localeKey);
+    
     value ??= LocalizationUtils.defaultLocaleKey;
     
-    return value.toString();
+    return value;
   }
 
   @override

@@ -13,7 +13,7 @@ class PTBRLocale extends ILocalization{
   // TODO: implement name
   String get name => 'Brazil';
 
-  static const String key = "BRAZIL";
+  static const String key = "pt_br";
   
 
  
