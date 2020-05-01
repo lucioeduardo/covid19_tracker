@@ -1,5 +1,6 @@
 import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
+import 'package:corona_data/app/shared/utils/theme/theme_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,10 +21,10 @@ abstract class _GlobalSettingsControllerBase with Store {
   ObservableFuture<CountryModel> country;
 
   @computed
-  ThemeData get theme {
-    return ThemeUtils.getThemeData(themeName?.value);
+  ITheme get theme {
+    return ThemeUtils.getTheme(themeName?.value);
   }
-
+  
   @computed
   bool get isReady {
     return themeName.value != null && country.value != null;

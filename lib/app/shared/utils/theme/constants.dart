@@ -36,12 +36,13 @@ final ThemeData themeDracula = ThemeData(
   buttonTheme: ButtonThemeData(buttonColor: Color(0xfff1fa8c)),
   buttonColor: Color(0xfff1fa8c),
   secondaryHeaderColor: Color(0xff44475a),
+  
 );
 
-class ThemeColors{
-  const ThemeColors._();
-  static const Color success = Colors.green;
-  static const Color error = Colors.red;
-  static const Color warning = Colors.orange;
-  static const Color info = Colors.blue;
-}
+// class ThemeColors{
+//   const ThemeColors._();
+//   static const Color success = Colors.green;
+//   static const Color error = Colors.red;
+//   static const Color warning = Colors.orange;
+//   static const Color info = Colors.blue;
+// }

@@ -23,7 +23,7 @@ class _AppWidgetState extends State<AppWidget> {
     return MaterialApp(
       navigatorKey: Modular.navigatorKey,
       title: 'Flutter Slidy',
-      theme: controller.globalSettingsController.theme,
+      theme: controller.globalSettingsController.theme.themeData,
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
     );

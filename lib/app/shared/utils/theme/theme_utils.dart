@@ -1,18 +1,23 @@
 import 'package:corona_data/app/shared/config/config.dart';
-import 'package:flutter/material.dart';
+import 'package:corona_data/app/shared/utils/theme/theme_interface.dart';
 
 class ThemeUtils {
   const ThemeUtils._();
-  static ThemeData getThemeData(String theme) {
-    if(theme == null){
-      return themes['dark'];
+  static ITheme getTheme(String themeName) {
+    ITheme themeInstance;
+    themeName = themeName != null?themeName.toLowerCase():'';
+    
+    if(themeName == null){
+      themeInstance = themes['dark'];
     }
-    theme=theme.toLowerCase();
-    if (themes.containsKey(theme) || theme == null) {
-      return themes[theme];
+    
+    
+    else if (themes.containsKey(themeName)) {
+      themeInstance = themes[themeName];
     } else {
-      return themes['dark'];
+      themeInstance = themes['dark'];
     }
+    return themeInstance.initialize();
   }
 
   static List<String> getThemeNamesPretty(){
