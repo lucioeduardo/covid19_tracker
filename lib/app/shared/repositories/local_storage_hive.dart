@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:corona_data/app/shared/config/config.dart';
 import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/utils/localization/localization_utils.dart';
 import 'package:hive/hive.dart';
@@ -69,7 +70,7 @@ class LocalStorageHive implements ILocalStorage{
 
     var value = await box.get(_localeKey);
     
-    value ??= LocalizationUtils.defaultLocaleKey;
+    value ??= Configuration.defaultLocaleKey;
     
     return value;
   }

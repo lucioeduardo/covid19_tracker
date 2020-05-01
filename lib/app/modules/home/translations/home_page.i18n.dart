@@ -12,6 +12,10 @@ extension Localization on String {
       "pt_br": "Estados Unidos",
     }+
     {
+      "en_us": "Map",
+      "pt_br": "Mapa",
+    }+
+    {
       "en_us": "World",
       "pt_br": "Mundo",
     };

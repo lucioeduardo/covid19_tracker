@@ -9,21 +9,21 @@ class LocalizationUtils {
     locale = locale != null?locale.toLowerCase():'';
     
     if(locale == null){
-      themeInstance = locales[defaultLocaleKey];
+      themeInstance = Configuration.locales[Configuration.defaultLocaleKey];
     }
     
     
-    else if (locales.containsKey(locale)) {
-      themeInstance = locales[locale];
+    else if (Configuration.locales.containsKey(locale)) {
+      themeInstance = Configuration.locales[locale];
     } else {
-      themeInstance = locales[defaultLocaleKey];
+      themeInstance = Configuration.locales[Configuration.defaultLocaleKey];
     }
     return themeInstance;
   }
 
   static List<String> getLocaleNamesPretty(){
-    return locales.keys.map((name)=>name.toUpperCase()).toList();
+    return Configuration.locales.keys.map((name)=>name.toUpperCase()).toList();
   }
 
-  static const defaultLocaleKey=PTBRLocale.key;
+  
 }

@@ -10,6 +10,5 @@ class ENUSLocale extends ILocalization{
   @override
   String get name => 'United States';
 
-  static const String key = "en_us";
 
 }

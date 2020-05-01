@@ -10,9 +10,4 @@ class PTBRLocale extends ILocalization{
   @override
   String get name => 'Brazil';
 
-  static const String key = "pt_br";
-  
-
- 
-
 }

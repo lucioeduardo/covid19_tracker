@@ -55,7 +55,7 @@ class LocaleDropDown extends StatelessWidget {
       }
 
   List<DropdownMenuItem<String>> _dropdownMenuItem(){
-    return locales.keys.map<DropdownMenuItem<String>>((String key) {
+    return Configuration.locales.keys.map<DropdownMenuItem<String>>((String key) {
           ILocalization localeTemp = LocalizationUtils.getLocale(key);
           return DropdownMenuItem<String>(
             value: key.toUpperCase(),
