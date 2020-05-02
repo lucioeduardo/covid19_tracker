@@ -1,4 +1,5 @@
 import 'package:corona_data/app/shared/config/config.dart';
+import 'package:corona_data/app/shared/utils/theme/constants.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_interface.dart';
 
 class ThemeUtils {
@@ -8,19 +9,20 @@ class ThemeUtils {
     themeName = themeName != null?themeName.toLowerCase():'';
     
     if(themeName == null){
-      themeInstance = themes['dark'];
+      themeInstance = Configuration.themes[kDarkThemeKey];
+      
     }
     
     
-    else if (themes.containsKey(themeName)) {
-      themeInstance = themes[themeName];
+    else if (Configuration.themes.containsKey(themeName)) {
+      themeInstance = Configuration.themes[themeName];
     } else {
-      themeInstance = themes['dark'];
+      themeInstance = Configuration.themes[kDarkThemeKey];
     }
     return themeInstance.initialize();
   }
 
   static List<String> getThemeNamesPretty(){
-    return themes.keys.map((name)=>name.toUpperCase()).toList();
+    return Configuration.themes.keys.map((name)=>name.toUpperCase()).toList();
   }
 }

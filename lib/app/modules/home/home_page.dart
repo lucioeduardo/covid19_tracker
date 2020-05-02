@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'translations/home_page.i18n.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -15,9 +16,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   final AppController appController = Modular.get();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
+    
 
     return Observer(
       builder: (BuildContext context) {
@@ -26,9 +34,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
-              controller.title == 'country'
-                  ? appController.globalSettingsController.country.value.name
-                  : controller.title,
+                  controller.title.i18n,
               style: GoogleFonts.robotoSlab(
                 fontSize: 24,
                 letterSpacing: -1.9,

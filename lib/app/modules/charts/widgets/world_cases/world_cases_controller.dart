@@ -16,7 +16,7 @@ abstract class _WorldCasesControllerBase with Store implements IChartController 
   final HistoricalRepository historicalRepository;
 
   _WorldCasesControllerBase(this.historicalRepository){
-    print("W---");
+    
     fetchGraphData();
   }
 

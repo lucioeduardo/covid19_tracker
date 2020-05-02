@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:corona_data/app/shared/config/config.dart';
 import 'package:corona_data/app/shared/models/country_model.dart';
+import 'package:corona_data/app/shared/utils/localization/localization_utils.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -11,6 +13,7 @@ import 'local_storage_interface.dart';
 class LocalStorageHive implements ILocalStorage{
   final String _themeKey = 'THEME';
   final String _countryKey = 'COUNTRY';
+  final String _localeKey = 'LOCALE';
   
   Completer<Box> _instance = Completer<Box>();
   
@@ -59,6 +62,24 @@ class LocalStorageHive implements ILocalStorage{
     var box = await _instance.future;
 
     await box.put(_countryKey, value);
+  }
+
+  @override
+  Future<String> getLocale() async{
+    var box = await _instance.future;
+
+    var value = await box.get(_localeKey);
+    
+    value ??= Configuration.defaultLocaleKey;
+    
+    return value;
+  }
+
+  @override
+  Future<void> setLocale(String value) async {
+    var box = await _instance.future;
+
+    await box.put(_localeKey, value);
   }
   
 }
