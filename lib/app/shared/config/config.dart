@@ -1,9 +1,11 @@
+import 'package:corona_data/app/shared/utils/localization/constants.dart';
 import 'package:corona_data/app/shared/utils/theme/constants.dart';
-import 'package:flutter/material.dart';
 
-final Map<String, ThemeData> themes = {
-  "light": themeLight,
-  "dark": themeDark,
-  "dracula": themeDracula,
-};
 
+class Configuration {
+  static final themes = kThemes;
+  static const defaultLocaleKey=kPTBR;
+  static final locales = kLocales;
+
+  const Configuration._();
+}

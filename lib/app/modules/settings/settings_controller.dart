@@ -23,6 +23,6 @@ abstract class _SettingsControllerBase with Store implements Disposable {
 
   @override
   void dispose() {
-    print("Settings dispose");
+    // print("Settings dispose");
   }
 }

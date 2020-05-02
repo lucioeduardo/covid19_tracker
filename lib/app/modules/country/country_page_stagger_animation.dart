@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app_controller.dart';
-
+import "translations/country_page.i18n.dart";
 class CoutryPageStaggerAnimation extends StatelessWidget {
   final AnimationController controller;
   final InfoModel info;
@@ -54,7 +54,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
           title: "Número de Mortes",
           todayNum: "${info.todayDeaths}",
           percentageBadge: PercentageBadgeWidget(
-            color: Color(0xffFF5656),
+            color: appController.globalSettingsController.theme.extraPallete.error,
             percentage: (info.deaths) / (info.cases),
           ),
         ),
@@ -63,7 +63,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
           number: "${info.recovered}",
           title: "Pacientes recuperados",
           percentageBadge: PercentageBadgeWidget(
-            color: Color(0xff40CA87),
+            color: appController.globalSettingsController.theme.extraPallete.success,
             percentage: (info.recovered) / (info.cases),
           ),
         ),
@@ -72,7 +72,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
           number: "${info.critical}",
           title: "Pacientes em estado grave",
           percentageBadge: PercentageBadgeWidget(
-            color: Color(0xffDBC716),
+            color: appController.globalSettingsController.theme.extraPallete.warning,
             percentage: (info.critical) / (info.cases),
           ),
         ),

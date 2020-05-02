@@ -1,10 +1,10 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:corona_data/app/app_controller.dart';
-import 'package:corona_data/app/modules/settings/widgets/theme_dropdown.dart';
+import 'package:corona_data/app/modules/settings/widgets/locale/locale_row.dart';
+import 'package:corona_data/app/modules/settings/widgets/theme/theme_row.dart';
 import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
-import 'package:corona_data/app/shared/utils/theme/constants.dart';
 import 'package:corona_data/app/shared/utils/widgets/custom_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -26,7 +26,7 @@ class _SettingsPageState
     extends ModularState<SettingsPage, SettingsController> {
   AppController appController = Modular.get();
 
-  GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
+  GlobalKey<AutoCompleteTextFieldState<String>> _autoCompleteKey = GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   SnackBarUtil snackbar;
 
@@ -47,7 +47,7 @@ class _SettingsPageState
         (value) {
       snackbar.enqueueMessage(
           message: 'Settings has been changed!',
-          color: ThemeColors.success,
+          color: appController.globalSettingsController.theme.extraPallete.success,
           id: "SettingsForm");
     });
 
@@ -58,7 +58,7 @@ class _SettingsPageState
 
   @override
   Widget build(BuildContext context) {
-    key = GlobalKey();
+    _autoCompleteKey = GlobalKey();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColorDark,
@@ -79,34 +79,14 @@ class _SettingsPageState
           Container(
             height: 10,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            color: Theme.of(context).primaryColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Tema',
-                  style: GoogleFonts.robotoSlab(
-                      color: Theme.of(context).accentColor, fontSize: 16),
-                ),
-                Observer(builder: (_) {
-                
-                  return ThemeDropdown(
-                    value: appController
-                        .globalSettingsController.themeName.value
-                        .toUpperCase(),
-                    onChanged: (String newValue) {
-                      appController.globalSettingsController.setTheme(newValue);
-                    },
-                  );
-                }),
-              ],
-            ),
+          ThemeRow(appController: appController),
+          Padding(
+            padding: const EdgeInsets.only(top:20),
+            child: LocaleRow(appController:appController),
           ),
           Observer(builder: (context) {
             return Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 20.0),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                 color: Theme.of(context).primaryColor,
@@ -115,7 +95,7 @@ class _SettingsPageState
                   children: <Widget>[
                     SimpleAutoCompleteTextField(
                       style: TextStyle(color: Theme.of(context).accentColor),
-                      key: key,
+                      key: _autoCompleteKey,
                       decoration: InputDecoration(
                         errorText: null,
                         labelText: "País",
@@ -133,7 +113,7 @@ class _SettingsPageState
                       textSubmitted: (text) {
                         final int idx = countriesNames.indexOf(text);
                         if (countriesNames.indexOf(text) != -1) {
-                          print(COUNTRIES[idx]);
+                          
 
                           appController.globalSettingsController
                               .setCountry(CountryModel.fromJson(COUNTRIES[idx]));
@@ -164,5 +144,7 @@ class _SettingsPageState
     disposer();
   }
 }
+
+
 
 

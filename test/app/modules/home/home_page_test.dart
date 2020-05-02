@@ -58,7 +58,7 @@ main() {
       final widgetFinder = find.byType(WorldPage);
       expect(widgetFinder, findsOneWidget);
 
-      final titleFinder = find.widgetWithText(AppBar, 'Mundo');
+      final titleFinder = find.widgetWithText(AppBar, 'World');
       expect(titleFinder, findsOneWidget);
     });
 
@@ -73,7 +73,7 @@ main() {
       final widgetFinder = find.byType(StatesMapPage);
       expect(widgetFinder, findsOneWidget);
 
-      final titleFinder = find.widgetWithText(AppBar, 'Mapa');
+      final titleFinder = find.widgetWithText(AppBar, 'Map');
       expect(titleFinder, findsOneWidget);
     });
   });

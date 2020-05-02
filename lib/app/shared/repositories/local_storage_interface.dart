@@ -4,6 +4,9 @@ abstract class ILocalStorage {
   Future<String> getTheme();
   Future<void> setTheme(String value);
   
+  Future<String> getLocale();
+  Future<void> setLocale(String value);
+  
   
   Future<CountryModel> getCountry();
   Future<void> setCountry(CountryModel country);
