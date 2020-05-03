@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/shared/utils/markers_util.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:mobx/mobx.dart';
 
 part 'states_map_controller.g.dart';
@@ -14,55 +14,78 @@ class StatesMapController = _StatesMapControllerBase with _$StatesMapController;
 abstract class _StatesMapControllerBase with Store {
   final ICovidRepository covidRepository;
 
+  @computed
+  Map<Marker, StateModel> get markers => _createMarkers(statesData.value);
+
   @observable
-  ObservableFuture<Set<Marker>> markers;
+  ObservableFuture<List<StateModel>> statesData;
 
   _StatesMapControllerBase(this.covidRepository) {
-    fetchMarkers();
+    fetchStatesData();
   }
 
   @action
-  fetchMarkers() {
-    markers = createMarkers().asObservable();
+  fetchStatesData() {
+    statesData = covidRepository.getStatesInfo().asObservable();
   }
 
-  Future<Set<Marker>> createMarkers() async {
-    List states = await covidRepository.getStatesInfo();
+  Map<Marker, StateModel> _createMarkers(List<StateModel> states) {
+    if (states == null) return null;
 
-    if(states == null)
-      return null;
+    int maxCases = states
+        .reduce((current, next) => 
+            current.confirmed > next.confirmed ? current : next)
+        .confirmed;
 
-    states.sort((a, b) => (a.confirmed < b.confirmed ? 0 : 1));
+    Map<Marker, StateModel> markersMap = Map();
 
-    final int maxCases = states[states.length - 1].confirmed;
-
-    const colors = [
-      Color(0xffffd100),
-      Color(0xffff9500),
-      Color(0xffe25822),
-      Color(0xffb22222),
-      Color(0xff7c0a02),
-    ];
-
-    Set<Marker> markersSet = Set();
-
-    int idx = 0;
     for (StateModel state in states) {
-      BitmapDescriptor icon = await getMarkerIcon(
-          colors[idx ~/ 6], _calcWidth(state.confirmed, maxCases));
-      markersSet.add(getStateMarker(state, icon));
-      idx++;
+      double calc = log(maxCases / state.confirmed);
+
+      Marker marker = _makeMarker(state,
+          Color.lerp(Color(0xfff1c40f), Color(0xffc0392b), 1 / max(1, calc)));
+
+      markersMap[marker] = state;
     }
 
-    return markersSet;
+    return markersMap;
   }
 
-  int _calcWidth(int numCases, int maxCases) {
-    int minWidth = 25;
-    int maxWidth = 70;
-
-    numCases = min(numCases, maxCases);
-
-    return (minWidth + (maxWidth - minWidth) * (numCases / maxCases)).toInt();
+  Marker _makeMarker(StateModel state, Color color) {
+    return Marker(
+      width: 40.0,
+      height: 40.0,
+      point: stateCoords[state.state],
+      builder: (ctx) => Container(
+        child: GestureDetector(
+          child: Container(
+            alignment: Alignment.center,
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              shape: BoxShape.circle,
+              border: Border.all(color: color, width: 3),
+            ),
+            child: Container(
+              width: 30,
+              height: 30,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                state.state,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

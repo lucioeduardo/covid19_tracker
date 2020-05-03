@@ -18,12 +18,12 @@ jobs:
       with:
         flutter-version: '1.12.13+hotfix.9'
     - run: flutter pub get
-    - run: flutter test --coverage
+    - run: flutter test
     - run: flutter build apk --release --split-per-abi
-    - name: Coveralls GitHub Action
-      uses: coverallsapp/github-action@v1.0.1
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Coveralls GitHub Action
+    #   uses: coverallsapp/github-action@v1.0.1
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Create a Release APK
       uses: ncipollo/release-action@v1
       with:
