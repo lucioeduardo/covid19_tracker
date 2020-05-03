@@ -9,32 +9,39 @@ part of 'states_map_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$StatesMapController on _StatesMapControllerBase, Store {
-  final _$markersAtom = Atom(name: '_StatesMapControllerBase.markers');
+  Computed<Map<Marker, StateModel>> _$markersComputed;
 
   @override
-  ObservableFuture<Set<Marker>> get markers {
-    _$markersAtom.context.enforceReadPolicy(_$markersAtom);
-    _$markersAtom.reportObserved();
-    return super.markers;
+  Map<Marker, StateModel> get markers => (_$markersComputed ??=
+          Computed<Map<Marker, StateModel>>(() => super.markers))
+      .value;
+
+  final _$statesDataAtom = Atom(name: '_StatesMapControllerBase.statesData');
+
+  @override
+  ObservableFuture<List<StateModel>> get statesData {
+    _$statesDataAtom.context.enforceReadPolicy(_$statesDataAtom);
+    _$statesDataAtom.reportObserved();
+    return super.statesData;
   }
 
   @override
-  set markers(ObservableFuture<Set<Marker>> value) {
-    _$markersAtom.context.conditionallyRunInAction(() {
-      super.markers = value;
-      _$markersAtom.reportChanged();
-    }, _$markersAtom, name: '${_$markersAtom.name}_set');
+  set statesData(ObservableFuture<List<StateModel>> value) {
+    _$statesDataAtom.context.conditionallyRunInAction(() {
+      super.statesData = value;
+      _$statesDataAtom.reportChanged();
+    }, _$statesDataAtom, name: '${_$statesDataAtom.name}_set');
   }
 
   final _$_StatesMapControllerBaseActionController =
       ActionController(name: '_StatesMapControllerBase');
 
   @override
-  dynamic fetchMarkers() {
+  dynamic fetchStatesData() {
     final _$actionInfo =
         _$_StatesMapControllerBaseActionController.startAction();
     try {
-      return super.fetchMarkers();
+      return super.fetchStatesData();
     } finally {
       _$_StatesMapControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -42,7 +49,8 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
 
   @override
   String toString() {
-    final string = 'markers: ${markers.toString()}';
+    final string =
+        'statesData: ${statesData.toString()},markers: ${markers.toString()}';
     return '{$string}';
   }
 }

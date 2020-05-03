@@ -1,8 +1,6 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:latlong/latlong.dart';
 
 const String BASE_URL = "https://disease.sh/v2";
-
-
 
 class AnimationSizes{
   static const double small=50;
@@ -13,7 +11,7 @@ class AnimationSizes{
   const AnimationSizes._();
 }
 
-const Map stateCoords = {
+final Map stateCoords = {
 	'AC': LatLng(-8.77, -70.55),
 	'AL': LatLng(-9.62, -36.82),
 	'AM': LatLng(-3.47, -65.10),
