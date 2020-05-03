@@ -25,30 +25,27 @@ abstract class _StatesMapControllerBase with Store {
   }
 
   @action
-  fetchStatesData(){
+  fetchStatesData() {
     statesData = covidRepository.getStatesInfo().asObservable();
   }
 
   Map<Marker, StateModel> _createMarkers(List<StateModel> states) {
+    if (states == null) return null;
 
-    if(states == null) return null;
+    int maxCases = states
+        .reduce((current, next) =>
+            current.confirmed > next.confirmed ? current : next)
+        .confirmed;
 
-    states.sort((a, b) => (a.confirmed < b.confirmed ? 0 : 1));
+    Map<Marker, StateModel> markersMap = Map();
 
-    final int maxCases = states[states.length - 1].confirmed;
+    for (StateModel state in states) {
+      double v = log(maxCases / state.confirmed);
 
-    const colors = [
-      Color(0xffffd100),
-      Color(0xffff9500),
-      Color(0xffe25822),
-      Color(0xffb22222),
-      Color(0xff7c0a02),
-    ];
+      print(v);
 
-    Map<Marker,StateModel> markersMap = Map();
-
-    for(StateModel state in states){
-      Marker marker = _makeMarker(state);
+      Marker marker = _makeMarker(state,
+          Color.lerp(Color(0xfff1c40f), Color(0xffc0392b), 1 / max(1, v)));
 
       markersMap[marker] = state;
     }
@@ -56,51 +53,41 @@ abstract class _StatesMapControllerBase with Store {
     return markersMap;
   }
 
-  Marker _makeMarker(StateModel state) {
+  Marker _makeMarker(StateModel state, Color color) {
     return Marker(
-          width: 50.0,
-          height: 50.0,
-          point: stateCoords[state.state],
-          builder: (ctx) => Container(
-            child: GestureDetector(
-              child: Container(
-                alignment: Alignment.center,
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  shape: BoxShape.circle,
-                  border:
-                      Border.all(color: Colors.red.withAlpha(200), width: 3),
-                ),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    state.state,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+      width: 50.0,
+      height: 50.0,
+      point: stateCoords[state.state],
+      builder: (ctx) => Container(
+        child: GestureDetector(
+          child: Container(
+            alignment: Alignment.center,
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              shape: BoxShape.circle,
+              border: Border.all(color: color, width: 3),
+            ),
+            child: Container(
+              width: 40,
+              height: 40,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: color,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                state.state,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
           ),
-        );
-  }
-
-  int _calcWidth(int numCases, int maxCases) {
-    int minWidth = 25;
-    int maxWidth = 70;
-
-    numCases = min(numCases, maxCases);
-
-    return (minWidth + (maxWidth - minWidth) * (numCases / maxCases)).toInt();
+        ),
+      ),
+    );
   }
 }
