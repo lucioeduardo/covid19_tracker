@@ -1,13 +1,17 @@
+import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class MapTooltipWidget extends StatelessWidget {
-  const MapTooltipWidget({
+  MapTooltipWidget({
     Key key,
     @required this.stateModel,
   }) : super(key: key);
 
   final StateModel stateModel;
+  final GlobalSettingsController globalSettingsController = Modular.get();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class MapTooltipWidget extends StatelessWidget {
           return Container(
             alignment: Alignment.center,
             decoration: ShapeDecoration(
-              color: Colors.white,
+              color: Theme.of(context).primaryColorDark,
               shape: TooltipShapeBorder(arrowArc: 0.5),
               shadows: [
                 BoxShadow(
@@ -32,21 +36,76 @@ class MapTooltipWidget extends StatelessWidget {
             width: width,
             height: width / 2,
             child: GestureDetector(
-              onTap: () => debugPrint("Popup tap!"),
+              //onTap: () => debugPrint("Popup tap!"),
               child: width > 150
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "${stateModel.confirmed} casos",
-                          overflow: TextOverflow.visible,
-                        ),
-                        Text(
-                          "${stateModel.deaths} mortes",
-                          overflow: TextOverflow.visible,
-                        )
-                      ],
+                  ? Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Center(
+                            child: Text(
+                              "${stateName[stateModel.state]}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  "${stateModel.confirmed}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: globalSettingsController
+                                        .theme.extraPallete.warning,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  ' casos',
+                                  style: TextStyle(
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Row(
+                              children: <Widget>[
+                                Text(
+                                  "${stateModel.deaths}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: globalSettingsController
+                                        .theme.extraPallete.error,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  ' mortes',
+                                  style: TextStyle(
+                                    color: Theme.of(context).accentColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   : SizedBox.shrink(),
             ),

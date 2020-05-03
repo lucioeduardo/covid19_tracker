@@ -33,19 +33,17 @@ abstract class _StatesMapControllerBase with Store {
     if (states == null) return null;
 
     int maxCases = states
-        .reduce((current, next) =>
+        .reduce((current, next) => 
             current.confirmed > next.confirmed ? current : next)
         .confirmed;
 
     Map<Marker, StateModel> markersMap = Map();
 
     for (StateModel state in states) {
-      double v = log(maxCases / state.confirmed);
-
-      print(v);
+      double calc = log(maxCases / state.confirmed);
 
       Marker marker = _makeMarker(state,
-          Color.lerp(Color(0xfff1c40f), Color(0xffc0392b), 1 / max(1, v)));
+          Color.lerp(Color(0xfff1c40f), Color(0xffc0392b), 1 / max(1, calc)));
 
       markersMap[marker] = state;
     }
@@ -55,23 +53,23 @@ abstract class _StatesMapControllerBase with Store {
 
   Marker _makeMarker(StateModel state, Color color) {
     return Marker(
-      width: 50.0,
-      height: 50.0,
+      width: 40.0,
+      height: 40.0,
       point: stateCoords[state.state],
       builder: (ctx) => Container(
         child: GestureDetector(
           child: Container(
             alignment: Alignment.center,
-            width: 50,
-            height: 50,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
               color: Colors.transparent,
               shape: BoxShape.circle,
               border: Border.all(color: color, width: 3),
             ),
             child: Container(
-              width: 40,
-              height: 40,
+              width: 30,
+              height: 30,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: color,

@@ -1,3 +1,4 @@
+import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
@@ -23,6 +24,7 @@ class StatesMapPage extends StatefulWidget {
 class _StatesMapPageState
     extends ModularState<StatesMapPage, StatesMapController> {
   final PopupController _popupController = PopupController();
+  final GlobalSettingsController globalSettingsController = Modular.get();
 
   @override
   void initState() {
@@ -57,6 +59,7 @@ class _StatesMapPageState
         options: MapOptions(
           center: LatLng(-13.516151006814436, -54.849889911711216),
           zoom: 3.789821910858154,
+          minZoom: 3.5,
           plugins: [
             MarkerClusterPlugin(),
           ],
@@ -68,8 +71,8 @@ class _StatesMapPageState
             tileProvider: CachedNetworkTileProvider(),
           ),
           MarkerClusterLayerOptions(
-            maxClusterRadius: 70,
-            size: Size(40, 40),
+            maxClusterRadius: 50,
+            size: Size(30, 30),
             anchor: AnchorPos.align(AnchorAlign.center),
             fitBoundsOptions: FitBoundsOptions(
               padding: EdgeInsets.all(50),
@@ -88,7 +91,9 @@ class _StatesMapPageState
             ),
             builder: (context, markers) {
               return FloatingActionButton(
-                child: Text(markers.length.toString()),
+                heroTag: UniqueKey(),
+                backgroundColor: globalSettingsController.theme.themeData.primaryColor,
+                child: Text(markers.length.toString(), style: TextStyle(color: Theme.of(context).accentColor),),
                 onPressed: null,
               );
             },
