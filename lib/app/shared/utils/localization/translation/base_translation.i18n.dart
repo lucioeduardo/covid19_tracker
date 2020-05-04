@@ -62,8 +62,24 @@ final Translations kBaseTranslations = Translations("en_us") +
       "pt_br": "Tema",
     } +
     {
+      "en_us": "Case".two("Cases"),
+      "pt_br": "Caso".two("Casos"),
+    } +
+    {
+      "en_us": "Recovered".two("Recovered"),
+      "pt_br": "Recuperado".two("Recuperados"),
+    } +
+    {
+      "en_us": "Death".two("Deaths"),
+      "pt_br": "Mortes".two("Mortes"),
+    } +
+    {
       "en_us": "Settings",
       "pt_br": "Configurações",
+    } +
+    {
+      "en_us": "Chart",
+      "pt_br": "Gráfico",
     } +
     {
       "en_us": "Country",
