@@ -1,9 +1,12 @@
 import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/localization/localization_interface.dart';
 import 'package:corona_data/app/shared/utils/localization/localization_utils.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_device_locale/flutter_device_locale.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -19,10 +22,34 @@ abstract class _GlobalSettingsControllerBase with Store {
   ObservableFuture<String> themeName;
 
   @observable
-  ObservableFuture<String> localeKey;
+  ObservableFuture<String> _storageLocale;
 
   @observable
-  ObservableFuture<CountryModel> country;
+  ObservableFuture<Locale> _deviceLocale;
+
+  @computed
+  String get localeKey =>
+      _storageLocale?.value ?? _deviceLocale?.value?.toString();
+
+  @observable
+  ObservableFuture<CountryModel> _storageCountry;
+
+  @computed
+  CountryModel get country {
+    if (_storageCountry.value != null) {
+      return _storageCountry.value;
+    }
+
+    if (_deviceLocale.value == null) {
+      return null;
+    }
+
+    String code = _deviceLocale.value.countryCode;
+    String name =
+        COUNTRIES.firstWhere((country) => country['code'] == code)['name'];
+
+    return CountryModel(code: code.toLowerCase(), name: name);
+  }
 
   @computed
   ITheme get theme {
@@ -31,14 +58,12 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @computed
   ILocalization get locale {
-    
-    return LocalizationUtils.getLocale(localeKey?.value);
+    return LocalizationUtils.getLocale(localeKey);
   }
-  
+
   @computed
   bool get isReady {
-    
-    return themeName.value != null && country.value != null && localeKey.value != null;
+    return themeName.value != null && country != null && localeKey != null;
   }
 
   @action
@@ -46,12 +71,17 @@ abstract class _GlobalSettingsControllerBase with Store {
     getTheme();
     getCountry();
     getLocale();
+    getDeviceLocale();
+  }
+
+  void getDeviceLocale() {
+    _deviceLocale = DeviceLocale.getCurrentLocale().asObservable();
   }
 
   @computed
   int get isChanged =>
-  
-      (country.value.name + themeName.value.toString() + localeKey.value).hashCode;
+      (_storageCountry.value.name + themeName.value.toString() + localeKey)
+          .hashCode;
 
   @action
   void getTheme() {
@@ -69,35 +99,27 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @action
   void setCountry(CountryModel country) {
-    if (country.code != this.country.value.code) {
-      this.country = ObservableFuture.value(country);
+    if (country.code != this._storageCountry.value.code) {
+      this._storageCountry = ObservableFuture.value(country);
       localStorage.setCountry(country);
     }
   }
 
   @action
   void getCountry() {
-    this.country = localStorage.getCountry().asObservable();
+    this._storageCountry = localStorage.getCountry().asObservable();
   }
 
   @action
   void setLocale(String localeKey) {
-    if (localeKey!= this.localeKey.value) {
-      this.localeKey = ObservableFuture.value(localeKey);
+    if (localeKey != this.localeKey) {
+      this._storageLocale = ObservableFuture.value(localeKey);
       localStorage.setLocale(localeKey);
-      
     }
   }
 
   @action
   void getLocale() {
-    this.localeKey = localStorage.getLocale().asObservable();
-    
+    this._storageLocale = localStorage.getLocale().asObservable();
   }
-  
-
 }
-
-
-
-

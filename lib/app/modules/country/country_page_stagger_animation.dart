@@ -48,7 +48,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
           buttonTitle: "Chart".i18n,
           info: info,
           controller: controller,
-          iconName: appController.globalSettingsController.country.value.code,
+          iconName: appController.globalSettingsController.country.code,
         ),
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),

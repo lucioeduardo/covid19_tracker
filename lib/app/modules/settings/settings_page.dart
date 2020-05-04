@@ -52,7 +52,7 @@ class _SettingsPageState
     });
 
     countryTextController.text =
-        appController.globalSettingsController.country.value.name;
+        appController.globalSettingsController.country.name;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
   }
 
