@@ -9,6 +9,16 @@ part of 'global_settings_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
+  Computed<String> _$localeKeyComputed;
+
+  @override
+  String get localeKey =>
+      (_$localeKeyComputed ??= Computed<String>(() => super.localeKey)).value;
+  Computed<CountryModel> _$countryComputed;
+
+  @override
+  CountryModel get country =>
+      (_$countryComputed ??= Computed<CountryModel>(() => super.country)).value;
   Computed<ITheme> _$themeComputed;
 
   @override
@@ -47,38 +57,58 @@ mixin _$GlobalSettingsController on _GlobalSettingsControllerBase, Store {
     }, _$themeNameAtom, name: '${_$themeNameAtom.name}_set');
   }
 
-  final _$localeKeyAtom = Atom(name: '_GlobalSettingsControllerBase.localeKey');
+  final _$_storageLocaleAtom =
+      Atom(name: '_GlobalSettingsControllerBase._storageLocale');
 
   @override
-  ObservableFuture<String> get localeKey {
-    _$localeKeyAtom.context.enforceReadPolicy(_$localeKeyAtom);
-    _$localeKeyAtom.reportObserved();
-    return super.localeKey;
+  ObservableFuture<String> get _storageLocale {
+    _$_storageLocaleAtom.context.enforceReadPolicy(_$_storageLocaleAtom);
+    _$_storageLocaleAtom.reportObserved();
+    return super._storageLocale;
   }
 
   @override
-  set localeKey(ObservableFuture<String> value) {
-    _$localeKeyAtom.context.conditionallyRunInAction(() {
-      super.localeKey = value;
-      _$localeKeyAtom.reportChanged();
-    }, _$localeKeyAtom, name: '${_$localeKeyAtom.name}_set');
+  set _storageLocale(ObservableFuture<String> value) {
+    _$_storageLocaleAtom.context.conditionallyRunInAction(() {
+      super._storageLocale = value;
+      _$_storageLocaleAtom.reportChanged();
+    }, _$_storageLocaleAtom, name: '${_$_storageLocaleAtom.name}_set');
   }
 
-  final _$countryAtom = Atom(name: '_GlobalSettingsControllerBase.country');
+  final _$_deviceLocaleAtom =
+      Atom(name: '_GlobalSettingsControllerBase._deviceLocale');
 
   @override
-  ObservableFuture<CountryModel> get country {
-    _$countryAtom.context.enforceReadPolicy(_$countryAtom);
-    _$countryAtom.reportObserved();
-    return super.country;
+  ObservableFuture<Locale> get _deviceLocale {
+    _$_deviceLocaleAtom.context.enforceReadPolicy(_$_deviceLocaleAtom);
+    _$_deviceLocaleAtom.reportObserved();
+    return super._deviceLocale;
   }
 
   @override
-  set country(ObservableFuture<CountryModel> value) {
-    _$countryAtom.context.conditionallyRunInAction(() {
-      super.country = value;
-      _$countryAtom.reportChanged();
-    }, _$countryAtom, name: '${_$countryAtom.name}_set');
+  set _deviceLocale(ObservableFuture<Locale> value) {
+    _$_deviceLocaleAtom.context.conditionallyRunInAction(() {
+      super._deviceLocale = value;
+      _$_deviceLocaleAtom.reportChanged();
+    }, _$_deviceLocaleAtom, name: '${_$_deviceLocaleAtom.name}_set');
+  }
+
+  final _$_storageCountryAtom =
+      Atom(name: '_GlobalSettingsControllerBase._storageCountry');
+
+  @override
+  ObservableFuture<CountryModel> get _storageCountry {
+    _$_storageCountryAtom.context.enforceReadPolicy(_$_storageCountryAtom);
+    _$_storageCountryAtom.reportObserved();
+    return super._storageCountry;
+  }
+
+  @override
+  set _storageCountry(ObservableFuture<CountryModel> value) {
+    _$_storageCountryAtom.context.conditionallyRunInAction(() {
+      super._storageCountry = value;
+      _$_storageCountryAtom.reportChanged();
+    }, _$_storageCountryAtom, name: '${_$_storageCountryAtom.name}_set');
   }
 
   final _$_GlobalSettingsControllerBaseActionController =

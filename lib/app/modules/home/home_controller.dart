@@ -18,7 +18,7 @@ abstract class _HomeControllerBase with Store {
   final _titleName = ["country", "World", "Map"];
   
   @computed
-  String get title => _titleName[selectedIndex]=='country'?globalSettingsController.country.value.name:_titleName[selectedIndex];
+  String get title => _titleName[selectedIndex]=='country'?globalSettingsController.country.name:_titleName[selectedIndex];
 
   final List<Widget> _pages = [
     CountryModule(),

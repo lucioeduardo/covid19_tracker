@@ -55,7 +55,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.flagCheckered),
-                title: Text(appController.globalSettingsController.country.value.name),
+                title: Text(appController.globalSettingsController.country.name),
               ),
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.globe),
