@@ -54,6 +54,18 @@ final Translations kBaseTranslations = Translations("en_us") +
       "pt_br": "Número de Casos",
     } +
     {
-      "en_us": "Chart",
-      "pt_br": "Gráfico",
+      "en_us": "Language",
+      "pt_br": "Idioma",
+    } +
+    {
+      "en_us": "Theme",
+      "pt_br": "Tema",
+    } +
+    {
+      "en_us": "Settings",
+      "pt_br": "Configurações",
+    } +
+    {
+      "en_us": "Country",
+      "pt_br": "País",
     };
