@@ -5,9 +5,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ThemeRow extends StatelessWidget {
+  final String title;
   const ThemeRow({
     Key key,
-    @required this.appController,
+    @required this.appController, @required this.title,
   }) : super(key: key);
 
   final AppController appController;
@@ -21,7 +22,7 @@ class ThemeRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            'Tema',
+            this.title,
             style: GoogleFonts.robotoSlab(
                 color: Theme.of(context).accentColor, fontSize: 16),
           ),

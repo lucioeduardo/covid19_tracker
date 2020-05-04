@@ -55,15 +55,15 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.flagCheckered),
-                title: Text(appController.globalSettingsController.country.name),
+                title: Text(appController.globalSettingsController.country.name.i18n),
               ),
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.globe),
-                title: Text('Mundo'),
+                title: Text('World'.i18n),
               ),
               BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.mapMarked),
-                title: Text('Mapa'),
+                title: Text('Map'.i18n),
               ),
             ],
             currentIndex: controller.selectedIndex,

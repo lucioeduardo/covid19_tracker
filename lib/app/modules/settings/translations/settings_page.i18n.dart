@@ -5,16 +5,20 @@ extension Localization on String {
 
   static var _t = Configuration.baseTranslations +
     {
-      "en_us": "Brazil",
-      "pt_br": "Brasil",
+      "en_us": "Settings has been changed.",
+      "pt_br": "Configurações alteradas com sucesso.",
     }+
     {
-      "en_us": "Map",
-      "pt_br": "Mapa",
+      "en_us": "Dark",
+      "pt_br": "Escuro",
     }+
     {
-      "en_us": "World",
-      "pt_br": "Mundo",
+      "en_us": "Light",
+      "pt_br": "Claro",
+    }+
+    {
+      "en_us": "Dracula",
+      "pt_br": "Drácula",
     };
 
   String get i18n => localize(this, _t);

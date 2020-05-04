@@ -3,7 +3,6 @@ import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-
 part 'country_controller.g.dart';
 
 class CountryController = _CountryControllerBase with _$CountryController;

@@ -2,6 +2,7 @@ import 'package:corona_data/app/modules/charts/widgets/chart_settings/chart_sett
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../translations/charts_page.i18n.dart';
 
 class ChartSettingsWidget extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _ChartSettingsWidgetState
           CheckedPopupMenuItem<String>(
             value: option,
             checked: controller.getOption(option),
-            child: Text(option),
+            child: Text(option.plural(2)),
           )
         ).toList();
       },
