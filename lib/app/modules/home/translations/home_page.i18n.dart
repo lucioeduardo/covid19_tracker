@@ -1,15 +1,13 @@
+import 'package:corona_data/app/shared/config/config.dart';
+import 'package:corona_data/app/shared/utils/localization/translation/base_translation.i18n.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
 
-  static var _t = Translations("en_us") +
+  static var _t = Configuration.baseTranslations +
     {
       "en_us": "Brazil",
       "pt_br": "Brasil",
-    }+
-    {
-      "en_us": "United States",
-      "pt_br": "Estados Unidos",
     }+
     {
       "en_us": "Map",

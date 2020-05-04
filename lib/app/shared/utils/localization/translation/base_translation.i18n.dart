@@ -1,0 +1,32 @@
+import 'package:i18n_extension/i18n_extension.dart';
+
+final Translations kBaseTranslations = Translations("en_us") +
+    {
+      "en_us": "Hello, how are you?",
+      "pt_br": "Olá, como vai você?",
+    } +
+    {
+      "en_us": "Hi",
+      "pt_br": "Olá",
+    } +
+    {
+      "en_us": "Goodbye",
+      "pt_br": "Adeus",
+    } +
+    {
+      "en_us": "Brazil",
+      "pt_br": "Brasil",
+    }+
+    {
+      "en_us": "Map",
+      "pt_br": "Mapa",
+    }+
+    {
+      "en_us": "World",
+      "pt_br": "Mundo",
+    }+
+    {
+      "en_us": "United States",
+      "pt_br": "Estados Unidos",
+    };
+
