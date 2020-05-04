@@ -44,14 +44,16 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
       )),
       children: <Widget>[
         SummaryHeaderWidget(
+          title:"Total cases".i18n,
+          buttonTitle: "Chart".i18n,
           info: info,
           controller: controller,
-          iconName: appController.globalSettingsController.country.value.code,
+          iconName: appController.globalSettingsController.country.code,
         ),
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.deaths}",
-          title: "Número de Mortes",
+          title: "Number of deaths".i18n,
           todayNum: "${info.todayDeaths}",
           percentageBadge: PercentageBadgeWidget(
             color: appController.globalSettingsController.theme.extraPallete.error,
@@ -61,7 +63,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.recovered}",
-          title: "Pacientes recuperados",
+          title: "Recovered patients".i18n,
           percentageBadge: PercentageBadgeWidget(
             color: appController.globalSettingsController.theme.extraPallete.success,
             percentage: (info.recovered) / (info.cases),
@@ -70,7 +72,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.critical}",
-          title: "Pacientes em estado grave",
+          title: "Critically ill patients".i18n,
           percentageBadge: PercentageBadgeWidget(
             color: appController.globalSettingsController.theme.extraPallete.warning,
             percentage: (info.critical) / (info.cases),

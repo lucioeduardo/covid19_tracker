@@ -39,7 +39,7 @@ main() {
         controller: animationController,
       )));
 
-      final tileFinder = find.widgetWithText(Column, 'Número de Casos');
+      final tileFinder = find.widgetWithText(Column, 'Total cases');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
           findsOneWidget);
       expect(find.descendant(of: tileFinder, matching: find.text('8')),
@@ -53,7 +53,7 @@ main() {
       )));
 
       final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Número de Mortes');
+          find.widgetWithText(InfoTileWidget, 'Number of deaths');
       expect(find.descendant(of: tileFinder, matching: find.text('100')),
           findsOneWidget);
       expect(find.descendant(of: tileFinder, matching: find.text('(+5)')),
@@ -67,7 +67,7 @@ main() {
       )));
 
       final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Número de países afetados');
+          find.widgetWithText(InfoTileWidget, 'Number of affected countries');
       expect(find.descendant(of: tileFinder, matching: find.text('300')),
           findsOneWidget);
     });
@@ -79,7 +79,7 @@ main() {
       )));
 
       final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Pacientes em estado grave');
+          find.widgetWithText(InfoTileWidget, 'Critically ill patients');
       expect(find.descendant(of: tileFinder, matching: find.text('50')),
           findsOneWidget);
     });
@@ -91,7 +91,7 @@ main() {
       )));
 
       final tileFinder = find.widgetWithText(
-          InfoTileWidget, 'Pacientes recuperados',
+          InfoTileWidget, 'Recovered patients',
           skipOffstage: false);
 
       expect(tileFinder, findsOneWidget);
@@ -113,10 +113,10 @@ main() {
         controller: animationController,
       )));
 
-      final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
+      final btnFinder = find.widgetWithText(FlatButton, 'Try Again');
       expect(btnFinder, findsOneWidget);
 
-      final msgFinder = find.text('Não foi possível acessar os dados.');
+      final msgFinder = find.text('We were unable to access the data');
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
@@ -124,7 +124,7 @@ main() {
         controller: animationController,
       )));
 
-      final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
+      final btnFinder = find.widgetWithText(FlatButton, 'Try Again');
       expect(btnFinder, findsOneWidget);
       when(covidRepositoryMock.worldInfo())
           .thenAnswer((_) async => Future.value(InfoModel(
@@ -141,7 +141,7 @@ main() {
 
       await tester.pump();
 
-      final titleFinder = find.text('Número de Casos');
+      final titleFinder = find.text('Total cases');
       expect(titleFinder, findsOneWidget);
     });
   });

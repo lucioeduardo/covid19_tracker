@@ -1,12 +1,11 @@
 import 'package:mobx/mobx.dart';
-
 part 'chart_settings_controller.g.dart';
 
 class ChartSettingsController = _ChartSettingsControllerBase
     with _$ChartSettingsController;
 
 abstract class _ChartSettingsControllerBase with Store {
-  final List<String> options = ['Casos', 'Recuperados', 'Mortes'];
+  final List<String> options = ['Case', 'Recovered', 'Death'];
 
   @observable
   bool showCases;
@@ -25,13 +24,13 @@ abstract class _ChartSettingsControllerBase with Store {
 
   bool getOption(option) {
     switch (option) {
-      case 'Casos':
+      case 'Case':
         return this.showCases;
         break;
-      case 'Recuperados':
+      case 'Recovered':
         return this.showRecovered;
         break;
-      case 'Mortes':
+      case 'Death':
         return this.showDeaths;
     }
     return true;
@@ -40,13 +39,13 @@ abstract class _ChartSettingsControllerBase with Store {
   @action
   void setOption(option) {
     switch (option) {
-      case 'Casos':
+      case 'Case':
         this.showCases = !this.showCases;
         break;
-      case 'Recuperados':
+      case 'Recovered':
         this.showRecovered = !this.showRecovered;
         break;
-      case 'Mortes':
+      case 'Death':
         this.showDeaths = !this.showDeaths;
     }
   }

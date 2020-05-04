@@ -12,11 +12,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobx/mobx.dart';
 import 'settings_controller.dart';
-
+import 'translations/settings_page.i18n.dart';
 class SettingsPage extends StatefulWidget {
   final String title;
 
-  const SettingsPage({Key key, this.title = "Configurações"}) : super(key: key);
+  const SettingsPage({Key key, this.title = "Settings"}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -46,13 +46,13 @@ class _SettingsPageState
     disposer = reaction((_) => appController.globalSettingsController.isChanged,
         (value) {
       snackbar.enqueueMessage(
-          message: 'Settings has been changed!',
+          message: 'Settings has been changed.'.i18n,
           color: appController.globalSettingsController.theme.extraPallete.success,
           id: "SettingsForm");
     });
 
     countryTextController.text =
-        appController.globalSettingsController.country.value.name;
+        appController.globalSettingsController.country.name;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
   }
 
@@ -64,7 +64,7 @@ class _SettingsPageState
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: AppBar(
         title: Text(
-          widget.title,
+          widget.title.i18n,
           style: GoogleFonts.robotoSlab(
             fontSize: 24,
             letterSpacing: -1.9,
@@ -79,10 +79,10 @@ class _SettingsPageState
           Container(
             height: 10,
           ),
-          ThemeRow(appController: appController),
+          ThemeRow(appController: appController, title:"Theme".i18n),
           Padding(
             padding: const EdgeInsets.only(top:20),
-            child: LocaleRow(appController:appController),
+            child: LocaleRow(appController:appController,title: "Language".i18n,),
           ),
           Observer(builder: (context) {
             return Padding(
@@ -98,7 +98,7 @@ class _SettingsPageState
                       key: _autoCompleteKey,
                       decoration: InputDecoration(
                         errorText: null,
-                        labelText: "País",
+                        labelText: "Country".i18n,
                         labelStyle: TextStyle(
                             color: Theme.of(context).accentColor,
                             fontSize: 16.0),

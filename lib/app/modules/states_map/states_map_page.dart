@@ -1,11 +1,15 @@
+import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
+import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
+import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:async';
+import 'package:latlong/latlong.dart';
 
 import 'states_map_controller.dart';
 
@@ -19,14 +23,8 @@ class StatesMapPage extends StatefulWidget {
 
 class _StatesMapPageState
     extends ModularState<StatesMapPage, StatesMapController> {
-  BitmapDescriptor customIcon;
-
-  Completer<GoogleMapController> _controller = Completer();
-
-  static final CameraPosition _initialPosition = CameraPosition(
-    target: LatLng(-13.516151006814436, -54.849889911711216),
-    zoom: 3.4989821910858154,
-  );
+  final PopupController _popupController = PopupController();
+  final GlobalSettingsController globalSettingsController = Modular.get();
 
   @override
   void initState() {
@@ -36,13 +34,15 @@ class _StatesMapPageState
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      if (controller.markers.error != null) {
-        return TryAgainWidget(onPressed: controller.fetchMarkers);
+      if (controller.statesData.error != null) {
+        return TryAgainWidget(onPressed: controller.fetchStatesData);
       }
 
-      Set<Marker> markers = controller.markers.value;
+      Map<Marker, StateModel> markers = controller.markers;
 
-      if (markers == null) {
+      List<StateModel> states = controller.statesData.value;
+
+      if (states == null) {
         return Center(
             child: Container(
           width: 150,
@@ -55,15 +55,59 @@ class _StatesMapPageState
         ));
       }
 
-      return GoogleMap(
-        markers: markers,
-        onTap: (value) {},
-        mapType: MapType.normal,
-        initialCameraPosition: _initialPosition,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      return FlutterMap(
+        options: MapOptions(
+          center: LatLng(-13.516151006814436, -54.849889911711216),
+          zoom: 3.789821910858154,
+          minZoom: 3.5,
+          onTap: (a){
+            _popupController.hidePopup();
+            
+          },
+          plugins: [
+            MarkerClusterPlugin(),
+          ],
+        ),
+        layers: [
+          TileLayerOptions(
+            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            subdomains: ['a', 'b', 'c'],
+            tileProvider: CachedNetworkTileProvider(),
+          ),
+          MarkerClusterLayerOptions(
+            maxClusterRadius: 50,
+            size: Size(30, 30),
+            anchor: AnchorPos.align(AnchorAlign.center),
+            fitBoundsOptions: FitBoundsOptions(
+              padding: EdgeInsets.all(50),
+            ),
+            markers: markers.keys.toList(),
+            
+            polygonOptions: PolygonOptions(
+              
+                borderColor: Colors.blueAccent,
+                color: Colors.black12,
+                borderStrokeWidth: 3),
+            popupOptions: PopupOptions(
+              popupSnap: PopupSnap.top,
+              popupController: _popupController,
+              popupBuilder: (_, marker) {
+                return MapTooltipWidget(stateModel: markers[marker]);
+              },
+            ),
+            builder: (context, markers) {
+              return FloatingActionButton(
+                heroTag: UniqueKey(),
+                backgroundColor: globalSettingsController.theme.themeData.primaryColor,
+                child: Text(markers.length.toString(), style: TextStyle(color: Theme.of(context).accentColor),),
+                onPressed: null,
+              );
+            },
+          ),
+        ],
       );
     });
   }
 }
+
+

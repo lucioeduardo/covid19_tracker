@@ -8,7 +8,7 @@ import 'package:corona_data/app/shared/widgets/info_tile_widget.dart';
 import 'package:corona_data/app/shared/widgets/percentage_badge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
+import 'translations/world_page.i18n.dart';
 class WorldPageStaggerAnimation extends StatelessWidget {
   final AnimationController controller;
   final InfoModel info;
@@ -43,6 +43,8 @@ class WorldPageStaggerAnimation extends StatelessWidget {
       ),
       children: <Widget>[
         SummaryHeaderWidget(
+          title: "Total cases".i18n,
+          buttonTitle:"Chart".i18n,
           info: info,
           controller: controller,
           iconName: 'world',
@@ -51,7 +53,7 @@ class WorldPageStaggerAnimation extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.deaths}",
           todayNum: "${info.todayDeaths}",
-          title: "Número de Mortes",
+          title: "Number of deaths".i18n,
           percentageBadge: PercentageBadgeWidget(
             color: appController.globalSettingsController.theme.extraPallete.error,
             percentage: (info.deaths) / (info.cases),
@@ -60,7 +62,7 @@ class WorldPageStaggerAnimation extends StatelessWidget {
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.recovered}",
-          title: "Pacientes recuperados",
+          title: "Recovered patients".i18n,
           percentageBadge: PercentageBadgeWidget(
             color: appController.globalSettingsController.theme.extraPallete.success,
             percentage: (info.recovered) / (info.cases),
@@ -69,7 +71,7 @@ class WorldPageStaggerAnimation extends StatelessWidget {
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.critical}",
-          title: "Pacientes em estado grave",
+          title: "Critically ill patients".i18n,
           percentageBadge: PercentageBadgeWidget(
             color: appController.globalSettingsController.theme.extraPallete.warning,
             percentage: (info.critical) / (info.cases),
@@ -78,7 +80,7 @@ class WorldPageStaggerAnimation extends StatelessWidget {
         InfoTileWidget(
           padding: const EdgeInsets.only(top: 20.0),
           number: "${info.affectedCountries}",
-          title: "Número de países afetados",
+          title: "Number of affected countries".i18n,
         ),
       ],
     );

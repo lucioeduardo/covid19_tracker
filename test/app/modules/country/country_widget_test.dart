@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
+import 'package:i18n_extension/i18n_extension.dart';
 import 'package:mobx/mobx.dart' as mobx;
 import 'package:mockito/mockito.dart';
 
@@ -45,18 +46,21 @@ main() {
     animationController =
         AnimationController(vsync: TestVSync(), duration: Duration(seconds: 2));
     animationController.value = 0.4;
+    print("setup");
   });
 
   group('CountryPage Requests', () {
+    
     testWidgets('CountryPage - cases', (WidgetTester tester) async {
       await tester.pumpWidget(
           buildTestableWidget(CountryPage(controller: animationController)));
 
-      final tileFinder = find.widgetWithText(Column, 'Número de Casos');
+      final tileFinder = find.widgetWithText(Column, 'Total cases');
       expect(find.descendant(of: tileFinder, matching: find.text('555')),
           findsOneWidget);
       expect(find.descendant(of: tileFinder, matching: find.text('8')),
           findsOneWidget);
+      
     });
 
     testWidgets('CountryPage - deaths', (WidgetTester tester) async {
@@ -64,7 +68,7 @@ main() {
           buildTestableWidget(CountryPage(controller: animationController)));
 
       final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Número de Mortes');
+          find.widgetWithText(InfoTileWidget, 'Number of deaths');
       expect(find.descendant(of: tileFinder, matching: find.text('100')),
           findsOneWidget);
       expect(find.descendant(of: tileFinder, matching: find.text('(+5)')),
@@ -76,7 +80,7 @@ main() {
           buildTestableWidget(CountryPage(controller: animationController)));
 
       final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Pacientes em estado grave');
+          find.widgetWithText(InfoTileWidget, 'Critically ill patients');
       expect(find.descendant(of: tileFinder, matching: find.text('50')),
           findsOneWidget);
     });
@@ -86,7 +90,7 @@ main() {
           buildTestableWidget(CountryPage(controller: animationController)));
 
       final tileFinder =
-          find.widgetWithText(InfoTileWidget, 'Pacientes recuperados');
+          find.widgetWithText(InfoTileWidget, 'Recovered patients');
       expect(find.descendant(of: tileFinder, matching: find.text('10')),
           findsOneWidget);
     });
@@ -104,17 +108,17 @@ main() {
       await tester.pumpWidget(
           buildTestableWidget(CountryPage(controller: animationController)));
 
-      final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
+      final btnFinder = find.widgetWithText(FlatButton, 'Try Again');
       expect(btnFinder, findsOneWidget);
 
-      final msgFinder = find.text('Não foi possível acessar os dados.');
+      final msgFinder = find.text('We were unable to access the data');
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
       await tester.pumpWidget(
           buildTestableWidget(CountryPage(controller: animationController)));
 
-      final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
+      final btnFinder = find.widgetWithText(FlatButton, 'Try Again');
       expect(btnFinder, findsOneWidget);
 
       when(covidRepositoryMock.countryInfo('Brazil')).thenAnswer((_) async =>
@@ -132,7 +136,7 @@ main() {
 
       await tester.pump();
 
-      final titleFinder = find.text('Número de Casos');
+      final titleFinder = find.text('Total cases');
       expect(titleFinder, findsOneWidget);
     });
   });

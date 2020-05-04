@@ -5,9 +5,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LocaleRow extends StatelessWidget {
+  final String title;
   const LocaleRow({
     Key key,
-    @required this.appController,
+    @required this.appController, @required this.title,
   }) : super(key: key);
 
   final AppController appController;
@@ -22,13 +23,13 @@ class LocaleRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            'Language',
+            title,
             style: GoogleFonts.robotoSlab(
                 color: Theme.of(context).accentColor, fontSize: 16),
           ),
           Observer(builder: (_) {
             return LocaleDropDown(
-              value: appController.globalSettingsController.localeKey.value.toUpperCase(),
+              value: appController.globalSettingsController.localeKey.toUpperCase(),
               countryCode: appController.globalSettingsController.locale.countryCode.toLowerCase(),
               onChanged: (String newValue) {
                 appController.globalSettingsController.setLocale(newValue);

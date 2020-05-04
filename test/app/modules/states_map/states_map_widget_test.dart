@@ -5,8 +5,8 @@ import 'package:corona_data/app/modules/states_map/states_map_module.dart';
 import 'package:corona_data/app/modules/states_map/states_map_page.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -33,7 +33,7 @@ main() {
     testWidgets("StatesMapPage has map", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
 
-      final indicatorFinder = find.byType(VirusCircularAnimation);
+      final indicatorFinder = find.byType(FlutterMap);
 
       expect(indicatorFinder, findsOneWidget);
     });
@@ -43,34 +43,34 @@ main() {
     setUp(() {
       when(covidRepositoryMock.getStatesInfo())
           .thenAnswer((_) async => throw 'E');
-      controller.fetchMarkers();
+      controller.fetchStatesData();
     });
     testWidgets("Simulating error", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
 
-      final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
+      final btnFinder = find.widgetWithText(FlatButton, 'Try Again');
       expect(btnFinder, findsOneWidget);
 
-      final msgFinder = find.text('Não foi possível acessar os dados.');
+      final msgFinder = find.text('We were unable to access the data');
       expect(msgFinder, findsOneWidget);
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
 
-      final btnFinder = find.widgetWithText(FlatButton, 'Tentar novamente');
+      final btnFinder = find.widgetWithText(FlatButton, 'Try Again');
       expect(btnFinder, findsOneWidget);
 
       when(covidRepositoryMock.getStatesInfo()).thenAnswer((_) => Future.value([
             StateModel(confirmed: 10, deaths: 2, state: 'AL'),
           ]));
 
-      controller.fetchMarkers();
+      controller.fetchStatesData();
 
       await tester.tap(btnFinder);
 
       await tester.pump();
 
-      final indicatorFinder = find.byType(VirusCircularAnimation);
+      final indicatorFinder = find.byType(FlutterMap);
 
       expect(indicatorFinder, findsOneWidget);
     });

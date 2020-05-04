@@ -25,7 +25,7 @@ abstract class _CountryCasesControllerBase
   fetchGraphData() {
     graphData = historicalRepository
         .getCountryHistoricalData(
-            appController.globalSettingsController.country.value.name)
+            appController.globalSettingsController.country.name)
         .asObservable();
   }
 }
