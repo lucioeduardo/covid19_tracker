@@ -16,7 +16,7 @@ import 'translations/settings_page.i18n.dart';
 class SettingsPage extends StatefulWidget {
   final String title;
 
-  const SettingsPage({Key key, this.title = "Configurações"}) : super(key: key);
+  const SettingsPage({Key key, this.title = "Settings"}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -64,7 +64,7 @@ class _SettingsPageState
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: AppBar(
         title: Text(
-          widget.title,
+          widget.title.i18n,
           style: GoogleFonts.robotoSlab(
             fontSize: 24,
             letterSpacing: -1.9,

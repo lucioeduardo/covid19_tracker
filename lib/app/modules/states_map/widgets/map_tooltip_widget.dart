@@ -3,6 +3,7 @@ import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:corona_data/app/shared/utils/localization/translation/base_translation_extension.i18n.dart';
 
 class MapTooltipWidget extends StatelessWidget {
   MapTooltipWidget({
@@ -62,7 +63,7 @@ class MapTooltipWidget extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 Text(
-                                  "${stateModel.confirmed}",
+                                  "${stateModel.confirmed} ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: globalSettingsController
@@ -71,7 +72,7 @@ class MapTooltipWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  ' casos',
+                                  'Case'.plural(2),
                                   style: TextStyle(
                                     color: Theme.of(context).accentColor,
                                   ),
@@ -87,7 +88,7 @@ class MapTooltipWidget extends StatelessWidget {
                             child: Row(
                               children: <Widget>[
                                 Text(
-                                  "${stateModel.deaths}",
+                                  "${stateModel.deaths} ",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: globalSettingsController
@@ -96,7 +97,7 @@ class MapTooltipWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  ' mortes',
+                                  'Death'.plural(2),
                                   style: TextStyle(
                                     color: Theme.of(context).accentColor,
                                   ),
