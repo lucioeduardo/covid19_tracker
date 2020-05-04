@@ -8,7 +8,7 @@ import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
+import 'translations/charts_page.i18n.dart';
 import 'interfaces/chart_controller_interface.dart';
 
 class ChartsPage extends StatefulWidget {
@@ -101,13 +101,13 @@ class _ChartsPageState extends State<ChartsPage> {
                                 children: <Widget>[
                                   CaptionWidget(
                                       color: Colors.red,
-                                      label: "Número de casos"),
+                                      label: "Total cases".i18n),
                                   CaptionWidget(
                                       color: Colors.black,
-                                      label: "Número de mortes"),
+                                      label: "Number of deaths".i18n),
                                   CaptionWidget(
                                       color: Colors.green,
-                                      label: "Número de recuperados"),
+                                      label: "Recovered patients".i18n),
                                 ],
                               ),
                             );

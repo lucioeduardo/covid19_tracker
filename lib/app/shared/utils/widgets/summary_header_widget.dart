@@ -15,6 +15,8 @@ class SummaryHeaderWidget extends StatelessWidget {
     @required this.info,
     @required this.iconName,
     @required this.controller,
+    @required this.title,
+    @required this.buttonTitle,
   })  : growAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: controller,
@@ -31,6 +33,8 @@ class SummaryHeaderWidget extends StatelessWidget {
   final Animation<double> containerAnimation;
   final String iconName;
   final AnimationController controller;
+  final String title;
+  final String buttonTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +70,7 @@ class SummaryHeaderWidget extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Text("Número de Casos",
+                      Text(this.title,
                           style: GoogleFonts.robotoSlab(
                               fontSize: 15,
                               letterSpacing: -1,
@@ -106,6 +110,7 @@ class SummaryHeaderWidget extends StatelessWidget {
           margin: EdgeInsets.only(top: 110),
           height: growAnimation.value * 30,
           child: RoundedIconButton(
+            title: this.buttonTitle,
             iconData: FontAwesomeIcons.chartBar,
             onPressed: () => ModalUtils.showModal(
                 context, ChartsModule(CountryCasesGraphWidget())),
