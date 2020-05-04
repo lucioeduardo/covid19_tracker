@@ -16,17 +16,28 @@ final Translations kBaseTranslations = Translations("en_us") +
     {
       "en_us": "Brazil",
       "pt_br": "Brasil",
-    }+
+    } +
     {
       "en_us": "Map",
       "pt_br": "Mapa",
-    }+
+    } +
     {
       "en_us": "World",
       "pt_br": "Mundo",
-    }+
+    } +
+    {
+      "en_us": "Try Again",
+      "pt_br": "Tentar Novamente",
+    } +
     {
       "en_us": "United States",
       "pt_br": "Estados Unidos",
+    } +
+    {
+      "en_us": "Total cases",
+      "pt_br": "Número de Casos",
+    } +
+    {
+      "en_us": "Chart",
+      "pt_br": "Gráfico",
     };
-

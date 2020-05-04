@@ -4,8 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class RoundedIconButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData iconData;
+  final String title;
 
-  const RoundedIconButton({Key key, @required this.onPressed, this.iconData})
+  const RoundedIconButton({Key key, @required this.onPressed, this.iconData, @required this.title})
       : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class RoundedIconButton extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                "Gráfico",
+                this.title,
                 style: GoogleFonts.robotoSlab(
                   fontSize: 16,
                   color: Theme.of(context).primaryColorDark,

@@ -44,6 +44,8 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
       )),
       children: <Widget>[
         SummaryHeaderWidget(
+          title:"Total cases".i18n,
+          buttonTitle: "Chart".i18n,
           info: info,
           controller: controller,
           iconName: appController.globalSettingsController.country.value.code,
