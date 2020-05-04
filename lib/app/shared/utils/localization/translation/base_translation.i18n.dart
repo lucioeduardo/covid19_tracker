@@ -30,6 +30,10 @@ final Translations kBaseTranslations = Translations("en_us") +
       "pt_br": "Tentar Novamente",
     } +
     {
+      "en_us": "We were unable to access the data",
+      "pt_br": "Não foi possível acessar os dados",
+    } +
+    {
       "en_us": "United States",
       "pt_br": "Estados Unidos",
     } +
