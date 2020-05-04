@@ -34,6 +34,22 @@ final Translations kBaseTranslations = Translations("en_us") +
       "pt_br": "Estados Unidos",
     } +
     {
+      "en_us": "Number of deaths",
+      "pt_br": "Número de mortes",
+    }+
+    {
+      "en_us": "Recovered patients",
+      "pt_br": "Pacientes recuperados",
+    }+
+    {
+      "en_us": "Critically ill patients",
+      "pt_br": "Pacientes em estado grave",
+    }+
+    {
+      "en_us": "Number of affected countries",
+      "pt_br": "Número de países afetatos",
+    }+
+    {
       "en_us": "Total cases",
       "pt_br": "Número de Casos",
     } +
