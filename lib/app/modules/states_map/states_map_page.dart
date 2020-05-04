@@ -60,6 +60,10 @@ class _StatesMapPageState
           center: LatLng(-13.516151006814436, -54.849889911711216),
           zoom: 3.789821910858154,
           minZoom: 3.5,
+          onTap: (a){
+            _popupController.hidePopup();
+            
+          },
           plugins: [
             MarkerClusterPlugin(),
           ],
@@ -78,7 +82,9 @@ class _StatesMapPageState
               padding: EdgeInsets.all(50),
             ),
             markers: markers.keys.toList(),
+            
             polygonOptions: PolygonOptions(
+              
                 borderColor: Colors.blueAccent,
                 color: Colors.black12,
                 borderStrokeWidth: 3),
