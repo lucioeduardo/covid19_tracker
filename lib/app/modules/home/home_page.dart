@@ -34,7 +34,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
-                  controller.title.toUpperCase().i18n,
+                  controller.title.i18n,
               style: GoogleFonts.robotoSlab(
                 fontSize: 24,
                 letterSpacing: -1.9,

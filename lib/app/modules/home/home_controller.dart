@@ -14,11 +14,15 @@ abstract class _HomeControllerBase with Store {
   @observable
   int selectedIndex;
   GlobalSettingsController globalSettingsController = Modular.get();
-  
+
   final _titleName = ["country", "World", "Map"];
-  
+
   @computed
-  String get title => _titleName[selectedIndex]=='country'?globalSettingsController.country.code:_titleName[selectedIndex];
+  String get title {
+    return _titleName[selectedIndex] == 'country'
+        ? globalSettingsController.country.code.toUpperCase()
+        : _titleName[selectedIndex];
+  }
 
   final List<Widget> _pages = [
     CountryModule(),
@@ -34,7 +38,7 @@ abstract class _HomeControllerBase with Store {
   }
 
   @action
-  setPage(int index){
+  setPage(int index) {
     selectedIndex = index;
   }
 }

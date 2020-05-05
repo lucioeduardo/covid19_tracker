@@ -52,7 +52,7 @@ class _SettingsPageState
     });
 
     countryTextController.text =
-        appController.globalSettingsController.country.name;
+        appController.globalSettingsController.country.code.toUpperCase().i18n;
     countriesNames = COUNTRIES.map((country) => country['name']).toList();
   }
 
@@ -94,17 +94,20 @@ class _SettingsPageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SimpleAutoCompleteTextField(
+                      
                       style: TextStyle(color: Theme.of(context).accentColor),
                       key: _autoCompleteKey,
                       decoration: InputDecoration(
                         errorText: null,
                         labelText: "Country".i18n,
+
                         labelStyle: TextStyle(
                             color: Theme.of(context).accentColor,
                             fontSize: 16.0),
                       ),
                       controller: countryTextController,
                       suggestions: countriesNames,
+
                       textChanged: (text) {
                         controller.cleanError('country_field');
                         // changeCountriesAutoCompleteErrorMessage(null);
@@ -117,6 +120,7 @@ class _SettingsPageState
 
                           appController.globalSettingsController
                               .setCountry(CountryModel.fromJson(COUNTRIES[idx]));
+                          countryTextController.text=countryTextController.text.i18n;
                           controller.cleanError('country_field');
                         } else {
                           controller.addError(
