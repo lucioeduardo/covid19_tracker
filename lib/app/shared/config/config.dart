@@ -7,6 +7,8 @@ class Configuration {
   static const defaultLocaleKey=kPTBR;
   static final locales = kLocales;
   static final baseTranslations = kBaseTranslations;
+  static const splashLoadingDuration = Duration(milliseconds: 2500);
+  static const initialRoute = "/home";
 
   const Configuration._();
 }
