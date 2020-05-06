@@ -1,6 +1,8 @@
+import 'package:corona_data/app/shared/utils/localization/constants.dart';
+
 const Map<String,Map<String,String>> kCountriesInPortuguese=
 {
-  "pt_br": {
+  kPTBR: {
     "AF": "Afeganistão",
     "ZA": "África do Sul",
     "AL": "Albânia",

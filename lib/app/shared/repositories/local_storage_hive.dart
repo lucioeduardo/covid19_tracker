@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:corona_data/app/shared/config/config.dart';
 import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -41,7 +42,7 @@ class LocalStorageHive implements ILocalStorage{
 
     CountryModel value = await box.get(_countryKey);
     //value ??= CountryModel(name:'Brazil', code:"br");
-    print("retornando $value");
+    // print("retornando $value");
     return value;
   }
 
@@ -50,7 +51,7 @@ class LocalStorageHive implements ILocalStorage{
     var box = await _instance.future;
 
     var value = await box.get(_themeKey);
-    value ??= 'dark';
+    value ??= Configuration.defaultThemeKey;
     
     return value.toString();
   }

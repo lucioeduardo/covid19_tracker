@@ -1,6 +1,8 @@
+import 'package:corona_data/app/shared/utils/localization/constants.dart';
+
 const Map<String,Map<String,String>> kCountriesInEnglish=
 {
-  "en_us": {
+  kENUS: {
     "AF": "Afghanistan",
     "AL": "Albania",
     "DZ": "Algeria",

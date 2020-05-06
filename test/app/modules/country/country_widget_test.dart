@@ -46,7 +46,7 @@ main() {
     animationController =
         AnimationController(vsync: TestVSync(), duration: Duration(seconds: 2));
     animationController.value = 0.4;
-    print("setup");
+    
   });
 
   group('CountryPage Requests', () {
