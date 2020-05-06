@@ -16,8 +16,6 @@ main() {
     expect(ThemeUtils.getTheme(kDraculaThemeKey) is ThemeDracula, true);
   });
   test("Theme Utils getNamesPretty", () {
-    print(ThemeUtils.getThemeNamesPretty());
-
     expect(
       true,
       const ListEquality().equals(

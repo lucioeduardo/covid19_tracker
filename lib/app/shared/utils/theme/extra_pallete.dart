@@ -11,7 +11,7 @@ class ExtraPallete {
   bool operator == (Object other) {
     if (other.runtimeType != runtimeType) return false;
     final ExtraPallete otherData = other;
-    print("oi");
+    
     return this.success == otherData.success &&
         this.info == otherData.info &&
         this.warning == otherData.warning &&
