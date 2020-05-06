@@ -38,7 +38,7 @@ void main() {
     test("Inicialization", () {
       expect(controller.selectedIndex, 0);
       expect(controller.page.runtimeType, CountryModule().runtimeType);
-      expect(controller.title, 'Brazil');
+      expect(controller.title, 'BR');
     });
 
     test("Set Page to World", () {
@@ -61,7 +61,7 @@ void main() {
 
       expect(controller.selectedIndex, 0);
       expect(controller.page.runtimeType, CountryModule().runtimeType);
-      expect(controller.title, 'Brazil');
+      expect(controller.title, 'BR');
     });
   });
 }

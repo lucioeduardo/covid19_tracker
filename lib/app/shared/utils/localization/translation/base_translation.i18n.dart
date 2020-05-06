@@ -1,91 +1,92 @@
+import 'package:corona_data/app/shared/utils/localization/constants.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 
-final Translations kBaseTranslations = Translations("en_us") +
+final Translations kBaseTranslations = Translations(kENUS) +
     {
-      "en_us": "Hello, how are you?",
-      "pt_br": "Olá, como vai você?",
+      kENUS: "Hello, how are you?",
+      kPTBR: "Olá, como vai você?",
     } +
     {
-      "en_us": "Hi",
-      "pt_br": "Olá",
+      kENUS: "Hi",
+      kPTBR: "Olá",
     } +
     {
-      "en_us": "Goodbye",
-      "pt_br": "Adeus",
+      kENUS: "Goodbye",
+      kPTBR: "Adeus",
     } +
     {
-      "en_us": "Brazil",
-      "pt_br": "Brasil",
+      kENUS: "Brazil",
+      kPTBR: "Brasil",
     } +
     {
-      "en_us": "Map",
-      "pt_br": "Mapa",
+      kENUS: "Map",
+      kPTBR: "Mapa",
     } +
     {
-      "en_us": "World",
-      "pt_br": "Mundo",
+      kENUS: "World",
+      kPTBR: "Mundo",
     } +
     {
-      "en_us": "Try Again",
-      "pt_br": "Tentar Novamente",
+      kENUS: "Try Again",
+      kPTBR: "Tentar Novamente",
     } +
     {
-      "en_us": "We were unable to access the data",
-      "pt_br": "Não foi possível acessar os dados",
+      kENUS: "We were unable to access the data",
+      kPTBR: "Não foi possível acessar os dados",
     } +
     {
-      "en_us": "United States",
-      "pt_br": "Estados Unidos",
+      kENUS: "United States",
+      kPTBR: "Estados Unidos",
     } +
     {
-      "en_us": "Number of deaths",
-      "pt_br": "Número de mortes",
+      kENUS: "Number of deaths",
+      kPTBR: "Número de mortes",
     }+
     {
-      "en_us": "Recovered patients",
-      "pt_br": "Pacientes recuperados",
+      kENUS: "Recovered patients",
+      kPTBR: "Pacientes recuperados",
     }+
     {
-      "en_us": "Critically ill patients",
-      "pt_br": "Pacientes em estado grave",
+      kENUS: "Critically ill patients",
+      kPTBR: "Pacientes em estado grave",
     }+
     {
-      "en_us": "Number of affected countries",
-      "pt_br": "Número de países afetatos",
+      kENUS: "Number of affected countries",
+      kPTBR: "Número de países afetatos",
     }+
     {
-      "en_us": "Total cases",
-      "pt_br": "Número de Casos",
+      kENUS: "Total cases",
+      kPTBR: "Número de Casos",
     } +
     {
-      "en_us": "Language",
-      "pt_br": "Idioma",
+      kENUS: "Language",
+      kPTBR: "Idioma",
     } +
     {
-      "en_us": "Theme",
-      "pt_br": "Tema",
+      kENUS: "Theme",
+      kPTBR: "Tema",
     } +
     {
-      "en_us": "Case".two("Cases"),
-      "pt_br": "Caso".two("Casos"),
+      kENUS: "Case".two("Cases"),
+      kPTBR: "Caso".two("Casos"),
     } +
     {
-      "en_us": "Recovered".two("Recovered"),
-      "pt_br": "Recuperado".two("Recuperados"),
+      kENUS: "Recovered".two("Recovered"),
+      kPTBR: "Recuperado".two("Recuperados"),
     } +
     {
-      "en_us": "Death".two("Deaths"),
-      "pt_br": "Mortes".two("Mortes"),
+      kENUS: "Death".two("Deaths"),
+      kPTBR: "Mortes".two("Mortes"),
     } +
     {
-      "en_us": "Settings",
-      "pt_br": "Configurações",
+      kENUS: "Settings",
+      kPTBR: "Configurações",
     } +
     {
-      "en_us": "Chart",
-      "pt_br": "Gráfico",
+      kENUS: "Chart",
+      kPTBR: "Gráfico",
     } +
     {
-      "en_us": "Country",
-      "pt_br": "País",
+      kENUS: "Country",
+      kPTBR: "País",
     };

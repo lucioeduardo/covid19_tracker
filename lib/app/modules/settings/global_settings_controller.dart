@@ -10,6 +10,7 @@ import 'package:flutter_device_locale/flutter_device_locale.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
+
 part 'global_settings_controller.g.dart';
 
 class GlobalSettingsController = _GlobalSettingsControllerBase
