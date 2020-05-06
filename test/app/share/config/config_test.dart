@@ -9,6 +9,7 @@ void main() {
     expect(Configuration.initialRoute, '/home');
     expect(Configuration.splashLoadingDuration, Duration(milliseconds: 2500));
     expect(Configuration.themes, kThemes);
+    expect(Configuration.defaultThemeKey, kDarkThemeKey);
     expect(Configuration.defaultLocaleKey, kPTBR);
     expect(Configuration.locales, kLocales);
     expect(Configuration.baseTranslations, kBaseTranslations);

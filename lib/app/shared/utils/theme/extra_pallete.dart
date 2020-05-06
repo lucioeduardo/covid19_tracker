@@ -7,4 +7,14 @@ class ExtraPallete {
   final Color error;
 
   ExtraPallete({this.success, this.info, this.warning, this.error});
+
+  bool operator == (Object other) {
+    if (other.runtimeType != runtimeType) return false;
+    final ExtraPallete otherData = other;
+    print("oi");
+    return this.success == otherData.success &&
+        this.info == otherData.info &&
+        this.warning == otherData.warning &&
+        this.error == otherData.error;
+  }
 }

@@ -7,6 +7,7 @@ class Configuration {
   static const initialRoute = "/home";
   
   static final themes = kThemes;
+  static const defaultThemeKey = kDarkThemeKey;
   static const defaultLocaleKey=kPTBR;
   static final locales = kLocales;
   static final baseTranslations = kBaseTranslations;
