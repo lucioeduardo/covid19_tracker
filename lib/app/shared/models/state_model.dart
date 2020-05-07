@@ -1,10 +1,12 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
+import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
 import 'package:latlong/latlong.dart';
 
 class StateModel implements IMarkerModelData {
   int confirmed;
   int deaths;
   String state;
+  
 
   StateModel({this.confirmed, this.deaths, this.state});
 
@@ -12,6 +14,7 @@ class StateModel implements IMarkerModelData {
     confirmed = json['confirmed'];
     deaths = json['deaths'];
     state = json['state'];
+    
   }
 
   Map<String, dynamic> toJson() {
@@ -31,5 +34,8 @@ class StateModel implements IMarkerModelData {
 
   @override
   // TODO: implement latLng
-  LatLng get latLng => null;
+  LatLng get latLng {
+    Map stateTemp=kStates[this.state];
+    return (LatLng(stateTemp['latitude'],stateTemp['longitude']));
+  } 
 }

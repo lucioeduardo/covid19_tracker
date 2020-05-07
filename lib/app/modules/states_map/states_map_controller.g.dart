@@ -15,6 +15,12 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
   Map<Marker, IMarkerModelData> get markers => (_$markersComputed ??=
           Computed<Map<Marker, IMarkerModelData>>(() => super.markers))
       .value;
+  Computed<List<IMarkerModelData>> _$markersDataComputed;
+
+  @override
+  List<IMarkerModelData> get markersData => (_$markersDataComputed ??=
+          Computed<List<IMarkerModelData>>(() => super.markersData))
+      .value;
   Computed<Map<Marker, IMarkerModelData>> _$statesMarkersComputed;
 
   @override
@@ -110,7 +116,7 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
   @override
   String toString() {
     final string =
-        'statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},markerShowed: ${markerShowed.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()}';
+        'statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},markerShowed: ${markerShowed.toString()},markers: ${markers.toString()},markersData: ${markersData.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()}';
     return '{$string}';
   }
 }

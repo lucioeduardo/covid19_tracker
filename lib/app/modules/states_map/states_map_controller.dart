@@ -23,6 +23,9 @@ abstract class _StatesMapControllerBase with Store {
 
   @computed
   Map<Marker, IMarkerModelData> get markers => markerShowed == MarkersType.states ? statesMarkers : citiesMarkers;
+  
+  @computed
+  List<IMarkerModelData> get markersData => markerShowed == MarkersType.states ? statesData.value : citiesData.value;
 
   @observable
   ObservableFuture<List<StateModel>> statesData;
@@ -50,7 +53,7 @@ abstract class _StatesMapControllerBase with Store {
   @action
   fetchStatesData() {
     statesData = covidRepository.getStatesInfo().asObservable();
-    // citiesData = covidRepository.getCitiesInfo().asObservable();
+    citiesData = covidRepository.getCitiesInfo().asObservable();
     // print(citiesData.value);
   }
   
@@ -93,7 +96,7 @@ abstract class _StatesMapControllerBase with Store {
     return Marker(
       width: 40.0,
       height: 40.0,
-      point: stateCoords[state.latLng],
+      point: state.latLng,
       builder: (ctx) => Container(
         child: GestureDetector(
           child: Container(

@@ -34,13 +34,13 @@ class _StatesMapPageState
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      if (controller.statesData.error != null) {
+      if (controller.statesData.error != null || controller.citiesData.error != null) {
         return TryAgainWidget(onPressed: controller.fetchStatesData);
       }
 
       Map<Marker, IMarkerModelData> markers = controller.markers;
 
-      List<IMarkerModelData> states = controller.statesData.value;
+      List<IMarkerModelData> states = controller.markersData;
 
       
 
