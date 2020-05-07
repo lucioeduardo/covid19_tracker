@@ -29,11 +29,9 @@ class StateModel implements IMarkerModelData {
   String get title => this.state;
 
   @override
-  // TODO: implement key
   String get key => this.state;
 
   @override
-  // TODO: implement latLng
   LatLng get latLng {
     Map stateTemp=kStates[this.state];
     return (LatLng(stateTemp['latitude'],stateTemp['longitude']));
