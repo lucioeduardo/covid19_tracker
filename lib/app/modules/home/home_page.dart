@@ -18,7 +18,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   final AppController appController = Modular.get();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     
   }

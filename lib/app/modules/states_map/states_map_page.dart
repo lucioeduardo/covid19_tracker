@@ -1,6 +1,6 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
-import 'package:corona_data/app/shared/models/state_model.dart';
+import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
@@ -10,6 +10,7 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:latlong/latlong.dart';
+import 'package:mobx/mobx.dart';
 
 import 'states_map_controller.dart';
 
@@ -25,22 +26,26 @@ class _StatesMapPageState
     extends ModularState<StatesMapPage, StatesMapController> {
   final PopupController _popupController = PopupController();
   final GlobalSettingsController globalSettingsController = Modular.get();
+  final MapController mapController = MapController();
+  ReactionDisposer disposer;
 
   @override
   void initState() {
     super.initState();
+
+    disposer = reaction(
+        (_) => controller.markerShowed, (_) => _popupController.hidePopup());
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      if (controller.statesData.error != null) {
+      if (controller.statesData.error != null ||
+          controller.citiesData.error != null) {
         return TryAgainWidget(onPressed: controller.fetchStatesData);
       }
 
-      Map<Marker, StateModel> markers = controller.markers;
-
-      List<StateModel> states = controller.statesData.value;
+      List<IMarkerModelData> states = controller.markersData;
 
       if (states == null) {
         return Center(
@@ -56,13 +61,20 @@ class _StatesMapPageState
       }
 
       return FlutterMap(
+        mapController: mapController,
         options: MapOptions(
+          onPositionChanged: (position, value) {
+            if (position.zoom >= 8.0) {
+              controller.setMarkerShowed(MarkersType.cities);
+            } else {
+              controller.setMarkerShowed(MarkersType.states);
+            }
+          },
           center: LatLng(-13.516151006814436, -54.849889911711216),
           zoom: 3.789821910858154,
           minZoom: 3.5,
-          onTap: (a){
+          onTap: (a) {
             _popupController.hidePopup();
-            
           },
           plugins: [
             MarkerClusterPlugin(),
@@ -81,10 +93,8 @@ class _StatesMapPageState
             fitBoundsOptions: FitBoundsOptions(
               padding: EdgeInsets.all(50),
             ),
-            markers: markers.keys.toList(),
-            
+            markers: controller.markers.keys.toList(),
             polygonOptions: PolygonOptions(
-              
                 borderColor: Colors.blueAccent,
                 color: Colors.black12,
                 borderStrokeWidth: 3),
@@ -92,14 +102,18 @@ class _StatesMapPageState
               popupSnap: PopupSnap.top,
               popupController: _popupController,
               popupBuilder: (_, marker) {
-                return MapTooltipWidget(stateModel: markers[marker]);
+                return MapTooltipWidget(stateModel: controller.markers[marker]);
               },
             ),
             builder: (context, markers) {
               return FloatingActionButton(
                 heroTag: UniqueKey(),
-                backgroundColor: globalSettingsController.theme.themeData.primaryColor,
-                child: Text(markers.length.toString(), style: TextStyle(color: Theme.of(context).accentColor),),
+                backgroundColor:
+                    globalSettingsController.theme.themeData.primaryColor,
+                child: Text(
+                  markers.length.toString(),
+                  style: TextStyle(color: Theme.of(context).accentColor),
+                ),
                 onPressed: null,
               );
             },
@@ -108,6 +122,10 @@ class _StatesMapPageState
       );
     });
   }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
+  }
 }
-
-

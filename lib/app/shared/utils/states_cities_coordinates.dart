@@ -1,4 +1,4 @@
-Map<String, dynamic> state = {
+const Map<String, dynamic> kStates = {
   "RO": {
     "nome": "Rondônia",
     "latitude": -10.83,
