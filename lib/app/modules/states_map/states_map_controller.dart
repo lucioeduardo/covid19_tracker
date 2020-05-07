@@ -43,7 +43,7 @@ abstract class _StatesMapControllerBase with Store {
 
   @action 
   setMarkerShowed(MarkersType markersType){
-    markerShowed=markersType;
+      markerShowed=markersType;
   }
 
   _StatesMapControllerBase(this.covidRepository) {
