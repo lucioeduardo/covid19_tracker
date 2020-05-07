@@ -1,5 +1,5 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
-import 'package:corona_data/app/shared/models/state_model.dart';
+import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -11,7 +11,7 @@ class MapTooltipWidget extends StatelessWidget {
     @required this.stateModel,
   }) : super(key: key);
 
-  final StateModel stateModel;
+  final IMarkerModelData stateModel;
   final GlobalSettingsController globalSettingsController = Modular.get();
 
   @override
@@ -46,7 +46,7 @@ class MapTooltipWidget extends StatelessWidget {
                         children: <Widget>[
                           Center(
                             child: Text(
-                              "${stateName[stateModel.state]}",
+                              "${stateName[stateModel.title]}",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Theme.of(context).accentColor,

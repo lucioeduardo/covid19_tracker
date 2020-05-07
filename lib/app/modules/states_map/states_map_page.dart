@@ -1,6 +1,6 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
-import 'package:corona_data/app/shared/models/state_model.dart';
+import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
@@ -38,9 +38,11 @@ class _StatesMapPageState
         return TryAgainWidget(onPressed: controller.fetchStatesData);
       }
 
-      Map<Marker, StateModel> markers = controller.markers;
+      Map<Marker, IMarkerModelData> markers = controller.markers;
 
-      List<StateModel> states = controller.statesData.value;
+      List<IMarkerModelData> states = controller.statesData.value;
+
+      
 
       if (states == null) {
         return Center(

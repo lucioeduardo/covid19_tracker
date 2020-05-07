@@ -1,33 +1,32 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:latlong/latlong.dart';
 
-class StateModel implements IMarkerModelData {
+class CityModel implements IMarkerModelData {
   int confirmed;
   int deaths;
-  String state;
+  String city;
 
-  StateModel({this.confirmed, this.deaths, this.state});
+  CityModel({this.confirmed, this.deaths, this.city});
 
-  StateModel.fromJson(Map<String, dynamic> json) {
+  CityModel.fromJson(Map<String, dynamic> json) {
     confirmed = json['confirmed'];
     deaths = json['deaths'];
-    state = json['state'];
+    city = json['city'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['confirmed'] = this.confirmed;
     data['deaths'] = this.deaths;
-    data['state'] = this.state;
+    data['city'] = this.city;
     return data;
   }
 
   @override
-  String get title => this.state;
+  String get title => city;
 
   @override
-  // TODO: implement key
-  String get key => this.state;
+  String get key => city;
 
   @override
   // TODO: implement latLng

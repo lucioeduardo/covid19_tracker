@@ -1,3 +1,4 @@
+import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:dio/dio.dart';
@@ -47,6 +48,20 @@ class CovidRepository extends Disposable implements ICovidRepository {
     }
 
     return states;
+  }
+  Future<List<CityModel>> getCitiesInfo() async {
+    var response = await dio
+        .get(
+            "https://brasil.io/api/dataset/covid19/caso/data?place_type=city&is_last=True")
+        .timeout(Duration(seconds: 5));
+
+    List<CityModel> cities = List();
+
+    for (var city in response.data['results']) {
+      cities.add(CityModel.fromJson(city));
+    }
+
+    return cities;
   }
 
   @override
