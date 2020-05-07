@@ -1,6 +1,5 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
-import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:corona_data/app/shared/utils/localization/translation/base_translation_extension.i18n.dart';
@@ -16,6 +15,7 @@ class MapTooltipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return TweenAnimationBuilder(
         tween: Tween(begin: 0.0, end: 200.0),
         curve: Curves.elasticOut,
@@ -46,7 +46,7 @@ class MapTooltipWidget extends StatelessWidget {
                         children: <Widget>[
                           Center(
                             child: Text(
-                              "${stateName[stateModel.title]}",
+                              stateModel.title,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Theme.of(context).accentColor,

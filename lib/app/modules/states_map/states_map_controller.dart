@@ -94,30 +94,30 @@ abstract class _StatesMapControllerBase with Store {
   Marker _makeMarker(IMarkerModelData state, Color color) {
     
     return Marker(
-      width: 40.0,
-      height: 40.0,
+      width: 47.0,
+      height: 47.0,
       point: state.latLng,
       builder: (ctx) => Container(
         child: GestureDetector(
           child: Container(
             alignment: Alignment.center,
-            width: 40,
-            height: 40,
+            width: 47,
+            height: 47,
             decoration: BoxDecoration(
               color: Colors.transparent,
               shape: BoxShape.circle,
               border: Border.all(color: color, width: 3),
             ),
             child: Container(
-              width: 30,
-              height: 30,
+              width: 37,
+              height: 37,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: color,
                 shape: BoxShape.circle,
               ),
               child: Text(
-                state.title,
+                state.shortTitle,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

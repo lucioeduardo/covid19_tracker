@@ -7,7 +7,7 @@ class CityModel implements IMarkerModelData {
   int deaths;
   String city;
   String state;
-  String city_ibge_code;
+  String cityIbgeCode;
 
   CityModel({this.confirmed, this.deaths, this.city});
 
@@ -16,7 +16,7 @@ class CityModel implements IMarkerModelData {
     deaths = json['deaths'];
     city = json['city'];
     state = json['state'];
-    city_ibge_code = json['city_ibge_code'];
+    cityIbgeCode = json['city_ibge_code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -25,23 +25,17 @@ class CityModel implements IMarkerModelData {
     data['deaths'] = this.deaths;
     data['city'] = this.city;
     data['state'] = this.state;
-    data['city_ibge_code'] = this.city_ibge_code;
+    data['city_ibge_code'] = this.cityIbgeCode;
     return data;
   }
 
-  @override
-  String get title => city;
-
-  @override
-  String get key => this.city_ibge_code;
+  
 
   @override
   LatLng get latLng {
     Map cityTemp;
     try{
-      print(this.state);
       cityTemp = kStates[this.state]["cities"][this.key];
-      print(cityTemp);
     }catch(Exception){
       return null;
     }
@@ -49,7 +43,14 @@ class CityModel implements IMarkerModelData {
     if(cityTemp==null){
       return null;
     }
-    print(cityTemp['latitude']);
     return (LatLng(cityTemp['latitude'],cityTemp['longitude']));
-  } 
+  }
+
+  @override
+  String get title => city;
+
+  @override
+  String get key => this.cityIbgeCode;
+  @override
+  String get shortTitle => city.substring(0,3).toUpperCase(); 
 }

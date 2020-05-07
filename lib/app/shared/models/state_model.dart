@@ -37,5 +37,8 @@ class StateModel implements IMarkerModelData {
   LatLng get latLng {
     Map stateTemp=kStates[this.state];
     return (LatLng(stateTemp['latitude'],stateTemp['longitude']));
-  } 
+  }
+
+  @override
+  String get shortTitle => this.state; 
 }

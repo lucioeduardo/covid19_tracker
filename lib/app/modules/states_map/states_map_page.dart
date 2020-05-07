@@ -25,10 +25,12 @@ class _StatesMapPageState
     extends ModularState<StatesMapPage, StatesMapController> {
   final PopupController _popupController = PopupController();
   final GlobalSettingsController globalSettingsController = Modular.get();
+  final MapController mapController = MapController();
 
   @override
   void initState() {
     super.initState();
+    
   }
 
   @override
@@ -38,7 +40,7 @@ class _StatesMapPageState
         return TryAgainWidget(onPressed: controller.fetchStatesData);
       }
 
-      Map<Marker, IMarkerModelData> markers = controller.markers;
+      
 
       List<IMarkerModelData> states = controller.markersData;
 
@@ -58,7 +60,17 @@ class _StatesMapPageState
       }
 
       return FlutterMap(
+        mapController: mapController,
         options: MapOptions(
+          onPositionChanged: (position,value){
+            if(position.zoom>=8.0){
+              controller.setMarkerShowed(MarkersType.cities);
+            }else{
+              controller.setMarkerShowed(MarkersType.states);
+            }
+            
+
+          },
           center: LatLng(-13.516151006814436, -54.849889911711216),
           zoom: 3.789821910858154,
           minZoom: 3.5,
@@ -70,6 +82,7 @@ class _StatesMapPageState
             MarkerClusterPlugin(),
           ],
         ),
+        
         layers: [
           TileLayerOptions(
             urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -83,7 +96,7 @@ class _StatesMapPageState
             fitBoundsOptions: FitBoundsOptions(
               padding: EdgeInsets.all(50),
             ),
-            markers: markers.keys.toList(),
+            markers: controller.markers.keys.toList(),
             
             polygonOptions: PolygonOptions(
               
@@ -94,7 +107,8 @@ class _StatesMapPageState
               popupSnap: PopupSnap.top,
               popupController: _popupController,
               popupBuilder: (_, marker) {
-                return MapTooltipWidget(stateModel: markers[marker]);
+                
+                return MapTooltipWidget(stateModel: controller.markers[marker]);
               },
             ),
             builder: (context, markers) {
