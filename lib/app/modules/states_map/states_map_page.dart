@@ -1,6 +1,12 @@
+import 'package:corona_data/app/modules/charts/charts_module.dart';
+import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_widget.dart';
+import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_widget.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
+import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
+import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
+import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
@@ -112,8 +118,21 @@ class _StatesMapPageState
                 popupSnap: PopupSnap.top,
                 popupController: _popupController,
                 popupBuilder: (_, marker) {
-                  return MapTooltipWidget(
-                      stateModel: controller.markers[marker]);
+                  IMarkerModelData stateModel = controller.markers[marker];
+                return MapTooltipWidget(
+                  stateModel: stateModel,
+                  onTap: () => ModalUtils.showModal(
+                    context,
+                    stateModel.runtimeType == StateModel
+                        ? ChartsModule(StateChartWidget(
+                            stateName: stateModel.key,
+                          ))
+                        : ChartsModule(CityChartWidget(
+                          cityName: stateModel.title,
+                            cityCode: stateModel.key,
+                          )),
+                  ),
+                );
                 },
               ),
               builder: (context, markers) {
@@ -127,8 +146,7 @@ class _StatesMapPageState
                   ),
                   onPressed: null,
                 );
-              },
-            ),
+              })
           ],
         ),
       );

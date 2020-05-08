@@ -1,21 +1,24 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
+import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:corona_data/app/shared/utils/localization/translation/base_translation_extension.i18n.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MapTooltipWidget extends StatelessWidget {
   MapTooltipWidget({
     Key key,
     @required this.stateModel,
+    this.onTap,
   }) : super(key: key);
 
   final IMarkerModelData stateModel;
   final GlobalSettingsController globalSettingsController = Modular.get();
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    
     return TweenAnimationBuilder(
         tween: Tween(begin: 0.0, end: 200.0),
         curve: Curves.elasticOut,
@@ -35,10 +38,9 @@ class MapTooltipWidget extends StatelessWidget {
               ],
             ),
             width: width,
-            height: width / 2,
+            height: width/1.3,
             child: GestureDetector(
-              //onTap: () => debugPrint("Popup tap!"),
-              child: width > 150
+              child: width > 180
                   ? Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +107,13 @@ class MapTooltipWidget extends StatelessWidget {
                               ],
                             ),
                           ),
+                          SizedBox(height: 5,),
+                          Center(
+                              child: RoundedIconButton(
+                            onPressed: onTap,
+                            title: "Chart".i18n,
+                            iconData: FontAwesomeIcons.chartBar,
+                          ))
                         ],
                       ),
                     )

@@ -10,14 +10,15 @@ import 'package:google_fonts/google_fonts.dart';
 import '../modal_utils.dart';
 
 class SummaryHeaderWidget extends StatelessWidget {
-  SummaryHeaderWidget({
-    Key key,
-    @required this.info,
-    @required this.iconName,
-    @required this.controller,
-    @required this.title,
-    @required this.buttonTitle,
-  })  : growAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+  SummaryHeaderWidget(
+      {Key key,
+      @required this.info,
+      @required this.iconName,
+      @required this.controller,
+      @required this.title,
+      @required this.buttonTitle,
+      @required this.buttonOnPressed})
+      : growAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: controller,
                 curve: Interval(0.3, 0.7, curve: Curves.decelerate))),
@@ -35,6 +36,7 @@ class SummaryHeaderWidget extends StatelessWidget {
   final AnimationController controller;
   final String title;
   final String buttonTitle;
+  final VoidCallback buttonOnPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -112,8 +114,7 @@ class SummaryHeaderWidget extends StatelessWidget {
           child: RoundedIconButton(
             title: this.buttonTitle,
             iconData: FontAwesomeIcons.chartBar,
-            onPressed: () => ModalUtils.showModal(
-                context, ChartsModule(CountryCasesGraphWidget())),
+            onPressed: buttonOnPressed,
           ),
         ),
       ],

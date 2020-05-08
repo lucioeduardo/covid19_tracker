@@ -1,5 +1,8 @@
+import 'package:corona_data/app/modules/charts/charts_module.dart';
+import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
+import 'package:corona_data/app/shared/utils/modal_utils.dart';
 import 'package:corona_data/app/shared/utils/widgets/summary_header_widget.dart';
 import 'package:corona_data/app/shared/widgets/animations/faded_list_view.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
@@ -10,6 +13,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app_controller.dart';
 import "translations/country_page.i18n.dart";
+
 class CoutryPageStaggerAnimation extends StatelessWidget {
   final AnimationController controller;
   final InfoModel info;
@@ -44,7 +48,11 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
       )),
       children: <Widget>[
         SummaryHeaderWidget(
-          title:"Total cases".i18n,
+          buttonOnPressed: () => ModalUtils.showModal(
+            context,
+            ChartsModule(CountryCasesGraphWidget()),
+          ),
+          title: "Total cases".i18n,
           buttonTitle: "Chart".i18n,
           info: info,
           controller: controller,
@@ -56,7 +64,8 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
           title: "Number of deaths".i18n,
           todayNum: "${info.todayDeaths}",
           percentageBadge: PercentageBadgeWidget(
-            color: appController.globalSettingsController.theme.extraPallete.error,
+            color:
+                appController.globalSettingsController.theme.extraPallete.error,
             percentage: (info.deaths) / (info.cases),
           ),
         ),
@@ -65,7 +74,8 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
           number: "${info.recovered}",
           title: "Recovered patients".i18n,
           percentageBadge: PercentageBadgeWidget(
-            color: appController.globalSettingsController.theme.extraPallete.success,
+            color: appController
+                .globalSettingsController.theme.extraPallete.success,
             percentage: (info.recovered) / (info.cases),
           ),
         ),
@@ -74,7 +84,8 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
           number: "${info.critical}",
           title: "Critically ill patients".i18n,
           percentageBadge: PercentageBadgeWidget(
-            color: appController.globalSettingsController.theme.extraPallete.warning,
+            color: appController
+                .globalSettingsController.theme.extraPallete.warning,
             percentage: (info.critical) / (info.cases),
           ),
         ),

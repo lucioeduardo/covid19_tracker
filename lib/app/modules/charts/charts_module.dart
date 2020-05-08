@@ -1,3 +1,5 @@
+import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_controller.dart';
+import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_controller.dart';
 import 'package:corona_data/app/modules/charts/widgets/chart_settings/chart_settings_controller.dart';
 import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
 import 'package:corona_data/app/modules/charts/repositories/historical_repository_interface.dart';
@@ -11,6 +13,8 @@ import 'widgets/world_cases/world_cases_controller.dart';
 class ChartsModule extends ModuleWidget {
   @override
   List<Bind> get binds => [
+        Bind((i) => CityChartController(i.get<IHistoricalRepository>())),
+        Bind((i) => StateChartController(i.get<IHistoricalRepository>())),
         Bind((i) => ChartSettingsController()),
         Bind((i) => CountryCasesController(
             i.get<IHistoricalRepository>(), i.get<AppController>())),
