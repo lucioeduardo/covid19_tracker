@@ -43,7 +43,7 @@ main() {
     setUp(() {
       when(covidRepositoryMock.getStatesInfo())
           .thenAnswer((_) async => throw 'E');
-      controller.fetchStatesData();
+      controller.fetchData();
     });
     testWidgets("Simulating error", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
@@ -64,7 +64,7 @@ main() {
             StateModel(confirmed: 10, deaths: 2, state: 'AL'),
           ]));
 
-      controller.fetchStatesData();
+      controller.fetchData();
 
       await tester.tap(btnFinder);
 

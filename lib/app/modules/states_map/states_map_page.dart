@@ -42,7 +42,7 @@ class _StatesMapPageState
     return Observer(builder: (context) {
       if (controller.statesData.error != null ||
           controller.citiesData.error != null) {
-        return TryAgainWidget(onPressed: controller.fetchStatesData);
+        return TryAgainWidget(onPressed: controller.fetchData());
       }
 
       // List<IMarkerModelData> states = controller.markersData;

@@ -36,6 +36,24 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
           Computed<int>(() => super.maxClusterRadius))
       .value;
 
+  final _$markerShowedAtom =
+      Atom(name: '_StatesMapControllerBase.markerShowed');
+
+  @override
+  MarkersType get markerShowed {
+    _$markerShowedAtom.context.enforceReadPolicy(_$markerShowedAtom);
+    _$markerShowedAtom.reportObserved();
+    return super.markerShowed;
+  }
+
+  @override
+  set markerShowed(MarkersType value) {
+    _$markerShowedAtom.context.conditionallyRunInAction(() {
+      super.markerShowed = value;
+      _$markerShowedAtom.reportChanged();
+    }, _$markerShowedAtom, name: '${_$markerShowedAtom.name}_set');
+  }
+
   final _$statesDataAtom = Atom(name: '_StatesMapControllerBase.statesData');
 
   @override
@@ -70,24 +88,6 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
     }, _$citiesDataAtom, name: '${_$citiesDataAtom.name}_set');
   }
 
-  final _$markerShowedAtom =
-      Atom(name: '_StatesMapControllerBase.markerShowed');
-
-  @override
-  MarkersType get markerShowed {
-    _$markerShowedAtom.context.enforceReadPolicy(_$markerShowedAtom);
-    _$markerShowedAtom.reportObserved();
-    return super.markerShowed;
-  }
-
-  @override
-  set markerShowed(MarkersType value) {
-    _$markerShowedAtom.context.conditionallyRunInAction(() {
-      super.markerShowed = value;
-      _$markerShowedAtom.reportChanged();
-    }, _$markerShowedAtom, name: '${_$markerShowedAtom.name}_set');
-  }
-
   final _$isActiveClusterAtom =
       Atom(name: '_StatesMapControllerBase.isActiveCluster');
 
@@ -108,6 +108,17 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
 
   final _$_StatesMapControllerBaseActionController =
       ActionController(name: '_StatesMapControllerBase');
+
+  @override
+  dynamic fetchData() {
+    final _$actionInfo =
+        _$_StatesMapControllerBaseActionController.startAction();
+    try {
+      return super.fetchData();
+    } finally {
+      _$_StatesMapControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic toggleActiveCluster() {
@@ -132,20 +143,9 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
   }
 
   @override
-  dynamic fetchStatesData() {
-    final _$actionInfo =
-        _$_StatesMapControllerBaseActionController.startAction();
-    try {
-      return super.fetchStatesData();
-    } finally {
-      _$_StatesMapControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     final string =
-        'statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},markerShowed: ${markerShowed.toString()},isActiveCluster: ${isActiveCluster.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
+        'markerShowed: ${markerShowed.toString()},statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},isActiveCluster: ${isActiveCluster.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
     return '{$string}';
   }
 }
