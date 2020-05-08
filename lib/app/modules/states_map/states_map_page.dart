@@ -14,6 +14,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong/latlong.dart';
 import 'package:mobx/mobx.dart';
 
@@ -47,12 +48,12 @@ class _StatesMapPageState
     return Observer(builder: (context) {
       if (controller.statesData.error != null ||
           controller.citiesData.error != null) {
-        return TryAgainWidget(onPressed: controller.fetchStatesData);
+        return TryAgainWidget(onPressed: controller.fetchData());
       }
 
-      List<IMarkerModelData> states = controller.markersData;
+      // List<IMarkerModelData> states = controller.markersData;
 
-      if (states == null) {
+      if (controller.markers == null) {
         return Center(
             child: Container(
           width: 150,
@@ -65,49 +66,59 @@ class _StatesMapPageState
         ));
       }
 
-      return FlutterMap(
-        mapController: mapController,
-        options: MapOptions(
-          onPositionChanged: (position, value) {
-            if (position.zoom >= 8.0) {
-              controller.setMarkerShowed(MarkersType.cities);
-            } else {
-              controller.setMarkerShowed(MarkersType.states);
-            }
-          },
-          center: LatLng(-13.516151006814436, -54.849889911711216),
-          zoom: 3.789821910858154,
-          minZoom: 3.5,
-          onTap: (a) {
-            _popupController.hidePopup();
-          },
-          plugins: [
-            MarkerClusterPlugin(),
-          ],
-        ),
-        layers: [
-          TileLayerOptions(
-            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            subdomains: ['a', 'b', 'c'],
-            tileProvider: CachedNetworkTileProvider(),
-          ),
-          MarkerClusterLayerOptions(
-            maxClusterRadius: 50,
-            size: Size(30, 30),
-            anchor: AnchorPos.align(AnchorAlign.center),
-            fitBoundsOptions: FitBoundsOptions(
-              padding: EdgeInsets.all(50),
+      return Scaffold(
+        floatingActionButton: MapFloatingActionButton(
+            controller: controller,
+            globalSettingsController: globalSettingsController,
             ),
-            markers: controller.markers.keys.toList(),
-            polygonOptions: PolygonOptions(
-                borderColor: Colors.blueAccent,
-                color: Colors.black12,
-                borderStrokeWidth: 3),
-            popupOptions: PopupOptions(
-              popupSnap: PopupSnap.top,
-              popupController: _popupController,
-              popupBuilder: (_, marker) {
-                IMarkerModelData stateModel = controller.markers[marker];
+        body: FlutterMap(
+          mapController: mapController,
+          options: MapOptions(
+            interactive: true,
+            onPositionChanged: (position, value) {
+              if (position.zoom >= 8.0) {
+                controller.setMarkerShowed(MarkersType.cities);
+              } else {
+                controller.setMarkerShowed(MarkersType.states);
+              }
+            },
+            center: LatLng(-13.516151006814436, -54.849889911711216),
+            zoom: 3.789821910858154,
+            minZoom: 3.5,
+            onTap: (a) {
+              _popupController.hidePopup();
+            },
+            plugins: [
+              MarkerClusterPlugin(),
+            ],
+          ),
+          layers: [
+            TileLayerOptions(
+                urlTemplate:
+                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                subdomains: ['a', 'b', 'c'],
+                tileProvider: CachedNetworkTileProvider(),
+                backgroundColor:
+                    globalSettingsController.theme.themeData.primaryColor),
+            MarkerClusterLayerOptions(
+              showPolygon: false,
+              maxClusterRadius: controller.maxClusterRadius,
+              size: Size(30, 30),
+              anchor: AnchorPos.align(AnchorAlign.center),
+              fitBoundsOptions: FitBoundsOptions(
+                padding: EdgeInsets.all(
+                    controller.markerShowed == MarkersType.cities ? 40 : 100),
+              ),
+              markers: controller.markers.keys.toList(),
+              polygonOptions: PolygonOptions(
+                  borderColor: Colors.blueAccent,
+                  color: Colors.black12,
+                  borderStrokeWidth: 3),
+              popupOptions: PopupOptions(
+                popupSnap: PopupSnap.top,
+                popupController: _popupController,
+                popupBuilder: (_, marker) {
+                  IMarkerModelData stateModel = controller.markers[marker];
                 return MapTooltipWidget(
                   stateModel: stateModel,
                   onTap: () => ModalUtils.showModal(
@@ -122,22 +133,22 @@ class _StatesMapPageState
                           )),
                   ),
                 );
-              },
-            ),
-            builder: (context, markers) {
-              return FloatingActionButton(
-                heroTag: UniqueKey(),
-                backgroundColor:
-                    globalSettingsController.theme.themeData.primaryColor,
-                child: Text(
-                  markers.length.toString(),
-                  style: TextStyle(color: Theme.of(context).accentColor),
-                ),
-                onPressed: null,
-              );
-            },
-          ),
-        ],
+                },
+              ),
+              builder: (context, markers) {
+                return FloatingActionButton(
+                  heroTag: UniqueKey(),
+                  backgroundColor:
+                      globalSettingsController.theme.themeData.primaryColor,
+                  child: Text(
+                    markers.length.toString(),
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                  ),
+                  onPressed: null,
+                );
+              })
+          ],
+        ),
       );
     });
   }
@@ -146,5 +157,34 @@ class _StatesMapPageState
   void dispose() {
     disposer();
     super.dispose();
+  }
+}
+
+class MapFloatingActionButton extends StatelessWidget {
+  const MapFloatingActionButton({
+    Key key,
+    @required this.controller,
+    @required this.globalSettingsController,
+    // @required this.controller,
+  }) : super(key: key);
+
+  // final StatesMapController controller;
+  final GlobalSettingsController globalSettingsController;
+  final StatesMapController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        controller.toggleActiveCluster();
+      },
+      backgroundColor: globalSettingsController.theme.themeData.primaryColor,
+      child: FaIcon(
+        controller.isActiveCluster
+            ? FontAwesomeIcons.toggleOn
+            : FontAwesomeIcons.toggleOff,
+        color: globalSettingsController.theme.themeData.accentColor,
+      ),
+    );
   }
 }
