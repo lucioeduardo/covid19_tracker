@@ -39,6 +39,27 @@ class HistoricalRepository extends Disposable implements IHistoricalRepository {
     return _getHistoricalData(response.data['timeline']);
   }
 
+  Future<Map<String, List<int>>> getStateHistoricalData(String state) async {
+    print("ooooo $state");
+
+    Response response = await dio.get(
+        'https://brasil.io/api/dataset/covid19/caso/data?place_type=state&state=$state');
+
+    Map<String, List<int>> historicalData = {
+      "cases": [],
+      "deaths": [],
+    };
+
+    var data = response.data['results'];
+
+    for (int i = 29; i >= 0; i--) {
+      historicalData['cases'].add(data[i]['confirmed']);
+      historicalData['deaths'].add(data[i]['deaths']);
+    }
+
+    return historicalData;
+  }
+
   @override
   void dispose() {}
 }

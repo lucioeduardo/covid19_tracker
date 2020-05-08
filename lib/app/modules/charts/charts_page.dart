@@ -13,8 +13,9 @@ import 'interfaces/chart_controller_interface.dart';
 
 class ChartsPage extends StatefulWidget {
   final IChartController controller;
+  final bool hasRecoveredData;
 
-  const ChartsPage({Key key, @required this.controller}) : super(key: key);
+  const ChartsPage({Key key, @required this.controller, this.hasRecoveredData=true}) : super(key: key);
 
   @override
   _ChartsPageState createState() => _ChartsPageState();
@@ -50,6 +51,7 @@ class _ChartsPageState extends State<ChartsPage> {
           ),
           Observer(
             builder: (_) {
+              print(widget.controller.graphData.value);
               if (widget.controller.graphData.error != null) {
                 return TryAgainWidget(
                     onPressed: widget.controller.fetchGraphData);
@@ -72,7 +74,7 @@ class _ChartsPageState extends State<ChartsPage> {
                                 values: values,
                                 showCases: controller.showCases,
                                 showDeaths: controller.showDeaths,
-                                showRecovered: controller.showRecovered,
+                                showRecovered: controller.showRecovered && widget.hasRecoveredData,
                               );
                             }),
                           );
