@@ -1,3 +1,4 @@
+import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:dio/dio.dart';
@@ -19,11 +20,8 @@ class CovidRepository extends Disposable implements ICovidRepository {
   }
 
   Future<InfoModel> countryInfo(String country) async {
-    
-
     var response =
         await dio.get("/countries/$country").timeout(Duration(seconds: 5));
-        
 
     InfoModel info = InfoModel.fromJson(response.data);
 
@@ -47,6 +45,33 @@ class CovidRepository extends Disposable implements ICovidRepository {
     }
 
     return states;
+  }
+
+  Future<List<CityModel>> getCitiesInfo() async {
+    // var response = await _getCitiesApi(1);
+
+    List<Response> responses = await Future.wait(
+        [_getCitiesApi(1), _getCitiesApi(2), _getCitiesApi(3)]);
+
+    List<CityModel> cities = List();
+    for (Response response in responses) {
+      for (var city in response.data['results']) {
+        if(city['city_ibge_code']!=null){
+          cities.add(CityModel.fromJson(city));
+        }
+        
+        
+      }
+    }
+
+    return cities;
+  }
+
+  Future<Response> _getCitiesApi(int page) async {
+    return await dio
+        .get(
+            "https://brasil.io/api/dataset/covid19/caso/data?place_type=city&is_last=True&page=$page")
+        .timeout(Duration(seconds: 5));
   }
 
   @override

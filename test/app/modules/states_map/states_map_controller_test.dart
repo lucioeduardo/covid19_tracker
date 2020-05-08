@@ -1,6 +1,7 @@
 import 'package:corona_data/app/app_module.dart';
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/states_map/states_map_module.dart';
+import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -30,8 +31,9 @@ void main() {
   group('StatesMapController Test', () {
     test("Getting markers", () async {
       expect(statesmap.statesData.value.length, 2);
-      expect(statesmap.statesData.value, isInstanceOf<List<StateModel>>());
-      expect(statesmap.markers, isInstanceOf<Map<Marker,StateModel>>());
+      
+      expect(statesmap.statesData.value, isInstanceOf<List<IMarkerModelData>>());
+      expect(statesmap.markers, isInstanceOf<Map<Marker,IMarkerModelData>>());
     });
   });
 }

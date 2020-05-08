@@ -8,13 +8,21 @@ import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'translations/charts_page.i18n.dart';
 import 'interfaces/chart_controller_interface.dart';
 
 class ChartsPage extends StatefulWidget {
   final IChartController controller;
+  final bool hasRecoveredData;
+  final String title;
 
-  const ChartsPage({Key key, @required this.controller}) : super(key: key);
+  const ChartsPage(
+      {Key key,
+      @required this.controller,
+      this.hasRecoveredData = true,
+      @required this.title})
+      : super(key: key);
 
   @override
   _ChartsPageState createState() => _ChartsPageState();
@@ -28,7 +36,7 @@ class _ChartsPageState extends State<ChartsPage> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      height: 500,
+      height: 520,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -45,8 +53,18 @@ class _ChartsPageState extends State<ChartsPage> {
               ChartSettingsWidget(),
             ],
           ),
+          Center(
+            child: Text(
+              "${widget.title}",
+              style: GoogleFonts.robotoSlab(
+                  fontSize: 32,
+                  letterSpacing: -1.9,
+                  color: Theme.of(context).accentColor,
+                  fontWeight: FontWeight.normal),
+            ),
+          ),
           SizedBox(
-            height: 20,
+            height: 25,
           ),
           Observer(
             builder: (_) {
@@ -72,7 +90,8 @@ class _ChartsPageState extends State<ChartsPage> {
                                 values: values,
                                 showCases: controller.showCases,
                                 showDeaths: controller.showDeaths,
-                                showRecovered: controller.showRecovered,
+                                showRecovered: controller.showRecovered &&
+                                    widget.hasRecoveredData,
                               );
                             }),
                           );

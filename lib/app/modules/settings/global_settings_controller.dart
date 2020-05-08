@@ -100,7 +100,7 @@ abstract class _GlobalSettingsControllerBase with Store {
 
   @action
   void setCountry(CountryModel country) {
-    if (country.code != this._storageCountry.value.code) {
+    if (country.code != this._storageCountry?.value?.code) {
       this._storageCountry = ObservableFuture.value(country);
       localStorage.setCountry(country);
     }

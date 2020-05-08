@@ -31,27 +31,27 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   @override
   initState() {
     super.initState();
-    final int length = widget.values['cases'].length;
-
-    maxValue = max(
-        widget.values['cases'][length - 1],
-        max(widget.values['deaths'][length - 1],
-            widget.values['recovered'][length - 1]));
-
-    for (int i = 0; i < length; i++) {
-      zeroLine.add(FlSpot(i.toDouble(), 0.0));
-      cases.add(FlSpot(i.toDouble(), (widget.values['cases'][i]).toDouble()));
-      deaths.add(FlSpot(i.toDouble(), (widget.values['deaths'][i]).toDouble()));
-      recovered.add(
-          FlSpot(i.toDouble(), (widget.values['recovered'][i]).toDouble()));
-    }
-    interval = maxValue ~/ 4;
     lastDays = widget.values['cases'].length;
+    _createLineData();
+  }
+
+  void _createLineData() {
+    for (int i = 0; i < lastDays; i++) {
+      zeroLine.add(FlSpot(i.toDouble(), 0.0));
+      if (widget.showCases)
+        cases.add(FlSpot(i.toDouble(), (widget.values['cases'][i]).toDouble()));
+      if (widget.showDeaths)
+        deaths
+            .add(FlSpot(i.toDouble(), (widget.values['deaths'][i]).toDouble()));
+      if (widget.showRecovered)
+        recovered.add(
+            FlSpot(i.toDouble(), (widget.values['recovered'][i]).toDouble()));
+    }
   }
 
   String getDateFormatted(value) {
     return dateFormat.format(
-        DateTime.now().toUtc().subtract(Duration(days: lastDays - value + 1)));
+        DateTime.now().toUtc().subtract(Duration(days: lastDays - value)));
   }
 
   HorizontalLine makeHorizontalLine(value) {
@@ -65,8 +65,24 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             labelResolver: (line) => display(line.y)));
   }
 
+  void _computeMaxValue() {
+    maxValue = 0;
+
+    if (widget.showCases)
+      maxValue = max(maxValue, widget.values['cases'][lastDays - 1]);
+    if (widget.showDeaths)
+      maxValue = max(maxValue, widget.values['deaths'][lastDays - 1]);
+    if (widget.showRecovered)
+      maxValue = max(maxValue, widget.values['recovered'][lastDays - 1]);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _computeMaxValue();
+    interval = max(1,maxValue ~/ 4);
+
+    print("Teste $interval");
+
     final borderData = FlBorderData(
         show: true, border: Border.all(color: Theme.of(context).accentColor));
 
@@ -93,7 +109,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     final casesData = LineChartBarData(
       spots: widget.showCases ? cases : zeroLine,
-      isCurved: true,
       barWidth: 1.5,
       colors: [
         widget.showCases ? Colors.red[800] : Colors.transparent,
@@ -105,7 +120,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     final deathsData = LineChartBarData(
       spots: widget.showDeaths ? deaths : zeroLine,
-      isCurved: true,
       barWidth: 1.5,
       colors: [
         widget.showDeaths ? Colors.black : Colors.transparent,
@@ -117,7 +131,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     final recoveredData = LineChartBarData(
       spots: widget.showRecovered ? recovered : zeroLine,
-      isCurved: true,
       barWidth: 1.5,
       colors: [
         widget.showRecovered ? Colors.green[800] : Colors.transparent,
@@ -127,22 +140,11 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       ),
     );
 
-    List<LineChartBarData> lineBarsData = [];
-    maxValue = 0;
-
-    lineBarsData.add(casesData);
-    lineBarsData.add(recoveredData);
-    lineBarsData.add(deathsData);
-
-    if (widget.showCases) {
-      maxValue = max(maxValue, widget.values['cases'].reduce(max));
-    }
-    if (widget.showRecovered) {
-      maxValue = max(maxValue, widget.values['recovered'].reduce(max));
-    }
-    if (widget.showDeaths) {
-      maxValue = max(maxValue, widget.values['deaths'].reduce(max));
-    }
+    final List<LineChartBarData> lineBarsData = [
+      casesData,
+      recoveredData,
+      deathsData
+    ];
 
     final extraLinesData = ExtraLinesData(horizontalLines: [
       makeHorizontalLine(maxValue / 5),
@@ -158,8 +160,8 @@ class _LineChartWidgetState extends State<LineChartWidget> {
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold),
           getTitles: (value) {
-            int valueInt = value.toInt() + 1;
-            if (valueInt % 10 == 0) {
+            int valueInt = value.toInt();
+            if ((valueInt+1) % 10 == 0) {
               return "${getDateFormatted(valueInt)}";
             }
             return '';

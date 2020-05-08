@@ -1,5 +1,9 @@
 import 'dart:math';
 
+import 'package:corona_data/app/modules/states_map/utils/states_map_markers.dart';
+import 'package:corona_data/app/modules/states_map/utils/states_map_utils.dart';
+import 'package:corona_data/app/shared/models/city_model.dart';
+import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
@@ -11,81 +15,73 @@ part 'states_map_controller.g.dart';
 
 class StatesMapController = _StatesMapControllerBase with _$StatesMapController;
 
+enum MarkersType { states, cities }
+
 abstract class _StatesMapControllerBase with Store {
+  final double citieBaseSize = 50.0;
+  final int cityClusterMaxRadius = 170;
+  final double stateBaseSize = 35.0;
+  final int stateClusterMaxRadius = 40;
   final ICovidRepository covidRepository;
 
-  @computed
-  Map<Marker, StateModel> get markers => _createMarkers(statesData.value);
+  @observable
+  MarkersType markerShowed;
 
   @observable
   ObservableFuture<List<StateModel>> statesData;
 
+  @observable
+  ObservableFuture<List<CityModel>> citiesData;
+
+  @observable
+  bool isActiveCluster;
+
   _StatesMapControllerBase(this.covidRepository) {
-    fetchStatesData();
+    fetchData();
+  }
+
+  @computed
+  Map<Marker, IMarkerModelData> get markers =>
+      markerShowed == MarkersType.states ? statesMarkers : citiesMarkers;
+
+  @computed
+  Map<Marker, IMarkerModelData> get statesMarkers =>
+      createMarkers(statesData.value, stateBaseSize);
+
+  @computed
+  Map<Marker, IMarkerModelData> get citiesMarkers =>
+      createMarkers(citiesData.value, citieBaseSize);
+
+  
+  @computed
+  int get maxClusterRadius {
+    if (isActiveCluster == false) return 0;
+
+    return markerShowed == MarkersType.cities
+        ? cityClusterMaxRadius
+        : stateClusterMaxRadius;
   }
 
   @action
-  fetchStatesData() {
+  fetchData() {
     statesData = covidRepository.getStatesInfo().asObservable();
+    citiesData = covidRepository.getCitiesInfo().asObservable();
+
+    markerShowed = MarkersType.states;
+    isActiveCluster = true;
   }
 
-  Map<Marker, StateModel> _createMarkers(List<StateModel> states) {
-    if (states == null) return null;
+  @action
+  toggleActiveCluster() {
+    isActiveCluster = !isActiveCluster;
+  }
 
-    int maxCases = states
-        .reduce((current, next) => 
-            current.confirmed > next.confirmed ? current : next)
-        .confirmed;
-
-    Map<Marker, StateModel> markersMap = Map();
-
-    for (StateModel state in states) {
-      double calc = log(maxCases / state.confirmed);
-
-      Marker marker = _makeMarker(state,
-          Color.lerp(Color(0xfff1c40f), Color(0xffc0392b), 1 / max(1, calc)));
-
-      markersMap[marker] = state;
+  @action
+  setMarkerShowed(MarkersType markersType) {
+    if (markersType != markerShowed) {
+      markerShowed = markersType;
     }
-
-    return markersMap;
   }
 
-  Marker _makeMarker(StateModel state, Color color) {
-    return Marker(
-      width: 40.0,
-      height: 40.0,
-      point: stateCoords[state.state],
-      builder: (ctx) => Container(
-        child: GestureDetector(
-          child: Container(
-            alignment: Alignment.center,
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              shape: BoxShape.circle,
-              border: Border.all(color: color, width: 3),
-            ),
-            child: Container(
-              width: 30,
-              height: 30,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
-              child: Text(
-                state.state,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  
 }

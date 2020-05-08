@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:corona_data/app/modules/charts/repositories/historical_repository_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -37,6 +39,54 @@ class HistoricalRepository extends Disposable implements IHistoricalRepository {
         .get('/historical/$country', queryParameters: {'lastdays': lastdays});
 
     return _getHistoricalData(response.data['timeline']);
+  }
+
+  Future<Map<String, List<int>>> getStateHistoricalData(String state) async {
+    Response response = await dio.get(
+        'https://brasil.io/api/dataset/covid19/caso/data?place_type=state&state=$state');
+
+    Map<String, List<int>> historicalData = {
+      "cases": [],
+      "deaths": [],
+    };
+
+    var data = response.data['results'];
+
+    print(min(29,61));
+
+    for (int i = min(29,data.length-1); i >= 0; i--) {
+      historicalData['cases'].add(data[i]['confirmed']);
+      historicalData['deaths'].add(data[i]['deaths']);
+    }
+
+    return historicalData;
+  }
+
+  Future<Map<String, List<int>>> getCityHistoricalData(String cityCode) async {
+    Response response = await dio.get(
+        'https://brasil.io/api/dataset/covid19/caso/data?place_type=city&city_ibge_code=$cityCode');
+
+    Map<String, List<int>> historicalData = {
+      "cases": [],
+      "deaths": [],
+    };
+
+    var data = response.data['results'];
+
+    print(data.length);
+
+    for(int i=0; i<30-data.length; i++){
+      historicalData['cases'].add(0);
+      historicalData['deaths'].add(0);
+    }
+
+    for (int i = min(29,data.length-1); i >= 0; i--) {
+      historicalData['cases'].add(data[i]['confirmed']);
+      historicalData['deaths'].add(data[i]['deaths']);
+    }
+
+    print("retornando ${historicalData.length}");
+    return historicalData;
   }
 
   @override
