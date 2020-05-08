@@ -45,9 +45,9 @@ class _StatesMapPageState
         return TryAgainWidget(onPressed: controller.fetchStatesData);
       }
 
-      List<IMarkerModelData> states = controller.markersData;
+      // List<IMarkerModelData> states = controller.markersData;
 
-      if (states == null) {
+      if (controller.markers == null) {
         return Center(
             child: Container(
           width: 150,
@@ -69,6 +69,7 @@ class _StatesMapPageState
             } else {
               controller.setMarkerShowed(MarkersType.states);
             }
+            
           },
           center: LatLng(-13.516151006814436, -54.849889911711216),
           zoom: 3.789821910858154,
@@ -87,7 +88,8 @@ class _StatesMapPageState
             tileProvider: CachedNetworkTileProvider(),
           ),
           MarkerClusterLayerOptions(
-            maxClusterRadius: 50,
+            showPolygon: false,
+            maxClusterRadius: controller.markerShowed == MarkersType.cities? 150:50,
             size: Size(30, 30),
             anchor: AnchorPos.align(AnchorAlign.center),
             fitBoundsOptions: FitBoundsOptions(
@@ -95,6 +97,7 @@ class _StatesMapPageState
             ),
             markers: controller.markers.keys.toList(),
             polygonOptions: PolygonOptions(
+
                 borderColor: Colors.blueAccent,
                 color: Colors.black12,
                 borderStrokeWidth: 3),
