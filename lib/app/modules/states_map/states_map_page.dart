@@ -89,7 +89,7 @@ class _StatesMapPageState
           ),
           MarkerClusterLayerOptions(
             showPolygon: false,
-            maxClusterRadius: controller.markerShowed == MarkersType.cities? 150:50,
+            maxClusterRadius: controller.markerShowed == MarkersType.cities? 170:40,
             size: Size(30, 30),
             anchor: AnchorPos.align(AnchorAlign.center),
             fitBoundsOptions: FitBoundsOptions(
@@ -109,6 +109,7 @@ class _StatesMapPageState
               },
             ),
             builder: (context, markers) {
+              
               return FloatingActionButton(
                 heroTag: UniqueKey(),
                 backgroundColor:
