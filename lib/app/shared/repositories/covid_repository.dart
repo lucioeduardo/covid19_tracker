@@ -56,7 +56,11 @@ class CovidRepository extends Disposable implements ICovidRepository {
     List<CityModel> cities = List();
     for (Response response in responses) {
       for (var city in response.data['results']) {
-        cities.add(CityModel.fromJson(city));
+        if(city['city_ibge_code']!=null){
+          cities.add(CityModel.fromJson(city));
+        }
+        
+        
       }
     }
 
