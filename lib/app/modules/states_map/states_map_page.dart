@@ -117,6 +117,7 @@ class _StatesMapPageState
                             stateName: stateModel.key,
                           ))
                         : ChartsModule(CityChartWidget(
+                          cityName: stateModel.title,
                             cityCode: stateModel.key,
                           )),
                   ),

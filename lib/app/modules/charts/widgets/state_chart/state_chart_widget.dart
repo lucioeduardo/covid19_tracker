@@ -1,4 +1,5 @@
 import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_controller.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -24,6 +25,6 @@ class _StateChartWidgetState extends ModularState<StateChartWidget, StateChartCo
 
   @override
   Widget build(BuildContext context) {
-    return ChartsPage(controller: controller, hasRecoveredData: false,);
+    return ChartsPage(controller: controller, hasRecoveredData: false, title: stateName[widget.stateName],);
   }
 }

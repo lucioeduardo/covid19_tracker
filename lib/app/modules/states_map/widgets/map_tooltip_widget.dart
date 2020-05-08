@@ -111,7 +111,7 @@ class MapTooltipWidget extends StatelessWidget {
                           Center(
                               child: RoundedIconButton(
                             onPressed: onTap,
-                            title: "Gráfico",
+                            title: "Chart".i18n,
                             iconData: FontAwesomeIcons.chartBar,
                           ))
                         ],

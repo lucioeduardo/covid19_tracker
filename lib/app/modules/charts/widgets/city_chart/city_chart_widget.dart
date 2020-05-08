@@ -5,8 +5,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 class CityChartWidget extends StatefulWidget {
   final String cityCode;
+  final String cityName;
 
-  const CityChartWidget({Key key, @required this.cityCode}) : super(key: key);
+  const CityChartWidget({Key key, @required this.cityCode, @required this.cityName}) : super(key: key);
 
   @override
   _CityChartWidgetState createState() => _CityChartWidgetState();
@@ -24,6 +25,7 @@ class _CityChartWidgetState
   @override
   Widget build(BuildContext context) {
     return ChartsPage(
+      title: widget.cityName,
       controller: controller,
       hasRecoveredData: false,
     );

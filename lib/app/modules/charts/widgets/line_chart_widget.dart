@@ -51,7 +51,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
   String getDateFormatted(value) {
     return dateFormat.format(
-        DateTime.now().toUtc().subtract(Duration(days: lastDays - value + 1)));
+        DateTime.now().toUtc().subtract(Duration(days: lastDays - value)));
   }
 
   HorizontalLine makeHorizontalLine(value) {
@@ -79,7 +79,9 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   @override
   Widget build(BuildContext context) {
     _computeMaxValue();
-    interval = maxValue ~/ 4;
+    interval = max(1,maxValue ~/ 4);
+
+    print("Teste $interval");
 
     final borderData = FlBorderData(
         show: true, border: Border.all(color: Theme.of(context).accentColor));
@@ -107,7 +109,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     final casesData = LineChartBarData(
       spots: widget.showCases ? cases : zeroLine,
-      isCurved: true,
       barWidth: 1.5,
       colors: [
         widget.showCases ? Colors.red[800] : Colors.transparent,
@@ -119,7 +120,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     final deathsData = LineChartBarData(
       spots: widget.showDeaths ? deaths : zeroLine,
-      isCurved: true,
       barWidth: 1.5,
       colors: [
         widget.showDeaths ? Colors.black : Colors.transparent,
@@ -131,7 +131,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     final recoveredData = LineChartBarData(
       spots: widget.showRecovered ? recovered : zeroLine,
-      isCurved: true,
       barWidth: 1.5,
       colors: [
         widget.showRecovered ? Colors.green[800] : Colors.transparent,
@@ -161,8 +160,8 @@ class _LineChartWidgetState extends State<LineChartWidget> {
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold),
           getTitles: (value) {
-            int valueInt = value.toInt() + 1;
-            if (valueInt % 10 == 0) {
+            int valueInt = value.toInt();
+            if ((valueInt+1) % 10 == 0) {
               return "${getDateFormatted(valueInt)}";
             }
             return '';

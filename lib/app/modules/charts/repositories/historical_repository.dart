@@ -52,7 +52,9 @@ class HistoricalRepository extends Disposable implements IHistoricalRepository {
 
     var data = response.data['results'];
 
-    for (int i = max(29,data.length-1); i >= 0; i--) {
+    print(min(29,61));
+
+    for (int i = min(29,data.length-1); i >= 0; i--) {
       historicalData['cases'].add(data[i]['confirmed']);
       historicalData['deaths'].add(data[i]['deaths']);
     }
@@ -71,11 +73,19 @@ class HistoricalRepository extends Disposable implements IHistoricalRepository {
 
     var data = response.data['results'];
 
+    print(data.length);
+
+    for(int i=0; i<30-data.length; i++){
+      historicalData['cases'].add(0);
+      historicalData['deaths'].add(0);
+    }
+
     for (int i = min(29,data.length-1); i >= 0; i--) {
       historicalData['cases'].add(data[i]['confirmed']);
       historicalData['deaths'].add(data[i]['deaths']);
     }
 
+    print("retornando ${historicalData.length}");
     return historicalData;
   }
 
