@@ -60,7 +60,6 @@ class CovidRepository extends Disposable implements ICovidRepository {
       }
     }
 
-    print(cities.length);
     return cities;
   }
 

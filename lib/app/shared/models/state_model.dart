@@ -1,4 +1,5 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
+import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
 import 'package:latlong/latlong.dart';
 
@@ -26,7 +27,7 @@ class StateModel implements IMarkerModelData {
   }
 
   @override
-  String get title => this.state;
+  String get title => stateName[this.state];
 
   @override
   String get key => this.state;

@@ -40,8 +40,6 @@ class HistoricalRepository extends Disposable implements IHistoricalRepository {
   }
 
   Future<Map<String, List<int>>> getStateHistoricalData(String state) async {
-    print("ooooo $state");
-
     Response response = await dio.get(
         'https://brasil.io/api/dataset/covid19/caso/data?place_type=state&state=$state');
 

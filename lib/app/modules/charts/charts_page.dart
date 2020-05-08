@@ -51,7 +51,6 @@ class _ChartsPageState extends State<ChartsPage> {
           ),
           Observer(
             builder: (_) {
-              print(widget.controller.graphData.value);
               if (widget.controller.graphData.error != null) {
                 return TryAgainWidget(
                     onPressed: widget.controller.fetchGraphData);

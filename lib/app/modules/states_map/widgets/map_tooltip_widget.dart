@@ -9,7 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class MapTooltipWidget extends StatelessWidget {
   MapTooltipWidget({
     Key key,
-    @required this.stateModel, this.onTap,
+    @required this.stateModel,
+    this.onTap,
   }) : super(key: key);
 
   final IMarkerModelData stateModel;
@@ -18,7 +19,6 @@ class MapTooltipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return TweenAnimationBuilder(
         tween: Tween(begin: 0.0, end: 200.0),
         curve: Curves.elasticOut,
@@ -38,10 +38,9 @@ class MapTooltipWidget extends StatelessWidget {
               ],
             ),
             width: width,
-            height: width/1.5,
+            height: width/1.3,
             child: GestureDetector(
-              //onTap: () => debugPrint("Popup tap!"),
-              child: width > 150
+              child: width > 180
                   ? Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +107,13 @@ class MapTooltipWidget extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Center(child: RoundedIconButton(onPressed: onTap, title: "Gráfico", iconData: FontAwesomeIcons.chartBar,))
+                          SizedBox(height: 5,),
+                          Center(
+                              child: RoundedIconButton(
+                            onPressed: onTap,
+                            title: "Gráfico",
+                            iconData: FontAwesomeIcons.chartBar,
+                          ))
                         ],
                       ),
                     )

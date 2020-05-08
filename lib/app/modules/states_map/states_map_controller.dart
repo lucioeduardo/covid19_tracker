@@ -13,19 +13,18 @@ part 'states_map_controller.g.dart';
 
 class StatesMapController = _StatesMapControllerBase with _$StatesMapController;
 
-enum MarkersType{
-  states,
-  cities
-}
+enum MarkersType { states, cities }
 
 abstract class _StatesMapControllerBase with Store {
   final ICovidRepository covidRepository;
 
   @computed
-  Map<Marker, IMarkerModelData> get markers => markerShowed == MarkersType.states ? statesMarkers : citiesMarkers;
-  
+  Map<Marker, IMarkerModelData> get markers =>
+      markerShowed == MarkersType.states ? statesMarkers : citiesMarkers;
+
   @computed
-  List<IMarkerModelData> get markersData => markerShowed == MarkersType.states ? statesData.value : citiesData.value;
+  List<IMarkerModelData> get markersData =>
+      markerShowed == MarkersType.states ? statesData.value : citiesData.value;
 
   @observable
   ObservableFuture<List<StateModel>> statesData;
@@ -33,17 +32,20 @@ abstract class _StatesMapControllerBase with Store {
   @observable
   ObservableFuture<List<CityModel>> citiesData;
 
-  @observable MarkersType markerShowed = MarkersType.states;
+  @observable
+  MarkersType markerShowed = MarkersType.states;
 
   @computed
-  Map<Marker, IMarkerModelData> get statesMarkers => _createMarkers(statesData.value);
+  Map<Marker, IMarkerModelData> get statesMarkers =>
+      _createMarkers(statesData.value);
 
   @computed
-  Map<Marker, IMarkerModelData> get citiesMarkers => _createMarkers(citiesData.value);
+  Map<Marker, IMarkerModelData> get citiesMarkers =>
+      _createMarkers(citiesData.value);
 
-  @action 
-  setMarkerShowed(MarkersType markersType){
-      markerShowed=markersType;
+  @action
+  setMarkerShowed(MarkersType markersType) {
+    markerShowed = markersType;
   }
 
   _StatesMapControllerBase(this.covidRepository) {
@@ -54,23 +56,18 @@ abstract class _StatesMapControllerBase with Store {
   fetchStatesData() {
     statesData = covidRepository.getStatesInfo().asObservable();
     citiesData = covidRepository.getCitiesInfo().asObservable();
-    // print(citiesData.value);
   }
-  
+
   Map<Marker, IMarkerModelData> _createMarkers(List<IMarkerModelData> states) {
-    
     if (states == null) return null;
-    
+
     int maxCases = getMaxCases(states);
-    
-    
+
     Map<Marker, IMarkerModelData> markersMap = Map();
-    
 
     for (IMarkerModelData state in states) {
-      
       double calc = log(maxCases / state.confirmed);
-      
+
       Marker marker = _makeMarker(state,
           Color.lerp(Color(0xfff1c40f), Color(0xffc0392b), 1 / max(1, calc)));
 
@@ -83,16 +80,14 @@ abstract class _StatesMapControllerBase with Store {
   int getMaxCases(List<IMarkerModelData> states) {
     int maxCases = 0;
     for (var state in states) {
-      if(state.confirmed>maxCases){
+      if (state.confirmed > maxCases) {
         maxCases = state.confirmed;
       }
-      
     }
     return maxCases;
   }
 
   Marker _makeMarker(IMarkerModelData state, Color color) {
-    
     return Marker(
       width: 47.0,
       height: 47.0,
