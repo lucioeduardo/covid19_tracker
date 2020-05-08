@@ -17,7 +17,9 @@ enum MarkersType { states, cities }
 
 abstract class _StatesMapControllerBase with Store {
   final double citieBaseSize = 50.0;
+  final int cityClusterMaxRadius = 170;
   final double stateBaseSize = 35.0;
+  final int stateClusterMaxRadius = 40;
   final ICovidRepository covidRepository;
 
   @computed
@@ -44,6 +46,21 @@ abstract class _StatesMapControllerBase with Store {
   Map<Marker, IMarkerModelData> get citiesMarkers =>
       _createMarkers(citiesData.value, citieBaseSize);
 
+  @observable
+  bool isActiveCluster;
+
+  @computed
+  int get maxClusterRadius{
+    if(isActiveCluster==false) return 0;
+
+    return markerShowed == MarkersType.cities ? cityClusterMaxRadius : stateClusterMaxRadius;
+  }
+
+  @action
+  toggleActiveCluster(){
+    isActiveCluster=!isActiveCluster;
+  } 
+
   @action
   setMarkerShowed(MarkersType markersType) {
     if (markersType != markerShowed) {
@@ -60,6 +77,7 @@ abstract class _StatesMapControllerBase with Store {
     statesData = covidRepository.getStatesInfo().asObservable();
     citiesData = covidRepository.getCitiesInfo().asObservable();
     markerShowed = MarkersType.states;
+    isActiveCluster=true;
     // print(citiesData.value);
   }
 
@@ -101,8 +119,14 @@ abstract class _StatesMapControllerBase with Store {
   }
   
   double getFourthQuartileAverage(List<IMarkerModelData> states) {
+    print(states);
+    if(states==null || states.length<4){
+      
+      return 1;
+    }
+
     int totalCases = 0;
-    int quartileValue = (states.length/4).toInt();
+    int quartileValue = states.length~/4;
     states.sort((a,b){
       
       return a.confirmed>=b.confirmed ? 0 : 1;
