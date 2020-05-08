@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:corona_data/app/modules/charts/repositories/historical_repository_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -50,7 +52,26 @@ class HistoricalRepository extends Disposable implements IHistoricalRepository {
 
     var data = response.data['results'];
 
-    for (int i = 29; i >= 0; i--) {
+    for (int i = max(29,data.length-1); i >= 0; i--) {
+      historicalData['cases'].add(data[i]['confirmed']);
+      historicalData['deaths'].add(data[i]['deaths']);
+    }
+
+    return historicalData;
+  }
+
+  Future<Map<String, List<int>>> getCityHistoricalData(String cityCode) async {
+    Response response = await dio.get(
+        'https://brasil.io/api/dataset/covid19/caso/data?place_type=city&city_ibge_code=$cityCode');
+
+    Map<String, List<int>> historicalData = {
+      "cases": [],
+      "deaths": [],
+    };
+
+    var data = response.data['results'];
+
+    for (int i = min(29,data.length-1); i >= 0; i--) {
       historicalData['cases'].add(data[i]['confirmed']);
       historicalData['deaths'].add(data[i]['deaths']);
     }

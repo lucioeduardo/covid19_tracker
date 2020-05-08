@@ -5,7 +5,7 @@ import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_c
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 
 void main() {
-  initModule(ChartsModule());
+  //initModule(ChartsModule());
   // StateChartController statechart;
   //
   setUp(() {

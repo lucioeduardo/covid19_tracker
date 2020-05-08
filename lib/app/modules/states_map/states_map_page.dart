@@ -1,4 +1,5 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
+import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_widget.dart';
 import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_widget.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
@@ -110,12 +111,15 @@ class _StatesMapPageState
                 return MapTooltipWidget(
                   stateModel: stateModel,
                   onTap: () => ModalUtils.showModal(
-                      context,
-                      stateModel.runtimeType == StateModel
-                          ? ChartsModule(StateChartWidget(
-                              stateName: stateModel.key,
-                            ))
-                          : null),
+                    context,
+                    stateModel.runtimeType == StateModel
+                        ? ChartsModule(StateChartWidget(
+                            stateName: stateModel.key,
+                          ))
+                        : ChartsModule(CityChartWidget(
+                            cityCode: stateModel.key,
+                          )),
+                  ),
                 );
               },
             ),

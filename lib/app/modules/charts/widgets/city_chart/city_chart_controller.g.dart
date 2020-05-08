@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'state_chart_controller.dart';
+part of 'city_chart_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'state_chart_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$StateChartController on _StateChartControllerBase, Store {
-  final _$graphDataAtom = Atom(name: '_StateChartControllerBase.graphData');
+mixin _$CityChartController on _CityChartControllerBase, Store {
+  final _$graphDataAtom = Atom(name: '_CityChartControllerBase.graphData');
 
   @override
   ObservableFuture<Map<String, List<int>>> get graphData {
@@ -26,52 +26,52 @@ mixin _$StateChartController on _StateChartControllerBase, Store {
     }, _$graphDataAtom, name: '${_$graphDataAtom.name}_set');
   }
 
-  final _$stateAtom = Atom(name: '_StateChartControllerBase.state');
+  final _$cityCodeAtom = Atom(name: '_CityChartControllerBase.cityCode');
 
   @override
-  String get state {
-    _$stateAtom.context.enforceReadPolicy(_$stateAtom);
-    _$stateAtom.reportObserved();
-    return super.state;
+  String get cityCode {
+    _$cityCodeAtom.context.enforceReadPolicy(_$cityCodeAtom);
+    _$cityCodeAtom.reportObserved();
+    return super.cityCode;
   }
 
   @override
-  set state(String value) {
-    _$stateAtom.context.conditionallyRunInAction(() {
-      super.state = value;
-      _$stateAtom.reportChanged();
-    }, _$stateAtom, name: '${_$stateAtom.name}_set');
+  set cityCode(String value) {
+    _$cityCodeAtom.context.conditionallyRunInAction(() {
+      super.cityCode = value;
+      _$cityCodeAtom.reportChanged();
+    }, _$cityCodeAtom, name: '${_$cityCodeAtom.name}_set');
   }
 
-  final _$_StateChartControllerBaseActionController =
-      ActionController(name: '_StateChartControllerBase');
+  final _$_CityChartControllerBaseActionController =
+      ActionController(name: '_CityChartControllerBase');
 
   @override
-  dynamic setStateName(String state) {
+  dynamic setCityCode(String cityCode) {
     final _$actionInfo =
-        _$_StateChartControllerBaseActionController.startAction();
+        _$_CityChartControllerBaseActionController.startAction();
     try {
-      return super.setStateName(state);
+      return super.setCityCode(cityCode);
     } finally {
-      _$_StateChartControllerBaseActionController.endAction(_$actionInfo);
+      _$_CityChartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void fetchGraphData() {
     final _$actionInfo =
-        _$_StateChartControllerBaseActionController.startAction();
+        _$_CityChartControllerBaseActionController.startAction();
     try {
       return super.fetchGraphData();
     } finally {
-      _$_StateChartControllerBaseActionController.endAction(_$actionInfo);
+      _$_CityChartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   String toString() {
     final string =
-        'graphData: ${graphData.toString()},state: ${state.toString()}';
+        'graphData: ${graphData.toString()},cityCode: ${cityCode.toString()}';
     return '{$string}';
   }
 }
