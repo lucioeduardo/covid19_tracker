@@ -1,3 +1,4 @@
+import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
@@ -61,8 +62,11 @@ class _StatesMapPageState
       }
 
       return FlutterMap(
+        
         mapController: mapController,
+        
         options: MapOptions(
+          interactive: true,
           onPositionChanged: (position, value) {
             if (position.zoom >= 8.0) {
               controller.setMarkerShowed(MarkersType.cities);
@@ -86,6 +90,7 @@ class _StatesMapPageState
             urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             subdomains: ['a', 'b', 'c'],
             tileProvider: CachedNetworkTileProvider(),
+            backgroundColor: globalSettingsController.theme.themeData.primaryColor
           ),
           MarkerClusterLayerOptions(
             showPolygon: false,
@@ -93,7 +98,8 @@ class _StatesMapPageState
             size: Size(30, 30),
             anchor: AnchorPos.align(AnchorAlign.center),
             fitBoundsOptions: FitBoundsOptions(
-              padding: EdgeInsets.all(50),
+              padding: EdgeInsets.all(controller.markerShowed == MarkersType.cities? 40:100),
+              
             ),
             markers: controller.markers.keys.toList(),
             polygonOptions: PolygonOptions(
