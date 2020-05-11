@@ -2,12 +2,12 @@
 
 ![Continuous Integration](https://github.com/lucioeduardo/covid19_tracker/workflows/Continuous%20Integration/badge.svg)
 
-<p>
+
 ![startup](https://user-images.githubusercontent.com/14063319/81590406-22b43d80-9391-11ea-9c17-50bf41a52ca0.gif)
 ![settings](https://user-images.githubusercontent.com/14063319/81590402-21831080-9391-11ea-99c3-fbbdba4eb17d.gif)
 ![charts](https://user-images.githubusercontent.com/14063319/81590398-1e882000-9391-11ea-89b5-069250f73a3a.gif)
 ![map](https://user-images.githubusercontent.com/14063319/81590400-2051e380-9391-11ea-9aab-40d230bc6ecd.gif)
-</p>
+
 
 A Flutter application that retrieves and shows real time data about covid19 in Brazil and worldwide.
 
