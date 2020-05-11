@@ -9,6 +9,7 @@ import 'package:corona_data/app/shared/repositories/covid_repository_interface.d
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:just_debounce_it/just_debounce_it.dart';
 import 'package:mobx/mobx.dart';
 
 part 'states_map_controller.g.dart';
@@ -45,16 +46,17 @@ abstract class _StatesMapControllerBase with Store {
 
   @computed
   Map<Marker, IMarkerModelData> get markersShowed {
-      if(currentBounds==null || markerShowed == MarkersType.states) return markers;
+    if (currentBounds == null || markerShowed == MarkersType.states)
+      return markers;
 
-      Map<Marker, IMarkerModelData> currentMarkers = Map();
-      for(Marker marker in markers.keys) {
-        if(currentBounds.contains(markers[marker].latLng)){
-          currentMarkers[marker]=markers[marker];
-        }
+    Map<Marker, IMarkerModelData> currentMarkers = Map();
+    for (Marker marker in markers.keys) {
+      if (currentBounds.contains(markers[marker].latLng)) {
+        currentMarkers[marker] = markers[marker];
       }
+    }
 
-      return currentMarkers;
+    return currentMarkers;
   }
 
   @computed
@@ -69,7 +71,6 @@ abstract class _StatesMapControllerBase with Store {
   Map<Marker, IMarkerModelData> get citiesMarkers =>
       createMarkers(citiesData.value, citieBaseSize);
 
-  
   @computed
   int get maxClusterRadius {
     if (isActiveCluster == false) return 0;
@@ -100,9 +101,16 @@ abstract class _StatesMapControllerBase with Store {
     }
   }
 
-  @action setBounds(LatLngBounds bounds){
-    currentBounds=bounds;
+  @action
+  _setBounds(LatLngBounds bounds) {
+    currentBounds = bounds;
   }
 
-  
+  void setBounds(LatLngBounds bounds) {
+    Debounce.milliseconds(
+      300,
+      _setBounds,
+      [bounds],
+    );
+  }
 }

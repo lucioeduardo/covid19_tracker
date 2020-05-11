@@ -168,11 +168,11 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
   }
 
   @override
-  dynamic setBounds(LatLngBounds bounds) {
+  dynamic _setBounds(LatLngBounds bounds) {
     final _$actionInfo =
         _$_StatesMapControllerBaseActionController.startAction();
     try {
-      return super.setBounds(bounds);
+      return super._setBounds(bounds);
     } finally {
       _$_StatesMapControllerBaseActionController.endAction(_$actionInfo);
     }
