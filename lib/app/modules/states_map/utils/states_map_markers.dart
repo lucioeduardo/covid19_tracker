@@ -32,17 +32,15 @@ Map<Marker, IMarkerModelData> createMarkers(
 }
 
 Marker makeMarker(IMarkerModelData state, Color color, double baseSize) {
-  bool isFirst = true;
+  bool isAnimate = true;
   return Marker(
       width: baseSize,
       height: baseSize,
       point: state.latLng,
       builder: (ctx) {
-        
-        
         Widget tweenMarker = TweenAnimationBuilder(
           duration: Duration(milliseconds: 300+Random().nextInt(1500)),
-          tween: Tween(begin: isFirst?0.0:1.0, end: 1.0),
+          tween: Tween(begin: isAnimate?0.0:1.0, end: 1.0),
           builder: (_, opacity, __) => Opacity(
             opacity: opacity,
             child: Container(
@@ -77,7 +75,7 @@ Marker makeMarker(IMarkerModelData state, Color color, double baseSize) {
             ),
           ),
         );
-        isFirst = false;
+        isAnimate = false;
 
         return tweenMarker;
       });

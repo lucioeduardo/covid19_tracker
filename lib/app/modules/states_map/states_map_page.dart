@@ -47,7 +47,6 @@ class _StatesMapPageState
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      print("oi");
       if (controller.statesData.error != null ||
           controller.citiesData.error != null) {
         return TryAgainWidget(onPressed: controller.fetchData());
