@@ -36,6 +36,8 @@ dependencies:
   flare_flutter: ^2.0.2
   autocomplete_textfield: ^1.7.3
   i18n_extension: ^1.3.5
+  just_debounce_it: ^3.0.0+2
+
   flutter_localizations:
     sdk: flutter
   flutter:

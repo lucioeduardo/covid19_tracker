@@ -10,6 +10,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:just_debounce_it/just_debounce_it.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../mocks/covid_repository_mock.dart';
@@ -24,6 +25,7 @@ main() {
   initModule(StatesMapModule());
 
   StatesMapController controller;
+  
 
   setUp(() {
     controller = Modular.get<StatesMapController>();
@@ -32,7 +34,8 @@ main() {
   group('StatesMapPage - Request Success', () {
     testWidgets("StatesMapPage has map", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
-
+      await tester.pumpAndSettle(const Duration(milliseconds: 300));
+      
       final indicatorFinder = find.byType(FlutterMap);
 
       expect(indicatorFinder, findsOneWidget);
@@ -56,20 +59,22 @@ main() {
     });
     testWidgets("Click try again button", (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(StatesMapPage()));
-
+      
       final btnFinder = find.widgetWithText(FlatButton, 'Try Again');
       expect(btnFinder, findsOneWidget);
+      
+      
 
       when(covidRepositoryMock.getStatesInfo()).thenAnswer((_) => Future.value([
             StateModel(confirmed: 10, deaths: 2, state: 'AL'),
           ]));
-
+      
       controller.fetchData();
-
+      
       await tester.tap(btnFinder);
 
-      await tester.pump();
-
+      await tester.pumpAndSettle(const Duration(milliseconds: 300));
+      
       final indicatorFinder = find.byType(FlutterMap);
 
       expect(indicatorFinder, findsOneWidget);

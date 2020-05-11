@@ -1,14 +1,10 @@
-import 'dart:math';
-
 import 'package:corona_data/app/modules/states_map/utils/states_map_markers.dart';
-import 'package:corona_data/app/modules/states_map/utils/states_map_utils.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/shared/utils/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:just_debounce_it/just_debounce_it.dart';
 import 'package:mobx/mobx.dart';
 
 part 'states_map_controller.g.dart';
@@ -40,6 +36,23 @@ abstract class _StatesMapControllerBase with Store {
     fetchData();
   }
 
+  @observable
+  LatLngBounds currentBounds;
+
+  @computed
+  Map<Marker, IMarkerModelData> get markersShowed {
+    if (currentBounds == null || markerShowed == MarkersType.states)
+      return markers;
+
+    Map<Marker, IMarkerModelData> currentMarkers = Map();
+    for (Marker marker in markers.keys) {
+      if (markers[marker].latLng!=null && currentBounds.contains(markers[marker].latLng)) {
+        currentMarkers[marker] = markers[marker];
+      }
+    }
+    return currentMarkers;
+  }
+
   @computed
   Map<Marker, IMarkerModelData> get markers =>
       markerShowed == MarkersType.states ? statesMarkers : citiesMarkers;
@@ -52,7 +65,6 @@ abstract class _StatesMapControllerBase with Store {
   Map<Marker, IMarkerModelData> get citiesMarkers =>
       createMarkers(citiesData.value, citieBaseSize);
 
-  
   @computed
   int get maxClusterRadius {
     if (isActiveCluster == false) return 0;
@@ -83,5 +95,16 @@ abstract class _StatesMapControllerBase with Store {
     }
   }
 
-  
+  @action
+  _setBounds(LatLngBounds bounds) {
+    currentBounds = bounds;
+  }
+
+  void setBounds(LatLngBounds bounds) {
+    Debounce.milliseconds(
+      300,
+      _setBounds,
+      [bounds],
+    );
+  }
 }
