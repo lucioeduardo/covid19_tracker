@@ -1,4 +1,12 @@
-# Covid19 Tracker
+<h1 align="center">
+  <a href="https://github.com/lucioeduardo/covid19_tracker/">
+    <img alt="Covid19 Tracker Logo" src="https://user-images.githubusercontent.com/14063319/81594393-34004880-9397-11ea-9f5c-ed100fcf0953.png" width="150px" />
+  </a>
+</h1>
+
+<h2 align="center">
+  Covid19 Tracker
+</h2>
 
 ![Continuous Integration](https://github.com/lucioeduardo/covid19_tracker/workflows/Continuous%20Integration/badge.svg)
 
@@ -23,12 +31,11 @@ A Flutter application that retrieves and shows real time data about covid19 in B
 - Cases/deaths chart for all brazilian states and cities
 - Theme switcher (ligth, dark and dracula)
 
-## Plugins
-| Name | Usage |
-|:------:|:-------:|
-|[**Mobx**](https://pub.dev/packages/mobx#-readme-tab-)| State Management|
-|[**flutter_mobx**](https://pub.dev/packages/flutter_mobx)| State Management|
-|[**flutter_modular**](https://pub.dev/packages/flutter_mobx)| Project Structure |
-|[**flutter_map**](https://pub.dev/packages/flutter_map)| Maps |
-|[**Hive**](https://pub.dev/packages/hive)| Local Storage |
-|[**Dio**](https://pub.dev/packages/dio)| Network calls|
+### Built with
+- [Flutter](https://flutter.dev/) - SDK for creating cross-platform apps 
+- [Mobx](https://pub.dev/packages/mobx#-readme-tab-) - State Management
+- [flutter_modular](https://pub.dev/packages/flutter_mobx) - Project Structure
+- [flutter_map](https://pub.dev/packages/flutter_map) - Maps 
+- [Hive](https://pub.dev/packages/hive) - Local Storage
+- [Dio](https://pub.dev/packages/dio)- Network calls
+
