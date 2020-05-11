@@ -15,6 +15,7 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:just_debounce_it/just_debounce_it.dart';
 import 'package:latlong/latlong.dart';
 import 'package:mobx/mobx.dart';
 
@@ -41,6 +42,7 @@ class _StatesMapPageState
 
     disposer = reaction(
         (_) => controller.markerShowed, (_) => _popupController.hidePopup());
+    
   }
 
   @override
@@ -72,12 +74,19 @@ class _StatesMapPageState
             globalSettingsController: globalSettingsController,
             ),
         body: FlutterMap(
+        
           mapController: mapController,
+
           options: MapOptions(
+
             interactive: true,
+
             onPositionChanged: (position, value) {
+              Debounce.milliseconds(300, controller.setBounds,[position.bounds]);
               if (position.zoom >= 8.0) {
                 controller.setMarkerShowed(MarkersType.cities);
+                
+                
               } else {
                 controller.setMarkerShowed(MarkersType.states);
               }
@@ -94,6 +103,7 @@ class _StatesMapPageState
           ),
           layers: [
             TileLayerOptions(
+
                 urlTemplate:
                     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 subdomains: ['a', 'b', 'c'],
@@ -101,6 +111,7 @@ class _StatesMapPageState
                 backgroundColor:
                     globalSettingsController.theme.themeData.primaryColor),
             MarkerClusterLayerOptions(
+                            animationsOptions: AnimationsOptions(fitBound: Duration(seconds: 1),spiderfy: Duration(seconds: 1)),
               showPolygon: false,
               maxClusterRadius: controller.maxClusterRadius,
               size: Size(30, 30),
@@ -109,8 +120,9 @@ class _StatesMapPageState
                 padding: EdgeInsets.all(
                     controller.markerShowed == MarkersType.cities ? 40 : 100),
               ),
-              markers: controller.markers.keys.toList(),
+              markers: controller.markersShowed.keys.toList(),
               polygonOptions: PolygonOptions(
+
                   borderColor: Colors.blueAccent,
                   color: Colors.black12,
                   borderStrokeWidth: 3),
@@ -118,7 +130,7 @@ class _StatesMapPageState
                 popupSnap: PopupSnap.top,
                 popupController: _popupController,
                 popupBuilder: (_, marker) {
-                  IMarkerModelData stateModel = controller.markers[marker];
+                  IMarkerModelData stateModel = controller.markersShowed[marker];
                 return MapTooltipWidget(
                   stateModel: stateModel,
                   onTap: () => ModalUtils.showModal(

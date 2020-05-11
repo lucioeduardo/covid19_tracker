@@ -9,6 +9,13 @@ part of 'states_map_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$StatesMapController on _StatesMapControllerBase, Store {
+  Computed<Map<Marker, IMarkerModelData>> _$markersShowedComputed;
+
+  @override
+  Map<Marker, IMarkerModelData> get markersShowed =>
+      (_$markersShowedComputed ??= Computed<Map<Marker, IMarkerModelData>>(
+              () => super.markersShowed))
+          .value;
   Computed<Map<Marker, IMarkerModelData>> _$markersComputed;
 
   @override
@@ -106,6 +113,24 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
     }, _$isActiveClusterAtom, name: '${_$isActiveClusterAtom.name}_set');
   }
 
+  final _$currentBoundsAtom =
+      Atom(name: '_StatesMapControllerBase.currentBounds');
+
+  @override
+  LatLngBounds get currentBounds {
+    _$currentBoundsAtom.context.enforceReadPolicy(_$currentBoundsAtom);
+    _$currentBoundsAtom.reportObserved();
+    return super.currentBounds;
+  }
+
+  @override
+  set currentBounds(LatLngBounds value) {
+    _$currentBoundsAtom.context.conditionallyRunInAction(() {
+      super.currentBounds = value;
+      _$currentBoundsAtom.reportChanged();
+    }, _$currentBoundsAtom, name: '${_$currentBoundsAtom.name}_set');
+  }
+
   final _$_StatesMapControllerBaseActionController =
       ActionController(name: '_StatesMapControllerBase');
 
@@ -143,9 +168,20 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
   }
 
   @override
+  dynamic setBounds(LatLngBounds bounds) {
+    final _$actionInfo =
+        _$_StatesMapControllerBaseActionController.startAction();
+    try {
+      return super.setBounds(bounds);
+    } finally {
+      _$_StatesMapControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'markerShowed: ${markerShowed.toString()},statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},isActiveCluster: ${isActiveCluster.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
+        'markerShowed: ${markerShowed.toString()},statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},isActiveCluster: ${isActiveCluster.toString()},currentBounds: ${currentBounds.toString()},markersShowed: ${markersShowed.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
     return '{$string}';
   }
 }

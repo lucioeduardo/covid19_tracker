@@ -40,6 +40,23 @@ abstract class _StatesMapControllerBase with Store {
     fetchData();
   }
 
+  @observable
+  LatLngBounds currentBounds;
+
+  @computed
+  Map<Marker, IMarkerModelData> get markersShowed {
+      if(currentBounds==null || markerShowed == MarkersType.states) return markers;
+
+      Map<Marker, IMarkerModelData> currentMarkers = Map();
+      for(Marker marker in markers.keys) {
+        if(currentBounds.contains(markers[marker].latLng)){
+          currentMarkers[marker]=markers[marker];
+        }
+      }
+
+      return currentMarkers;
+  }
+
   @computed
   Map<Marker, IMarkerModelData> get markers =>
       markerShowed == MarkersType.states ? statesMarkers : citiesMarkers;
@@ -81,6 +98,10 @@ abstract class _StatesMapControllerBase with Store {
     if (markersType != markerShowed) {
       markerShowed = markersType;
     }
+  }
+
+  @action setBounds(LatLngBounds bounds){
+    currentBounds=bounds;
   }
 
   
