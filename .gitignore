@@ -41,3 +41,5 @@ lib/generated_plugin_registrant.dart
 android/key.properties
 
 
+
+.vscode/
