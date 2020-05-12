@@ -31,7 +31,7 @@ A Flutter application that retrieves and shows real time data about covid19 in B
 - Cases/deaths chart for all brazilian states and cities
 - Theme switcher (ligth, dark and dracula)
 
-### Built with
+## Built with
 - [Flutter](https://flutter.dev/) - SDK for creating cross-platform apps 
 - [Mobx](https://pub.dev/packages/mobx#-readme-tab-) - State Management
 - [flutter_modular](https://pub.dev/packages/flutter_mobx) - Project Structure
