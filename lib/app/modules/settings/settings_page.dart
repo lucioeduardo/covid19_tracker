@@ -6,13 +6,16 @@ import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/snackbar_util.dart';
 import 'package:corona_data/app/shared/utils/widgets/custom_divider.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'settings_controller.dart';
 import 'translations/settings_page.i18n.dart';
+
 class SettingsPage extends StatefulWidget {
   final String title;
 
@@ -47,7 +50,8 @@ class _SettingsPageState
         (value) {
       snackbar.enqueueMessage(
           message: 'Settings has been changed.'.i18n,
-          color: appController.globalSettingsController.theme.extraPallete.success,
+          color:
+              appController.globalSettingsController.theme.extraPallete.success,
           id: "SettingsForm");
     });
 
@@ -79,10 +83,13 @@ class _SettingsPageState
           Container(
             height: 10,
           ),
-          ThemeRow(appController: appController, title:"Theme".i18n),
+          ThemeRow(appController: appController, title: "Theme".i18n),
           Padding(
-            padding: const EdgeInsets.only(top:20),
-            child: LocaleRow(appController:appController,title: "Language".i18n,),
+            padding: const EdgeInsets.only(top: 20),
+            child: LocaleRow(
+              appController: appController,
+              title: "Language".i18n,
+            ),
           ),
           Observer(builder: (context) {
             return Padding(
@@ -94,20 +101,17 @@ class _SettingsPageState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SimpleAutoCompleteTextField(
-                      
                       style: TextStyle(color: Theme.of(context).accentColor),
                       key: _autoCompleteKey,
                       decoration: InputDecoration(
                         errorText: null,
                         labelText: "Country".i18n,
-
                         labelStyle: TextStyle(
                             color: Theme.of(context).accentColor,
                             fontSize: 16.0),
                       ),
                       controller: countryTextController,
                       suggestions: countriesNames,
-
                       textChanged: (text) {
                         controller.cleanError('country_field');
                         // changeCountriesAutoCompleteErrorMessage(null);
@@ -116,11 +120,10 @@ class _SettingsPageState
                       textSubmitted: (text) {
                         final int idx = countriesNames.indexOf(text);
                         if (countriesNames.indexOf(text) != -1) {
-                          
-
-                          appController.globalSettingsController
-                              .setCountry(CountryModel.fromJson(COUNTRIES[idx]));
-                          countryTextController.text=countryTextController.text.i18n;
+                          appController.globalSettingsController.setCountry(
+                              CountryModel.fromJson(COUNTRIES[idx]));
+                          countryTextController.text =
+                              countryTextController.text.i18n;
                           controller.cleanError('country_field');
                         } else {
                           controller.addError(
@@ -136,7 +139,80 @@ class _SettingsPageState
                 ),
               ),
             );
-          })
+          }),
+          SizedBox(
+            height: 50,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Open source app, available on".i18n,
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColorLight)),
+                    TextSpan(
+                      text: ' GitHub',
+                      style: TextStyle(color: Colors.blue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch(
+                              'https://github.com/lucioeduardo/covid19_tracker');
+                        },
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                "Powered by LuciosBrothers".i18n,
+                style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 18),
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Eduardo Lúcio Correia ".i18n,
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColorLight)),
+                    TextSpan(
+                      text: '@lucioeduardo',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch('https://github.com/lucioeduardo/');
+                        },
+                    ),
+                  ],
+                ),
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Allan Lúcio Correia ".i18n,
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColorLight)),
+                    TextSpan(
+                      text: '@allanlucio',
+                      style: TextStyle(color: Colors.blue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch('https://github.com/allanlucio');
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -148,7 +224,3 @@ class _SettingsPageState
     disposer();
   }
 }
-
-
-
-
