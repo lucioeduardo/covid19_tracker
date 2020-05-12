@@ -39,3 +39,23 @@ A Flutter application that retrieves and shows real time data about covid19 in B
 - [Hive](https://pub.dev/packages/hive) - Local Storage
 - [Dio](https://pub.dev/packages/dio)- Network calls
 
+### Contribuitors
+Thanks goes to these wonderful people:
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+  <td align="center"><a href="https://github.com/lucioeduardo"><img src="https://avatars3.githubusercontent.com/u/14063319" width="64px;" alt=""/><br /><sub><b>Eduardo Lúcio</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/allanlucio"><img src="https://avatars2.githubusercontent.com/u/7063932" width="64px;" alt=""/><br /><sub><b>Allan Lúcio</b></sub></a><br /></td>
+    
+    
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
