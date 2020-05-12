@@ -39,8 +39,8 @@ A Flutter application that retrieves and shows real time data about covid19 in B
 - [Hive](https://pub.dev/packages/hive) - Local Storage
 - [Dio](https://pub.dev/packages/dio)- Network calls
 
-### Contribuitors
-Thanks goes to these wonderful people:
+## Contribuitors
+Thanks goes to these great people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
