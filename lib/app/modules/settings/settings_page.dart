@@ -177,7 +177,7 @@ class _SettingsPageState
                 text: TextSpan(
                   children: [
                     TextSpan(
-                        text: "Eduardo Lúcio Correia ".i18n,
+                        text: "Eduardo Lúcio Correia ",
                         style: TextStyle(
                             color: Theme.of(context).primaryColorLight)),
                     TextSpan(
@@ -197,7 +197,7 @@ class _SettingsPageState
                 text: TextSpan(
                   children: [
                     TextSpan(
-                        text: "Allan Lúcio Correia ".i18n,
+                        text: "Allan Lúcio Correia ",
                         style: TextStyle(
                             color: Theme.of(context).primaryColorLight)),
                     TextSpan(
