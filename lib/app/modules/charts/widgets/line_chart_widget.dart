@@ -81,8 +81,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     _computeMaxValue();
     interval = max(1,maxValue ~/ 4);
 
-    print("Teste $interval");
-
     final borderData = FlBorderData(
         show: true, border: Border.all(color: Theme.of(context).accentColor));
 
