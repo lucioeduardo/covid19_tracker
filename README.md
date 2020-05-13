@@ -19,9 +19,18 @@
 
 A Flutter application that retrieves and shows real time data about covid19 in Brazil and worldwide.
 
+
 ## Data Sources
 - [Brasil.io - Covid 19 API](https://brasil.io/dataset/covid19/caso) 
 - [NovelCOVID API](https://github.com/novelcovid/api)
+
+## Instalation guide
+Because the current rules imposed by google on the play store, we cant publish this app on it.
+To get this app an install it on your android follow one of the next steps.
+
+ 1. Get on Github [Releases](https://github.com/lucioeduardo/covid19_tracker/releases)
+ 2. Get on [Aptoide](https://github-lucioeduardo-corona-data.br.aptoide.com/app) 
+ 3. You can fork or clone this project and run a default flutter build.
 
 ## Features
 
