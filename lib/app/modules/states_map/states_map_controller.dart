@@ -46,7 +46,8 @@ abstract class _StatesMapControllerBase with Store {
 
     Map<Marker, IMarkerModelData> currentMarkers = Map();
     for (Marker marker in markers.keys) {
-      if (markers[marker].latLng!=null && currentBounds.contains(markers[marker].latLng)) {
+      if (markers[marker].latLng != null &&
+          currentBounds.contains(markers[marker].latLng)) {
         currentMarkers[marker] = markers[marker];
       }
     }
@@ -98,6 +99,18 @@ abstract class _StatesMapControllerBase with Store {
   @action
   _setBounds(LatLngBounds bounds) {
     currentBounds = bounds;
+  }
+
+  Future<List<IMarkerModelData>> findMarker(String query) async {
+    print(query);
+    if (query.isEmpty || query == null) {
+      return [];
+    }
+    return this.markers.values.where((marker) {
+      return marker.title.toLowerCase().contains(
+            query.toLowerCase(),
+          );
+    }).toList();
   }
 
   void setBounds(LatLngBounds bounds) {

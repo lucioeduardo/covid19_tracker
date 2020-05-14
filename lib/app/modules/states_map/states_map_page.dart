@@ -2,6 +2,7 @@ import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_widget.dart';
 import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_widget.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
+import 'package:corona_data/app/modules/states_map/widgets/cities_auto_complete_field.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
@@ -15,7 +16,6 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:just_debounce_it/just_debounce_it.dart';
 import 'package:latlong/latlong.dart';
 import 'package:mobx/mobx.dart';
 
@@ -72,96 +72,97 @@ class _StatesMapPageState
           controller: controller,
           globalSettingsController: globalSettingsController,
         ),
-        body: FlutterMap(
-          mapController: mapController,
-
-          options: MapOptions(
-
-            interactive: true,
-            onPositionChanged: (position, value) {
-              
-              controller.setBounds(position.bounds);
-              if (position.zoom >= 8.0) {
-                controller.setMarkerShowed(MarkersType.cities);
-              } else {
-                controller.setMarkerShowed(MarkersType.states);
-              }
-            },
-            center: LatLng(-13.516151006814436, -54.849889911711216),
-            zoom: 3.789821910858154,
-            minZoom: 3.5,
-            onTap: (a) {
-              _popupController.hidePopup();
-            },
-            plugins: [
-              MarkerClusterPlugin(),
-            ],
-          ),
-          layers: [
-            TileLayerOptions(
-                urlTemplate:
-                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                subdomains: ['a', 'b', 'c'],
-                tileProvider: CachedNetworkTileProvider(),
-                backgroundColor:
-                    globalSettingsController.theme.themeData.primaryColor),
-            
-            MarkerClusterLayerOptions(
-                animationsOptions: AnimationsOptions(
-
-                    fitBound: Duration(seconds: 1),
-                    spiderfy: Duration(seconds: 1)),
-                showPolygon: false,
-                maxClusterRadius: controller.maxClusterRadius,
-                size: Size(30, 30),
-
-                anchor: AnchorPos.align(AnchorAlign.center),
-                fitBoundsOptions: FitBoundsOptions(
-
-                  padding: EdgeInsets.all(
-                      controller.markerShowed == MarkersType.cities ? 40 : 100),
-                ),
-                markers: controller.markersShowed.keys.toList(),
-                polygonOptions: PolygonOptions(
-                    borderColor: Colors.blueAccent,
-                    color: Colors.black12,
-                    borderStrokeWidth: 3),
-                
-                popupOptions: PopupOptions(
-                  popupSnap: PopupSnap.top,
-                  popupController: _popupController,
-
-                  popupBuilder: (_, marker) {
-                    IMarkerModelData stateModel =
-                        controller.markersShowed[marker];
-                    return MapTooltipWidget(
-                      stateModel: stateModel,
-                      onTap: () => ModalUtils.showModal(
-                        context,
-                        stateModel.runtimeType == StateModel
-                            ? ChartsModule(StateChartWidget(
-                                stateName: stateModel.key,
-                              ))
-                            : ChartsModule(CityChartWidget(
-                                cityName: stateModel.title,
-                                cityCode: stateModel.key,
-                              )),
-                      ),
-                    );
-                  },
-                ),
-                builder: (context, markers) {
-                  return FloatingActionButton(
-                    heroTag: UniqueKey(),
+        body: Stack(
+          children: [
+            FlutterMap(
+              mapController: mapController,
+              options: MapOptions(
+                interactive: true,
+                onPositionChanged: (position, value) {
+                  controller.setBounds(position.bounds);
+                  if (position.zoom >= 8.0) {
+                    controller.setMarkerShowed(MarkersType.cities);
+                  } else {
+                    controller.setMarkerShowed(MarkersType.states);
+                  }
+                },
+                center: LatLng(-13.516151006814436, -54.849889911711216),
+                zoom: 3.789821910858154,
+                minZoom: 3.5,
+                onTap: (a) {
+                  _popupController.hidePopup();
+                },
+                plugins: [
+                  MarkerClusterPlugin(),
+                ],
+              ),
+              layers: [
+                TileLayerOptions(
+                    urlTemplate:
+                        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    subdomains: ['a', 'b', 'c'],
+                    tileProvider: CachedNetworkTileProvider(),
                     backgroundColor:
-                        globalSettingsController.theme.themeData.primaryColor,
-                    child: Text(
-                      markers.length.toString(),
-                      style: TextStyle(color: Theme.of(context).accentColor),
+                        globalSettingsController.theme.themeData.primaryColor),
+                MarkerClusterLayerOptions(
+                    animationsOptions: AnimationsOptions(
+                        fitBound: Duration(seconds: 1),
+                        spiderfy: Duration(seconds: 1)),
+                    showPolygon: false,
+                    maxClusterRadius: controller.maxClusterRadius,
+                    size: Size(30, 30),
+                    anchor: AnchorPos.align(AnchorAlign.center),
+                    fitBoundsOptions: FitBoundsOptions(
+                      padding: EdgeInsets.all(
+                          controller.markerShowed == MarkersType.cities
+                              ? 40
+                              : 100),
                     ),
-                    onPressed: null,
-                  );
-                })
+                    markers: controller.markersShowed.keys.toList(),
+                    polygonOptions: PolygonOptions(
+                        borderColor: Colors.blueAccent,
+                        color: Colors.black12,
+                        borderStrokeWidth: 3),
+                    popupOptions: PopupOptions(
+                      popupSnap: PopupSnap.top,
+                      popupController: _popupController,
+                      popupBuilder: (_, marker) {
+                        IMarkerModelData stateModel =
+                            controller.markersShowed[marker];
+                        return MapTooltipWidget(
+                          stateModel: stateModel,
+                          onTap: () => ModalUtils.showModal(
+                            context,
+                            stateModel.runtimeType == StateModel
+                                ? ChartsModule(StateChartWidget(
+                                    stateName: stateModel.key,
+                                  ))
+                                : ChartsModule(CityChartWidget(
+                                    cityName: stateModel.title,
+                                    cityCode: stateModel.key,
+                                  )),
+                          ),
+                        );
+                      },
+                    ),
+                    builder: (context, markers) {
+                      return FloatingActionButton(
+                        heroTag: UniqueKey(),
+                        backgroundColor: globalSettingsController
+                            .theme.themeData.primaryColor,
+                        child: Text(
+                          markers.length.toString(),
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor),
+                        ),
+                        onPressed: null,
+                      );
+                    })
+              ],
+            ),
+            CitiesAutoCompleteField(
+              statesMapController: controller,
+            ),
           ],
         ),
       );
