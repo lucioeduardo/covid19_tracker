@@ -29,8 +29,12 @@ abstract class _GlobalSettingsControllerBase with Store {
   ObservableFuture<Locale> _deviceLocale;
 
   @computed
-  String get localeKey =>
-      _storageLocale?.value ?? _deviceLocale?.value?.toString();
+  String get localeKey {
+    String locale = _storageLocale?.value ?? _deviceLocale?.value.toString();
+    if(locale.length == 2) locale += "_us";
+
+    return locale ?? "en_us";
+  }
 
   @observable
   ObservableFuture<CountryModel> _storageCountry;
@@ -40,12 +44,12 @@ abstract class _GlobalSettingsControllerBase with Store {
     if (_storageCountry.value != null) {
       return _storageCountry.value;
     }
-
     if (_deviceLocale.value == null) {
       return null;
     }
 
-    String code = _deviceLocale.value.countryCode;
+
+    String code = _deviceLocale.value.countryCode ?? 'US';
     String name =
         COUNTRIES.firstWhere((country) => country['code'] == code)['name'];
 
