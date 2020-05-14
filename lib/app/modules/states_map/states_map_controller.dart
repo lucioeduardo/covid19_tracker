@@ -108,7 +108,7 @@ abstract class _StatesMapControllerBase with Store {
     currentBounds = bounds;
   }
 
-  Future<List<IMarkerModelData>> findMarker(String query) async {
+  Future<List<IMarkerModelData>> findMarkers(String query) async {
     print(query);
     if (query.isEmpty || query == null) {
       return [];

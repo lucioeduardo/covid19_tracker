@@ -35,6 +35,7 @@ class _StatesMapPageState
   final PopupController _popupController = PopupController();
   final GlobalSettingsController globalSettingsController = Modular.get();
   final MapController mapController = MapController();
+  final FocusNode _focusNode = FocusNode();
   ReactionDisposer disposer;
 
   @override
@@ -69,16 +70,20 @@ class _StatesMapPageState
       }
 
       return Scaffold(
+        resizeToAvoidBottomInset:false,
+        resizeToAvoidBottomPadding:false,
         floatingActionButton: MapFloatingActionButton(
           controller: controller,
           globalSettingsController: globalSettingsController,
         ),
         body: Stack(
+          
           children: [
             FlutterMap(
               mapController: mapController,
               options: MapOptions(
                 interactive: true,
+                
                 onPositionChanged: (position, value) {
                   controller.setBounds(position.bounds);
                   if (position.zoom >= 8.0) {
@@ -92,6 +97,9 @@ class _StatesMapPageState
                 minZoom: 3.5,
                 onTap: (a) {
                   _popupController.hidePopup();
+                  if(_focusNode.hasFocus) _focusNode.unfocus();
+                  
+
                 },
                 plugins: [
                   MarkerClusterPlugin(),
@@ -163,9 +171,13 @@ class _StatesMapPageState
             ),
             CitiesAutoCompleteField(
               statesMapController: controller,
+              globalSettingsController: globalSettingsController,
+              focusNode: _focusNode,
               onSelected: (IMarkerModelData markerModel){
+                _focusNode.unfocus();
+
                 if(markerModel is CityModel){
-                  mapController.move(markerModel.latLng, 12.0);
+                  mapController.move(markerModel.latLng, 12.5);
                   
                 }else{
                   mapController.move(markerModel.latLng, 7.0);
