@@ -6,11 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LocaleDropDown extends StatelessWidget {
-  final String value;
-  final String countryCode;
+  final ILocalization locale;
   final void Function(String newValue) onChanged;
 
-  const LocaleDropDown({Key key, this.value, this.onChanged, this.countryCode}) : super(key: key);
+  const LocaleDropDown({Key key, this.locale, this.onChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class LocaleDropDown extends StatelessWidget {
       
       
       child: DropdownButton<String>(
-        value: value,
+        value: locale.localeCode.toUpperCase(),
         iconEnabledColor: Theme.of(context).primaryColor,
         focusColor: Theme.of(context).primaryColor,
         icon: null,
@@ -42,12 +41,12 @@ class LocaleDropDown extends StatelessWidget {
   List<Widget> _selectedItemBuilder(context) {
         return LocalizationUtils.getLocaleNamesPretty()
             .map(
-              (locale) => Container(
+              (value) => Container(
                 alignment: Alignment.centerLeft,
                 height: 35,
                 width: 35,
                 child: SvgPicture.asset(
-                  "assets/flags/$countryCode.svg",
+                  "assets/flags/${locale.countryCode.toLowerCase()}.svg",
                 ),
               ),
             )
