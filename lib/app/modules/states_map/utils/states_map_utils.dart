@@ -1,5 +1,6 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 
+
 double getFourthQuartileAverage(List<IMarkerModelData> states) {
     
     if(states==null || states.length<4){
