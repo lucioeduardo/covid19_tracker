@@ -71,6 +71,7 @@ class _StatesMapPageState
         floatingActionButton: MapFloatingActionButton(
           controller: controller,
           globalSettingsController: globalSettingsController,
+          mapController:mapController
         ),
         body: Stack(
           children: [
@@ -80,7 +81,7 @@ class _StatesMapPageState
                 controller: controller,
                 popupController: _popupController,
                 focusNode: _focusNode,
-                runtimeType: runtimeType),
+                ),
             CitiesAutoCompleteField(
               statesMapController: controller,
               globalSettingsController: globalSettingsController,
