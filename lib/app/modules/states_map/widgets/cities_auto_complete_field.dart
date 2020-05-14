@@ -1,19 +1,21 @@
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
+import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CitiesAutoCompleteField extends StatefulWidget {
   final StatesMapController statesMapController;
+  final void Function(IMarkerModelData markerModel) onSelected;
 
-  const CitiesAutoCompleteField({Key key, this.statesMapController}) : super(key: key);
+  const CitiesAutoCompleteField({Key key, this.statesMapController, this.onSelected})
+      : super(key: key);
   @override
   _CitiesAutoCompleteFieldState createState() =>
       _CitiesAutoCompleteFieldState();
 }
 
 class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
-  
-
   _CitiesAutoCompleteFieldState();
 
   @override
@@ -30,25 +32,33 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
               decorationColor: Theme.of(context).accentColor,
               color: Theme.of(context).primaryColor),
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: "Busque por alguma cidade.",
-            labelStyle: TextStyle(backgroundColor: Colors.transparent)
-          ),
+              border: OutlineInputBorder(),
+              labelText: "Digite para buscar.",
+              labelStyle: TextStyle(backgroundColor: Colors.transparent)),
         ),
         suggestionsCallback: (pattern) async {
-          print(pattern);
           
           return await widget.statesMapController.findMarker(pattern);
         },
-        itemBuilder: (context, markerModel) {
+        debounceDuration: Duration(milliseconds: 300),
+        itemBuilder: (context, IMarkerModelData markerModel) {
           return ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: Text(markerModel.title),
-            // subtitle: Text('\$${suggestion['price']}'),
+            leading: FaIcon(
+              FontAwesomeIcons.mapMarker,
+              color: Theme.of(context).primaryColorLight,
+            ),
+            title: Text(
+              markerModel.title,
+              style: TextStyle(color: Theme.of(context).accentColor,fontWeight: FontWeight.w500),
+            ),
+            subtitle: Text(
+              markerModel.shortTitle,
+              style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w800,fontSize: 13),
+            ),
           );
         },
-        onSuggestionSelected: (suggestion) {
-          print("selecionado");
+        onSuggestionSelected: (IMarkerModelData markerModel) {
+          widget.onSelected(markerModel);
         },
       ),
     );

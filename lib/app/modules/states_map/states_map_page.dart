@@ -4,6 +4,7 @@ import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_w
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/cities_auto_complete_field.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
+import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
@@ -162,6 +163,15 @@ class _StatesMapPageState
             ),
             CitiesAutoCompleteField(
               statesMapController: controller,
+              onSelected: (IMarkerModelData markerModel){
+                if(markerModel is CityModel){
+                  mapController.move(markerModel.latLng, 12.0);
+                  
+                }else{
+                  mapController.move(markerModel.latLng, 7.0);
+                }
+                
+              },
             ),
           ],
         ),

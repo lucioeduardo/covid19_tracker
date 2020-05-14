@@ -67,6 +67,13 @@ abstract class _StatesMapControllerBase with Store {
       createMarkers(citiesData.value, citieBaseSize);
 
   @computed
+  List<IMarkerModelData> get allMarkers {
+    List<IMarkerModelData> _allMarkers=citiesMarkers.values.toList();
+    _allMarkers.addAll(statesMarkers.values.toList());
+    return _allMarkers;
+  }
+      
+  @computed
   int get maxClusterRadius {
     if (isActiveCluster == false) return 0;
 
@@ -106,7 +113,8 @@ abstract class _StatesMapControllerBase with Store {
     if (query.isEmpty || query == null) {
       return [];
     }
-    return this.markers.values.where((marker) {
+    
+    return this.allMarkers.where((marker) {
       return marker.title.toLowerCase().contains(
             query.toLowerCase(),
           );
