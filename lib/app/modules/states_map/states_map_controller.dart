@@ -75,7 +75,6 @@ abstract class _StatesMapControllerBase with Store {
       
   @computed
   int get maxClusterRadius {
-    print("Max xluster");
     if (isActiveCluster == false) return 0;
 
     return markerShowed == MarkersType.cities
@@ -94,7 +93,6 @@ abstract class _StatesMapControllerBase with Store {
 
   @action
   toggleActiveCluster() {
-    print("toggleActiveCluster");
     isActiveCluster = !isActiveCluster;
   }
 
@@ -111,7 +109,6 @@ abstract class _StatesMapControllerBase with Store {
   }
 
   Future<List<IMarkerModelData>> findMarkers(String query) async {
-    print(query);
     if (query.isEmpty || query == null) {
       return [];
     }

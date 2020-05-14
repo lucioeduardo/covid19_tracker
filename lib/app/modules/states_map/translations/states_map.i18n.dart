@@ -23,6 +23,10 @@ extension Localization on String {
       kPTBR: "Digite algo para buscar.",
     }+
     {
+      kENUS: "Loading..",
+      kPTBR: "Carregando.",
+    }+
+    {
       kENUS: "Tap for search.",
       kPTBR: "Toque para buscar.",
     };

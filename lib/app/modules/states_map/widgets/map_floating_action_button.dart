@@ -55,14 +55,16 @@ class _MapFloatingActionButtonState extends State<MapFloatingActionButton> {
                     onPressed: () {
                       widget.controller.toggleActiveCluster();
                     },
-                    backgroundColor: widget
-                        .globalSettingsController.theme.themeData.primaryColor,
+                    backgroundColor: widget.controller.isActiveCluster
+                          ? themeData.primaryColor
+                          : themeData.accentColor,
                     child: FaIcon(
                       widget.controller.isActiveCluster
                           ? FontAwesomeIcons.toggleOn
                           : FontAwesomeIcons.toggleOff,
-                      color: widget
-                          .globalSettingsController.theme.themeData.accentColor,
+                      color: widget.controller.isActiveCluster
+                          ? themeData.accentColor
+                          : themeData.primaryColor,
                     ),
                   ),
                 ),

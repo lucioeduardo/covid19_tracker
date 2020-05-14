@@ -2,6 +2,7 @@ import 'package:corona_data/app/modules/settings/global_settings_controller.dart
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/markers_list_tile.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
+import 'package:corona_data/app/shared/utils/theme/extra_pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,12 +30,15 @@ class CitiesAutoCompleteField extends StatefulWidget {
 class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
   final TextEditingController _typeAheadController = TextEditingController();
   _CitiesAutoCompleteFieldState();
-
+  ExtraPallete extraPallete;
+  
   @override
   Widget build(BuildContext context) {
+    extraPallete=widget.globalSettingsController.theme.extraPallete;
     return Container(
-      color: Colors.white,
+      
       margin: EdgeInsets.only(top: 20, left: 40, right: 40),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: extraPallete.light,),
       child: TypeAheadField(
         hideSuggestionsOnKeyboardHide: true,
         debounceDuration: Duration(milliseconds: 500),
@@ -45,10 +49,21 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
           focusNode: widget.focusNode,
           style: TextStyle(
               fontStyle: FontStyle.normal,
-              backgroundColor: Theme.of(context).accentColor,
-              decorationColor: Theme.of(context).accentColor,
-              color: Theme.of(context).primaryColor),
+              // backgroundColor: extraPallete.dark,
+              // decorationColor: extraPallete.dark,
+              
+              color: extraPallete.dark),
           decoration: InputDecoration(
+              prefixStyle: TextStyle(fontSize: 16),
+              prefix: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: FaIcon(
+                      
+                      FontAwesomeIcons.search,
+                      size:16,
+                      color: extraPallete.dark,
+                    ),
+              ),
               suffixIcon: IconButton(
                   iconSize: 16,
                   padding: EdgeInsets.all(0),
@@ -57,11 +72,11 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
                   },
                   icon: FaIcon(
                     FontAwesomeIcons.times,
-                    color: Theme.of(context).primaryColorDark,
+                    color: extraPallete.dark,
                   )),
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(4.0)),gapPadding: 0.0),
               labelText: "Tap for search.".i18n,
-              labelStyle: TextStyle(backgroundColor: Colors.transparent)),
+              labelStyle: TextStyle(backgroundColor: Colors.transparent,fontWeight: FontWeight.w800, color: extraPallete.dark,)),
         ),
         suggestionsCallback: (pattern) async {
           return await widget.statesMapController.findMarkers(pattern);
