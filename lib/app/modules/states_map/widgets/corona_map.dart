@@ -124,6 +124,7 @@ class _CoronaMapState extends State<CoronaMap> {
 
   void onPositionChanged(position, value) {
     widget.controller.setBounds(position.bounds);
+    if (widget.focusNode.hasFocus) widget.focusNode.unfocus();
     if (position.zoom >= 8.0) {
       widget.controller.setMarkerShowed(MarkersType.cities);
     } else {

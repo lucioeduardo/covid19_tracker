@@ -39,6 +39,8 @@ dependencies:
   i18n_extension: ^1.3.5
   just_debounce_it: ^3.0.0+2
   flutter_typeahead: ^1.8.1
+  diacritic: ^0.1.1
+
 
 
   flutter_localizations:

@@ -1,4 +1,6 @@
 import 'package:corona_data/app/modules/states_map/utils/states_map_markers.dart';
+import 'package:corona_data/app/shared/extensions/list/where_limit_list_extension.dart';
+import 'package:corona_data/app/shared/extensions/string/diacritcs_string_extension.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
@@ -66,12 +68,7 @@ abstract class _StatesMapControllerBase with Store {
   Map<Marker, IMarkerModelData> get citiesMarkers =>
       createMarkers(citiesData.value, citieBaseSize);
 
-  @computed
-  List<IMarkerModelData> get allMarkers {
-    List<IMarkerModelData> _allMarkers=citiesMarkers.values.toList();
-    _allMarkers.addAll(statesMarkers.values.toList());
-    return _allMarkers;
-  }
+  
       
   @computed
   int get maxClusterRadius {
@@ -108,17 +105,29 @@ abstract class _StatesMapControllerBase with Store {
     currentBounds = bounds;
   }
 
+  // @comput
+  List<IMarkerModelData> _allMarkersData=[];
+  List<IMarkerModelData> get allMarkers {
+    if(_allMarkersData != null && _allMarkersData.isNotEmpty) return _allMarkersData;
+    _allMarkersData.addAll(citiesData.value);
+    _allMarkersData.addAll(statesData.value);
+    return _allMarkersData;
+  }
+
   Future<List<IMarkerModelData>> findMarkers(String query) async {
+    query = query.toLowerCase().normalizeDiacritics();
+    
     if (query.isEmpty || query == null) {
       return [];
     }
     
-    return this.allMarkers.where((marker) {
-      return marker.title.toLowerCase().contains(
-            query.toLowerCase(),
+    return this.allMarkers.whereLimit((marker) {
+      return marker.title.toLowerCase().normalizeDiacritics().contains(
+            query,
           );
-    }).toList();
+    },limit: 6);
   }
+
 
   void setBounds(LatLngBounds bounds) {
     Debounce.milliseconds(
@@ -128,3 +137,5 @@ abstract class _StatesMapControllerBase with Store {
     );
   }
 }
+
+

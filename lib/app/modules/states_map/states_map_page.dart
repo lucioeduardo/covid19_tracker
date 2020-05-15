@@ -87,7 +87,8 @@ class _StatesMapPageState
               globalSettingsController: globalSettingsController,
               focusNode: _focusNode,
               onSelected: (IMarkerModelData markerModel) {
-                _focusNode.unfocus();
+                if(_focusNode.hasFocus) _focusNode.unfocus();
+                
 
                 if (markerModel is CityModel) {
                   mapController.move(markerModel.latLng, 12.5);
@@ -104,7 +105,9 @@ class _StatesMapPageState
 
   @override
   void dispose() {
+    _focusNode.dispose();
     disposer();
+    
     super.dispose();
   }
 }
