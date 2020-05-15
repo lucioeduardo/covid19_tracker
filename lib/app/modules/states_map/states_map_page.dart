@@ -50,9 +50,7 @@ class _StatesMapPageState
         return TryAgainWidget(onPressed: controller.fetchData());
       }
 
-      // List<IMarkerModelData> states = controller.markersData;
-
-      if (controller.markers == null) {
+      if (controller.markersShowed == null || controller.markers.isEmpty) {
         return Center(
           child: Container(
             width: 150,

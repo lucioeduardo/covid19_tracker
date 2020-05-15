@@ -7,8 +7,7 @@ import 'package:flutter_map/plugin_api.dart';
 
 Map<Marker, IMarkerModelData> createMarkers(
     List<IMarkerModelData> markersData, double baseSize) {
-      print("markers");
-  if (markersData == null) return null;
+  if (markersData == null) return Map();
 
   double quartileCases = getFourthQuartileAverage(markersData);
   Map<Marker, IMarkerModelData> markersMap = Map();
@@ -40,8 +39,8 @@ Marker makeMarker(IMarkerModelData state, Color color, double baseSize) {
       point: state.latLng,
       builder: (ctx) {
         Widget tweenMarker = TweenAnimationBuilder(
-          duration: Duration(milliseconds: 300+Random().nextInt(1500)),
-          tween: Tween(begin: isAnimate?0.0:1.0, end: 1.0),
+          duration: Duration(milliseconds: 300 + Random().nextInt(1500)),
+          tween: Tween(begin: isAnimate ? 0.0 : 1.0, end: 1.0),
           builder: (_, opacity, __) => Opacity(
             opacity: opacity,
             child: Container(

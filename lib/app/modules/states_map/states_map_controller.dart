@@ -48,7 +48,7 @@ abstract class _StatesMapControllerBase with Store {
 
   @computed
   Map<Marker, IMarkerModelData> get markersShowed {
-    if (currentBounds == null)
+    if (currentBounds == null || markers == null)
       return markers;
 
     Map<Marker, IMarkerModelData> currentMarkers = Map();
@@ -80,7 +80,7 @@ abstract class _StatesMapControllerBase with Store {
   @computed
   Map<Marker, IMarkerModelData> get statesAndCountriesMarkers {
     if(statesMarkers == null || citiesMarkers == null)
-      return null;
+      return Map<Marker,IMarkerModelData>();
     return {}..addAll(statesMarkers)..addAll(countriesMarkers);
   }
 
