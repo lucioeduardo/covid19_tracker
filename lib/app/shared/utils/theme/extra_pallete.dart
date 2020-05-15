@@ -5,8 +5,10 @@ class ExtraPallete {
   final Color info;
   final Color warning;
   final Color error;
+  final Color light;
+  final Color dark;
 
-  ExtraPallete({this.success, this.info, this.warning, this.error});
+  ExtraPallete({this.light, this.dark, this.success, this.info, this.warning, this.error});
 
   bool operator == (Object other) {
     if (other.runtimeType != runtimeType) return false;

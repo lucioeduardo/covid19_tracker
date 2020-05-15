@@ -30,6 +30,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       builder: (BuildContext context) {
         
         return Scaffold(
+          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomPadding: false,
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(

@@ -46,7 +46,8 @@ abstract class _StatesMapControllerBase with Store {
 
     Map<Marker, IMarkerModelData> currentMarkers = Map();
     for (Marker marker in markers.keys) {
-      if (markers[marker].latLng!=null && currentBounds.contains(markers[marker].latLng)) {
+      if (markers[marker].latLng != null &&
+          currentBounds.contains(markers[marker].latLng)) {
         currentMarkers[marker] = markers[marker];
       }
     }
@@ -65,6 +66,13 @@ abstract class _StatesMapControllerBase with Store {
   Map<Marker, IMarkerModelData> get citiesMarkers =>
       createMarkers(citiesData.value, citieBaseSize);
 
+  @computed
+  List<IMarkerModelData> get allMarkers {
+    List<IMarkerModelData> _allMarkers=citiesMarkers.values.toList();
+    _allMarkers.addAll(statesMarkers.values.toList());
+    return _allMarkers;
+  }
+      
   @computed
   int get maxClusterRadius {
     if (isActiveCluster == false) return 0;
@@ -98,6 +106,18 @@ abstract class _StatesMapControllerBase with Store {
   @action
   _setBounds(LatLngBounds bounds) {
     currentBounds = bounds;
+  }
+
+  Future<List<IMarkerModelData>> findMarkers(String query) async {
+    if (query.isEmpty || query == null) {
+      return [];
+    }
+    
+    return this.allMarkers.where((marker) {
+      return marker.title.toLowerCase().contains(
+            query.toLowerCase(),
+          );
+    }).toList();
   }
 
   void setBounds(LatLngBounds bounds) {
