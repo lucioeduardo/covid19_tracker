@@ -1,4 +1,5 @@
 import 'package:corona_data/app/shared/models/city_model.dart';
+import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:dio/dio.dart';
@@ -56,11 +57,9 @@ class CovidRepository extends Disposable implements ICovidRepository {
     List<CityModel> cities = List();
     for (Response response in responses) {
       for (var city in response.data['results']) {
-        if(city['city_ibge_code']!=null){
+        if (city['city_ibge_code'] != null) {
           cities.add(CityModel.fromJson(city));
         }
-        
-        
       }
     }
 
@@ -76,4 +75,13 @@ class CovidRepository extends Disposable implements ICovidRepository {
 
   @override
   void dispose() {}
+
+  @override
+  Future<List<CountryModelMarker>> getCountriesInfo() async {
+    var response = await dio.get('/countries').timeout(Duration(seconds: 5));
+
+    return response.data
+        .map<CountryModelMarker>((jsonObject) => CountryModelMarker.fromJson(jsonObject))
+        .toList();
+  }
 }

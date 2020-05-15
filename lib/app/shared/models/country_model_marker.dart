@@ -12,9 +12,9 @@ class CountryModelMarker implements IMarkerModelData{
     title = json['country'];
     shortTitle = json['countryInfo']['iso2'];
     
-    double lat = json['countryInfo']['lat'];
-    double long = json['countryInfo']['long'];
-    latLng = LatLng(lat,long);
+    var lat = json['countryInfo']['lat'];
+    var long = json['countryInfo']['long'];
+    latLng = LatLng(lat.toDouble(),long.toDouble());
 
     confirmed = json['cases'];
     deaths = json['deaths'];
