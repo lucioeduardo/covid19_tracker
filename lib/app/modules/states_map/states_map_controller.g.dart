@@ -36,12 +36,6 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
       (_$citiesMarkersComputed ??= Computed<Map<Marker, IMarkerModelData>>(
               () => super.citiesMarkers))
           .value;
-  Computed<List<IMarkerModelData>> _$allMarkersComputed;
-
-  @override
-  List<IMarkerModelData> get allMarkers => (_$allMarkersComputed ??=
-          Computed<List<IMarkerModelData>>(() => super.allMarkers))
-      .value;
   Computed<int> _$maxClusterRadiusComputed;
 
   @override
@@ -187,7 +181,7 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
   @override
   String toString() {
     final string =
-        'markerShowed: ${markerShowed.toString()},statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},isActiveCluster: ${isActiveCluster.toString()},currentBounds: ${currentBounds.toString()},markersShowed: ${markersShowed.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},allMarkers: ${allMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
+        'markerShowed: ${markerShowed.toString()},statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},isActiveCluster: ${isActiveCluster.toString()},currentBounds: ${currentBounds.toString()},markersShowed: ${markersShowed.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
     return '{$string}';
   }
 }

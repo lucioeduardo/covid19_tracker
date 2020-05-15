@@ -31,7 +31,7 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
   final TextEditingController _typeAheadController = TextEditingController();
   _CitiesAutoCompleteFieldState();
   ExtraPallete extraPallete;
-
+  final double kBorderRadius = 5.0;
   @override
   Widget build(BuildContext context) {
     extraPallete = widget.globalSettingsController.theme.extraPallete;
@@ -58,8 +58,8 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
         },
         itemBuilder: itemBuilder,
         onSuggestionSelected: onSuggestionSelected,
-        suggestionsBoxDecoration:
-            SuggestionsBoxDecoration(borderRadius: BorderRadius.circular(10.0)),
+        suggestionsBoxDecoration: SuggestionsBoxDecoration(
+            borderRadius: BorderRadius.circular(kBorderRadius)),
         noItemsFoundBuilder: noItemsFoundBuilder,
         loadingBuilder: (context) {
           return Text("Loading..".i18n);
@@ -75,24 +75,20 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
     return InputDecoration(
         // prefixStyle: TextStyle(fontSize: 16),
         prefix: IconButton(
-            // padding: EdgeInsets.only(right: 30),
-            alignment: Alignment.centerLeft,
-            icon: FaIcon(
-
-              FontAwesomeIcons.search,
-              size: 16,
-              color: extraPallete.dark,
-            ),
-            onPressed: null,
-            
+          // padding: EdgeInsets.only(right: 30),
+          alignment: Alignment.centerLeft,
+          icon: FaIcon(
+            FontAwesomeIcons.search,
+            size: 16,
+            color: extraPallete.dark,
           ),
+          onPressed: null,
+        ),
         suffix: IconButton(
             iconSize: 16,
             alignment: Alignment.centerRight,
             onPressed: () {
               _typeAheadController.clear();
-              
-              
             },
             icon: FaIcon(
               FontAwesomeIcons.times,
@@ -104,7 +100,7 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
           gapPadding: 0.0,
         ),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(kBorderRadius),
             borderSide: BorderSide(width: 2.0)),
         labelText: "Tap for search.".i18n,
         labelStyle: TextStyle(
@@ -116,15 +112,17 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
 
   BoxDecoration containerDecoration() {
     return BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: extraPallete.light.withOpacity(0.7),
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 4,
-              color: extraPallete.dark.withOpacity(0.1),
-              offset: Offset.fromDirection(1, 4),
-              spreadRadius: 2)
-        ]);
+      borderRadius: BorderRadius.circular(kBorderRadius),
+      color: extraPallete.light.withOpacity(0.8),
+      boxShadow: [
+        BoxShadow(
+            blurRadius: 4,
+            color: extraPallete.dark.withOpacity(0.2),
+            offset: Offset.fromDirection(1, 2),
+            spreadRadius: 4)
+      ],
+    );
+    
   }
 
   void onSuggestionSelected(IMarkerModelData markerModel) {
@@ -140,7 +138,7 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
   }
 
   Widget noItemsFoundBuilder(context) {
-    if(_typeAheadController.text.isEmpty) return null;
+    if (_typeAheadController.text.isEmpty) return null;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Text(
