@@ -1,4 +1,5 @@
 import 'package:corona_data/app/modules/states_map/utils/states_map_markers.dart';
+import 'package:corona_data/app/shared/extensions/list/where_limit_list_extension.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
@@ -113,12 +114,13 @@ abstract class _StatesMapControllerBase with Store {
       return [];
     }
     
-    return this.allMarkers.where((marker) {
+    return this.allMarkers.whereLimit((marker) {
       return marker.title.toLowerCase().contains(
             query.toLowerCase(),
           );
-    }).toList();
+    });
   }
+
 
   void setBounds(LatLngBounds bounds) {
     Debounce.milliseconds(
@@ -128,3 +130,5 @@ abstract class _StatesMapControllerBase with Store {
     );
   }
 }
+
+
