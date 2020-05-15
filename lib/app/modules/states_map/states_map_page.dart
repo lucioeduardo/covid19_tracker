@@ -104,7 +104,9 @@ class _StatesMapPageState
 
   @override
   void dispose() {
+    _focusNode.dispose();
     disposer();
+    
     super.dispose();
   }
 }

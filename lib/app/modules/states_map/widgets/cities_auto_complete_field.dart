@@ -36,18 +36,9 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
   Widget build(BuildContext context) {
     extraPallete = widget.globalSettingsController.theme.extraPallete;
     return Container(
+      height: 45,
       margin: EdgeInsets.only(top: 8, left: 10, right: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: extraPallete.light.withOpacity(0.7),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 4,
-              color: extraPallete.dark.withOpacity(0.1),
-              offset: Offset.fromDirection(1,4),
-              spreadRadius: 2
-            )
-          ]),
+      decoration: containerDecoration(),
       child: TypeAheadField(
         hideSuggestionsOnKeyboardHide: true,
         debounceDuration: Duration(milliseconds: 500),
@@ -67,6 +58,8 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
         },
         itemBuilder: itemBuilder,
         onSuggestionSelected: onSuggestionSelected,
+        suggestionsBoxDecoration:
+            SuggestionsBoxDecoration(borderRadius: BorderRadius.circular(10.0)),
         noItemsFoundBuilder: noItemsFoundBuilder,
         loadingBuilder: (context) {
           return Text("Loading..".i18n);
@@ -78,50 +71,28 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
     );
   }
 
-  void onSuggestionSelected(IMarkerModelData markerModel) {
-    _typeAheadController.clear();
-    widget.onSelected(markerModel);
-  }
-
-  Widget itemBuilder(context, IMarkerModelData markerModel) {
-    return MarkersListTile(
-      widget: widget,
-      markerModel: markerModel,
-    );
-  }
-
-  Widget noItemsFoundBuilder(context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Text(
-        _typeAheadController.text.isNotEmpty
-            ? "No itens found.".i18n
-            : "Type for search.".i18n,
-        style: TextStyle(
-          color: Theme.of(context).accentColor,
-          fontWeight: FontWeight.w500,
-          fontSize: 15,
-        ),
-      ),
-    );
-  }
-
   InputDecoration inputDecoration() {
     return InputDecoration(
         // prefixStyle: TextStyle(fontSize: 16),
-        prefix: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: FaIcon(
-            FontAwesomeIcons.search,
-            size: 16,
-            color: extraPallete.dark,
+        prefix: IconButton(
+            // padding: EdgeInsets.only(right: 30),
+            alignment: Alignment.centerLeft,
+            icon: FaIcon(
+
+              FontAwesomeIcons.search,
+              size: 16,
+              color: extraPallete.dark,
+            ),
+            onPressed: null,
+            
           ),
-        ),
-        suffixIcon: IconButton(
+        suffix: IconButton(
             iconSize: 16,
-            padding: EdgeInsets.all(0),
+            alignment: Alignment.centerRight,
             onPressed: () {
               _typeAheadController.clear();
+              
+              
             },
             icon: FaIcon(
               FontAwesomeIcons.times,
@@ -141,5 +112,47 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
           fontWeight: FontWeight.w900,
           color: extraPallete.dark,
         ));
+  }
+
+  BoxDecoration containerDecoration() {
+    return BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: extraPallete.light.withOpacity(0.7),
+        boxShadow: [
+          BoxShadow(
+              blurRadius: 4,
+              color: extraPallete.dark.withOpacity(0.1),
+              offset: Offset.fromDirection(1, 4),
+              spreadRadius: 2)
+        ]);
+  }
+
+  void onSuggestionSelected(IMarkerModelData markerModel) {
+    _typeAheadController.clear();
+    widget.onSelected(markerModel);
+  }
+
+  Widget itemBuilder(context, IMarkerModelData markerModel) {
+    return MarkersListTile(
+      widget: widget,
+      markerModel: markerModel,
+    );
+  }
+
+  Widget noItemsFoundBuilder(context) {
+    if(_typeAheadController.text.isEmpty) return null;
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Text(
+        _typeAheadController.text.isNotEmpty
+            ? "No itens found.".i18n
+            : "Type for search.".i18n,
+        style: TextStyle(
+          color: Theme.of(context).accentColor,
+          fontWeight: FontWeight.w500,
+          fontSize: 15,
+        ),
+      ),
+    );
   }
 }
