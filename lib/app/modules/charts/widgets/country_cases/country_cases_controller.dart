@@ -17,15 +17,22 @@ abstract class _CountryCasesControllerBase
   final HistoricalRepository historicalRepository;
   final AppController appController;
 
+  @observable
+  String countryName;
+
   _CountryCasesControllerBase(this.historicalRepository, this.appController) {
-    fetchGraphData();
+    //fetchGraphData();
+  }
+
+  @action
+  setCountryName(String country){
+    this.countryName = country;
   }
 
   @action
   fetchGraphData() {
     graphData = historicalRepository
-        .getCountryHistoricalData(
-            appController.globalSettingsController.country.name)
+        .getCountryHistoricalData(countryName)
         .asObservable();
   }
 }

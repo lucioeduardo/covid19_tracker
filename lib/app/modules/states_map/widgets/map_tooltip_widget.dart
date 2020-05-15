@@ -3,8 +3,9 @@ import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:corona_data/app/shared/utils/localization/translation/base_translation_extension.i18n.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../translations/states_map.i18n.dart';
 
 class MapTooltipWidget extends StatelessWidget {
   MapTooltipWidget({
@@ -38,7 +39,7 @@ class MapTooltipWidget extends StatelessWidget {
               ],
             ),
             width: width,
-            height: width/1.3,
+            height: width / 1.3,
             child: GestureDetector(
               child: width > 180
                   ? Container(
@@ -48,7 +49,7 @@ class MapTooltipWidget extends StatelessWidget {
                         children: <Widget>[
                           Center(
                             child: Text(
-                              stateModel.title,
+                              stateModel.title.i18n,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Theme.of(context).accentColor,
@@ -107,7 +108,9 @@ class MapTooltipWidget extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 5,),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Center(
                               child: RoundedIconButton(
                             onPressed: onTap,

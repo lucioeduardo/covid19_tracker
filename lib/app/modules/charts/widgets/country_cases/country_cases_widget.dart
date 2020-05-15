@@ -17,6 +17,13 @@ class _CountryCasesGraphWidgetState
     extends ModularState<CountryCasesGraphWidget, CountryCasesController> {
   
   @override
+  void initState() {
+    super.initState();
+    controller.setCountryName(widget.countryName);
+    controller.fetchGraphData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChartsPage(controller: controller, title: widget.countryName,);
   }

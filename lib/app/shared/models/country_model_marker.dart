@@ -8,7 +8,9 @@ class CountryModelMarker implements IMarkerModelData{
   String shortTitle;
   String title;
 
-   CountryModelMarker.fromJson(Map<String, dynamic> json) {
+  CountryModelMarker({this.confirmed, this.deaths, this.latLng, this.shortTitle, this.title});
+
+  CountryModelMarker.fromJson(Map<String, dynamic> json) {
     title = json['country'];
     shortTitle = json['countryInfo']['iso2'];
     

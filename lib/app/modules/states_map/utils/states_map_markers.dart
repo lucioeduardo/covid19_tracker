@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:corona_data/app/modules/states_map/utils/states_map_utils.dart';
+import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Map<Marker, IMarkerModelData> createMarkers(
     List<IMarkerModelData> markersData, double baseSize) {
@@ -31,12 +33,12 @@ Map<Marker, IMarkerModelData> createMarkers(
   return markersMap;
 }
 
-Marker makeMarker(IMarkerModelData state, Color color, double baseSize) {
+Marker makeMarker(IMarkerModelData markerData, Color color, double baseSize) {
   bool isAnimate = true;
   return Marker(
       width: baseSize,
       height: baseSize,
-      point: state.latLng,
+      point: markerData.latLng,
       builder: (ctx) {
         Widget tweenMarker = TweenAnimationBuilder(
           duration: Duration(milliseconds: 300 + Random().nextInt(1500)),
@@ -54,22 +56,29 @@ Marker makeMarker(IMarkerModelData state, Color color, double baseSize) {
                     shape: BoxShape.circle,
                     border: Border.all(color: color, width: 3),
                   ),
-                  child: Container(
-                    width: baseSize - 10,
-                    height: baseSize - 10,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      state.shortTitle,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  child: markerData.runtimeType != CountryModelMarker
+                      ? Container(
+                          width: baseSize - 10,
+                          height: baseSize - 10,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: color,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            markerData.shortTitle,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      : SvgPicture.asset(
+                          "assets/flags/${markerData.shortTitle.toLowerCase()}.svg",
+                          placeholderBuilder: (context) =>
+                              CircularProgressIndicator(),
+                          height: 40,
+                        ),
                 ),
               ),
             ),

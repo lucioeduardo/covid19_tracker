@@ -52,7 +52,7 @@ final Map stateCoords = {
   'ES': LatLng(-19.19, -40.34),
   'GO': LatLng(-15.98, -49.86),
   'MA': LatLng(-5.42, -45.44),
-  'MT': LatLng(-12.64, -55.42),
+  'MT': LatLng(-15.335700, -55.552591),
   'MS': LatLng(-20.51, -54.54),
   'MG': LatLng(-18.10, -44.38),
   'PA': LatLng(-3.79, -52.48),
