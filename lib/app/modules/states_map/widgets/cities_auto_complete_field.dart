@@ -64,9 +64,13 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
         loadingBuilder: (context) {
           return Text("Loading..".i18n);
         },
+        hideOnLoading: true,
         errorBuilder: (_, __) {
           return Text("blank".i18n);
         },
+        getImmediateSuggestions: false,
+        
+        
       ),
     );
   }
@@ -131,6 +135,7 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
   }
 
   Widget itemBuilder(context, IMarkerModelData markerModel) {
+    
     return MarkersListTile(
       widget: widget,
       markerModel: markerModel,
@@ -138,7 +143,8 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
   }
 
   Widget noItemsFoundBuilder(context) {
-    if (_typeAheadController.text.isEmpty) return null;
+    if (_typeAheadController.text.isEmpty || _typeAheadController.text == null) return null;
+    print("oi");
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Text(
