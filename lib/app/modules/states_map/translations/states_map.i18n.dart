@@ -4,6 +4,8 @@ import 'package:corona_data/app/shared/utils/localization/translation/countries_
 import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
+  String plural(value) => localizePlural(value, this, Configuration.baseTranslations);
+
 
   static var _t = Configuration.baseTranslations +
     {

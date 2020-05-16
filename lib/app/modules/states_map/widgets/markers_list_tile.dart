@@ -3,7 +3,9 @@ import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../translations/states_map.i18n.dart';
+
 class MarkersListTile extends StatelessWidget {
   const MarkersListTile({
     Key key,
@@ -19,9 +21,7 @@ class MarkersListTile extends StatelessWidget {
     return ListTile(
       leading: FaIcon(
         FontAwesomeIcons.mapMarker,
-        color: markerModel is CityModel
-            ? Theme.of(context).primaryColorLight
-            : widget.globalSettingsController.theme.extraPallete.info,
+        color: widget.globalSettingsController.theme.extraPallete[markerModel.colorName]
       ),
       title: Text(
         markerModel.title,
@@ -29,7 +29,7 @@ class MarkersListTile extends StatelessWidget {
             color: Theme.of(context).accentColor, fontWeight: FontWeight.w500),
       ),
       subtitle: Text(
-        markerModel is CityModel ? "City".i18n : "State".i18n,
+        markerModel.label.i18n,
         style: TextStyle(
             color: Colors.grey, fontWeight: FontWeight.w800, fontSize: 13),
       ),

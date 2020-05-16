@@ -1,10 +1,14 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_widget.dart';
+import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_widget.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/states_map/utils/constants.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
+import 'package:corona_data/app/shared/models/city_model.dart';
+import 'package:corona_data/app/shared/models/country_model.dart';
+import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
@@ -45,7 +49,7 @@ class _CoronaMapState extends State<CoronaMap> {
                 onPositionChanged: onPositionChanged,
                 center: kDefaultLatLong,
                 zoom: kDefaultZoom,
-                minZoom: 3.5,
+                minZoom: 3.2,
                 onTap: onTap,
                 plugins: [
                   MarkerClusterPlugin(),
@@ -88,14 +92,7 @@ class _CoronaMapState extends State<CoronaMap> {
                           stateModel: stateModel,
                           onTap: () => ModalUtils.showModal(
                             context,
-                            stateModel.runtimeType == StateModel
-                                ? ChartsModule(StateChartWidget(
-                                    stateName: stateModel.key,
-                                  ))
-                                : ChartsModule(CityChartWidget(
-                                    cityName: stateModel.title,
-                                    cityCode: stateModel.key,
-                                  )),
+                            mapWidget(stateModel)
                           ),
                         );
                       },
@@ -117,12 +114,34 @@ class _CoronaMapState extends State<CoronaMap> {
             ));
   }
 
+  Widget mapWidget(IMarkerModelData markerModel) {
+    switch (markerModel.runtimeType) {
+      case StateModel:
+        return ChartsModule(StateChartWidget(
+          stateName: markerModel.key,
+        ));
+      case CityModel:
+        return ChartsModule(CityChartWidget(
+          cityName: markerModel.title,
+          cityCode: markerModel.key,
+        ));
+      case CountryModelMarker:
+        return ChartsModule(CountryCasesGraphWidget(
+          countryName: markerModel.title,
+        ));
+    }
+
+    throw Exception('MarkerModel has an invalid type');
+  }
+
   void onTap(a) {
     widget.popupController.hidePopup();
     if (widget.focusNode.hasFocus) widget.focusNode.unfocus();
   }
 
   void onPositionChanged(position, value) {
+    
+
     widget.controller.setBounds(position.bounds);
     if (widget.focusNode.hasFocus) widget.focusNode.unfocus();
     if (position.zoom >= 8.0) {

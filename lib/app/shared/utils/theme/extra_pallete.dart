@@ -19,4 +19,23 @@ class ExtraPallete {
         this.warning == otherData.warning &&
         this.error == otherData.error;
   }
+
+  Color operator[](String name){
+    switch(name){
+      case('success'):
+        return this.success;
+      case('info'):
+        return this.info;
+      case('warning'):
+        return this.warning;
+      case('error'):
+        return this.error;
+      case('light'):
+        return this.light;
+      case ('dark'):
+        return this.dark;
+    }
+
+    throw Exception('The color named $name doesnt exist in the palette.');
+  }
 }

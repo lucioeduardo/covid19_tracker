@@ -2,6 +2,7 @@ import 'package:corona_data/app/modules/states_map/utils/states_map_markers.dart
 import 'package:corona_data/app/shared/extensions/list/where_limit_list_extension.dart';
 import 'package:corona_data/app/shared/extensions/string/diacritcs_string_extension.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
+import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
@@ -17,6 +18,7 @@ enum MarkersType { states, cities }
 
 abstract class _StatesMapControllerBase with Store {
   final double citieBaseSize = 50.0;
+  final double countriesBaseSize = 50.0;
   final int cityClusterMaxRadius = 170;
   final double stateBaseSize = 35.0;
   final int stateClusterMaxRadius = 40;
@@ -32,6 +34,9 @@ abstract class _StatesMapControllerBase with Store {
   ObservableFuture<List<CityModel>> citiesData;
 
   @observable
+  ObservableFuture<List<CountryModelMarker>> countriesData;
+
+  @observable
   bool isActiveCluster;
 
   _StatesMapControllerBase(this.covidRepository) {
@@ -43,7 +48,7 @@ abstract class _StatesMapControllerBase with Store {
 
   @computed
   Map<Marker, IMarkerModelData> get markersShowed {
-    if (currentBounds == null || markerShowed == MarkersType.states)
+    if (currentBounds == null || markers == null)
       return markers;
 
     Map<Marker, IMarkerModelData> currentMarkers = Map();
@@ -58,7 +63,7 @@ abstract class _StatesMapControllerBase with Store {
 
   @computed
   Map<Marker, IMarkerModelData> get markers =>
-      markerShowed == MarkersType.states ? statesMarkers : citiesMarkers;
+      markerShowed == MarkersType.states ? statesAndCountriesMarkers : citiesMarkers;
 
   @computed
   Map<Marker, IMarkerModelData> get statesMarkers =>
@@ -68,8 +73,17 @@ abstract class _StatesMapControllerBase with Store {
   Map<Marker, IMarkerModelData> get citiesMarkers =>
       createMarkers(citiesData.value, citieBaseSize);
 
+  @computed
+  Map<Marker, IMarkerModelData> get countriesMarkers =>
+      createMarkers(countriesData.value, countriesBaseSize);
   
-      
+  @computed
+  Map<Marker, IMarkerModelData> get statesAndCountriesMarkers {
+    if(statesMarkers == null || citiesMarkers == null)
+      return Map<Marker,IMarkerModelData>();
+    return {}..addAll(statesMarkers)..addAll(countriesMarkers);
+  }
+
   @computed
   int get maxClusterRadius {
     if (isActiveCluster == false) return 0;
@@ -83,6 +97,7 @@ abstract class _StatesMapControllerBase with Store {
   fetchData() {
     statesData = covidRepository.getStatesInfo().asObservable();
     citiesData = covidRepository.getCitiesInfo().asObservable();
+    countriesData = covidRepository.getCountriesInfo().asObservable();
 
     markerShowed = MarkersType.states;
     isActiveCluster = true;
@@ -106,28 +121,29 @@ abstract class _StatesMapControllerBase with Store {
   }
 
   // @comput
-  List<IMarkerModelData> _allMarkersData=[];
+  List<IMarkerModelData> _allMarkersData = [];
   List<IMarkerModelData> get allMarkers {
-    if(_allMarkersData != null && _allMarkersData.isNotEmpty) return _allMarkersData;
+    if (_allMarkersData != null && _allMarkersData.isNotEmpty)
+      return _allMarkersData;
     _allMarkersData.addAll(citiesData.value);
     _allMarkersData.addAll(statesData.value);
+    _allMarkersData.addAll(countriesData.value);
     return _allMarkersData;
   }
 
   Future<List<IMarkerModelData>> findMarkers(String query) async {
     query = query.toLowerCase().normalizeDiacritics();
-    
+
     if (query.isEmpty || query == null) {
       return [];
     }
-    
+
     return this.allMarkers.whereLimit((marker) {
       return marker.title.toLowerCase().normalizeDiacritics().contains(
             query,
           );
-    },limit: 6);
+    }, limit: 6);
   }
-
 
   void setBounds(LatLngBounds bounds) {
     Debounce.milliseconds(
@@ -137,5 +153,3 @@ abstract class _StatesMapControllerBase with Store {
     );
   }
 }
-
-

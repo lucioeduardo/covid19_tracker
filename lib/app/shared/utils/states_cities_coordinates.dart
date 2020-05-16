@@ -26079,8 +26079,8 @@ const Map<String, dynamic> kStates = {
   },
   "MT": {
     "nome": "Mato Grosso",
-    "latitude": -12.64,
-    "longitude": -55.42,
+    "latitude": -15.335700,
+    "longitude": -55.552591,
     "cities": {
       "5100102": {
         "nome": "Acorizal",

@@ -45,13 +45,12 @@ class _StatesMapPageState
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
       if (controller.statesData.error != null ||
-          controller.citiesData.error != null) {
+          controller.citiesData.error != null ||
+          controller.countriesData.error != null) {
         return TryAgainWidget(onPressed: controller.fetchData());
       }
 
-      // List<IMarkerModelData> states = controller.markersData;
-
-      if (controller.markers == null) {
+      if (controller.markersShowed == null || controller.markers.isEmpty) {
         return Center(
           child: Container(
             width: 150,
