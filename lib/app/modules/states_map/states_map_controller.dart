@@ -127,6 +127,7 @@ abstract class _StatesMapControllerBase with Store {
       return _allMarkersData;
     _allMarkersData.addAll(citiesData.value);
     _allMarkersData.addAll(statesData.value);
+    _allMarkersData.addAll(countriesData.value);
     return _allMarkersData;
   }
 

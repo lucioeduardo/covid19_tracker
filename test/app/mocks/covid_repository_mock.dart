@@ -44,7 +44,7 @@ class CovidRepositoryMock extends Mock implements ICovidRepository {
     when(this.getCountriesInfo()).thenAnswer(
       (_) async => Future.value(
         Future.value([
-          CountryModelMarker(confirmed: 100, deaths: 20, title: 'Brazil', shortTitle: 'BR', latLng: LatLng(50.0,50.0)),
+          CountryModelMarker(confirmed: 100, deaths: 20, shortTitle: 'BR', latLng: LatLng(50.0,50.0)),
         ]),
       ),
     );

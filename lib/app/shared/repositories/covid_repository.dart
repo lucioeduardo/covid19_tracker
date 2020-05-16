@@ -80,8 +80,14 @@ class CovidRepository extends Disposable implements ICovidRepository {
   Future<List<CountryModelMarker>> getCountriesInfo() async {
     var response = await dio.get('/countries').timeout(Duration(seconds: 5));
 
-    return response.data
-        .map<CountryModelMarker>((jsonObject) => CountryModelMarker.fromJson(jsonObject))
-        .toList();
+    List<CountryModelMarker> countries = List();
+
+    for(var country in response.data){
+      if(country['countryInfo']['iso2'] != null){
+        countries.add(CountryModelMarker.fromJson(country));
+      }
+    }
+
+    return countries;
   }
 }

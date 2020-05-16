@@ -1,13 +1,15 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
+import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 
+const kLabel = "City";
+const kColor = "info";
 class StateModel implements IMarkerModelData {
   int confirmed;
   int deaths;
   String state;
-  
 
   StateModel({this.confirmed, this.deaths, this.state});
 
@@ -27,6 +29,9 @@ class StateModel implements IMarkerModelData {
   }
 
   @override
+  get label => kLabel;
+
+  @override
   String get title => stateName[this.state];
 
   @override
@@ -39,5 +44,8 @@ class StateModel implements IMarkerModelData {
   }
 
   @override
-  String get shortTitle => this.state; 
+  String get shortTitle => this.state;
+
+  @override
+  String get colorName => kColor; 
 }

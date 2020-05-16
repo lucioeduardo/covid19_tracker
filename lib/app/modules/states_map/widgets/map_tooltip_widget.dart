@@ -49,7 +49,7 @@ class MapTooltipWidget extends StatelessWidget {
                         children: <Widget>[
                           Center(
                             child: Text(
-                              stateModel.shortTitle.i18n,
+                              stateModel.title,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Theme.of(context).accentColor,

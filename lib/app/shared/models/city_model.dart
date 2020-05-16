@@ -1,13 +1,18 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
+import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 
+const kLabel = "City";
+const kColor = "success";
 class CityModel implements IMarkerModelData {
   int confirmed;
   int deaths;
   String city;
   String state;
   String cityIbgeCode;
+
+  get label => kLabel;
 
   CityModel({this.confirmed, this.deaths, this.city});
 
@@ -28,8 +33,6 @@ class CityModel implements IMarkerModelData {
     data['city_ibge_code'] = this.cityIbgeCode;
     return data;
   }
-
-  
 
   @override
   LatLng get latLng {
@@ -52,5 +55,8 @@ class CityModel implements IMarkerModelData {
   @override
   String get key => this.cityIbgeCode;
   @override
-  String get shortTitle => city.substring(0,3).toUpperCase(); 
+  String get shortTitle => city.substring(0,3).toUpperCase();
+
+  @override
+  String get colorName => kColor;
 }
