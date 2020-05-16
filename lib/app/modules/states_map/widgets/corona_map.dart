@@ -49,7 +49,7 @@ class _CoronaMapState extends State<CoronaMap> {
                 onPositionChanged: onPositionChanged,
                 center: kDefaultLatLong,
                 zoom: kDefaultZoom,
-                minZoom: 3.5,
+                minZoom: 3.2,
                 onTap: onTap,
                 plugins: [
                   MarkerClusterPlugin(),
