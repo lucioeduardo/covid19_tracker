@@ -17,9 +17,12 @@ class ExtraPallete {
     return this.success == otherData.success &&
         this.info == otherData.info &&
         this.warning == otherData.warning &&
-        this.error == otherData.error;
+        this.error == otherData.error &&
+        this.light == otherData.light &&
+        this.dark == otherData.dark ;
   }
 
+  
   Color operator[](String name){
     switch(name){
       case('success'):
@@ -38,4 +41,8 @@ class ExtraPallete {
 
     throw Exception('The color named $name doesnt exist in the palette.');
   }
+
+  @override
+  int get hashCode => super.hashCode;
+
 }

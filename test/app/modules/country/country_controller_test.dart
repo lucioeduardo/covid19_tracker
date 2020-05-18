@@ -3,7 +3,7 @@ import 'package:corona_data/app/modules/country/country_controller.dart';
 import 'package:corona_data/app/modules/country/country_module.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
-import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
+import 'package:corona_data/app/shared/services/local_storage_interface.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';

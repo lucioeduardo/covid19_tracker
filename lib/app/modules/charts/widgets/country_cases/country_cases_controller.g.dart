@@ -26,8 +26,37 @@ mixin _$CountryCasesController on _CountryCasesControllerBase, Store {
     }, _$graphDataAtom, name: '${_$graphDataAtom.name}_set');
   }
 
+  final _$countryNameAtom =
+      Atom(name: '_CountryCasesControllerBase.countryName');
+
+  @override
+  String get countryName {
+    _$countryNameAtom.context.enforceReadPolicy(_$countryNameAtom);
+    _$countryNameAtom.reportObserved();
+    return super.countryName;
+  }
+
+  @override
+  set countryName(String value) {
+    _$countryNameAtom.context.conditionallyRunInAction(() {
+      super.countryName = value;
+      _$countryNameAtom.reportChanged();
+    }, _$countryNameAtom, name: '${_$countryNameAtom.name}_set');
+  }
+
   final _$_CountryCasesControllerBaseActionController =
       ActionController(name: '_CountryCasesControllerBase');
+
+  @override
+  dynamic setCountryName(String country) {
+    final _$actionInfo =
+        _$_CountryCasesControllerBaseActionController.startAction();
+    try {
+      return super.setCountryName(country);
+    } finally {
+      _$_CountryCasesControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void fetchGraphData() {
@@ -42,7 +71,8 @@ mixin _$CountryCasesController on _CountryCasesControllerBase, Store {
 
   @override
   String toString() {
-    final string = 'graphData: ${graphData.toString()}';
+    final string =
+        'graphData: ${graphData.toString()},countryName: ${countryName.toString()}';
     return '{$string}';
   }
 }

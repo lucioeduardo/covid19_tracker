@@ -1,5 +1,5 @@
 import 'package:corona_data/app/shared/models/country_model.dart';
-import 'package:corona_data/app/shared/repositories/local_storage_interface.dart';
+import 'package:corona_data/app/shared/services/local_storage_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/localization/localization_interface.dart';
 import 'package:corona_data/app/shared/utils/localization/localization_utils.dart';

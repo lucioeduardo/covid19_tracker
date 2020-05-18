@@ -7,7 +7,6 @@ import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/states_map/utils/constants.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
-import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
