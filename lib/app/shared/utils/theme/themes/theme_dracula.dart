@@ -6,13 +6,13 @@ class ThemeDracula extends ITheme {
   @override
   ExtraPallete getExtraPallete() {
     return ExtraPallete(
-        success: Color(0xff50fa7b),
-        error: Color(0xffff5555),
-        warning: Color(0xffffb86c),
-        info: Color(0xff8be9fd),
-        light: Color(0xfff8f8f2),
-        dark: Color(0xff282a36)
-        );
+      success: Color(0xff50fa7b),
+      error: Color(0xffff5555),
+      warning: Color(0xffffb86c),
+      info: Color(0xff8be9fd),
+      light: Color(0xfff8f8f2),
+      dark: Color(0xff282a36),
+    );
   }
 
   @override

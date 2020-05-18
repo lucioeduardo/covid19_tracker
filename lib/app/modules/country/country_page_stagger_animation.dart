@@ -50,7 +50,9 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
         SummaryHeaderWidget(
           buttonOnPressed: () => ModalUtils.showModal(
             context,
-            ChartsModule(CountryCasesGraphWidget(countryName: appController.globalSettingsController.country.name,)),
+            ChartsModule(CountryCasesGraphWidget(
+              countryName: appController.globalSettingsController.country.name,
+            )),
           ),
           title: "Total cases".i18n,
           buttonTitle: "Chart".i18n,
