@@ -83,7 +83,7 @@ abstract class _StatesMapControllerBase with Store implements Disposable{
   Map<Marker, IMarkerModelData> get statesAndCountriesMarkers {
     if (statesMarkers == null || countriesMarkers == null)
       return Map<Marker, IMarkerModelData>();
-    print("statesAndCountries");
+    
 
     return {}..addAll(statesMarkers)..addAll(countriesMarkers);
   }

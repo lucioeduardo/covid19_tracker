@@ -16,7 +16,6 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:just_debounce_it/just_debounce_it.dart';
 
 class CoronaMap extends StatefulWidget {
   const CoronaMap({

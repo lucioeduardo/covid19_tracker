@@ -144,7 +144,7 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField>{
 
   Widget noItemsFoundBuilder(context) {
     if (_typeAheadController.text.isEmpty || _typeAheadController.text == null) return null;
-    print("oi");
+    
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Text(

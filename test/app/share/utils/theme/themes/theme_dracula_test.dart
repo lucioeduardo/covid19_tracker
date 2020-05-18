@@ -20,7 +20,7 @@ main() {
           errorColor: Color(0xffff5555),
           iconTheme: IconThemeData(color: Color(0xfff8f8f2)),
           primaryIconTheme: IconThemeData(color: Color(0xfff8f8f2)),
-          accentIconTheme: IconThemeData(color: Color(0xfff8f8f2)),
+          // floatingActionButtonTheme: FloatingActionButtonThemeData(color: Color(0xfff8f8f2)),
           buttonTheme: ButtonThemeData(buttonColor: Color(0xfff1fa8c)),
           buttonColor: Color(0xfff1fa8c),
           secondaryHeaderColor: Color(0xff44475a),
