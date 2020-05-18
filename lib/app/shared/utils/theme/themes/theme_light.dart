@@ -6,10 +6,13 @@ class ThemeLight extends ITheme {
   @override
   ExtraPallete getExtraPallete() {
     return ExtraPallete(
-        success: Colors.green,
-        error: Colors.red,
-        warning: Colors.orange,
-        info: Colors.blue);
+      success: Colors.green,
+      error: Colors.red,
+      warning: Colors.orange,
+      info: Colors.blue,
+      light: Color(0xffEBE9E7),
+      dark: Color(0xff231F1C),
+    );
   }
 
   @override

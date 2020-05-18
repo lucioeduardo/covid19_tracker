@@ -36,6 +36,21 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
       (_$citiesMarkersComputed ??= Computed<Map<Marker, IMarkerModelData>>(
               () => super.citiesMarkers))
           .value;
+  Computed<Map<Marker, IMarkerModelData>> _$countriesMarkersComputed;
+
+  @override
+  Map<Marker, IMarkerModelData> get countriesMarkers =>
+      (_$countriesMarkersComputed ??= Computed<Map<Marker, IMarkerModelData>>(
+              () => super.countriesMarkers))
+          .value;
+  Computed<Map<Marker, IMarkerModelData>> _$statesAndCountriesMarkersComputed;
+
+  @override
+  Map<Marker, IMarkerModelData> get statesAndCountriesMarkers =>
+      (_$statesAndCountriesMarkersComputed ??=
+              Computed<Map<Marker, IMarkerModelData>>(
+                  () => super.statesAndCountriesMarkers))
+          .value;
   Computed<int> _$maxClusterRadiusComputed;
 
   @override
@@ -93,6 +108,24 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
       super.citiesData = value;
       _$citiesDataAtom.reportChanged();
     }, _$citiesDataAtom, name: '${_$citiesDataAtom.name}_set');
+  }
+
+  final _$countriesDataAtom =
+      Atom(name: '_StatesMapControllerBase.countriesData');
+
+  @override
+  ObservableFuture<List<CountryModelMarker>> get countriesData {
+    _$countriesDataAtom.context.enforceReadPolicy(_$countriesDataAtom);
+    _$countriesDataAtom.reportObserved();
+    return super.countriesData;
+  }
+
+  @override
+  set countriesData(ObservableFuture<List<CountryModelMarker>> value) {
+    _$countriesDataAtom.context.conditionallyRunInAction(() {
+      super.countriesData = value;
+      _$countriesDataAtom.reportChanged();
+    }, _$countriesDataAtom, name: '${_$countriesDataAtom.name}_set');
   }
 
   final _$isActiveClusterAtom =
@@ -181,7 +214,7 @@ mixin _$StatesMapController on _StatesMapControllerBase, Store {
   @override
   String toString() {
     final string =
-        'markerShowed: ${markerShowed.toString()},statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},isActiveCluster: ${isActiveCluster.toString()},currentBounds: ${currentBounds.toString()},markersShowed: ${markersShowed.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
+        'markerShowed: ${markerShowed.toString()},statesData: ${statesData.toString()},citiesData: ${citiesData.toString()},countriesData: ${countriesData.toString()},isActiveCluster: ${isActiveCluster.toString()},currentBounds: ${currentBounds.toString()},markersShowed: ${markersShowed.toString()},markers: ${markers.toString()},statesMarkers: ${statesMarkers.toString()},citiesMarkers: ${citiesMarkers.toString()},countriesMarkers: ${countriesMarkers.toString()},statesAndCountriesMarkers: ${statesAndCountriesMarkers.toString()},maxClusterRadius: ${maxClusterRadius.toString()}';
     return '{$string}';
   }
 }

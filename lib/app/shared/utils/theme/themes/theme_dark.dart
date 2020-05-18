@@ -3,14 +3,15 @@ import 'package:corona_data/app/shared/utils/theme/theme_interface.dart';
 import 'package:flutter/material.dart';
 
 class ThemeDark extends ITheme {
-  
   @override
   ExtraPallete getExtraPallete() {
     return ExtraPallete(
         success: Color(0xff40CA87),
         error: Color(0xffFF5656),
         warning: Color(0xffDBC716),
-        info: Colors.blue);
+        info: Colors.blue,
+        light: Color(0xffEBE9E7),
+        dark: Color(0xff231F1C));
   }
 
   @override

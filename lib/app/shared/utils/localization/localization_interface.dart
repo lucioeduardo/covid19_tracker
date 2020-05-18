@@ -8,4 +8,6 @@ abstract class ILocalization{
   Locale getLocale(){
     return Locale(languageCode,countryCode);
   }
+
+  String get localeCode => "${languageCode.toLowerCase()}_${countryCode.toLowerCase()}";
 }

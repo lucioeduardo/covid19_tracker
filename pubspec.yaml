@@ -38,6 +38,10 @@ dependencies:
   autocomplete_textfield: ^1.7.3
   i18n_extension: ^1.3.5
   just_debounce_it: ^3.0.0+2
+  flutter_typeahead: ^1.8.1
+  diacritic: ^0.1.1
+
+
 
   flutter_localizations:
     sdk: flutter
@@ -57,7 +61,10 @@ dev_dependencies:
   flutter_launcher_icons: "^0.7.3"
   flutter_test:
     sdk: flutter
-  
+
+dependency_overrides:
+  dartx: 0.4.1
+
 flutter_icons:
   android: "launcher_icon"
   ios: true
@@ -107,3 +114,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 scripts:
   mobx: flutter pub run build_runner watch --delete-conflicting-outputs
+  myrelease: flutter run --release -d 8be20a #your device id
+  myprofile: flutter run --profile -d 8be20a #your device id

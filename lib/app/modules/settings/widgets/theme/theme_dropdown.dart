@@ -2,7 +2,7 @@ import 'package:corona_data/app/shared/utils/string/string_utils.dart';
 import 'package:corona_data/app/shared/utils/theme/theme_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../translations/settings_page.i18n.dart';
+import '../../i18n/settings_page.i18n.dart';
 
 class ThemeDropdown extends StatelessWidget {
   final String value;

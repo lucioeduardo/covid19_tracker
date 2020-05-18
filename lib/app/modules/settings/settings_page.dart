@@ -14,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'settings_controller.dart';
-import 'translations/settings_page.i18n.dart';
+import 'i18n/settings_page.i18n.dart';
 
 class SettingsPage extends StatefulWidget {
   final String title;

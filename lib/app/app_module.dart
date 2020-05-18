@@ -10,8 +10,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:corona_data/app/app_widget.dart';
 
-import 'shared/repositories/local_storage_hive.dart';
-import 'shared/repositories/local_storage_interface.dart';
+import 'shared/services/local_storage_hive.dart';
+import 'shared/services/local_storage_interface.dart';
 
 
 class AppModule extends MainModule {

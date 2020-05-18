@@ -12,7 +12,7 @@ import 'package:corona_data/app/shared/widgets/percentage_badge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'translations/world_page.i18n.dart';
+import 'i18n/world_page.i18n.dart';
 
 class WorldPageStaggerAnimation extends StatelessWidget {
   final AnimationController controller;

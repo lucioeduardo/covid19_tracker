@@ -1,5 +1,5 @@
 import 'package:corona_data/app/shared/utils/localization/constants.dart';
-import 'package:corona_data/app/shared/utils/localization/translation/base_translation.i18n.dart';
+import 'package:corona_data/app/shared/utils/localization/i18n/base_translation.i18n.dart';
 import 'package:corona_data/app/shared/utils/theme/constants.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:corona_data/app/shared/config/config.dart';

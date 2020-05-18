@@ -1,8 +1,10 @@
 import 'package:corona_data/app/shared/models/city_model.dart';
+import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:mockito/mockito.dart';
+import 'package:latlong/latlong.dart';
 
 class CovidRepositoryMock extends Mock implements ICovidRepository {
   CovidRepositoryMock() {
@@ -36,6 +38,13 @@ class CovidRepositoryMock extends Mock implements ICovidRepository {
         Future.value([
           CityModel(confirmed: 10, deaths: 2, city: 'Arapiraca'),
           CityModel(confirmed: 15, deaths: 3, city: 'Palmeira'),
+        ]),
+      ),
+    );
+    when(this.getCountriesInfo()).thenAnswer(
+      (_) async => Future.value(
+        Future.value([
+          CountryModelMarker(confirmed: 100, deaths: 20, shortTitle: 'BR', latLng: LatLng(50.0,50.0)),
         ]),
       ),
     );

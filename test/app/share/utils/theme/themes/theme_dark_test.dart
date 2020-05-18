@@ -28,6 +28,8 @@ main() {
           error: Color(0xffFF5656),
           warning: Color(0xffDBC716),
           info: Colors.blue,
+          light: Color(0xffEBE9E7),
+          dark: Color(0xff231F1C)
         ),
       );
     },
