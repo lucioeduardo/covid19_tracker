@@ -45,43 +45,7 @@ Marker makeMarker(IMarkerModelData markerData, Color color, double baseSize) {
           tween: Tween(begin: isAnimate ? 0.0 : 1.0, end: 1.0),
           builder: (_, opacity, __) => Opacity(
             opacity: opacity,
-            child: Container(
-              child: GestureDetector(
-                child: Container(
-                  alignment: Alignment.center,
-                  width: baseSize,
-                  height: baseSize,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: color, width: 3),
-                  ),
-                  child: markerData.runtimeType != CountryModelMarker
-                      ? Container(
-                          width: baseSize - 10,
-                          height: baseSize - 10,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: color,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            markerData.shortTitle,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                      : SvgPicture.asset(
-                          "assets/flags/${markerData.shortTitle.toLowerCase()}.svg",
-                          placeholderBuilder: (context) =>
-                              CircularProgressIndicator(),
-                          height: 40,
-                        ),
-                ),
-              ),
-            ),
+            child: markerData.getMarker(color)
           ),
         );
         isAnimate = false;

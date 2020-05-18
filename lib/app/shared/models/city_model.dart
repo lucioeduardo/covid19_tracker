@@ -1,9 +1,14 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
+import 'package:corona_data/app/shared/widgets/maps/markers/background/text_background.dart';
+import 'package:corona_data/app/shared/widgets/maps/markers/circle_marker.dart';
+import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 
 const kLabel = "City";
 const kColor = "success";
+const kCityBaseSize = 50.0;
+
 class CityModel implements IMarkerModelData {
   int confirmed;
   int deaths;
@@ -36,16 +41,16 @@ class CityModel implements IMarkerModelData {
   @override
   LatLng get latLng {
     Map cityTemp;
-    try{
+    try {
       cityTemp = kStates[this.state]["cities"][this.key];
-    }catch(Exception){
+    } catch (Exception) {
       return null;
     }
-    
-    if(cityTemp==null){
+
+    if (cityTemp == null) {
       return null;
     }
-    return (LatLng(cityTemp['latitude'],cityTemp['longitude']));
+    return (LatLng(cityTemp['latitude'], cityTemp['longitude']));
   }
 
   @override
@@ -54,8 +59,24 @@ class CityModel implements IMarkerModelData {
   @override
   String get key => this.cityIbgeCode;
   @override
-  String get shortTitle => city.substring(0,3).toUpperCase();
+  String get shortTitle => city.substring(0, 3).toUpperCase();
 
   @override
   String get colorName => kColor;
+
+  @override
+  Widget getMarker(Color color) {
+    return Container(
+      child: GestureDetector(
+        child: CircleMarker(
+          shortTitle: shortTitle,
+          color: color,
+          size: kCityBaseSize,
+          child: TextBackgroundMarker(
+            shortTitle: shortTitle,
+          ),
+        ),
+      ),
+    );
+  }
 }

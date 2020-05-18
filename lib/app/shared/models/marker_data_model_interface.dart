@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:latlong/latlong.dart';
 abstract class IMarkerModelData{
 
@@ -12,5 +13,7 @@ abstract class IMarkerModelData{
   int get deaths;
   
   LatLng get latLng;
+
+  Widget getMarker(Color color);
   
 }
