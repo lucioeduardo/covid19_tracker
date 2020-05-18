@@ -63,12 +63,11 @@ class _StatesMapPageState
           ),
         );
       }
-
       return Scaffold(
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         floatingActionButton: MapFloatingActionButton(
-          controller: controller,
+          
           globalSettingsController: globalSettingsController,
           mapController:mapController
         ),
@@ -77,12 +76,10 @@ class _StatesMapPageState
             CoronaMap(
                 mapController: mapController,
                 globalSettingsController: globalSettingsController,
-                controller: controller,
                 popupController: _popupController,
                 focusNode: _focusNode,
                 ),
             CitiesAutoCompleteField(
-              statesMapController: controller,
               globalSettingsController: globalSettingsController,
               focusNode: _focusNode,
               onSelected: (IMarkerModelData markerModel) {

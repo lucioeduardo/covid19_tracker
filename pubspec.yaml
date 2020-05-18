@@ -114,3 +114,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 scripts:
   mobx: flutter pub run build_runner watch --delete-conflicting-outputs
+  myrelease: flutter run --release -d 8be20a #your device id
+  myprofile: flutter run --profile -d 8be20a #your device id

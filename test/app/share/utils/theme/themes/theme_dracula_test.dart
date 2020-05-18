@@ -20,7 +20,7 @@ main() {
           errorColor: Color(0xffff5555),
           iconTheme: IconThemeData(color: Color(0xfff8f8f2)),
           primaryIconTheme: IconThemeData(color: Color(0xfff8f8f2)),
-          accentIconTheme: IconThemeData(color: Color(0xfff8f8f2)),
+          // floatingActionButtonTheme: FloatingActionButtonThemeData(color: Color(0xfff8f8f2)),
           buttonTheme: ButtonThemeData(buttonColor: Color(0xfff1fa8c)),
           buttonColor: Color(0xfff1fa8c),
           secondaryHeaderColor: Color(0xff44475a),
@@ -30,10 +30,12 @@ main() {
       expect(
         theme.getExtraPallete(),
         ExtraPallete(
-          success: Color(0xff50fa7b),
+          success: Color(0xff50D77B),
           error: Color(0xffff5555),
-          warning: Color(0xffffb86c),
+          warning: Color(0xffEDAB69),
           info: Color(0xff8be9fd),
+          light: Color(0xfff8f8f2),
+          dark: Color(0xff282a36),
         ),
       );
     },

@@ -7,7 +7,6 @@ import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/states_map/utils/constants.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
-import 'package:corona_data/app/shared/models/country_model.dart';
 import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
@@ -16,20 +15,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CoronaMap extends StatefulWidget {
   const CoronaMap({
     Key key,
     @required this.mapController,
     @required this.globalSettingsController,
-    @required this.controller,
     @required this.popupController,
     this.focusNode,
   }) : super(key: key);
 
   final MapController mapController;
   final GlobalSettingsController globalSettingsController;
-  final StatesMapController controller;
   final PopupController popupController;
 
   final FocusNode focusNode;
@@ -39,8 +37,12 @@ class CoronaMap extends StatefulWidget {
 }
 
 class _CoronaMapState extends State<CoronaMap> {
+  StatesMapController controller = Modular.get();
+  
   @override
   Widget build(BuildContext context) {
+    
+    
     return Observer(
         builder: (_) => FlutterMap(
               mapController: widget.mapController,
@@ -68,16 +70,16 @@ class _CoronaMapState extends State<CoronaMap> {
                         fitBound: Duration(seconds: 1),
                         spiderfy: Duration(seconds: 1)),
                     showPolygon: false,
-                    maxClusterRadius: widget.controller.maxClusterRadius,
+                    maxClusterRadius: controller.maxClusterRadius,
                     size: Size(30, 30),
                     anchor: AnchorPos.align(AnchorAlign.center),
                     fitBoundsOptions: FitBoundsOptions(
                       padding: EdgeInsets.all(
-                          widget.controller.markerShowed == MarkersType.cities
+                          controller.markerShowed == MarkersType.cities
                               ? 40
                               : 100),
                     ),
-                    markers: widget.controller.markersShowed.keys.toList(),
+                    markers: controller.markersShowed.keys.toList(),
                     polygonOptions: PolygonOptions(
                         borderColor: Colors.blueAccent,
                         color: Colors.black12,
@@ -87,7 +89,7 @@ class _CoronaMapState extends State<CoronaMap> {
                       popupController: widget.popupController,
                       popupBuilder: (_, marker) {
                         IMarkerModelData stateModel =
-                            widget.controller.markersShowed[marker];
+                            controller.markersShowed[marker];
                         return MapTooltipWidget(
                           stateModel: stateModel,
                           onTap: () => ModalUtils.showModal(
@@ -142,12 +144,14 @@ class _CoronaMapState extends State<CoronaMap> {
   void onPositionChanged(position, value) {
     
 
-    widget.controller.setBounds(position.bounds);
+    controller.setBounds(position.bounds);
     if (widget.focusNode.hasFocus) widget.focusNode.unfocus();
     if (position.zoom >= 8.0) {
-      widget.controller.setMarkerShowed(MarkersType.cities);
+      controller.setMarkerShowed(MarkersType.cities);
     } else {
-      widget.controller.setMarkerShowed(MarkersType.states);
+      controller.setMarkerShowed(MarkersType.states);
     }
   }
+
+  
 }

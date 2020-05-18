@@ -7,6 +7,7 @@ import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/models/state_model.dart';
 import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:just_debounce_it/just_debounce_it.dart';
 import 'package:mobx/mobx.dart';
 
@@ -16,13 +17,11 @@ class StatesMapController = _StatesMapControllerBase with _$StatesMapController;
 
 enum MarkersType { states, cities }
 
-abstract class _StatesMapControllerBase with Store {
-  final double citieBaseSize = 50.0;
-  final double countriesBaseSize = 50.0;
+abstract class _StatesMapControllerBase with Store implements Disposable{
   final int cityClusterMaxRadius = 170;
-  final double stateBaseSize = 35.0;
   final int stateClusterMaxRadius = 40;
   final ICovidRepository covidRepository;
+
 
   @observable
   MarkersType markerShowed;
@@ -48,13 +47,14 @@ abstract class _StatesMapControllerBase with Store {
 
   @computed
   Map<Marker, IMarkerModelData> get markersShowed {
-    if (currentBounds == null || markers == null)
-      return markers;
+    if (currentBounds == null || markers == null) return markers;
 
     Map<Marker, IMarkerModelData> currentMarkers = Map();
     for (Marker marker in markers.keys) {
       if (markers[marker].latLng != null &&
-          currentBounds.contains(markers[marker].latLng)) {
+          currentBounds.contains(
+            markers[marker].latLng,
+          )) {
         currentMarkers[marker] = markers[marker];
       }
     }
@@ -63,24 +63,28 @@ abstract class _StatesMapControllerBase with Store {
 
   @computed
   Map<Marker, IMarkerModelData> get markers =>
-      markerShowed == MarkersType.states ? statesAndCountriesMarkers : citiesMarkers;
+      markerShowed == MarkersType.states
+          ? statesAndCountriesMarkers
+          : citiesMarkers;
 
   @computed
   Map<Marker, IMarkerModelData> get statesMarkers =>
-      createMarkers(statesData.value, stateBaseSize);
+      createMarkers(statesData.value);
 
   @computed
   Map<Marker, IMarkerModelData> get citiesMarkers =>
-      createMarkers(citiesData.value, citieBaseSize);
+      createMarkers(citiesData.value);
 
   @computed
   Map<Marker, IMarkerModelData> get countriesMarkers =>
-      createMarkers(countriesData.value, countriesBaseSize);
-  
+      createMarkers(countriesData.value);
+
   @computed
   Map<Marker, IMarkerModelData> get statesAndCountriesMarkers {
-    if(statesMarkers == null || citiesMarkers == null)
-      return Map<Marker,IMarkerModelData>();
+    if (statesMarkers == null || countriesMarkers == null)
+      return Map<Marker, IMarkerModelData>();
+    
+
     return {}..addAll(statesMarkers)..addAll(countriesMarkers);
   }
 
@@ -95,10 +99,11 @@ abstract class _StatesMapControllerBase with Store {
 
   @action
   fetchData() {
+    
     statesData = covidRepository.getStatesInfo().asObservable();
     citiesData = covidRepository.getCitiesInfo().asObservable();
     countriesData = covidRepository.getCountriesInfo().asObservable();
-
+    
     markerShowed = MarkersType.states;
     isActiveCluster = true;
   }
@@ -142,7 +147,7 @@ abstract class _StatesMapControllerBase with Store {
       return marker.title.toLowerCase().normalizeDiacritics().contains(
             query,
           );
-    }, limit: 6);
+    }, limit: 15);
   }
 
   void setBounds(LatLngBounds bounds) {
@@ -151,5 +156,13 @@ abstract class _StatesMapControllerBase with Store {
       _setBounds,
       [bounds],
     );
+    
   }
+
+  @override
+  void dispose() {
+    Debounce.clear(_setBounds);
+    
+  }
+  
 }
