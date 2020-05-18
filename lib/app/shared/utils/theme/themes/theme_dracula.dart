@@ -6,9 +6,9 @@ class ThemeDracula extends ITheme {
   @override
   ExtraPallete getExtraPallete() {
     return ExtraPallete(
-      success: Color(0xff50fa7b),
+      success: Color(0xff50D77B),
       error: Color(0xffff5555),
-      warning: Color(0xffffb86c),
+      warning: Color(0xffEDAB69),
       info: Color(0xff8be9fd),
       light: Color(0xfff8f8f2),
       dark: Color(0xff282a36),
