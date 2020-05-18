@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'dart:math';
 
-class CircleMarker extends StatelessWidget {
-  const CircleMarker({
+import 'package:flutter/material.dart';
+
+class CustomCircleMarker extends StatefulWidget {
+  const CustomCircleMarker({
     Key key,
     @required this.shortTitle,
     @required this.color,
@@ -14,32 +15,53 @@ class CircleMarker extends StatelessWidget {
   final Color color;
   final double size;
   final Widget child;
-
+  
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        shape: BoxShape.circle,
-        border: Border.all(color: color, width: 3),
-      ),
-      child: Container(
-        width: size - 10,
-        height: size - 10,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
-        child: child,
-      ),
-    );
-  }
+  _CustomCircleMarkerState createState() => _CustomCircleMarkerState();
 }
 
+class _CustomCircleMarkerState extends State<CustomCircleMarker> {
+  @override
+  bool animationIn;
+  
+  @override
+  void initState() {
+    super.initState();
+    animationIn=true;
+    
+  }
 
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder(
+      onEnd: (){
+        this.animationIn=false;
+      },
+      duration: Duration(milliseconds: 300 + Random().nextInt(1500)),
+      tween: Tween(begin: animationIn ? 0.0 : 1.0, end: 1.0),
+      builder: (_, opacity, __) => Opacity(
+          opacity: opacity,
+          child: Container(
+            alignment: Alignment.center,
+            width: widget.size,
+            height: widget.size,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              shape: BoxShape.circle,
+              border: Border.all(color: widget.color, width: 3),
+            ),
+            child: Container(
+              width: widget.size - 10,
+              height: widget.size - 10,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: widget.color,
+                shape: BoxShape.circle,
+              ),
+              child: widget.child,
+            ),
+          )),
+    );
 
-
+    
+  }
+}

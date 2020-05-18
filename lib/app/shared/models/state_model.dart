@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
 import 'package:corona_data/app/shared/widgets/maps/markers/background/text_background.dart';
 import 'package:corona_data/app/shared/widgets/maps/markers/circle_marker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 
 const kLabel = "City";
@@ -54,18 +56,22 @@ class StateModel implements IMarkerModelData {
   String get colorName => kColor;
 
   @override
-  Widget getMarker(Color color) {
-    return Container(
-      child: GestureDetector(
-        child: CircleMarker(
-          shortTitle: shortTitle,
-          color: color,
-          size: kStateBaseSize,
-          child: TextBackgroundMarker(
-            shortTitle: shortTitle,
-          ),
-        ),
-      ),
-    );
+  Marker getMarker(Color color) {
+    return Marker(
+        width: kStateBaseSize,
+        height: kStateBaseSize,
+        point: this.latLng,
+        builder: (ctx) {
+          return  CustomCircleMarker(
+                  shortTitle: shortTitle,
+                  color: color,
+                  size: kStateBaseSize,
+                  child: TextBackgroundMarker(
+                    shortTitle: shortTitle,
+                  ),
+                );
+          
+        });
+        
   }
 }

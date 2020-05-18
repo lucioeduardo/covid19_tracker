@@ -4,12 +4,12 @@ import 'package:corona_data/app/modules/states_map/widgets/markers_list_tile.dar
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/extra_pallete.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../i18n/states_map.i18n.dart';
 
 class CitiesAutoCompleteField extends StatefulWidget {
-  final StatesMapController statesMapController;
   final GlobalSettingsController globalSettingsController;
 
   final FocusNode focusNode;
@@ -17,7 +17,6 @@ class CitiesAutoCompleteField extends StatefulWidget {
 
   const CitiesAutoCompleteField(
       {Key key,
-      this.statesMapController,
       this.onSelected,
       this.focusNode,
       this.globalSettingsController})
@@ -27,8 +26,9 @@ class CitiesAutoCompleteField extends StatefulWidget {
       _CitiesAutoCompleteFieldState();
 }
 
-class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
+class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField>{
   final TextEditingController _typeAheadController = TextEditingController();
+  final StatesMapController controller = Modular.get();
   _CitiesAutoCompleteFieldState();
   ExtraPallete extraPallete;
   final double kBorderRadius = 5.0;
@@ -54,7 +54,7 @@ class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField> {
           decoration: inputDecoration(),
         ),
         suggestionsCallback: (pattern) async {
-          return await widget.statesMapController.findMarkers(pattern);
+          return await controller.findMarkers(pattern);
         },
         itemBuilder: itemBuilder,
         onSuggestionSelected: onSuggestionSelected,

@@ -4,18 +4,17 @@ import 'package:corona_data/app/modules/states_map/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MapFloatingActionButton extends StatefulWidget {
   MapFloatingActionButton({
     Key key,
-    @required this.controller,
     @required this.globalSettingsController,
     @required this.mapController,
   }) : super(key: key);
 
   final GlobalSettingsController globalSettingsController;
-  final StatesMapController controller;
   final MapController mapController;
 
   @override
@@ -24,6 +23,8 @@ class MapFloatingActionButton extends StatefulWidget {
 }
 
 class _MapFloatingActionButtonState extends State<MapFloatingActionButton> {
+  final StatesMapController controller = Modular.get();
+
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = widget.globalSettingsController.theme.themeData;
@@ -38,12 +39,12 @@ class _MapFloatingActionButtonState extends State<MapFloatingActionButton> {
                     widget.mapController.move(kDefaultLatLong, kDefaultZoom);
                   },
                   backgroundColor:
-                      widget.controller.markerShowed == MarkersType.states
+                      controller.markerShowed == MarkersType.states
                           ? themeData.accentColor
                           : themeData.primaryColor,
                   child: FaIcon(
                     FontAwesomeIcons.searchMinus,
-                    color:widget.controller.markerShowed == MarkersType.states
+                    color:controller.markerShowed == MarkersType.states
                           ? themeData.primaryColor
                           : themeData.accentColor,
                   ),
@@ -53,16 +54,16 @@ class _MapFloatingActionButtonState extends State<MapFloatingActionButton> {
                   child: FloatingActionButton(
                     heroTag: 'cluster_active',
                     onPressed: () {
-                      widget.controller.toggleActiveCluster();
+                      controller.toggleActiveCluster();
                     },
-                    backgroundColor: widget.controller.isActiveCluster
+                    backgroundColor: controller.isActiveCluster
                           ? themeData.primaryColor
                           : themeData.accentColor,
                     child: FaIcon(
-                      widget.controller.isActiveCluster
+                      controller.isActiveCluster
                           ? FontAwesomeIcons.toggleOn
                           : FontAwesomeIcons.toggleOff,
-                      color: widget.controller.isActiveCluster
+                      color: controller.isActiveCluster
                           ? themeData.accentColor
                           : themeData.primaryColor,
                     ),
