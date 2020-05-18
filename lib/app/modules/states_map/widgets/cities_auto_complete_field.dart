@@ -6,7 +6,7 @@ import 'package:corona_data/app/shared/utils/theme/extra_pallete.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../translations/states_map.i18n.dart';
+import '../i18n/states_map.i18n.dart';
 
 class CitiesAutoCompleteField extends StatefulWidget {
   final StatesMapController statesMapController;

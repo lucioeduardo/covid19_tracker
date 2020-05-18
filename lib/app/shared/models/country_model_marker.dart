@@ -1,6 +1,6 @@
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:latlong/latlong.dart';
-import '../utils/localization/translation/base_translation_with_countries_extension.i18n.dart';
+import '../utils/localization/i18n/base_translation_with_countries_extension.i18n.dart';
 
 const kLabel = "Country";
 const kColor = "warning";
@@ -9,7 +9,6 @@ class CountryModelMarker implements IMarkerModelData {
   int deaths;
   LatLng latLng;
   String shortTitle;
-
   CountryModelMarker(
       {this.confirmed, this.deaths, this.latLng, this.shortTitle});
 

@@ -1,6 +1,7 @@
 import 'package:corona_data/app/shared/widgets/animations/washing_hands_animation.dart';
 import 'package:flutter/material.dart';
-import '../utils/localization/translation/base_translation_extension.i18n.dart';
+import '../utils/localization/i18n/base_translation_extension.i18n.dart';
+
 
 class TryAgainWidget extends StatelessWidget {
   final VoidCallback onPressed;

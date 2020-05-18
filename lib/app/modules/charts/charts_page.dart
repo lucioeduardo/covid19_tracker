@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'translations/charts_page.i18n.dart';
+import 'i18n/charts_page.i18n.dart';
 import 'interfaces/chart_controller_interface.dart';
 
 class ChartsPage extends StatefulWidget {

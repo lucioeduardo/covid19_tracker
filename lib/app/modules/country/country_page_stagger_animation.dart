@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app_controller.dart';
-import "translations/country_page.i18n.dart";
+import "i18n/country_page.i18n.dart";
 
 class CoutryPageStaggerAnimation extends StatelessWidget {
   final AnimationController controller;
