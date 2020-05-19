@@ -47,6 +47,7 @@ class CountryModelMarker implements IMarkerModelData {
 
   @override
   Marker getMarker(Color color) {
+    bool hasShowed = false;
 
     return Marker(
         width: kCountriesBaseSize,
@@ -58,6 +59,11 @@ class CountryModelMarker implements IMarkerModelData {
               shortTitle: shortTitle,
               color: color,
               size: kCountriesBaseSize,
+              isAnimate: !hasShowed,
+                  onEnd: (){
+                    hasShowed=true;
+                    
+                  },
               child: SvgBackgroundMarker(
                 height: kSvgHeight,
                 shortTitle: shortTitle,

@@ -9,7 +9,7 @@ import 'package:flutter_map/plugin_api.dart';
 Map<Marker, IMarkerModelData> createMarkers(
     List<IMarkerModelData> markersData) {
   if (markersData == null) return Map();
-
+  
   double quartileCases = getFourthQuartileAverage(markersData);
   Map<Marker, IMarkerModelData> markersMap = Map();
 

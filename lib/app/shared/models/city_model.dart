@@ -65,8 +65,10 @@ class CityModel implements IMarkerModelData {
   @override
   String get colorName => kColor;
 
+  
   @override
   Marker getMarker(Color color) {
+    bool hasShowed = false;
     return Marker(
         width: kCityBaseSize,
         height: kCityBaseSize,
@@ -76,6 +78,11 @@ class CityModel implements IMarkerModelData {
                   shortTitle: shortTitle,
                   color: color,
                   size: kCityBaseSize,
+                  isAnimate: !hasShowed,
+                  onEnd: (){
+                    hasShowed=true;
+                    
+                  },
                   child: TextBackgroundMarker(
                     shortTitle: shortTitle,
                   ),
