@@ -57,6 +57,7 @@ class StateModel implements IMarkerModelData {
 
   @override
   Marker getMarker(Color color) {
+    bool hasShowed = false;
     return Marker(
         width: kStateBaseSize,
         height: kStateBaseSize,
@@ -66,6 +67,11 @@ class StateModel implements IMarkerModelData {
                   shortTitle: shortTitle,
                   color: color,
                   size: kStateBaseSize,
+                  isAnimate: !hasShowed,
+                  onEnd: (){
+                    hasShowed=true;
+                    
+                  },
                   child: TextBackgroundMarker(
                     shortTitle: shortTitle,
                   ),
