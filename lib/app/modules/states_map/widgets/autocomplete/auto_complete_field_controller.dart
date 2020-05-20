@@ -68,6 +68,7 @@ abstract class _AutoCompleteFieldControllerBase with Store{
       return _findLatestMarkers(latestSearchs.value);
     }
     query = query.toLowerCase().normalizeDiacritics();
+    
     return _findOnMarkers(query);
   }
 

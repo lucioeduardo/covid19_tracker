@@ -84,9 +84,7 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
     );
   }
 
-  FutureOr<Iterable<IMarkerModelData>> suggestionsCallback(pattern) async {
-        print("suggestions");
-        
+  FutureOr<Iterable<IMarkerModelData>> suggestionsCallback(pattern) async {        
         return await controller.findMarkers(pattern);
       }
 
@@ -179,10 +177,7 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
     );
   }
   @override
-  void dispose() {
-    
-    
-    
+  void dispose(){
     
     super.dispose();
     
