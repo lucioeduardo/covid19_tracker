@@ -1,5 +1,5 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
-import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
+import 'package:corona_data/app/modules/states_map/widgets/auto_complete_field_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/markers_list_tile.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/extra_pallete.dart';
@@ -26,9 +26,9 @@ class CitiesAutoCompleteField extends StatefulWidget {
       _CitiesAutoCompleteFieldState();
 }
 
-class _CitiesAutoCompleteFieldState extends State<CitiesAutoCompleteField>{
+class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField, AutoCompleteFieldController>{
   final TextEditingController _typeAheadController = TextEditingController();
-  final StatesMapController controller = Modular.get();
+  // final StatesMapController mapController = Modular.get();
   _CitiesAutoCompleteFieldState();
   ExtraPallete extraPallete;
   final double kBorderRadius = 5.0;
