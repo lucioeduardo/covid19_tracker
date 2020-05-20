@@ -13,6 +13,7 @@ class LocalStorageHive implements ILocalStorage{
   final String _themeKey = 'THEME';
   final String _countryKey = 'COUNTRY';
   final String _localeKey = 'LOCALE';
+  final String _autoCompleteSearchKey = 'AUTOCOMPLETESEARCHKEY';
   
   Completer<Box> _instance = Completer<Box>();
   
@@ -20,6 +21,7 @@ class LocalStorageHive implements ILocalStorage{
     Directory dir = await getApplicationSupportDirectory();
     Hive.init(dir.path);
     Hive.registerAdapter(CountryModelAdapter());
+    
 
     var box = await Hive.openBox('db');
     _instance.complete(box);
@@ -76,6 +78,22 @@ class LocalStorageHive implements ILocalStorage{
     var box = await _instance.future;
 
     await box.put(_localeKey, value);
+  }
+
+  @override
+  Future<List<String>> getLatestSearchs() async{
+    var box = await _instance.future;
+
+    var value = await box.get(_autoCompleteSearchKey);
+        
+    return value??[];
+  }
+
+  @override
+  Future<void> setLatestSearchs(List<String> latestSearchs) async {
+    var box = await _instance.future;
+
+    await box.put(_autoCompleteSearchKey, latestSearchs??[]);
   }
   
 }

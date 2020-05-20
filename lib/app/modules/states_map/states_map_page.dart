@@ -1,5 +1,5 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
-import 'package:corona_data/app/modules/states_map/widgets/cities_auto_complete_field.dart';
+import 'package:corona_data/app/modules/states_map/widgets/autocomplete/cities_auto_complete_field.dart';
 import 'package:corona_data/app/modules/states_map/widgets/corona_map.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map_floating_action_button.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
@@ -102,6 +102,7 @@ class _StatesMapPageState
   @override
   void dispose() {
     _focusNode.dispose();
+    
     disposer();
     
     super.dispose();

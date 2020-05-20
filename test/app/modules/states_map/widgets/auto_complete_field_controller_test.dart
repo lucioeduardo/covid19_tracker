@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:corona_data/app/modules/states_map/widgets/auto_complete_field_controller.dart';
+import 'package:corona_data/app/modules/states_map/widgets/autocomplete/auto_complete_field_controller.dart';
 import 'package:corona_data/app/modules/states_map/states_map_module.dart';
 
 void main() {

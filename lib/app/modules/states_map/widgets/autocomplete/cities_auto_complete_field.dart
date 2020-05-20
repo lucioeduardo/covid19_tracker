@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
-import 'package:corona_data/app/modules/states_map/widgets/auto_complete_field_controller.dart';
+import 'package:corona_data/app/modules/states_map/widgets/autocomplete/auto_complete_field_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/markers_list_tile.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/theme/extra_pallete.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../i18n/states_map.i18n.dart';
+import '../../i18n/states_map.i18n.dart';
 
 class CitiesAutoCompleteField extends StatefulWidget {
   final GlobalSettingsController globalSettingsController;
@@ -32,6 +33,7 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
   _CitiesAutoCompleteFieldState();
   ExtraPallete extraPallete;
   final double kBorderRadius = 5.0;
+  final SuggestionsBoxController suggestionsBoxController = SuggestionsBoxController();
   @override
   Widget build(BuildContext context) {
     extraPallete = widget.globalSettingsController.theme.extraPallete;
@@ -39,23 +41,29 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
       height: 45,
       margin: EdgeInsets.only(top: 8, left: 10, right: 10),
       decoration: containerDecoration(),
+      
       child: TypeAheadField(
-        hideSuggestionsOnKeyboardHide: true,
+        hideSuggestionsOnKeyboardHide: false,
+        suggestionsBoxController: suggestionsBoxController,
         debounceDuration: Duration(milliseconds: 500),
         animationDuration: Duration(milliseconds: 800),
+        hideOnEmpty: true,
+        hideOnError: true,
+        
         textFieldConfiguration: TextFieldConfiguration(
           controller: _typeAheadController,
-          autofocus: false,
+          
+
           focusNode: widget.focusNode,
+          
           style: TextStyle(
             fontStyle: FontStyle.normal,
             color: extraPallete.dark,
           ),
           decoration: inputDecoration(),
         ),
-        suggestionsCallback: (pattern) async {
-          return await controller.findMarkers(pattern);
-        },
+        
+        suggestionsCallback: suggestionsCallback,
         itemBuilder: itemBuilder,
         onSuggestionSelected: onSuggestionSelected,
         suggestionsBoxDecoration: SuggestionsBoxDecoration(
@@ -71,9 +79,16 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
         getImmediateSuggestions: false,
         
         
+        
       ),
     );
   }
+
+  FutureOr<Iterable<IMarkerModelData>> suggestionsCallback(pattern) async {
+        print("suggestions");
+        
+        return await controller.findMarkers(pattern);
+      }
 
   InputDecoration inputDecoration() {
     return InputDecoration(
@@ -91,6 +106,7 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
         suffix: IconButton(
             iconSize: 16,
             alignment: Alignment.centerRight,
+            
             onPressed: () {
               _typeAheadController.clear();
             },
@@ -130,7 +146,9 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
   }
 
   void onSuggestionSelected(IMarkerModelData markerModel) {
+    
     _typeAheadController.clear();
+    controller.addToLatestSearchs(markerModel.key);
     widget.onSelected(markerModel);
   }
 
@@ -143,6 +161,7 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
   }
 
   Widget noItemsFoundBuilder(context) {
+    
     if (_typeAheadController.text.isEmpty || _typeAheadController.text == null) return null;
     
     return Padding(
@@ -158,5 +177,14 @@ class _CitiesAutoCompleteFieldState extends ModularState<CitiesAutoCompleteField
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    
+    
+    
+    
+    super.dispose();
+    
   }
 }
