@@ -9,7 +9,7 @@ part 'auto_complete_field_controller.g.dart';
 class AutoCompleteFieldController = _AutoCompleteFieldControllerBase
     with _$AutoCompleteFieldController;
 
-abstract class _AutoCompleteFieldControllerBase with Store{
+abstract class _AutoCompleteFieldControllerBase with Store {
   _AutoCompleteFieldControllerBase(this.mapsController, this.localStorage) {
     loadLatestSearchs();
   }
@@ -29,7 +29,6 @@ abstract class _AutoCompleteFieldControllerBase with Store{
 
   @action
   void addToLatestSearchs(String search) {
-    
     if (latestSearchs.value == null || search.isEmpty || search == null) {
     } else {
       List<String> tempLatestSearchs = latestSearchs.value;
@@ -37,17 +36,14 @@ abstract class _AutoCompleteFieldControllerBase with Store{
       if (index != -1) tempLatestSearchs.removeAt(index);
 
       tempLatestSearchs.insert(0, search);
-      tempLatestSearchs = normalizeListLenght(tempLatestSearchs,6);
-      localStorage
-          .setLatestSearchs(tempLatestSearchs);
+      tempLatestSearchs = normalizeListLenght(tempLatestSearchs, 6);
+      localStorage.setLatestSearchs(tempLatestSearchs);
       latestSearchs = ObservableFuture.value(tempLatestSearchs);
     }
   }
 
-  List<String> normalizeListLenght(List<String> list, int lenght){
-    return list.length >= lenght
-          ? list.getRange(0, lenght).toList()
-          : list;
+  List<String> normalizeListLenght(List<String> list, int lenght) {
+    return list.length >= lenght ? list.getRange(0, lenght).toList() : list;
   }
 
   List<IMarkerModelData> get allMarkers {
@@ -59,31 +55,34 @@ abstract class _AutoCompleteFieldControllerBase with Store{
     return _allMarkersData;
   }
 
-  
   Future<List<IMarkerModelData>> findMarkers(String query) async {
-    
     if (query == null) {
       return [];
-    }else if(query.isEmpty){
+    } else if (query.isEmpty) {
       return _findLatestMarkers(latestSearchs.value);
     }
     query = query.toLowerCase().normalizeDiacritics();
-    
+
     return _findOnMarkers(query);
   }
 
-  Future<List<IMarkerModelData>> _findLatestMarkers(List<String> latestSearchs) async {
-    if(latestSearchs==null || latestSearchs.isEmpty) return [];
-
-    List<IMarkerModelData> tempList=[];
+  Future<List<IMarkerModelData>> _findLatestMarkers(
+      List<String> latestSearchs) async {
+    // print(latestSearchs);
+    if (latestSearchs == null || latestSearchs.isEmpty) return [];
+    
+    List<IMarkerModelData> tempList = [];
     latestSearchs.forEach((e) {
-      tempList.add(allMarkers.where((element) {
-        
-        return element.key==e;
-      }).first);
+      IMarkerModelData tempElement = allMarkers.firstWhere((element) {
+        return element.key == e;
+      }, orElse: () {});
+      if (tempElement != null) {
+        tempList.add(tempElement);
+        print(tempList);
+      }
     });
 
-    return(tempList);
+    return (tempList);
   }
 
   Future<List<IMarkerModelData>> _findOnMarkers(String query) async {
@@ -98,5 +97,5 @@ abstract class _AutoCompleteFieldControllerBase with Store{
   // void dispose() {
   //   _allMarkersData = [];
   // }
-  
+
 }
