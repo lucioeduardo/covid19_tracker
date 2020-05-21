@@ -40,7 +40,7 @@ dependencies:
   just_debounce_it: ^3.0.0+2
   flutter_typeahead: 
     git: 
-      url: git@github.com:allanlucio/flutter_typeahead.git
+      url: git://github.com/allanlucio/flutter_typeahead.git
   diacritic: ^0.1.1
 
   flutter_localizations:

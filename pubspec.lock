@@ -358,7 +358,7 @@ packages:
       path: "."
       ref: HEAD
       resolved-ref: d409c55232d1832b9413230f26cce16df95d3671
-      url: "git@github.com:allanlucio/flutter_typeahead.git"
+      url: "git://github.com/allanlucio/flutter_typeahead.git"
     source: git
     version: "1.8.1"
   flutter_web_plugins:
