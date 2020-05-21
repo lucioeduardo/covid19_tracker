@@ -5,7 +5,7 @@ part 'settings_controller.g.dart';
 
 class SettingsController = _SettingsControllerBase with _$SettingsController;
 
-abstract class _SettingsControllerBase with Store implements Disposable {
+abstract class _SettingsControllerBase with Store {
 
   @observable
   ObservableMap<String,String> formErrors=ObservableMap();
@@ -21,8 +21,8 @@ abstract class _SettingsControllerBase with Store implements Disposable {
     formErrors.remove(field);
   }
 
-  @override
-  void dispose() {
-    // print("Settings dispose");
-  }
+  // @override
+  // void dispose() {
+  //   // print("Settings dispose");
+  // }
 }

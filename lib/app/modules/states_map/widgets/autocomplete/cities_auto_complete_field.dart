@@ -47,15 +47,11 @@ class _CitiesAutoCompleteFieldState
         hideOnError: true,
         hideOnLoading: false,
         getImmediateSuggestions: false,
-        
         suggestionsBoxController: suggestionsBoxController,
         debounceDuration: Duration(milliseconds: 500),
         animationDuration: Duration(milliseconds: 800),
         textFieldConfiguration: TextFieldConfiguration(
           autofocus: false,
-          onTap: (){
-            print("poi");
-          },
           textInputAction: TextInputAction.search,
           controller: _typeAheadController,
           keyboardType: TextInputType.text,
@@ -69,14 +65,12 @@ class _CitiesAutoCompleteFieldState
         suggestionsCallback: suggestionsCallback,
         itemBuilder: itemBuilder,
         onSuggestionSelected: onSuggestionSelected,
-        
         suggestionsBoxDecoration: SuggestionsBoxDecoration(
             borderRadius: BorderRadius.circular(kBorderRadius)),
         noItemsFoundBuilder: noItemsFoundBuilder,
         loadingBuilder: (context) {
           return Text("Loading..".i18n);
         },
-        
         errorBuilder: (_, __) {
           return Text("blank".i18n);
         },
@@ -85,12 +79,6 @@ class _CitiesAutoCompleteFieldState
   }
 
   Future<List<IMarkerModelData>> suggestionsCallback(pattern) async {
-    
-    print(MediaQuery.of(context).viewInsets.bottom);
-    if(MediaQuery.of(context).viewInsets.bottom == 0.0){
-      // widget.focusNode.unfocus();
-    }
-
     return await controller.findMarkers(pattern);
   }
 
@@ -148,11 +136,9 @@ class _CitiesAutoCompleteFieldState
   }
 
   void onSuggestionSelected(IMarkerModelData markerModel) {
-    
     _typeAheadController.clear();
     controller.addToLatestSearchs(markerModel.key);
     widget.onSelected(markerModel);
-
   }
 
   Widget itemBuilder(context, IMarkerModelData markerModel) {
@@ -163,11 +149,10 @@ class _CitiesAutoCompleteFieldState
   }
 
   Widget noItemsFoundBuilder(context) {
-    if (_typeAheadController.text.isEmpty || _typeAheadController.text == null){
-      
+    if (_typeAheadController.text.isEmpty ||
+        _typeAheadController.text == null) {
       return SizedBox.shrink();
     }
-      
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
