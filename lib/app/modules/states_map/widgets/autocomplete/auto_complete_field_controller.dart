@@ -68,9 +68,8 @@ abstract class _AutoCompleteFieldControllerBase with Store {
 
   Future<List<IMarkerModelData>> _findLatestMarkers(
       List<String> latestSearchs) async {
-    // print(latestSearchs);
     if (latestSearchs == null || latestSearchs.isEmpty) return [];
-    
+
     List<IMarkerModelData> tempList = [];
     latestSearchs.forEach((e) {
       IMarkerModelData tempElement = allMarkers.firstWhere((element) {
@@ -78,7 +77,7 @@ abstract class _AutoCompleteFieldControllerBase with Store {
       }, orElse: () {});
       if (tempElement != null) {
         tempList.add(tempElement);
-        print(tempList);
+        
       }
     });
 
@@ -95,7 +94,9 @@ abstract class _AutoCompleteFieldControllerBase with Store {
 
   // @override
   // void dispose() {
-  //   _allMarkersData = [];
+  //   // _allMarkersData = [];
+  //   // print("Autocomplete controller disposado");
+    
   // }
 
 }

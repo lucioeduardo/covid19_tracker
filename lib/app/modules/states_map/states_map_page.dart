@@ -67,24 +67,21 @@ class _StatesMapPageState
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         floatingActionButton: MapFloatingActionButton(
-          
-          globalSettingsController: globalSettingsController,
-          mapController:mapController
-        ),
+            globalSettingsController: globalSettingsController,
+            mapController: mapController),
         body: Stack(
           children: [
             CoronaMap(
-                mapController: mapController,
-                globalSettingsController: globalSettingsController,
-                popupController: _popupController,
-                focusNode: _focusNode,
-                ),
+              mapController: mapController,
+              globalSettingsController: globalSettingsController,
+              popupController: _popupController,
+              focusNode: _focusNode,
+            ),
             CitiesAutoCompleteField(
               globalSettingsController: globalSettingsController,
               focusNode: _focusNode,
               onSelected: (IMarkerModelData markerModel) {
-                if(_focusNode.hasFocus) _focusNode.unfocus();
-                
+                if (_focusNode.hasFocus) _focusNode.unfocus();
 
                 if (markerModel is CityModel) {
                   mapController.move(markerModel.latLng, 12.5);
@@ -101,11 +98,10 @@ class _StatesMapPageState
 
   @override
   void dispose() {
-    
-    _focusNode.dispose();
-    
+    if (_focusNode.hasFocus) _focusNode.dispose();
+
     disposer();
-    
+
     super.dispose();
   }
 }
