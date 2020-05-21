@@ -1,5 +1,3 @@
-import 'package:corona_data/app/modules/charts/charts_module.dart';
-import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/widgets/roudend_icon_button.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../modal_utils.dart';
 
 class SummaryHeaderWidget extends StatelessWidget {
   SummaryHeaderWidget(

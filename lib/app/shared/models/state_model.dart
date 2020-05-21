@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
