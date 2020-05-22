@@ -14,5 +14,8 @@ class LocalStorageMock extends Mock implements ILocalStorage {
     when(this.getLocale()).thenAnswer(
       (_) async => Future.value(Configuration.defaultLocaleKey),
     );
+    when(this.getLatestSearchs()).thenAnswer(
+      (_) async => Future.value(["AL","PE"]),
+    );
   }
 }
