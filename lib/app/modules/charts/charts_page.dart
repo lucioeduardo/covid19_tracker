@@ -6,12 +6,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'i18n/charts_page.i18n.dart';
 import 'interfaces/chart_controller_interface.dart';
 import 'stores/chart_settings_store.dart';
-import 'widgets/caption_widget.dart';
-import 'widgets/chart_settings/chart_settings_widget.dart';
-import 'widgets/line_chart_widget.dart';
+import 'widgets/animated_line_chart_widget.dart';
+import 'widgets/captions_widget.dart';
+import 'widgets/options_bar_widget.dart';
 
 class ChartsPage extends StatefulWidget {
   final IChartController controller;
@@ -41,19 +40,7 @@ class _ChartsPageState extends State<ChartsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                color: Theme.of(context).primaryColorLight,
-                icon: Icon(
-                  Icons.close,
-                ),
-                onPressed: Navigator.of(context).pop,
-              ),
-              ChartSettingsWidget(),
-            ],
-          ),
+          OptionsBarWidget(),
           Center(
             child: Text(
               "${widget.title}",
@@ -73,70 +60,23 @@ class _ChartsPageState extends State<ChartsPage> {
                 return TryAgainWidget(
                     onPressed: widget.controller.fetchGraphData);
               }
-
               if (widget.controller.graphData.value != null) {
                 Map<String, List<int>> values =
                     widget.controller.graphData.value;
                 return Column(
                   children: <Widget>[
-                    TweenAnimationBuilder(
-                        duration: Duration(milliseconds: 1000),
-                        tween: Tween(begin: 0.0, end: 1.0),
-                        curve: Curves.ease,
-                        builder: (_, opacity, __) {
-                          return Opacity(
-                            opacity: opacity,
-                            child: Observer(builder: (_) {
-                              return LineChartWidget(
-                                values: values,
-                                showCases: settingsStore.showCases,
-                                showDeaths: settingsStore.showDeaths,
-                                showRecovered: settingsStore.showRecovered &&
-                                    widget.hasRecoveredData,
-                              );
-                            }),
-                          );
-                        }),
+                    AnimatedLineChartWidget(
+                      values: values,
+                      settingsStore: settingsStore,
+                      hasRecoveredData: widget.hasRecoveredData,
+                    ),
                     Container(
                       height: 10,
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        color: Theme.of(context).accentColor.withAlpha(50),
-                      ),
-                      child: TweenAnimationBuilder(
-                          duration: Duration(milliseconds: 1000),
-                          tween: Tween<double>(
-                            begin: screenWidth * 0.5,
-                            end: screenWidth * 0.8,
-                          ),
-                          curve: Curves.elasticOut,
-                          builder: (_, width, __) {
-                            return Container(
-                              width: width,
-                              child: Column(
-                                children: <Widget>[
-                                  CaptionWidget(
-                                      color: Colors.red,
-                                      label: "Total cases".i18n),
-                                  CaptionWidget(
-                                      color: Colors.black,
-                                      label: "Number of deaths".i18n),
-                                  CaptionWidget(
-                                      color: Colors.green,
-                                      label: "Recovered patients".i18n),
-                                ],
-                              ),
-                            );
-                          }),
-                    ),
+                    CaptionsWidget(screenWidth: screenWidth),
                   ],
                 );
               }
-
               return Center(
                   child: VirusCircularAnimation(
                 animation: VirusAnimation.rotation_fast,
@@ -150,3 +90,5 @@ class _ChartsPageState extends State<ChartsPage> {
     );
   }
 }
+
+
