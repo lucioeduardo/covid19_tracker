@@ -81,9 +81,9 @@ main() {
     await pumpAutoCompleteWidget(tester, globalSettings);
 
     final typeTextField = find.byType(TextField);
-    print(typeTextField);
+
     await tester.tap(typeTextField);
-    await tester.pumpAndSettle();
+
     Finder clearIconButton = findClearIconButton();
     await tester.pumpAndSettle(Duration(milliseconds: 400));
 
@@ -111,6 +111,7 @@ Finder findClearIconButton() {
 
 Future testTapClearIconButton(
     WidgetTester tester, Finder clearIconButton, Finder markersListTile) async {
+  await tester.pumpAndSettle(Duration(milliseconds: 400));
   await tester.tap(clearIconButton);
   await tester.pumpAndSettle(Duration(milliseconds: 400));
   markersListTile = find.byType(MarkersListTile);
