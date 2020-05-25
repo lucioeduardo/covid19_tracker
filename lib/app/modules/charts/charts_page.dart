@@ -1,7 +1,3 @@
-import 'package:corona_data/app/modules/charts/widgets/caption_widget.dart';
-import 'package:corona_data/app/modules/charts/widgets/chart_settings/chart_settings_controller.dart';
-import 'package:corona_data/app/modules/charts/widgets/chart_settings/chart_settings_widget.dart';
-import 'package:corona_data/app/modules/charts/widgets/line_chart_widget.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
 import 'package:corona_data/app/shared/widgets/try_again_widget.dart';
@@ -9,8 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'i18n/charts_page.i18n.dart';
 import 'interfaces/chart_controller_interface.dart';
+import 'stores/chart_settings_store.dart';
+import 'widgets/caption_widget.dart';
+import 'widgets/chart_settings/chart_settings_widget.dart';
+import 'widgets/line_chart_widget.dart';
 
 class ChartsPage extends StatefulWidget {
   final IChartController controller;
@@ -29,7 +30,7 @@ class ChartsPage extends StatefulWidget {
 }
 
 class _ChartsPageState extends State<ChartsPage> {
-  ChartSettingsController controller = Modular.get();
+  ChartSettingsStore settingsStore = Modular.get();
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +89,9 @@ class _ChartsPageState extends State<ChartsPage> {
                             child: Observer(builder: (_) {
                               return LineChartWidget(
                                 values: values,
-                                showCases: controller.showCases,
-                                showDeaths: controller.showDeaths,
-                                showRecovered: controller.showRecovered &&
+                                showCases: settingsStore.showCases,
+                                showDeaths: settingsStore.showDeaths,
+                                showRecovered: settingsStore.showRecovered &&
                                     widget.hasRecoveredData,
                               );
                             }),
