@@ -15,9 +15,12 @@ class CitiesAutoCompleteField extends StatefulWidget {
   final FocusNode focusNode;
   final void Function(IMarkerModelData markerModel) onSelected;
 
-  const CitiesAutoCompleteField(
-      {Key key, this.onSelected, this.focusNode, this.globalSettingsController})
-      : super(key: key);
+  const CitiesAutoCompleteField({
+    Key key,
+    this.onSelected,
+    this.focusNode,
+    this.globalSettingsController,
+  }) : super(key: key);
   @override
   _CitiesAutoCompleteFieldState createState() =>
       _CitiesAutoCompleteFieldState();
