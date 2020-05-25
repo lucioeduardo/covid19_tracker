@@ -1,4 +1,5 @@
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
+import 'package:corona_data/app/shared/extensions/list/normalize_list_size.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/services/local_storage_interface.dart';
 import 'package:mobx/mobx.dart';
@@ -17,7 +18,7 @@ abstract class _AutoCompleteFieldControllerBase with Store {
   final StatesMapController mapsController;
   final ILocalStorage localStorage;
 
-  List<IMarkerModelData> _allMarkersData = [];
+  List<IMarkerModelData> allMarkersData = [];
 
   @observable
   ObservableFuture<List<String>> latestSearchs;
@@ -29,44 +30,43 @@ abstract class _AutoCompleteFieldControllerBase with Store {
 
   @action
   void addToLatestSearchs(String search) {
-    if (latestSearchs.value == null || search.isEmpty || search == null) {
+    if (latestSearchs.value == null || search == null || search.isEmpty ) {
     } else {
       List<String> tempLatestSearchs = latestSearchs.value;
       int index = tempLatestSearchs.indexOf(search);
       if (index != -1) tempLatestSearchs.removeAt(index);
 
       tempLatestSearchs.insert(0, search);
-      tempLatestSearchs = normalizeListLenght(tempLatestSearchs, 6);
+      
+      tempLatestSearchs = tempLatestSearchs.normalizeListSize(6);
       localStorage.setLatestSearchs(tempLatestSearchs);
       latestSearchs = ObservableFuture.value(tempLatestSearchs);
     }
   }
 
-  List<String> normalizeListLenght(List<String> list, int lenght) {
-    return list.length >= lenght ? list.getRange(0, lenght).toList() : list;
-  }
+  
 
   List<IMarkerModelData> get allMarkers {
-    if (_allMarkersData != null && _allMarkersData.isNotEmpty)
-      return _allMarkersData;
-    _allMarkersData.addAll(mapsController.citiesData.value);
-    _allMarkersData.addAll(mapsController.statesData.value);
-    _allMarkersData.addAll(mapsController.countriesData.value);
-    return _allMarkersData;
+    if (allMarkersData != null && allMarkersData.isNotEmpty)
+      return allMarkersData;
+    allMarkersData.addAll(mapsController.citiesData.value);
+    allMarkersData.addAll(mapsController.statesData.value);
+    allMarkersData.addAll(mapsController.countriesData.value);
+    return allMarkersData;
   }
 
   Future<List<IMarkerModelData>> findMarkers(String query) async {
     if (query == null) {
       return [];
     } else if (query.isEmpty) {
-      return _findLatestMarkers(latestSearchs.value);
+      return findLatestMarkers(latestSearchs.value);
     }
-    query = query.toLowerCase().normalizeDiacritics();
+    
 
-    return _findOnMarkers(query);
+    return findOnMarkers(query);
   }
 
-  Future<List<IMarkerModelData>> _findLatestMarkers(
+  Future<List<IMarkerModelData>> findLatestMarkers(
       List<String> latestSearchs) async {
     if (latestSearchs == null || latestSearchs.isEmpty) return [];
 
@@ -84,7 +84,8 @@ abstract class _AutoCompleteFieldControllerBase with Store {
     return (tempList);
   }
 
-  Future<List<IMarkerModelData>> _findOnMarkers(String query) async {
+  Future<List<IMarkerModelData>> findOnMarkers(String query) async {
+    query = query.toLowerCase().normalizeDiacritics();
     return this.allMarkers.whereLimit((marker) {
       return marker.title.toLowerCase().normalizeDiacritics().contains(
             query,
@@ -94,7 +95,7 @@ abstract class _AutoCompleteFieldControllerBase with Store {
 
   // @override
   // void dispose() {
-  //   // _allMarkersData = [];
+  //   // allMarkersData = [];
   //   // print("Autocomplete controller disposado");
     
   // }
