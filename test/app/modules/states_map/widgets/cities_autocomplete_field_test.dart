@@ -83,13 +83,15 @@ main() {
     final typeTextField = find.byType(TextField);
 
     await tester.tap(typeTextField);
-
+    print("1");
     Finder clearIconButton = findClearIconButton();
+    print("2");
     await tester.pumpAndSettle(Duration(milliseconds: 400));
-
+    print("3");
     Finder markersListTile = find.byType(MarkersListTile);
+    print("4");
     expect(markersListTile, findsNWidgets(2));
-
+    print("5");
     await testSearch(
       search: "a",
       count: 5,
