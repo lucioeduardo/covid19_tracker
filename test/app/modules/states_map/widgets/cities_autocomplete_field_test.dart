@@ -79,7 +79,7 @@ main() {
   testWidgets("Test CitiesAutoCompleteField clear Click",
       (WidgetTester tester) async {
     await pumpAutoCompleteWidget(tester, globalSettings);
-
+    await tester.pumpAndSettle(Duration(milliseconds: 500));
     final typeTextField = find.byType(TextField);
 
     await tester.tap(typeTextField);
