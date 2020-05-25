@@ -84,7 +84,7 @@ main() {
 
     await tester.tap(typeTextField);
     Finder clearIconButton = findClearIconButton();
-    await tester.pumpAndSettle(Duration(milliseconds: 300));
+    await tester.pumpAndSettle(Duration(milliseconds: 400));
 
     Finder markersListTile = find.byType(MarkersListTile);
     expect(markersListTile, findsNWidgets(2));
