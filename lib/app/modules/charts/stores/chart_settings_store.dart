@@ -1,10 +1,9 @@
 import 'package:mobx/mobx.dart';
-part 'chart_settings_controller.g.dart';
+part 'chart_settings_store.g.dart';
 
-class ChartSettingsController = _ChartSettingsControllerBase
-    with _$ChartSettingsController;
+class ChartSettingsStore = _ChartSettingsStoreBase with _$ChartSettingsStore;
 
-abstract class _ChartSettingsControllerBase with Store {
+abstract class _ChartSettingsStoreBase with Store {
   final List<String> options = ['Case', 'Recovered', 'Death'];
 
   @observable
@@ -16,7 +15,7 @@ abstract class _ChartSettingsControllerBase with Store {
   @observable
   bool showDeaths;
 
-  _ChartSettingsControllerBase(){
+  _ChartSettingsStoreBase(){
     this.showCases=true;
     this.showRecovered=true;
     this.showDeaths=true;
@@ -33,7 +32,7 @@ abstract class _ChartSettingsControllerBase with Store {
       case 'Death':
         return this.showDeaths;
     }
-    return true;
+    throw Exception('The option "$option" doesn\'t exist.');
   }
 
   @action
