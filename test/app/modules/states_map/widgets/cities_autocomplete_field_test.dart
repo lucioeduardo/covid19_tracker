@@ -30,7 +30,7 @@ main() {
 
       await tester.enterText(typeTextField, "-1");
 
-      await tester.pumpAndSettle(Duration(milliseconds: 300));
+      await tester.pumpAndSettle(Duration(milliseconds: 400));
       final markersListTile = find.byType(MarkersListTile);
       expect(markersListTile, findsNothing);
     });
@@ -44,7 +44,7 @@ main() {
 
     await tester.tap(typeTextField);
 
-    await tester.pumpAndSettle(Duration(milliseconds: 300));
+    await tester.pumpAndSettle(Duration(milliseconds: 400));
     final titleTapForSearch = find.text("Tap for search.");
 
     expect(titleTapForSearch, findsOneWidget);
@@ -81,8 +81,9 @@ main() {
     await pumpAutoCompleteWidget(tester, globalSettings);
 
     final typeTextField = find.byType(TextField);
-
+    print(typeTextField);
     await tester.tap(typeTextField);
+    await tester.pumpAndSettle();
     Finder clearIconButton = findClearIconButton();
     await tester.pumpAndSettle(Duration(milliseconds: 400));
 
