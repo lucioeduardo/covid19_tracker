@@ -1,32 +1,16 @@
-import 'package:corona_data/app/app_module.dart';
-import 'package:corona_data/app/modules/home/home_module.dart';
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
+import 'package:corona_data/app/modules/states_map/widgets/autocomplete/auto_complete_field_controller.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
-import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/services/local_storage_interface.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:corona_data/app/modules/states_map/widgets/autocomplete/auto_complete_field_controller.dart';
-import 'package:corona_data/app/modules/states_map/states_map_module.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../mocks/covid_repository_mock.dart';
-import '../../../mocks/local_storage_mock.dart';
+import '../../../../helpers/statesmap_module_init_helper.dart';
 
 void main() {
-  CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
-  LocalStorageMock localStorageMock = LocalStorageMock();
-
-  initModule(AppModule(), changeBinds: [
-    Bind<ILocalStorage>((i) => localStorageMock),
-  ]);
-  initModule(HomeModule(), changeBinds: [
-    Bind<ICovidRepository>((i) => covidRepositoryMock),
-  ]);
-  initModule(StatesMapModule());
-
+  
+  InitStatesMapModuleHelper().load();
   AutoCompleteFieldController autoCompleteFieldController;
 
   setUp(() {
