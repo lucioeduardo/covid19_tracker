@@ -76,10 +76,10 @@ main() {
       typeTextField: typeTextField,
     );
   });
-  testWidgets("Test CitiesAutoCompleteField clear Click",
+  testWidgets("Test CitiesAutoCompleteField clear IconButton Click",
       (WidgetTester tester) async {
     await pumpAutoCompleteWidget(tester, globalSettings);
-    await tester.pumpAndSettle(Duration(milliseconds: 500));
+    
     final typeTextField = find.byType(TextField);
 
     await tester.tap(typeTextField);
@@ -113,8 +113,6 @@ Finder findClearIconButton() {
 
 Future testTapClearIconButton(
     WidgetTester tester, Finder clearIconButton, Finder markersListTile) async {
-  
-  await tester.pumpAndSettle(Duration(milliseconds: 400));
   await tester.tap(clearIconButton);
   await tester.pumpAndSettle(Duration(milliseconds: 400));
   markersListTile = find.byType(MarkersListTile);
