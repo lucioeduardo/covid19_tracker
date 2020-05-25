@@ -8,9 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'interfaces/chart_controller_interface.dart';
 import 'stores/chart_settings_store.dart';
-import 'widgets/animated_line_chart_widget.dart';
-import 'widgets/captions_widget.dart';
-import 'widgets/options_bar_widget.dart';
+import 'widgets/animated_line_chart_widget/animated_line_chart_widget.dart';
+import 'widgets/animated_line_chart_widget/captions_widget.dart';
+import 'widgets/animated_line_chart_widget/options_bar_widget.dart';
 
 class ChartsPage extends StatefulWidget {
   final IChartController controller;

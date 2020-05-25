@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'chart_settings/chart_settings_widget.dart';
+import '../chart_settings/chart_settings_widget.dart';
 
 class OptionsBarWidget extends StatelessWidget {
   const OptionsBarWidget({

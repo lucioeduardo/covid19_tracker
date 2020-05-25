@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'caption_widget.dart';
-import '../i18n/charts_page.i18n.dart';
+import '../../i18n/charts_page.i18n.dart';
 
 
 class CaptionsWidget extends StatelessWidget {

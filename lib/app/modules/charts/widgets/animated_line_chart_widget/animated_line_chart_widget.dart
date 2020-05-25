@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'line_chart_widget.dart';
-import '../stores/chart_settings_store.dart';
+import '../../stores/chart_settings_store.dart';
 
 class AnimatedLineChartWidget extends StatefulWidget {
   AnimatedLineChartWidget({
