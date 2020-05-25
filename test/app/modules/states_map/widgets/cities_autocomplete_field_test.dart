@@ -83,22 +83,22 @@ main() {
     final typeTextField = find.byType(TextField);
 
     await tester.tap(typeTextField);
-    print("1");
+    
     Finder clearIconButton = findClearIconButton();
-    print("2");
+    
     await tester.pumpAndSettle(Duration(milliseconds: 400));
-    print("3");
+    
     Finder markersListTile = find.byType(MarkersListTile);
-    print("4");
+    
     expect(markersListTile, findsNWidgets(2));
-    print("5");
+    
     await testSearch(
       search: "a",
       count: 5,
       tester: tester,
       typeTextField: typeTextField,
     );
-
+    await tester.tap(typeTextField);
     await testTapClearIconButton(tester, clearIconButton, markersListTile);
   });
 }
@@ -113,6 +113,7 @@ Finder findClearIconButton() {
 
 Future testTapClearIconButton(
     WidgetTester tester, Finder clearIconButton, Finder markersListTile) async {
+  
   await tester.pumpAndSettle(Duration(milliseconds: 400));
   await tester.tap(clearIconButton);
   await tester.pumpAndSettle(Duration(milliseconds: 400));
