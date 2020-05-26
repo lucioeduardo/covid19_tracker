@@ -1,4 +1,4 @@
-import 'package:corona_data/app/modules/charts/repositories/historical_repository_interface.dart';
+import 'package:corona_data/app/modules/charts/interfaces/historical_repository_interface.dart';
 import 'package:mockito/mockito.dart';
 
 class HistoricalRepositoryMock extends Mock implements IHistoricalRepository {

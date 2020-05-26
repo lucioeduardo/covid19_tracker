@@ -1,8 +1,8 @@
+import 'package:corona_data/app/modules/charts/interfaces/historical_repository_interface.dart';
 import 'package:corona_data/app/modules/charts/stores/chart_settings_store.dart';
 import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_controller.dart';
 import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_controller.dart';
 import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
-import 'package:corona_data/app/modules/charts/repositories/historical_repository_interface.dart';
 import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';

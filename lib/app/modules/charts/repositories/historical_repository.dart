@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:corona_data/app/modules/charts/repositories/historical_repository_interface.dart';
+import 'package:corona_data/app/modules/charts/interfaces/historical_repository_interface.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
