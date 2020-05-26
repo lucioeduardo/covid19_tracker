@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
 import 'package:corona_data/app/shared/extensions/list/normalize_list_size.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
@@ -23,35 +25,58 @@ abstract class _AutoCompleteFieldControllerBase with Store {
   @observable
   ObservableFuture<List<String>> latestSearchs;
 
+  @observable
+  bool forceShowAutocomplete;
+
+  @computed
+  bool get isShowAutocomplete {
+
+    
+    return (this.mapsController.citiesData.value != null &&
+        this.mapsController.statesData.value != null &&
+        this.mapsController.countriesData.value != null);
+  }
+
   @action
   void loadLatestSearchs() {
     latestSearchs = localStorage.getLatestSearchs().asObservable();
   }
 
+  @action 
+  void setForceShowAutocomplete(bool value){
+    this.forceShowAutocomplete = value;
+  }
+
   @action
   void addToLatestSearchs(String search) {
-    if (latestSearchs.value == null || search == null || search.isEmpty ) {
+    if (latestSearchs.value == null || search == null || search.isEmpty) {
     } else {
+      print(search);
       List<String> tempLatestSearchs = latestSearchs.value;
       int index = tempLatestSearchs.indexOf(search);
       if (index != -1) tempLatestSearchs.removeAt(index);
 
       tempLatestSearchs.insert(0, search);
-      
+
       tempLatestSearchs = tempLatestSearchs.normalizeListSize(6);
       localStorage.setLatestSearchs(tempLatestSearchs);
       latestSearchs = ObservableFuture.value(tempLatestSearchs);
     }
   }
 
-  
-
   List<IMarkerModelData> get allMarkers {
     if (allMarkersData != null && allMarkersData.isNotEmpty)
       return allMarkersData;
+
+    return this.getAllMarkers();
+  }
+
+  List<IMarkerModelData> getAllMarkers() {
+    allMarkersData.clear();
     allMarkersData.addAll(mapsController.citiesData.value);
     allMarkersData.addAll(mapsController.statesData.value);
     allMarkersData.addAll(mapsController.countriesData.value);
+
     return allMarkersData;
   }
 
@@ -61,7 +86,6 @@ abstract class _AutoCompleteFieldControllerBase with Store {
     } else if (query.isEmpty) {
       return findLatestMarkers(latestSearchs.value);
     }
-    
 
     return findOnMarkers(query);
   }
@@ -77,7 +101,6 @@ abstract class _AutoCompleteFieldControllerBase with Store {
       }, orElse: () {});
       if (tempElement != null) {
         tempList.add(tempElement);
-        
       }
     });
 
@@ -97,7 +120,7 @@ abstract class _AutoCompleteFieldControllerBase with Store {
   // void dispose() {
   //   // allMarkersData = [];
   //   // print("Autocomplete controller disposado");
-    
+
   // }
 
 }

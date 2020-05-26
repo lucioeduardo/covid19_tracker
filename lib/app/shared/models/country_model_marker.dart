@@ -37,7 +37,7 @@ class CountryModelMarker implements IMarkerModelData {
   get label => kLabel;
 
   @override
-  String get key => null;
+  String get key => shortTitle;
 
   @override
   String get title => shortTitle.i18n;

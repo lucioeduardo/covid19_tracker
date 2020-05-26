@@ -1,6 +1,6 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/autocomplete/cities_auto_complete_field.dart';
-import 'package:corona_data/app/modules/states_map/widgets/markers_list_tile.dart';
+import 'package:corona_data/app/modules/states_map/widgets/map/markers_list_tile.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
