@@ -21,7 +21,7 @@ main() {
     testWidgets("Test CitiesAutoCompleteField Empty",
         (WidgetTester tester) async {
       await pumpAutoCompleteWidget(tester, globalSettings);
-
+      await tester.pumpAndSettle(Duration(milliseconds: 400));
       final titleTapForSearch = find.text("Tap for search.");
       expect(titleTapForSearch, findsOneWidget);
 
@@ -38,7 +38,7 @@ main() {
   testWidgets("Test CitiesAutoCompleteField searchs",
       (WidgetTester tester) async {
     await pumpAutoCompleteWidget(tester, globalSettings);
-
+    await tester.pumpAndSettle(Duration(milliseconds: 400));
     final typeTextField = find.byType(TextField);
     expect(typeTextField, findsOneWidget);
 
@@ -79,6 +79,7 @@ main() {
   testWidgets("Test CitiesAutoCompleteField clear IconButton Click",
       (WidgetTester tester) async {
     await pumpAutoCompleteWidget(tester, globalSettings);
+    await tester.pumpAndSettle(Duration(milliseconds: 400));
     
     final typeTextField = find.byType(TextField);
 

@@ -39,13 +39,13 @@ class _CitiesAutoCompleteFieldState
       SuggestionsBoxController();
 
   AnimationController _animationController;
-  Animation<double> animation;
+  Animation<double> _animation;
   @override
   void initState() {
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 400));
-    animation = CurvedAnimation(
+    _animation = CurvedAnimation(
         curve: Curves.easeInCubic,
         parent:
             Tween<double>(begin: 0.0, end: 1.0).animate(_animationController));
@@ -57,7 +57,7 @@ class _CitiesAutoCompleteFieldState
       if (controller.isShowAutocomplete) {
         _animationController.forward();
         return FadeTransition(
-          opacity: animation,
+          opacity: _animation,
           child: AutocompleteHeader(
             suggestionsBoxController: suggestionsBoxController,
             typeAheadController: _typeAheadController,
@@ -90,7 +90,6 @@ class _CitiesAutoCompleteFieldState
 
   void onSuggestionSelected(IMarkerModelData markerModel) {
     _typeAheadController.clear();
-    print(markerModel.key);
     controller.addToLatestSearchs(markerModel.key);
     widget.onSelected(markerModel);
   }
@@ -104,7 +103,10 @@ class _CitiesAutoCompleteFieldState
 
   @override
   void dispose() {
+    
+    _animationController.dispose();
     super.dispose();
+    
     // print("autocomplete disposado");
   }
 }
