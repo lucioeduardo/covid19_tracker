@@ -9,6 +9,13 @@ part of 'auto_complete_field_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AutoCompleteFieldController on _AutoCompleteFieldControllerBase, Store {
+  Computed<bool> _$isShowAutocompleteComputed;
+
+  @override
+  bool get isShowAutocomplete => (_$isShowAutocompleteComputed ??=
+          Computed<bool>(() => super.isShowAutocomplete))
+      .value;
+
   final _$latestSearchsAtom =
       Atom(name: '_AutoCompleteFieldControllerBase.latestSearchs');
 
@@ -27,6 +34,26 @@ mixin _$AutoCompleteFieldController on _AutoCompleteFieldControllerBase, Store {
     }, _$latestSearchsAtom, name: '${_$latestSearchsAtom.name}_set');
   }
 
+  final _$forceShowAutocompleteAtom =
+      Atom(name: '_AutoCompleteFieldControllerBase.forceShowAutocomplete');
+
+  @override
+  bool get forceShowAutocomplete {
+    _$forceShowAutocompleteAtom.context
+        .enforceReadPolicy(_$forceShowAutocompleteAtom);
+    _$forceShowAutocompleteAtom.reportObserved();
+    return super.forceShowAutocomplete;
+  }
+
+  @override
+  set forceShowAutocomplete(bool value) {
+    _$forceShowAutocompleteAtom.context.conditionallyRunInAction(() {
+      super.forceShowAutocomplete = value;
+      _$forceShowAutocompleteAtom.reportChanged();
+    }, _$forceShowAutocompleteAtom,
+        name: '${_$forceShowAutocompleteAtom.name}_set');
+  }
+
   final _$_AutoCompleteFieldControllerBaseActionController =
       ActionController(name: '_AutoCompleteFieldControllerBase');
 
@@ -36,6 +63,18 @@ mixin _$AutoCompleteFieldController on _AutoCompleteFieldControllerBase, Store {
         _$_AutoCompleteFieldControllerBaseActionController.startAction();
     try {
       return super.loadLatestSearchs();
+    } finally {
+      _$_AutoCompleteFieldControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setForceShowAutocomplete(bool value) {
+    final _$actionInfo =
+        _$_AutoCompleteFieldControllerBaseActionController.startAction();
+    try {
+      return super.setForceShowAutocomplete(value);
     } finally {
       _$_AutoCompleteFieldControllerBaseActionController
           .endAction(_$actionInfo);
@@ -56,7 +95,8 @@ mixin _$AutoCompleteFieldController on _AutoCompleteFieldControllerBase, Store {
 
   @override
   String toString() {
-    final string = 'latestSearchs: ${latestSearchs.toString()}';
+    final string =
+        'latestSearchs: ${latestSearchs.toString()},forceShowAutocomplete: ${forceShowAutocomplete.toString()},isShowAutocomplete: ${isShowAutocomplete.toString()}';
     return '{$string}';
   }
 }

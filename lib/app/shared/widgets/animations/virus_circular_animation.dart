@@ -1,6 +1,8 @@
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 enum VirusAnimation{
   default_animation,
@@ -11,10 +13,11 @@ enum VirusAnimation{
 
 }
 
-class VirusCircularAnimation extends StatelessWidget {
+class VirusCircularAnimation extends StatelessWidget{
   final VirusAnimation animation;
   final BoxFit fit;
   final double size;
+  
   
   static const Map<VirusAnimation,String> virusAnimationMap = {
     VirusAnimation.default_animation: "default",
@@ -32,11 +35,15 @@ class VirusCircularAnimation extends StatelessWidget {
       width: size,
       height: size,
       child: FlareActor(
+        
                     "assets/animations/virus_loading_multiple.flr",
                     animation: virusAnimationMap[animation],
+                    
                     fit:fit
                   ),
     );
           
   }
+
+  
 }

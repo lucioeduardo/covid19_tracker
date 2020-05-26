@@ -1,11 +1,17 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
+import 'package:corona_data/app/modules/states_map/widgets/autocomplete/auto_complete_field_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/autocomplete/cities_auto_complete_field.dart';
-import 'package:corona_data/app/modules/states_map/widgets/markers_list_tile.dart';
+import 'package:corona_data/app/modules/states_map/widgets/map/markers_list_tile.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
+import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
+import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
+import 'package:corona_data/app/shared/widgets/forms/autocomplete_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mobx/mobx.dart';
+import 'package:mockito/mockito.dart';
 
 import '../../../../helpers/statesmap_module_init_helper.dart';
 
@@ -13,15 +19,24 @@ main() {
   InitStatesMapModuleHelper().load();
 
   GlobalSettingsController globalSettings;
+  
+  
   setUp(() {
     globalSettings = Modular.get();
+    
+    
   });
 
   group("Test Cities Autocomplete field", () {
+    // setUp((){
+    //   AutoCompleteFieldController autocompleteFieldController = Modular.get();
+    //   autocompleteFieldController.mapsController.fetchData();
+    //   autocompleteFieldController.reactionsLoadAllMarkersSearchableData();
+    // });
     testWidgets("Test CitiesAutoCompleteField Empty",
         (WidgetTester tester) async {
       await pumpAutoCompleteWidget(tester, globalSettings);
-
+      await tester.pumpAndSettle(Duration(milliseconds: 400));
       final titleTapForSearch = find.text("Tap for search.");
       expect(titleTapForSearch, findsOneWidget);
 
@@ -35,10 +50,35 @@ main() {
       expect(markersListTile, findsNothing);
     });
   });
+  // testWidgets("Test CitiesAutoCompleteField VirusAnimation",
+  //     (WidgetTester tester) async {
+    
+
+  //   AutoCompleteFieldController autocompleteFieldController = Modular.get();
+  //   autocompleteFieldController.mapsController.citiesData=ObservableFuture.value(null);
+  //   await pumpAutoCompleteWidget(tester, globalSettings);
+
+  //   Finder virusAnimationWidget = find.byType(VirusCircularAnimation);
+  //   expect(virusAnimationWidget, findsOneWidget);
+
+  //   autocompleteFieldController.setForceShowAutocomplete(true);
+  //   await tester.pumpAndSettle();
+  //   visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
+  //   // expect(virusAnimationWidget, findsNothing);
+
+  //   autocompleteFieldController.setForceShowAutocomplete(false);
+  //   autocompleteFieldController.mapsController.citiesData=ObservableFuture.value([]);
+  //   await tester.pumpAndSettle();
+  //   visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
+    
+  // });
+
+  
+
   testWidgets("Test CitiesAutoCompleteField searchs",
       (WidgetTester tester) async {
     await pumpAutoCompleteWidget(tester, globalSettings);
-
+    await tester.pumpAndSettle(Duration(milliseconds: 400));
     final typeTextField = find.byType(TextField);
     expect(typeTextField, findsOneWidget);
 
@@ -79,19 +119,20 @@ main() {
   testWidgets("Test CitiesAutoCompleteField clear IconButton Click",
       (WidgetTester tester) async {
     await pumpAutoCompleteWidget(tester, globalSettings);
-    
+    await tester.pumpAndSettle(Duration(milliseconds: 400));
+
     final typeTextField = find.byType(TextField);
 
     await tester.tap(typeTextField);
-    
+
     Finder clearIconButton = findClearIconButton();
-    
+
     await tester.pumpAndSettle(Duration(milliseconds: 400));
-    
+
     Finder markersListTile = find.byType(MarkersListTile);
-    
+
     expect(markersListTile, findsNWidgets(2));
-    
+
     await testSearch(
       search: "a",
       count: 5,
@@ -113,7 +154,6 @@ Finder findClearIconButton() {
 
 Future testTapClearIconButton(
     WidgetTester tester, Finder clearIconButton, Finder markersListTile) async {
-  
   await tester.pumpAndSettle(Duration(milliseconds: 400));
   await tester.tap(clearIconButton);
   await tester.pumpAndSettle(Duration(milliseconds: 400));
@@ -148,3 +188,7 @@ Future<void> pumpAutoCompleteWidget(
     ),
   ));
 }
+void visibleAndHideWidget(Type visible, Type hide){
+    expect(find.byType(visible), findsOneWidget);
+    expect(find.byType(hide), findsNothing);
+  }
