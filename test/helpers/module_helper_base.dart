@@ -11,6 +11,7 @@ abstract class ModuleHelperBase {
     List<Bind> changeBinds,
     bool isLoadDependencies = true,
   }) {
+    
     this._loadModularDependencies(isLoadDependencies, dependencies);
     initModule(
       this.module(),

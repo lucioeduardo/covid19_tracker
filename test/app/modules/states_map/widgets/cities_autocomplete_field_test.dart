@@ -22,17 +22,21 @@ main() {
   
   
   setUp(() {
+    print("oi");
+      AutoCompleteFieldController autocompleteFieldController = Modular.get();
+      autocompleteFieldController.mapsController.fetchData();
+      autocompleteFieldController.allMarkersSearchableData=[];
+      autocompleteFieldController.reactionsLoadAllMarkersSearchableData();
+    
     globalSettings = Modular.get();
     
     
   });
 
   group("Test Cities Autocomplete field", () {
-    // setUp((){
-    //   AutoCompleteFieldController autocompleteFieldController = Modular.get();
-    //   autocompleteFieldController.mapsController.fetchData();
-    //   autocompleteFieldController.reactionsLoadAllMarkersSearchableData();
-    // });
+    setUp((){
+      
+    });
     testWidgets("Test CitiesAutoCompleteField Empty",
         (WidgetTester tester) async {
       await pumpAutoCompleteWidget(tester, globalSettings);
@@ -50,28 +54,28 @@ main() {
       expect(markersListTile, findsNothing);
     });
   });
-  // testWidgets("Test CitiesAutoCompleteField VirusAnimation",
-  //     (WidgetTester tester) async {
+  testWidgets("Test CitiesAutoCompleteField VirusAnimation",
+      (WidgetTester tester) async {
     
 
-  //   AutoCompleteFieldController autocompleteFieldController = Modular.get();
-  //   autocompleteFieldController.mapsController.citiesData=ObservableFuture.value(null);
-  //   await pumpAutoCompleteWidget(tester, globalSettings);
+    AutoCompleteFieldController autocompleteFieldController = Modular.get();
+    autocompleteFieldController.mapsController.citiesData=ObservableFuture.value(null);
+    await pumpAutoCompleteWidget(tester, globalSettings);
 
-  //   Finder virusAnimationWidget = find.byType(VirusCircularAnimation);
-  //   expect(virusAnimationWidget, findsOneWidget);
+    Finder virusAnimationWidget = find.byType(VirusCircularAnimation);
+    expect(virusAnimationWidget, findsOneWidget);
 
-  //   autocompleteFieldController.setForceShowAutocomplete(true);
-  //   await tester.pumpAndSettle();
-  //   visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
-  //   // expect(virusAnimationWidget, findsNothing);
+    autocompleteFieldController.setForceShowAutocomplete(true);
+    await tester.pumpAndSettle();
+    visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
+    // expect(virusAnimationWidget, findsNothing);
 
-  //   autocompleteFieldController.setForceShowAutocomplete(false);
-  //   autocompleteFieldController.mapsController.citiesData=ObservableFuture.value([]);
-  //   await tester.pumpAndSettle();
-  //   visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
+    autocompleteFieldController.setForceShowAutocomplete(false);
+    autocompleteFieldController.mapsController.citiesData=ObservableFuture.value([]);
+    await tester.pumpAndSettle();
+    visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
     
-  // });
+  });
 
   
 
