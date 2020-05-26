@@ -22,7 +22,7 @@ class _ChartSettingsWidgetState extends State<ChartSettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
+    return PopupMenuButton<String>(
       icon: Icon(
         FontAwesomeIcons.ellipsisV,
         color: Theme.of(context).primaryColorLight,
