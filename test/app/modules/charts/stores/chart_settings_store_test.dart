@@ -1,15 +1,12 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/stores/chart_settings_store.dart';
-import 'package:corona_data/app/modules/home/home_module.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../../helpers/charts_module_init_helper.dart';
+
 void main() {
-  initModule(HomeModule());
-  
-  Widget widget;
-  initModule(ChartsModule(widget));
+
+  InitChartsModuleHelper().load();
   
   ChartSettingsStore chartStore;
   
