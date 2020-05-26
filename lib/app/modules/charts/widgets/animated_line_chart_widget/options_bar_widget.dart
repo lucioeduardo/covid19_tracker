@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../chart_settings/chart_settings_widget.dart';
 
@@ -15,7 +16,7 @@ class OptionsBarWidget extends StatelessWidget {
         IconButton(
           color: Theme.of(context).primaryColorLight,
           icon: Icon(
-            Icons.close,
+            FontAwesomeIcons.times,
           ),
           onPressed: Navigator.of(context).pop,
         ),
