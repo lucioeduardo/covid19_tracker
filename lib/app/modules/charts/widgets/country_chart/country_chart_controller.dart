@@ -1,6 +1,6 @@
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/charts/interfaces/chart_controller_interface.dart';
-import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
+import 'package:corona_data/app/modules/charts/interfaces/historical_repository_interface.dart';
 import 'package:mobx/mobx.dart';
 
 part 'country_chart_controller.g.dart';
@@ -14,7 +14,7 @@ abstract class _CountryChartControllerBase
   @observable
   ObservableFuture<Map<String, List<int>>> graphData;
 
-  final HistoricalRepository historicalRepository;
+  final IHistoricalRepository historicalRepository;
   final AppController appController;
 
   @observable
