@@ -1,10 +1,7 @@
-import 'dart:async';
-
 import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
 import 'package:corona_data/app/modules/states_map/widgets/autocomplete/auto_complete_field_controller.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/services/local_storage_interface.dart';
-import 'package:fake_async/fake_async.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobx/mobx.dart';

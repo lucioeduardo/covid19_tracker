@@ -22,6 +22,8 @@ class InitAppModuleHelper extends ModuleHelperBase {
 
   @override
   List<ModuleHelperBase> modularDependencies() {
-    throw UnimplementedError();
+    return [];
   }
+
+  
 }

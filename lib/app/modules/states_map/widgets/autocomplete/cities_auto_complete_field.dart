@@ -56,6 +56,7 @@ class _CitiesAutoCompleteFieldState
     return Observer(builder: (_) {
       if (controller.isShowAutocomplete) {
         _animationController.forward();
+        
         return FadeTransition(
           opacity: _animation,
           child: AutocompleteHeader(
