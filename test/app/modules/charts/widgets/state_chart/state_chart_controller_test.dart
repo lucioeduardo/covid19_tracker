@@ -1,26 +1,63 @@
-import 'package:flutter_modular/flutter_modular_test.dart';
-import 'package:flutter_test/flutter_test.dart';
-
+import 'package:corona_data/app/modules/charts/interfaces/historical_repository_interface.dart';
+import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_controller.dart';
 import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_controller.dart';
-import 'package:corona_data/app/modules/charts/charts_module.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+
+import '../../../../../helpers/charts_module_init_helper.dart';
+import '../../../../mocks/historical_repository_mock.dart';
 
 void main() {
-  //initModule(ChartsModule());
-  // StateChartController statechart;
+  HistoricalRepositoryMock histMock = HistoricalRepositoryMock();
+  InitChartsModuleHelper().load(changeBinds: [
+    Bind<IHistoricalRepository>((i) => histMock),
+  ]);
+  StateChartController stateChartController;
   //
   setUp(() {
-    //     statechart = ChartsModule.to.get<StateChartController>();
+    stateChartController = Modular.get();
   });
 
   group('StateChartController Test', () {
-    //   test("First Test", () {
-    //     expect(statechart, isInstanceOf<StateChartController>());
-    //   });
+    test("Is instance of StateChartController", () {
+      expect(stateChartController, isInstanceOf<StateChartController>());
+    });
 
-    //   test("Set Value", () {
-    //     expect(statechart.value, equals(0));
-    //     statechart.increment();
-    //     expect(statechart.value, equals(1));
-    //   });
+    test("Set state name", () {
+      const String state = 'abc';
+      stateChartController.setStateName(state);
+      expect(stateChartController.state, state);
+    });
+
+    test("Fetch graph data", () async {
+      stateChartController.fetchGraphData();
+      await stateChartController.graphData;
+
+      Map<String, List<int>> graphData = stateChartController.graphData.value;
+
+      expect(graphData['cases'].length, 5);
+      expect(graphData['deaths'].length, 5);
+    });
+
+    test("Fetch graph data from a custom state", () async {
+      const String state = 'abc';
+      stateChartController.setStateName(state);
+
+      when(histMock.getStateHistoricalData(state)).thenAnswer(
+        (_) async => Future.value({
+          'cases': [1,2,3,4],
+          'deaths': [2, 3]
+        }),
+      );
+
+      stateChartController.fetchGraphData();
+      await stateChartController.graphData;
+
+      Map<String, List<int>> graphData = stateChartController.graphData.value;
+
+      expect(graphData['cases'].length, 4);
+      expect(graphData['deaths'].length, 2);
+    });
   });
 }
