@@ -3,40 +3,27 @@ import 'package:corona_data/app/modules/states_map/widgets/autocomplete/auto_com
 import 'package:corona_data/app/modules/states_map/widgets/autocomplete/cities_auto_complete_field.dart';
 import 'package:corona_data/app/modules/states_map/widgets/map/markers_list_tile.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
-import 'package:corona_data/app/shared/repositories/covid_repository_interface.dart';
 import 'package:corona_data/app/shared/widgets/animations/virus_circular_animation.dart';
-import 'package:corona_data/app/shared/widgets/forms/autocomplete_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mockito/mockito.dart';
 
 import '../../../../helpers/statesmap_module_init_helper.dart';
 
 main() {
-  InitStatesMapModuleHelper().load();
-
   GlobalSettingsController globalSettings;
-  
-  
+  AutoCompleteFieldController autocompleteFieldController;
   setUp(() {
-    print("oi");
-      AutoCompleteFieldController autocompleteFieldController = Modular.get();
-      autocompleteFieldController.mapsController.fetchData();
-      autocompleteFieldController.allMarkersSearchableData=[];
-      autocompleteFieldController.reactionsLoadAllMarkersSearchableData();
-    
+    InitStatesMapModuleHelper().load();
+    autocompleteFieldController = Modular.get();
     globalSettings = Modular.get();
-    
-    
   });
 
   group("Test Cities Autocomplete field", () {
-    setUp((){
-      
-    });
+    setUp(() {});
+
     testWidgets("Test CitiesAutoCompleteField Empty",
         (WidgetTester tester) async {
       await pumpAutoCompleteWidget(tester, globalSettings);
@@ -56,31 +43,33 @@ main() {
   });
   testWidgets("Test CitiesAutoCompleteField VirusAnimation",
       (WidgetTester tester) async {
-    
 
-    AutoCompleteFieldController autocompleteFieldController = Modular.get();
-    autocompleteFieldController.mapsController.citiesData=ObservableFuture.value(null);
+    autocompleteFieldController.mapsController.citiesData =
+        ObservableFuture.value(null);
     await pumpAutoCompleteWidget(tester, globalSettings);
 
     Finder virusAnimationWidget = find.byType(VirusCircularAnimation);
     expect(virusAnimationWidget, findsOneWidget);
 
     autocompleteFieldController.setForceShowAutocomplete(true);
-    await tester.pumpAndSettle();
+    
+    await tester.pumpAndSettle(Duration(milliseconds: 100));
+    
     visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
-    // expect(virusAnimationWidget, findsNothing);
+    
+    expect(virusAnimationWidget, findsNothing);
 
     autocompleteFieldController.setForceShowAutocomplete(false);
-    autocompleteFieldController.mapsController.citiesData=ObservableFuture.value([]);
+    autocompleteFieldController.mapsController.citiesData =
+        ObservableFuture.value([]);
     await tester.pumpAndSettle();
     visibleAndHideWidget(CitiesAutoCompleteField, VirusCircularAnimation);
     
   });
 
-  
-
   testWidgets("Test CitiesAutoCompleteField searchs",
       (WidgetTester tester) async {
+    
     await pumpAutoCompleteWidget(tester, globalSettings);
     await tester.pumpAndSettle(Duration(milliseconds: 400));
     final typeTextField = find.byType(TextField);
@@ -119,6 +108,8 @@ main() {
       tester: tester,
       typeTextField: typeTextField,
     );
+
+    
   });
   testWidgets("Test CitiesAutoCompleteField clear IconButton Click",
       (WidgetTester tester) async {
@@ -192,7 +183,8 @@ Future<void> pumpAutoCompleteWidget(
     ),
   ));
 }
-void visibleAndHideWidget(Type visible, Type hide){
-    expect(find.byType(visible), findsOneWidget);
-    expect(find.byType(hide), findsNothing);
-  }
+
+void visibleAndHideWidget(Type visible, Type hide) {
+  expect(find.byType(visible), findsOneWidget);
+  expect(find.byType(hide), findsNothing);
+}

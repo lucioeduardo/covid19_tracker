@@ -72,22 +72,6 @@ abstract class _AutoCompleteFieldControllerBase
     }
   }
 
-  // List<IMarkerModelData> get allMarkers {
-  //   if (allMarkersSearchableData != null && allMarkersSearchableData.isNotEmpty)
-  //     return allMarkersSearchableData;
-
-  //   return [];
-  // }
-
-  // List<IMarkerModelData> getAllMarkers() {
-  //   allMarkersSearchableData.clear();
-  //   allMarkersSearchableData.addAll(mapsController.citiesData.value);
-  //   allMarkersSearchableData.addAll(mapsController.statesData.value);
-  //   allMarkersSearchableData.addAll(mapsController.countriesData.value);
-
-  //   return allMarkersSearchableData;
-  // }
-
   Future<List<IMarkerModelData>> findMarkers(String query) async {
     if (query == null) {
       return [];
@@ -129,6 +113,7 @@ abstract class _AutoCompleteFieldControllerBase
 
   @visibleForTesting
   void reactionsLoadAllMarkersSearchableData() {
+    allMarkersSearchableData.clear();
     whenCitiesData = when((_) => mapsController.citiesData.value != null, () {
       allMarkersSearchableData.addAll(mapsController.citiesData.value);
     });
