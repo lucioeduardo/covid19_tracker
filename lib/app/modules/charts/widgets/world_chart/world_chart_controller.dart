@@ -3,19 +3,19 @@ import 'package:corona_data/app/modules/charts/repositories/historical_repositor
 import 'package:mobx/mobx.dart';
 
 
-part 'world_cases_controller.g.dart';
+part 'world_chart_controller.g.dart';
 
-class WorldCasesController = _WorldCasesControllerBase
-    with _$WorldCasesController;
+class WorldChartController = _WorldChartControllerBase
+    with _$WorldChartController;
 
-abstract class _WorldCasesControllerBase with Store implements IChartController {
+abstract class _WorldChartControllerBase with Store implements IChartController {
   
   @observable
   ObservableFuture<Map<String, List<int>>> graphData;
 
   final HistoricalRepository historicalRepository;
 
-  _WorldCasesControllerBase(this.historicalRepository){
+  _WorldChartControllerBase(this.historicalRepository){
     
     fetchGraphData();
   }

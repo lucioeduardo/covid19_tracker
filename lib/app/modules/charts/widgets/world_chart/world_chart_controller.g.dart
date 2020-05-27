@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'world_cases_controller.dart';
+part of 'world_chart_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'world_cases_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$WorldCasesController on _WorldCasesControllerBase, Store {
-  final _$graphDataAtom = Atom(name: '_WorldCasesControllerBase.graphData');
+mixin _$WorldChartController on _WorldChartControllerBase, Store {
+  final _$graphDataAtom = Atom(name: '_WorldChartControllerBase.graphData');
 
   @override
   ObservableFuture<Map<String, List<int>>> get graphData {
@@ -26,17 +26,17 @@ mixin _$WorldCasesController on _WorldCasesControllerBase, Store {
     }, _$graphDataAtom, name: '${_$graphDataAtom.name}_set');
   }
 
-  final _$_WorldCasesControllerBaseActionController =
-      ActionController(name: '_WorldCasesControllerBase');
+  final _$_WorldChartControllerBaseActionController =
+      ActionController(name: '_WorldChartControllerBase');
 
   @override
   void fetchGraphData() {
     final _$actionInfo =
-        _$_WorldCasesControllerBaseActionController.startAction();
+        _$_WorldChartControllerBaseActionController.startAction();
     try {
       return super.fetchGraphData();
     } finally {
-      _$_WorldCasesControllerBaseActionController.endAction(_$actionInfo);
+      _$_WorldChartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
