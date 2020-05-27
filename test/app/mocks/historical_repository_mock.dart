@@ -6,12 +6,12 @@ class HistoricalRepositoryMock extends Mock implements IHistoricalRepository {
     Map<String, List<int>> defaultData = {
       "cases": [10, 15, 20, 30, 60],
       "recovered": [0, 5, 10, 15, 20],
-      "deaths": [0, 0, 1, 4, 8, 15],
+      "deaths": [0, 1, 4, 8, 15],
     };
 
     Map<String, List<int>> defaultDataWithoutRecovered = {
       "cases": [10, 15, 20, 30, 60],
-      "deaths": [0, 0, 1, 4, 8, 15],
+      "deaths": [0, 1, 4, 8, 15],
     };
 
     when(this.getCountryHistoricalData(any)).thenAnswer(
