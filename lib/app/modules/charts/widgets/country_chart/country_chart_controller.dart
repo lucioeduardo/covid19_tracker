@@ -3,12 +3,12 @@ import 'package:corona_data/app/modules/charts/interfaces/chart_controller_inter
 import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
 import 'package:mobx/mobx.dart';
 
-part 'country_cases_controller.g.dart';
+part 'country_chart_controller.g.dart';
 
-class CountryCasesController = _CountryCasesControllerBase
-    with _$CountryCasesController;
+class CountryChartController = _CountryChartControllerBase
+    with _$CountryChartController;
 
-abstract class _CountryCasesControllerBase
+abstract class _CountryChartControllerBase
     with Store
     implements IChartController {
   @observable
@@ -20,7 +20,7 @@ abstract class _CountryCasesControllerBase
   @observable
   String countryName;
 
-  _CountryCasesControllerBase(this.historicalRepository, this.appController) {
+  _CountryChartControllerBase(this.historicalRepository, this.appController) {
     //fetchGraphData();
   }
 
