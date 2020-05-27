@@ -1,5 +1,5 @@
 import 'package:corona_data/app/modules/charts/interfaces/chart_controller_interface.dart';
-import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
+import 'package:corona_data/app/modules/charts/interfaces/historical_repository_interface.dart';
 import 'package:mobx/mobx.dart';
 
 
@@ -13,7 +13,7 @@ abstract class _WorldChartControllerBase with Store implements IChartController 
   @observable
   ObservableFuture<Map<String, List<int>>> graphData;
 
-  final HistoricalRepository historicalRepository;
+  final IHistoricalRepository historicalRepository;
 
   _WorldChartControllerBase(this.historicalRepository){
     
