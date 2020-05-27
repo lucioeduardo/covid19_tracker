@@ -10,6 +10,8 @@ class InitStatesMapModuleHelper extends ModuleHelperBase {
   InitStatesMapModuleHelper(
       {this.modularTestType = ModularTestType.resetModule})
       : super(modularTestType: modularTestType);
+
+
   @override
   List<Bind> binds() {
     return [];
