@@ -6,6 +6,7 @@ import 'package:corona_data/app/modules/charts/widgets/chart_settings/chart_sett
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../helpers/charts_module_init_helper.dart';
+import '../../../../../helpers/extensions/fa_icon_finder.dart';
 
 main() {
   InitChartsModuleHelper().load();
@@ -20,7 +21,7 @@ main() {
   testWidgets('ChartSettingsWidget has ellipsisV icon',
       (WidgetTester tester) async {
     await tester.pumpWidget(buildTestableWidget(Scaffold(body: ChartSettingsWidget())));
-    final iconFinder = find.byIcon(FontAwesomeIcons.ellipsisV);
+    final iconFinder = find.byFaIcon(FontAwesomeIcons.ellipsisV);
     expect(iconFinder, findsOneWidget);
   });
 
