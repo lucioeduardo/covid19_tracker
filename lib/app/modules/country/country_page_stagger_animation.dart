@@ -1,5 +1,5 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
-import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
+import 'package:corona_data/app/modules/charts/widgets/country_chart/country_chart_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
@@ -50,7 +50,7 @@ class CoutryPageStaggerAnimation extends StatelessWidget {
         SummaryHeaderWidget(
           buttonOnPressed: () => ModalUtils.showModal(
             context,
-            ChartsModule(CountryCasesGraphWidget(
+            ChartsModule(CountryChartWidget(
               countryName: appController.globalSettingsController.country.name,
             )),
           ),
