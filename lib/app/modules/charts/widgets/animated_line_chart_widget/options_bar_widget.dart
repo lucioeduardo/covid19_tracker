@@ -15,7 +15,7 @@ class OptionsBarWidget extends StatelessWidget {
       children: <Widget>[
         IconButton(
           color: Theme.of(context).primaryColorLight,
-          icon: Icon(
+          icon: FaIcon(
             FontAwesomeIcons.times,
           ),
           onPressed: Navigator.of(context).pop,
