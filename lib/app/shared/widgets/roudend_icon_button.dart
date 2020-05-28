@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RoundedIconButton extends StatelessWidget {
@@ -25,7 +26,7 @@ class RoundedIconButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Icon(
+              FaIcon(
                 iconData,
                 size: 24,
                 color: Theme.of(context).primaryColorDark,

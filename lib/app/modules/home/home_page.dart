@@ -46,7 +46,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             elevation: 0,
             actions: <Widget>[
               IconButton(
-                  icon: Icon(FontAwesomeIcons.cog),
+                  icon: FaIcon(FontAwesomeIcons.cog),
                   onPressed: () => Modular.to.pushNamed("/settings"))
             ],
             centerTitle: true,
@@ -56,15 +56,15 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             backgroundColor: Theme.of(context).backgroundColor,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.flagCheckered),
+                icon: FaIcon(FontAwesomeIcons.flagCheckered),
                 title: Text(appController.globalSettingsController.country.code.toUpperCase().i18n),
               ),
               BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.globe),
+                icon: FaIcon(FontAwesomeIcons.globe),
                 title: Text('World'.i18n),
               ),
               BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.mapMarked),
+                icon: FaIcon(FontAwesomeIcons.mapMarked),
                 title: Text('Map'.i18n),
               ),
             ],
