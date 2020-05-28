@@ -1,13 +1,10 @@
 import 'package:corona_data/app/modules/charts/charts_page.dart';
-import 'package:corona_data/app/modules/charts/interfaces/chart_controller_interface.dart';
 import 'package:corona_data/app/modules/charts/widgets/animated_line_chart_widget/animated_line_chart_widget.dart';
-import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_controller.dart';
 import 'package:corona_data/app/modules/charts/widgets/world_chart/world_chart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 
 import '../../../helpers/charts_module_init_helper.dart';
 

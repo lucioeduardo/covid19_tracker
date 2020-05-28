@@ -14,9 +14,9 @@ import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../states_map_controller.dart';
-import '../utils/constants.dart';
-import '../widgets/map_tooltip_widget.dart';
+import '../../states_map_controller.dart';
+import '../../utils/constants.dart';
+import '../../widgets/map/map_tooltip_widget.dart';
 
 class CoronaMap extends StatefulWidget {
   const CoronaMap({
