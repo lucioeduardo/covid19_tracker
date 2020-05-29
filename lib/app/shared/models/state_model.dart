@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 
-const kLabel = "City";
+const kLabel = "State";
 const kColor = "info";
 const double kStateBaseSize = 35.0;
 
