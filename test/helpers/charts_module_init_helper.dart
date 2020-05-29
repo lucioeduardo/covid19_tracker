@@ -5,9 +5,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../app/mocks/historical_repository_mock.dart';
 import 'home_module_init_helper.dart';
-import 'module_helper_base.dart';
+import 'modular_test_interface.dart';
 
-class InitChartsModuleHelper extends ModuleHelperBase {
+
+class InitChartsModuleHelper extends IModularTest {
+  
   @override
   List<Bind> binds() {
     return [
@@ -22,7 +24,7 @@ class InitChartsModuleHelper extends ModuleHelperBase {
   }
 
   @override
-  List<ModuleHelperBase> modularDependencies() {
-    return [InitHomeModuleHelper()];
+  IModularTest modulardependency() {
+    return InitHomeModuleHelper();
   }
 }

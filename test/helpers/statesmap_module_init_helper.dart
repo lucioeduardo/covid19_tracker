@@ -2,9 +2,9 @@ import 'package:corona_data/app/modules/states_map/states_map_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'home_module_init_helper.dart';
-import 'module_helper_base.dart';
+import 'modular_test_interface.dart';
 
-class InitStatesMapModuleHelper extends ModuleHelperBase {
+class InitStatesMapModuleHelper extends IModularTest {
   final ModularTestType modularTestType;
 
   InitStatesMapModuleHelper(
@@ -23,9 +23,9 @@ class InitStatesMapModuleHelper extends ModuleHelperBase {
   }
 
   @override
-  List<ModuleHelperBase> modularDependencies() {
-    return [
-      InitHomeModuleHelper(),
-    ];
+  IModularTest modulardependency() {
+    return 
+      InitHomeModuleHelper();
   }
+
 }

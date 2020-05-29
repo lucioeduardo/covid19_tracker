@@ -4,10 +4,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../app/mocks/covid_repository_mock.dart';
 import 'app_module_init_helper.dart';
-import 'module_helper_base.dart';
+import 'modular_test_interface.dart';
 
 
-class InitHomeModuleHelper extends ModuleHelperBase {
+class InitHomeModuleHelper extends IModularTest {
   @override
   List<Bind> binds() {
     CovidRepositoryMock covidRepositoryMock = CovidRepositoryMock();
@@ -22,7 +22,7 @@ class InitHomeModuleHelper extends ModuleHelperBase {
   }
 
   @override
-  List<ModuleHelperBase> modularDependencies() {
-    return [InitAppModuleHelper()];
+  IModularTest modulardependency() {
+    return InitAppModuleHelper();
   }
 }
