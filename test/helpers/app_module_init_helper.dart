@@ -3,13 +3,19 @@ import 'package:corona_data/app/shared/services/local_storage_interface.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../app/mocks/local_storage_mock.dart';
-import 'module_helper_base.dart';
+import 'modular_test_interface.dart';
 
-class InitAppModuleHelper extends ModuleHelperBase {
-  
+
+class InitAppModuleHelper extends IModularTest {
+
+
+  final ModularTestType modularTestType;
+  InitAppModuleHelper({this.modularTestType: ModularTestType.resetModule});
+
   @override
   List<Bind> binds() {
-    LocalStorageMock localStorageMock = LocalStorageMock();
+    ILocalStorage localStorageMock = LocalStorageMock();
+    
     return [
       Bind<ILocalStorage>((i) => localStorageMock),
     ];
@@ -21,8 +27,8 @@ class InitAppModuleHelper extends ModuleHelperBase {
   }
 
   @override
-  List<ModuleHelperBase> modularDependencies() {
-    return [];
+  IModularTest modulardependency() {
+    return null;
   }
 
   
