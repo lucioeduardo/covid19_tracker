@@ -1,6 +1,6 @@
 import 'package:corona_data/app/app_controller.dart';
 import 'package:corona_data/app/modules/charts/charts_module.dart';
-import 'package:corona_data/app/modules/charts/widgets/world_cases/world_cases_widget.dart';
+import 'package:corona_data/app/modules/charts/widgets/world_chart/world_chart_widget.dart';
 import 'package:corona_data/app/shared/models/info_model.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/modal_utils.dart';
@@ -50,7 +50,7 @@ class WorldPageStaggerAnimation extends StatelessWidget {
         SummaryHeaderWidget(
           buttonOnPressed: () => ModalUtils.showModal(
             context,
-            ChartsModule(WorldCasesGraphWidget()),
+            ChartsModule(WorldChartWidget()),
           ),
           title: "Total cases".i18n,
           buttonTitle: "Chart".i18n,

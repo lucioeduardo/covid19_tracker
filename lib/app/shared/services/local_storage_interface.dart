@@ -10,5 +10,8 @@ abstract class ILocalStorage {
   
   Future<CountryModel> getCountry();
   Future<void> setCountry(CountryModel country);
+
+  Future<List<String>> getLatestSearchs();
+  Future<void> setLatestSearchs(List<String> latestSearchs);
   
 }

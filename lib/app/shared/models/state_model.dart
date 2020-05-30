@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
 import 'package:corona_data/app/shared/utils/states_cities_coordinates.dart';
@@ -9,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong/latlong.dart';
 
-const kLabel = "City";
+const kLabel = "State";
 const kColor = "info";
 const double kStateBaseSize = 35.0;
 
@@ -57,6 +55,7 @@ class StateModel implements IMarkerModelData {
 
   @override
   Marker getMarker(Color color) {
+    bool hasShowed = false;
     return Marker(
         width: kStateBaseSize,
         height: kStateBaseSize,
@@ -66,6 +65,11 @@ class StateModel implements IMarkerModelData {
                   shortTitle: shortTitle,
                   color: color,
                   size: kStateBaseSize,
+                  isAnimate: !hasShowed,
+                  onEnd: (){
+                    hasShowed=true;
+                    
+                  },
                   child: TextBackgroundMarker(
                     shortTitle: shortTitle,
                   ),

@@ -225,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.9"
+  fake_async:
+    dependency: "direct dev"
+    description:
+      name: fake_async
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   file:
     dependency: transitive
     description:
@@ -292,7 +299,7 @@ packages:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0"
+    version: "2.0.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -355,9 +362,11 @@ packages:
   flutter_typeahead:
     dependency: "direct main"
     description:
-      name: flutter_typeahead
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: d409c55232d1832b9413230f26cce16df95d3671
+      url: "git://github.com/allanlucio/flutter_typeahead.git"
+    source: git
     version: "1.8.1"
   flutter_web_plugins:
     dependency: transitive

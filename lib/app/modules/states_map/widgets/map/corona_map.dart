@@ -1,11 +1,8 @@
 import 'package:corona_data/app/modules/charts/charts_module.dart';
 import 'package:corona_data/app/modules/charts/widgets/city_chart/city_chart_widget.dart';
-import 'package:corona_data/app/modules/charts/widgets/country_cases/country_cases_widget.dart';
+import 'package:corona_data/app/modules/charts/widgets/country_chart/country_chart_widget.dart';
 import 'package:corona_data/app/modules/charts/widgets/state_chart/state_chart_widget.dart';
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
-import 'package:corona_data/app/modules/states_map/states_map_controller.dart';
-import 'package:corona_data/app/modules/states_map/utils/constants.dart';
-import 'package:corona_data/app/modules/states_map/widgets/map_tooltip_widget.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/country_model_marker.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
@@ -16,6 +13,10 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../states_map_controller.dart';
+import '../../utils/constants.dart';
+import '../../widgets/map/map_tooltip_widget.dart';
 
 class CoronaMap extends StatefulWidget {
   const CoronaMap({
@@ -38,11 +39,9 @@ class CoronaMap extends StatefulWidget {
 
 class _CoronaMapState extends State<CoronaMap> {
   StatesMapController controller = Modular.get();
-  
+
   @override
   Widget build(BuildContext context) {
-    
-    
     return Observer(
         builder: (_) => FlutterMap(
               mapController: widget.mapController,
@@ -93,9 +92,7 @@ class _CoronaMapState extends State<CoronaMap> {
                         return MapTooltipWidget(
                           stateModel: stateModel,
                           onTap: () => ModalUtils.showModal(
-                            context,
-                            mapWidget(stateModel)
-                          ),
+                              context, mapWidget(stateModel)),
                         );
                       },
                     ),
@@ -128,7 +125,7 @@ class _CoronaMapState extends State<CoronaMap> {
           cityCode: markerModel.key,
         ));
       case CountryModelMarker:
-        return ChartsModule(CountryCasesGraphWidget(
+        return ChartsModule(CountryChartWidget(
           countryName: markerModel.title,
         ));
     }
@@ -142,8 +139,6 @@ class _CoronaMapState extends State<CoronaMap> {
   }
 
   void onPositionChanged(position, value) {
-    
-
     controller.setBounds(position.bounds);
     if (widget.focusNode.hasFocus) widget.focusNode.unfocus();
     if (position.zoom >= 8.0) {
@@ -152,6 +147,4 @@ class _CoronaMapState extends State<CoronaMap> {
       controller.setMarkerShowed(MarkersType.states);
     }
   }
-
-  
 }

@@ -1,7 +1,7 @@
 import 'package:corona_data/app/modules/settings/global_settings_controller.dart';
-import 'package:corona_data/app/modules/states_map/widgets/cities_auto_complete_field.dart';
-import 'package:corona_data/app/modules/states_map/widgets/corona_map.dart';
-import 'package:corona_data/app/modules/states_map/widgets/map_floating_action_button.dart';
+import 'package:corona_data/app/modules/states_map/widgets/autocomplete/cities_auto_complete_field.dart';
+import 'package:corona_data/app/modules/states_map/widgets/map/corona_map.dart';
+import 'package:corona_data/app/modules/states_map/widgets/map/map_floating_action_button.dart';
 import 'package:corona_data/app/shared/models/city_model.dart';
 import 'package:corona_data/app/shared/models/marker_data_model_interface.dart';
 import 'package:corona_data/app/shared/utils/constants.dart';
@@ -12,7 +12,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:mobx/mobx.dart';
 
 import 'states_map_controller.dart';
@@ -67,24 +66,21 @@ class _StatesMapPageState
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
         floatingActionButton: MapFloatingActionButton(
-          
-          globalSettingsController: globalSettingsController,
-          mapController:mapController
-        ),
+            globalSettingsController: globalSettingsController,
+            mapController: mapController),
         body: Stack(
           children: [
             CoronaMap(
-                mapController: mapController,
-                globalSettingsController: globalSettingsController,
-                popupController: _popupController,
-                focusNode: _focusNode,
-                ),
+              mapController: mapController,
+              globalSettingsController: globalSettingsController,
+              popupController: _popupController,
+              focusNode: _focusNode,
+            ),
             CitiesAutoCompleteField(
               globalSettingsController: globalSettingsController,
               focusNode: _focusNode,
               onSelected: (IMarkerModelData markerModel) {
-                if(_focusNode.hasFocus) _focusNode.unfocus();
-                
+                if (_focusNode.hasFocus) _focusNode.unfocus();
 
                 if (markerModel is CityModel) {
                   mapController.move(markerModel.latLng, 12.5);
@@ -101,9 +97,10 @@ class _StatesMapPageState
 
   @override
   void dispose() {
-    _focusNode.dispose();
+    if (_focusNode.hasFocus) _focusNode.dispose();
+
     disposer();
-    
+
     super.dispose();
   }
 }

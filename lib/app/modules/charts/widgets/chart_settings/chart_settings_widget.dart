@@ -1,4 +1,4 @@
-import 'package:corona_data/app/modules/charts/widgets/chart_settings/chart_settings_controller.dart';
+import 'package:corona_data/app/modules/charts/stores/chart_settings_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,8 +9,9 @@ class ChartSettingsWidget extends StatefulWidget {
   _ChartSettingsWidgetState createState() => _ChartSettingsWidgetState();
 }
 
-class _ChartSettingsWidgetState
-    extends ModularState<ChartSettingsWidget, ChartSettingsController> {
+class _ChartSettingsWidgetState extends State<ChartSettingsWidget> {
+  ChartSettingsStore settingsStore = Modular.get();
+
   PopupMenuItem<String> generatePopupMenu(value, onChanged, option) {
     return CheckedPopupMenuItem<String>(
       value: option,
@@ -21,20 +22,22 @@ class _ChartSettingsWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      icon: Icon(
+    return PopupMenuButton<String>(
+      icon: FaIcon(
         FontAwesomeIcons.ellipsisV,
         color: Theme.of(context).primaryColorLight,
       ),
-      onSelected: controller.setOption,
+      onSelected: settingsStore.setOption,
       itemBuilder: (context) {
-        return controller.options.map((option) =>
-          CheckedPopupMenuItem<String>(
-            value: option,
-            checked: controller.getOption(option),
-            child: Text(option.plural(2)),
-          )
-        ).toList();
+        return settingsStore.options
+            .map(
+              (option) => CheckedPopupMenuItem<String>(
+                value: option,
+                checked: settingsStore.getOption(option),
+                child: Text(option.plural(2)),
+              ),
+            )
+            .toList();
       },
     );
   }

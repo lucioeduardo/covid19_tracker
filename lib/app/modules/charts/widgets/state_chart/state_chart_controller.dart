@@ -1,5 +1,5 @@
 import 'package:corona_data/app/modules/charts/interfaces/chart_controller_interface.dart';
-import 'package:corona_data/app/modules/charts/repositories/historical_repository.dart';
+import 'package:corona_data/app/modules/charts/interfaces/historical_repository_interface.dart';
 import 'package:mobx/mobx.dart';
 
 part 'state_chart_controller.g.dart';
@@ -14,7 +14,7 @@ abstract class _StateChartControllerBase with Store implements IChartController 
   String state;
 
 
-  final HistoricalRepository historicalRepository;
+  final IHistoricalRepository historicalRepository;
 
   _StateChartControllerBase(this.historicalRepository);
 

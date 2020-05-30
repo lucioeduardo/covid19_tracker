@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.1
+version: 1.2.0
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -38,10 +38,10 @@ dependencies:
   autocomplete_textfield: ^1.7.3
   i18n_extension: ^1.3.5
   just_debounce_it: ^3.0.0+2
-  flutter_typeahead: ^1.8.1
+  flutter_typeahead: 
+    git: 
+      url: git://github.com/allanlucio/flutter_typeahead.git
   diacritic: ^0.1.1
-
-
 
   flutter_localizations:
     sdk: flutter
@@ -59,6 +59,7 @@ dev_dependencies:
   collection: ^1.14.11
   dependency_validator: ^1.5.0
   flutter_launcher_icons: "^0.7.3"
+  fake_async: ^1.1.0
   flutter_test:
     sdk: flutter
 
@@ -114,5 +115,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 scripts:
   mobx: flutter pub run build_runner watch --delete-conflicting-outputs
-  myrelease: flutter run --release -d 8be20a #your device id
-  myprofile: flutter run --profile -d 8be20a #your device id
+  myrelease: flutter run --release -d 8be20a 
+  myprofile: flutter run --profile -d 8be20a 

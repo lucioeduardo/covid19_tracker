@@ -16,6 +16,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../mocks/covid_repository_mock.dart';
 import '../../mocks/local_storage_mock.dart';
+import '../../../helpers/extensions/fa_icon_finder.dart';
+
 
 main() {
   LocalStorageMock localStorageMock = LocalStorageMock();
@@ -51,7 +53,7 @@ main() {
       await tester.pumpWidget(buildTestableWidget(HomePage()));
 
       await tester.tap(
-        find.byIcon(FontAwesomeIcons.globe),
+        find.byFaIcon(FontAwesomeIcons.globe)
       );
       await tester.pump();
 
@@ -66,7 +68,7 @@ main() {
       await tester.pumpWidget(buildTestableWidget(HomePage()));
 
       await tester.tap(
-        find.byIcon(FontAwesomeIcons.mapMarked),
+        find.byFaIcon(FontAwesomeIcons.mapMarked)
       );
       await tester.pump();
 

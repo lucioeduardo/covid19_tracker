@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'country_cases_controller.dart';
+part of 'country_chart_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'country_cases_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$CountryCasesController on _CountryCasesControllerBase, Store {
-  final _$graphDataAtom = Atom(name: '_CountryCasesControllerBase.graphData');
+mixin _$CountryChartController on _CountryChartControllerBase, Store {
+  final _$graphDataAtom = Atom(name: '_CountryChartControllerBase.graphData');
 
   @override
   ObservableFuture<Map<String, List<int>>> get graphData {
@@ -27,7 +27,7 @@ mixin _$CountryCasesController on _CountryCasesControllerBase, Store {
   }
 
   final _$countryNameAtom =
-      Atom(name: '_CountryCasesControllerBase.countryName');
+      Atom(name: '_CountryChartControllerBase.countryName');
 
   @override
   String get countryName {
@@ -44,28 +44,28 @@ mixin _$CountryCasesController on _CountryCasesControllerBase, Store {
     }, _$countryNameAtom, name: '${_$countryNameAtom.name}_set');
   }
 
-  final _$_CountryCasesControllerBaseActionController =
-      ActionController(name: '_CountryCasesControllerBase');
+  final _$_CountryChartControllerBaseActionController =
+      ActionController(name: '_CountryChartControllerBase');
 
   @override
   dynamic setCountryName(String country) {
     final _$actionInfo =
-        _$_CountryCasesControllerBaseActionController.startAction();
+        _$_CountryChartControllerBaseActionController.startAction();
     try {
       return super.setCountryName(country);
     } finally {
-      _$_CountryCasesControllerBaseActionController.endAction(_$actionInfo);
+      _$_CountryChartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void fetchGraphData() {
     final _$actionInfo =
-        _$_CountryCasesControllerBaseActionController.startAction();
+        _$_CountryChartControllerBaseActionController.startAction();
     try {
       return super.fetchGraphData();
     } finally {
-      _$_CountryCasesControllerBaseActionController.endAction(_$actionInfo);
+      _$_CountryChartControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

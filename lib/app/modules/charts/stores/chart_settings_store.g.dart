@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chart_settings_controller.dart';
+part of 'chart_settings_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'chart_settings_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$ChartSettingsController on _ChartSettingsControllerBase, Store {
-  final _$showCasesAtom = Atom(name: '_ChartSettingsControllerBase.showCases');
+mixin _$ChartSettingsStore on _ChartSettingsStoreBase, Store {
+  final _$showCasesAtom = Atom(name: '_ChartSettingsStoreBase.showCases');
 
   @override
   bool get showCases {
@@ -27,7 +27,7 @@ mixin _$ChartSettingsController on _ChartSettingsControllerBase, Store {
   }
 
   final _$showRecoveredAtom =
-      Atom(name: '_ChartSettingsControllerBase.showRecovered');
+      Atom(name: '_ChartSettingsStoreBase.showRecovered');
 
   @override
   bool get showRecovered {
@@ -44,8 +44,7 @@ mixin _$ChartSettingsController on _ChartSettingsControllerBase, Store {
     }, _$showRecoveredAtom, name: '${_$showRecoveredAtom.name}_set');
   }
 
-  final _$showDeathsAtom =
-      Atom(name: '_ChartSettingsControllerBase.showDeaths');
+  final _$showDeathsAtom = Atom(name: '_ChartSettingsStoreBase.showDeaths');
 
   @override
   bool get showDeaths {
@@ -62,17 +61,17 @@ mixin _$ChartSettingsController on _ChartSettingsControllerBase, Store {
     }, _$showDeathsAtom, name: '${_$showDeathsAtom.name}_set');
   }
 
-  final _$_ChartSettingsControllerBaseActionController =
-      ActionController(name: '_ChartSettingsControllerBase');
+  final _$_ChartSettingsStoreBaseActionController =
+      ActionController(name: '_ChartSettingsStoreBase');
 
   @override
   void setOption(dynamic option) {
     final _$actionInfo =
-        _$_ChartSettingsControllerBaseActionController.startAction();
+        _$_ChartSettingsStoreBaseActionController.startAction();
     try {
       return super.setOption(option);
     } finally {
-      _$_ChartSettingsControllerBaseActionController.endAction(_$actionInfo);
+      _$_ChartSettingsStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

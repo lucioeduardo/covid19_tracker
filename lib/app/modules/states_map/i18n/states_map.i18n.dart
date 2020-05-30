@@ -29,6 +29,10 @@ extension Localization on String {
       kPTBR: "Carregando.",
     }+
     {
+      kENUS: "blank",
+      kPTBR: "Nada foi encontrado",
+    }+
+    {
       kENUS: "Tap for search.",
       kPTBR: "Toque para buscar.",
     };
