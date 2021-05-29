@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_pp/app/models/info_model.dart';
 import 'package:projeto_pp/app/shared/widgets/country_summary_widget.dart';
+import 'package:projeto_pp/app/shared/widgets/highlighted_info_card.dart';
 import 'package:projeto_pp/app/shared/widgets/title_subtitle_widget.dart';
 
 class CountryPage extends StatefulWidget {
@@ -19,17 +20,41 @@ class CountryPageState extends State<CountryPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          children: <Widget>[
-            TitleSubtitleWidget(title: widget.countryInfo.country),
-            SizedBox(height: 20,),
-            CountrySummaryWidget(
-              info: widget.countryInfo,
-            )
-          ],
-        ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              children: <Widget>[
+                TitleSubtitleWidget(title: widget.countryInfo.country),
+                SizedBox(height: 20,),
+                CountrySummaryWidget(
+                  info: widget.countryInfo,
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HighlightedInfoCard(
+                      title: 'Mortes',
+                      value: widget.countryInfo.deaths,
+                      todayValue: widget.countryInfo.todayDeaths,
+                      backgroundColor: Color(0xff581A12),
+                    ),
+                    HighlightedInfoCard(
+                      title: 'Recuperados',
+                      value: widget.countryInfo.recovered,
+                      todayValue: widget.countryInfo.todayRecovered,
+                      backgroundColor: Color(0xff194A2A),
+                      todayInfoColor: Color(0xff6EFF56),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+
+        ],
       ),
     );
   }

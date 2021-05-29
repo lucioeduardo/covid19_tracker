@@ -3,6 +3,7 @@ class InfoModel {
   int todayCases;
   int deaths;
   int todayDeaths;
+  int todayRecovered;
   int recovered;
   int critical;
   int affectedCountries;
@@ -12,6 +13,7 @@ class InfoModel {
   InfoModel.fromJson(Map<String, dynamic> json) {
     cases = json['cases'];
     todayCases = json['todayCases'];
+    todayRecovered = json['todayRecovered'];
     deaths = json['deaths'];
     todayDeaths = json['todayDeaths'];
     recovered = json['recovered'];

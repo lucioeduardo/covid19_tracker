@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:projeto_pp/app/shared/widgets/today_info_widget.dart';
 import '../../models/info_model.dart';
 
 class CountrySummaryWidget extends StatelessWidget {
@@ -55,21 +56,7 @@ class CountrySummaryWidget extends StatelessWidget {
                       color: Theme.of(context).accentColor,
                       fontWeight: FontWeight.bold),
                 ),
-                Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.trending_up,
-                      color: Color(0xffFF5656),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "${f.format(info.todayCases)}",
-                      style: TextStyle(color: Color(0xffFF5656), fontSize: 18),
-                    ),
-                  ],
-                )
+                TodayInfoWidget(text: "${f.format(info.todayCases)}")
               ],
             )
           ],
@@ -78,3 +65,5 @@ class CountrySummaryWidget extends StatelessWidget {
     );
   }
 }
+
+
