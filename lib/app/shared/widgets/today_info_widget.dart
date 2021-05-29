@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../shared/extensions/text_size_extension.dart';
+
 
 class TodayInfoWidget extends StatelessWidget {
   const TodayInfoWidget({
@@ -15,15 +17,15 @@ class TodayInfoWidget extends StatelessWidget {
       children: <Widget>[
         Icon(
           Icons.trending_up,
-          size: 18,
+          size: 18.sp,
           color: color ?? Color(0xffFF5656),
         ),
         SizedBox(
-          width: 2,
+          width: 2.w,
         ),
         Text(
           text,
-          style: TextStyle(color: color ?? Color(0xffFF5656), fontSize: 18),
+          style: TextStyle(color: color ?? Color(0xffFF5656), fontSize: 18.sp),
         ),
       ],
     );

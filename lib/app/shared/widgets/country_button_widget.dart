@@ -5,6 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:projeto_pp/app/models/info_model.dart';
 import 'package:projeto_pp/app/shared/widgets/click_animation.dart';
 
+import '../../shared/extensions/text_size_extension.dart';
+
+
 class CountryButtonWidget extends StatelessWidget {
   CountryButtonWidget(
       {Key key,
@@ -21,7 +24,7 @@ class CountryButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClickAnimation(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: BorderRadius.circular(10.0.w),
       onTap: buttonOnPressed,
       child: Stack(
         alignment: Alignment.topCenter,
@@ -31,40 +34,40 @@ class CountryButtonWidget extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width,
               //height: 150,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
               decoration: BoxDecoration(
                   color: Theme.of(context).secondaryHeaderColor,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
+                  borderRadius: BorderRadius.all(Radius.circular(10.w))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: 100,
+                    width: 100.w,
                     child: Hero(
                       tag: info.flagPath,
                       child: Image.network(info.flagPath),
                     ),
                   ),
                   SizedBox(
-                    width: 50,
+                    width: 50.w,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        width: 150,
+                        width: 150.w,
                         child: Text(
                           info.country,
                           style: GoogleFonts.robotoSlab(
-                              fontSize: 22,
-                              letterSpacing: -1.9,
+                              fontSize: 22.sp,
+                              letterSpacing: -1.9.sp,
                               color: Theme.of(context).accentColor,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(
-                        height: 5,
+                        height: 5.h,
                       ),
                       Row(
                         children: [
@@ -74,22 +77,22 @@ class CountryButtonWidget extends StatelessWidget {
                               Text(
                                 'Casos',
                                 style: GoogleFonts.robotoSlab(
-                                    fontSize: 15,
-                                    letterSpacing: -1,
+                                    fontSize: 15.sp,
+                                    letterSpacing: -1.sp,
                                     color: Theme.of(context).primaryColorLight),
                               ),
                               Text(
                                 f.format(info.cases),
                                 style: GoogleFonts.robotoSlab(
-                                    fontSize: 18,
-                                    letterSpacing: -1.5,
+                                    fontSize: 18.sp,
+                                    letterSpacing: -1.5.sp,
                                     color: Theme.of(context).accentColor,
                                     fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
                           SizedBox(
-                            width: 15,
+                            width: 15.w,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,15 +100,15 @@ class CountryButtonWidget extends StatelessWidget {
                               Text(
                                 'Mortes',
                                 style: GoogleFonts.robotoSlab(
-                                    fontSize: 15,
-                                    letterSpacing: -1,
+                                    fontSize: 15.sp,
+                                    letterSpacing: -1.sp,
                                     color: Theme.of(context).primaryColorLight),
                               ),
                               Text(
                                 f.format(info.deaths),
                                 style: GoogleFonts.robotoSlab(
-                                    fontSize: 18,
-                                    letterSpacing: -1.5,
+                                    fontSize: 18.sp,
+                                    letterSpacing: -1.5.sp,
                                     color: Theme.of(context).accentColor,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -114,7 +117,7 @@ class CountryButtonWidget extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 5,
+                        height: 5.h,
                       ),
                     ],
                   )

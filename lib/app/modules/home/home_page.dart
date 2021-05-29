@@ -6,6 +6,8 @@ import 'package:projeto_pp/app/shared/widgets/country_button_widget.dart';
 import 'package:projeto_pp/app/shared/widgets/search_field.dart';
 import 'package:projeto_pp/app/shared/widgets/title_subtitle_widget.dart';
 
+import '../../shared/extensions/text_size_extension.dart';
+
 class HomePage extends StatefulWidget {
   final String title;
   const HomePage({Key key, this.title = "Home"}) : super(key: key);
@@ -19,17 +21,22 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        var countriesList = store.countriesData.value
+        print(MediaQuery.of(context).size.width);
+
+        var list = store.countriesData.value;
+        if(list == null) list = [];
+        var countriesList = list
             .where((element) =>
                 element.country.toLowerCase().startsWith(store.searchString))
             .toList();
+
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Theme.of(context).backgroundColor,
           body: Column(
             children: [
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Expanded(
                 child: ListView.builder(
@@ -39,8 +46,8 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                         return Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 10.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.0.w, vertical: 15.0.h),
                               child: TitleSubtitleWidget(
                                 title: 'Covid-19',
                                 subtitle: 'Número de casos e mortes',
@@ -52,11 +59,13 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                             ),
                           ],
                         );
+
+                        
                       }
 
                       var info = countriesList[index - 1];
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.symmetric(vertical: 10.0.h, horizontal: 20.w),
                         child: CountryButtonWidget(
                             info: info,
                             title: 'Número de casos',

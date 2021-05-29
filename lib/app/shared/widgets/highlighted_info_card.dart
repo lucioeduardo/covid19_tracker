@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:projeto_pp/app/shared/widgets/titled_value_widget.dart';
 import 'package:projeto_pp/app/shared/widgets/today_info_widget.dart';
+
+import '../../shared/extensions/text_size_extension.dart';
+
 
 class HighlightedInfoCard extends StatelessWidget {
   final String title;
@@ -26,11 +28,11 @@ class HighlightedInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      width: 190,
-      height: 100,
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+      width: 190.w,
+      height: 100.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10.w),
         color: backgroundColor,
       ),
       child: Column(
@@ -43,8 +45,8 @@ class HighlightedInfoCard extends StatelessWidget {
               Text(
                 "$title",
                 style: GoogleFonts.robotoSlab(
-                    fontSize: 16,
-                    letterSpacing: -1.4,
+                    fontSize: 16.sp,
+                    letterSpacing: -1.4.sp,
                     color: Theme.of(context).primaryColorLight),
               ),
               TodayInfoWidget(
@@ -53,12 +55,12 @@ class HighlightedInfoCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 5,),
+          SizedBox(height: 5.h,),
           Text(
             "${f.format(value)}",
             style: GoogleFonts.robotoSlab(
-                fontSize: 32,
-                letterSpacing: -1.6,
+                fontSize: 32.sp,
+                letterSpacing: -1.6.sp,
                 color: Theme.of(context).accentColor,
                 fontWeight: FontWeight.bold),
           ),

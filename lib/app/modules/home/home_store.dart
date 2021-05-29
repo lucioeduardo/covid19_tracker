@@ -16,6 +16,7 @@ abstract class HomeStoreBase with Store {
   final ICovidRepository covidRepository;
 
   HomeStoreBase(this.covidRepository){
+    
     this.fetchData();
   }
 

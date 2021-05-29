@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import '../../shared/extensions/text_size_extension.dart';
 
 class TitledValueWidget extends StatelessWidget {
   TitledValueWidget({
@@ -21,15 +22,15 @@ class TitledValueWidget extends StatelessWidget {
         Text(
           "$title",
           style: GoogleFonts.robotoSlab(
-              fontSize: 18,
-              letterSpacing: -1.4,
+              fontSize: 18.sp,
+              letterSpacing: -1.4.sp,
               color: Theme.of(context).primaryColorLight),
         ),
-        SizedBox(height: 5,),
+        SizedBox(height: 5.h,),
         Text("${f.format(value)}",
             style: GoogleFonts.robotoSlab(
-                fontSize: 32,
-                letterSpacing: -1.6,
+                fontSize: 32.sp,
+                letterSpacing: -1.6.sp,
                 color: Theme.of(context).accentColor,
                 fontWeight: FontWeight.bold)),
       ],

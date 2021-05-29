@@ -35,6 +35,7 @@ dependencies:
   font_awesome_flutter: ^9.0.0
   google_fonts: ^2.1.0
   intl: ^0.17.0
+  flutter_screenutil:
 
 
 dev_dependencies:
