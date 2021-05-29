@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_pp/app/models/info_model.dart';
@@ -15,7 +16,7 @@ class CountryButtonWidget extends StatelessWidget {
   final String title;
   final VoidCallback buttonOnPressed;
 
-  final f = NumberFormat.compact();
+  final NumberFormat f = Modular.get();
 
   @override
   Widget build(BuildContext context) {

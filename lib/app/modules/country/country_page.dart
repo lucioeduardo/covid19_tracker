@@ -3,6 +3,7 @@ import 'package:projeto_pp/app/models/info_model.dart';
 import 'package:projeto_pp/app/shared/widgets/country_summary_widget.dart';
 import 'package:projeto_pp/app/shared/widgets/highlighted_info_card.dart';
 import 'package:projeto_pp/app/shared/widgets/title_subtitle_widget.dart';
+import 'package:projeto_pp/app/shared/widgets/titled_value_widget.dart';
 
 class CountryPage extends StatefulWidget {
   final String title;
@@ -53,7 +54,25 @@ class CountryPageState extends State<CountryPage> {
               ],
             ),
           ),
+          SizedBox(height: 40),
+          Container(
+            color: Theme.of(context).secondaryHeaderColor,
+            width: MediaQuery.of(context).size.width,
+            height: 332,
 
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TitledValueWidget(title: 'População total', value: widget.countryInfo.population),
+                  TitledValueWidget(title: 'Testes realizados', value: widget.countryInfo.tests),
+                  TitledValueWidget(title: 'Pacientes em estado crítico', value: widget.countryInfo.critical),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

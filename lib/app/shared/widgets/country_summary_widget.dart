@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_pp/app/shared/widgets/today_info_widget.dart';
@@ -11,7 +12,7 @@ class CountrySummaryWidget extends StatelessWidget {
   });
 
   final InfoModel info;
-  final f = NumberFormat.compact();
+  final NumberFormat f = Modular.get();
 
   @override
   Widget build(BuildContext context) {

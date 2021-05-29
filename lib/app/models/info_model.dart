@@ -7,12 +7,16 @@ class InfoModel {
   int recovered;
   int critical;
   int affectedCountries;
+  int population;
+  int tests;
   String country;
   String flagPath;
 
   InfoModel.fromJson(Map<String, dynamic> json) {
     cases = json['cases'];
     todayCases = json['todayCases'];
+    population = json['population'];
+    tests = json['tests'];
     todayRecovered = json['todayRecovered'];
     deaths = json['deaths'];
     todayDeaths = json['todayDeaths'];

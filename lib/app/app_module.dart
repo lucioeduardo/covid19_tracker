@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:intl/intl.dart';
 import 'package:projeto_pp/app/modules/country/country_module.dart';
 import 'package:projeto_pp/app/shared/repositories/covid_repository.dart';
 import 'package:projeto_pp/app/shared/repositories/covid_repository_interface.dart';
@@ -16,6 +17,9 @@ class AppModule extends Module {
     Bind<ICovidRepository>(
       (i) => CovidRepository(i.get()),
     ),
+    Bind<NumberFormat>(
+      (i) => NumberFormat.compact(locale: 'pt-br')
+    )
   ];
 
   @override
