@@ -37,7 +37,6 @@ class CovidRepository extends Disposable implements ICovidRepository {
     List<InfoModel> result = [];
 
     for(var country in response.data){
-      print(country);
       result.add(InfoModel.fromJson(country));
     }
 

@@ -21,10 +21,8 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (BuildContext context) {
-        print(MediaQuery.of(context).size.width);
-
-        var list = store.countriesData.value;
-        if(list == null) list = [];
+        var list = store.countriesData.value ?? [];
+        
         var countriesList = list
             .where((element) =>
                 element.country.toLowerCase().startsWith(store.searchString))
@@ -57,6 +55,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                               hintText: 'Buscar por país...',
                               store: store,
                             ),
+                            countriesList.isEmpty ? Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: CircularProgressIndicator(),
+                            ) : Container(),
                           ],
                         );
 
