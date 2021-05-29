@@ -1,4 +1,4 @@
-# projeto_pp
+# Covid19 Tracker
 
 A new Flutter project.
 

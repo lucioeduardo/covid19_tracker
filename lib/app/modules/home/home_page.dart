@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:projeto_pp/app/modules/home/home_store.dart';
-import 'package:projeto_pp/app/shared/widgets/country_summary_widget.dart';
+import 'package:projeto_pp/app/shared/widgets/country_button_widget.dart';
 import 'package:projeto_pp/app/shared/widgets/search_field.dart';
 import 'package:projeto_pp/app/shared/widgets/title_subtitle_widget.dart';
 
@@ -57,10 +57,10 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                       var info = countriesList[index - 1];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: CountrySummaryWidget(
+                        child: CountryButtonWidget(
                             info: info,
                             title: 'Número de casos',
-                            buttonOnPressed: () => {}),
+                            buttonOnPressed: () =>  Modular.to.pushNamed('/country', arguments: info)),
                       );
                     }),
               ),
